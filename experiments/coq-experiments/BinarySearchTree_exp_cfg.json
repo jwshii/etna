@@ -1,0 +1,107 @@
+{
+    "name": "BST",
+    "variants": [
+        "delete_4",
+        "delete_5",
+        "insert_1",
+        "insert_2",
+        "insert_3",
+        "union_6",
+        "union_7",
+        "union_8"
+    ],
+    "properties": [
+        "test_prop_DeleteDelete",
+        "test_prop_DeleteInsert",
+        "test_prop_DeleteModel",
+        "test_prop_DeletePost",
+        "test_prop_DeleteUnion",
+        "test_prop_DeleteValid",
+        "test_prop_InsertDelete",
+        "test_prop_InsertInsert",
+        "test_prop_InsertModel",
+        "test_prop_InsertPost",
+        "test_prop_InsertUnion",
+        "test_prop_InsertValid",
+        "test_prop_UnionDeleteInsert",
+        "test_prop_UnionModel",
+        "test_prop_UnionPost",
+        "test_prop_UnionUnionAssoc",
+        "test_prop_UnionUnionIdem",
+        "test_prop_UnionValid"
+    ],
+    "methods": [
+        "DerivedCorrect",
+        "DerivedRandom",
+        "FuzzyRandom",
+        "Handwritten",
+        "MutateRandom"
+    ],
+    "tasks": {
+        "insert_2": [
+            "test_prop_DeleteInsert",
+            "test_prop_InsertDelete",
+            "test_prop_InsertInsert",
+            "test_prop_InsertModel",
+            "test_prop_InsertPost",
+            "test_prop_InsertUnion",
+            "test_prop_UnionDeleteInsert"
+        ],
+        "union_8": [
+            "test_prop_DeleteUnion",
+            "test_prop_InsertUnion",
+            "test_prop_UnionDeleteInsert",
+            "test_prop_UnionModel",
+            "test_prop_UnionUnionAssoc"
+        ],
+        "insert_1": [
+            "test_prop_DeleteInsert",
+            "test_prop_InsertInsert",
+            "test_prop_InsertModel",
+            "test_prop_InsertPost",
+            "test_prop_InsertUnion",
+            "test_prop_UnionDeleteInsert"
+        ],
+        "union_6": [
+            "test_prop_DeleteUnion",
+            "test_prop_InsertUnion",
+            "test_prop_UnionDeleteInsert",
+            "test_prop_UnionModel",
+            "test_prop_UnionUnionIdem",
+            "test_prop_UnionValid"
+        ],
+        "insert_3": [
+            "test_prop_InsertDelete",
+            "test_prop_InsertInsert",
+            "test_prop_InsertModel",
+            "test_prop_InsertPost",
+            "test_prop_InsertUnion",
+            "test_prop_UnionDeleteInsert"
+        ],
+        "delete_5": [
+            "test_prop_DeleteDelete",
+            "test_prop_DeleteInsert",
+            "test_prop_DeleteModel",
+            "test_prop_DeletePost",
+            "test_prop_DeleteUnion",
+            "test_prop_UnionDeleteInsert"
+        ],
+        "union_7": [
+            "test_prop_DeleteUnion",
+            "test_prop_InsertUnion",
+            "test_prop_UnionDeleteInsert",
+            "test_prop_UnionModel",
+            "test_prop_UnionUnionAssoc",
+            "test_prop_UnionValid"
+        ],
+        "delete_4": [
+            "test_prop_DeleteDelete",
+            "test_prop_DeleteInsert",
+            "test_prop_DeleteModel",
+            "test_prop_DeletePost",
+            "test_prop_DeleteUnion",
+            "test_prop_InsertDelete",
+            "test_prop_UnionDeleteInsert"
+        ]
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "name": "STLC",
+    "variants": [
+        "shift_abs_no_incr",
+        "shift_var_all",
+        "shift_var_leq",
+        "shift_var_none",
+        "substTop_no_shift",
+        "substTop_no_shift_back",
+        "subst_abs_no_incr",
+        "subst_abs_no_shift",
+        "subst_var_all",
+        "subst_var_none"
+    ],
+    "properties": [
+        "test_prop_MultiPreserve",
+        "test_prop_SinglePreserve"
+    ],
+    "methods": [
+        "DerivedRandom",
+        "FuzzyRandom",
+        "Handwritten",
+        "MutateRandom"
+    ],
+    "tasks": {}
+}
