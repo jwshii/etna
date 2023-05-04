@@ -56,6 +56,12 @@ You can easily run these experiments at the root directory level.
 
 For example, to run BinarySearchTree workload, you can run the command below.
 
+### Configuring QuickChick
+
+We are using a non-stable branch of QuickChick as we are continuously
+working on new features for QuickChick. To use Etna with Coq,
+you will need to build `etna` branch of QuickChick from source.
+
 `python experiments/coq-experiments/BST.py`
 
 `<workload>_exp_cfg.json` files allow bypassing boring property/mutant pairs,
@@ -70,6 +76,3 @@ you should be easily able to run your new workload.
 
 In time, we will add scripts for auto-generating these workloads/experiments as well as
 easier ways of migrating existing Coq codebases.
-
-
-
