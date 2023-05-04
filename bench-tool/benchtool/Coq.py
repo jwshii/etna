@@ -5,7 +5,6 @@ import json
 import os
 import re
 import subprocess
-import sys
 import ctypes
 
 IMPL_DIR = 'Src'
@@ -13,15 +12,7 @@ METHODS_DIR = 'Methods'
 RUNNERS_DIR = 'Runners'
 SPEC_PATH = 'Src/Spec.v'
 
-
-class Tests(list):
-
-    def __init__(self, *args, **kwargs):
-        super(Tests, self).__init__(args[0])
-
-
 class Coq(BenchTool):
-
     def __init__(self,
                  results: str,
                  log_level: LogLevel = LogLevel.INFO,
@@ -62,7 +53,7 @@ class Coq(BenchTool):
                 self._log(f"Built fuzzer {fuzzers[i]}", LogLevel.DEBUG)
                 self._log(f"Fuzzer Command 1: {fuzzer_build_command[0]}", LogLevel.DEBUG)
                 self._log(f"Fuzzer Command 2: {fuzzer_build_command[1]}", LogLevel.DEBUG)
-                self._generate_extended_version_of_fuzzer(bench_path, fuzzers[i])
+                self._generate_extended_version_of_fuzzer(fuzzers[i])
                 self._shell_command(fuzzer_build_command[2].split(" "))
                 self._shell_command(fuzzer_build_command[3].split(" "))
                 self._shell_command(fuzzer_build_command[0].split(" "))
@@ -79,7 +70,7 @@ class Coq(BenchTool):
         with self._change_dir(bench_path):
             cmd = ['./main_exec', f'./qc_exec {params.property}']
             results = []
-            print(f"Running {params.method} on {params.bench} with {params.property}")
+            self._log(f"Running {params.method} on {params.bench} with {params.property}", LogLevel.INFO)
             for _ in range(params.trials):
                 try:
                     trial_result = {
@@ -193,7 +184,7 @@ class Coq(BenchTool):
             json.dump(results, open(params.file, 'w'))
 
 
-    def _generate_extended_version_of_fuzzer(self, bench_path: str, fuzzer: str):
+    def _generate_extended_version_of_fuzzer(self, fuzzer: str):
         fuzzer_path = f"./{fuzzer}_test_runner.ml"
         extended_fuzzer_path = f"./{fuzzer}_test_runner_ext.ml"
         stub_path = f"{os.environ['OPAM_SWITCH_PREFIX']}/lib/coq/user-contrib/QuickChick/Stub.ml"
@@ -242,29 +233,22 @@ class Coq(BenchTool):
                 methods.append(method[:-2])
         return methods
 
-    def _parse_tests_qc(self, s: str) -> tuple[Tests, str]:
+    def _parse_tests_qc(self, s: str) -> tuple[list, str]:
+        return self._parse_tests("QuickChick", s)
 
+    def _parse_tests_fc(self, s: str) -> tuple[list, str]:
+        return self._parse_tests("FuzzChick", s)
+
+    def _parse_tests(self, vernacular: str, s: str) -> tuple[list, str]:
         def compile(s: str) -> re.Pattern:
             return re.compile(s, flags=re.DOTALL)
 
         start = re.escape(self._config.start)
         end = re.escape(self._config.end)
 
-        test_re = compile(fr"{start}!\s*QuickChick\s*(\w+).\s*{end}")
+        test_re = compile(fr"{start}!\s*{vernacular}\s*(\w+).*?{end}")
         test_ls = re.findall(test_re, s)
-        return Tests(test_ls)
-
-    def _parse_tests_fc(self, s: str) -> tuple[Tests, str]:
-
-        def compile(s: str) -> re.Pattern:
-            return re.compile(s, flags=re.DOTALL)
-
-        start = re.escape(self._config.start)
-        end = re.escape(self._config.end)
-
-        test_re = compile(fr"{start}!\s*FuzzChick\s*(\w+).*?{end}")
-        test_ls = re.findall(test_re, s)
-        return Tests(test_ls)
+        return test_ls
 
     def _generate_test_file_qc(self, runners_path: str, method_name: str, tests: list[str], bench: Entry):
         bench_name = bench.name

@@ -3,10 +3,6 @@ From QuickChick Require Import QuickChick. Import QcNotation.
 From Coq Require Import Bool ZArith List. Import ListNotations.
 From BinarySearchTree Require Import Impl.
 
-Notation "A =?= B" := (option_eqb A B) (at level 100, right associativity).
-Notation "A =~= B" := (list_eqb A B) (at level 100, right associativity).
-  
-  
 Fixpoint keys (t: Tree): list nat :=
   match t with
   | E => nil
@@ -70,11 +66,11 @@ Definition prop_UnionValid (t1: Tree) (t2: Tree) :=
 
 Definition prop_InsertPost (t: Tree) (k: nat) (k': nat) (v: nat) :=
   isBST t
-    -=> (find k' (insert k v t) =?= if k =? k' then Some v else find k' t).
+    -=> (find k' (insert k v t) ==? if k =? k' then Some v else find k' t).
 
 Definition prop_DeletePost (t: Tree) (k: nat) (k': nat) :=
   isBST t
-    -=> (find k' (delete k t) =?= if k =? k' then None else find k' t).
+    -=> (find k' (delete k t) ==? if k =? k' then None else find k' t).
 
 Definition prop_UnionPost (t: Tree) (t': Tree) (k: nat) :=
   isBST t
@@ -82,7 +78,7 @@ Definition prop_UnionPost (t: Tree) (t': Tree) (k: nat) :=
     let lhs := find k (union t t') in
     let rhs := find k t in
     let rhs':= find k t' in
-    ((lhs =?= rhs) || (lhs =?= rhs')) .
+    ((lhs ==? rhs) || (lhs ==? rhs')) .
 
 (* ---------- *)
 
@@ -115,12 +111,12 @@ Fixpoint sorted (l: list (nat * nat)): bool :=
 
 Definition prop_InsertModel (t: Tree) (k: nat) (v: nat) :=
   isBST t
-    -=> (toList (insert k v t) =~= L_insert (k, v) (deleteKey k (toList t))).
+    -=> (toList (insert k v t) ==? L_insert (k, v) (deleteKey k (toList t))).
 
 
 Definition prop_DeleteModel (t: Tree) (k: nat) :=
   isBST t
-    -=> Some(toList (delete k t) =~= deleteKey k (toList t)).
+    -=> Some(toList (delete k t) ==? deleteKey k (toList t)).
 
 
 Fixpoint L_sort (l: list (nat * nat)): list (nat * nat) :=
@@ -152,13 +148,13 @@ Fixpoint L_unionBy (f: nat -> nat -> nat) (l1: list (nat * nat)) (l2: list (nat 
 
 Definition prop_UnionModel (t: Tree) (t': Tree) :=
   (isBST t && isBST t')
-    -=> (toList (union t t') =~= L_sort (L_unionBy (fun x y => x) (toList t) (toList t'))).
+    -=> (toList (union t t') ==? L_sort (L_unionBy (fun x y => x) (toList t) (toList t'))).
 
 
 (* ---------- *)
 
 Fixpoint tree_eqb (t: Tree) (t': Tree) : bool :=
-  toList t =~= toList t'.
+  toList t ==? toList t'.
 
 Notation "A =|= B" := (tree_eqb A B) (at level 100, right associativity).
 (* -- Metamorphic properties. *)
