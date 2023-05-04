@@ -75,28 +75,6 @@ Fixpoint toList (t: Tree) : list (Z * Z) :=
     end.
 
 (* ---------- *)
-
-
-
-Definition option_eqb (o1: option Z) (o2: option Z) : bool :=
-  match o1, o2 with
-  | None, None => true
-  | None, _ => false
-  | _, None => false
-  | Some x, Some y => x =? y
-  end.
-  
-Fixpoint list_beq (l1: list (Z * Z)) (l2: list (Z * Z)): bool :=
-  match l1, l2 with
-  | nil, nil => true
-  | nil, _ => false
-  | _, nil => false
-  | ((k, v)::xs), ((k', v')::ys) => 
-    (k =? k') && (v =? v') && list_beq xs ys
-  end.
-
-Notation "A =?= B" := (option_eqb A B) (at level 100, right associativity).
-Notation "A =~= B" := (list_beq A B) (at level 100, right associativity).
   
 (* -- Validity properties. *)
 
@@ -116,8 +94,8 @@ Definition prop_InsertPost  (t: Tree) (k: Z) (k': Z) (v: Z) :=
   isRBT t
     -=> (
     let v' := find k' (insert k v t) in
-    if k =? k' then v' =?= Some v 
-    else v' =?= find k' t)
+    if k =? k' then v' ==? Some v 
+    else v' ==? find k' t)
 .
 
 Definition prop_DeletePost (t: Tree) (k: Z) (k': Z) :=
@@ -125,7 +103,7 @@ Definition prop_DeletePost (t: Tree) (k: Z) (k': Z) :=
     -=> Some(
     t' <- delete k t ;;
     find k' t'
-    =?= if k =? k' then None else find k' t
+    ==? if k =? k' then None else find k' t
     ).
 
 (* ---------- *)
@@ -148,7 +126,7 @@ Definition deleteKey  (k: Z) (l: list (Z * Z)): list (Z * Z) :=
 Definition prop_InsertModel  (t: Tree) (k: Z) (v: Z) :=
   isRBT t
     -=> 
-    toList (insert k v t) =~= L_insert (k, v) (deleteKey k (toList t)).
+    ((toList (insert k v t)) ==? (L_insert (k, v) (deleteKey k (toList t)))).
 
 
 
@@ -157,7 +135,7 @@ Definition prop_DeleteModel  (t: Tree) (k: Z) :=
     -=> 
     t' <- delete k t ;;
     Some(toList t'
-    =~= deleteKey k (toList t)).
+    ==? deleteKey k (toList t)).
 
 
 
@@ -167,8 +145,8 @@ Definition prop_DeleteModel  (t: Tree) (k: Z) :=
 
 Definition prop_InsertInsert  (t: Tree) (k: Z) (k': Z) (v: Z) (v': Z) :=
   isRBT t
-    -=> toList (insert k v (insert k' v' t))
-    =~= toList(if k =? k' then insert k v t else insert k' v' (insert k v t)).
+    -=> (toList (insert k v (insert k' v' t))
+    ==? toList(if k =? k' then insert k v t else insert k' v' (insert k v t))).
 
 Definition prop_InsertDelete (t: Tree) (k: Z) (k': Z) (v: Z)  :=
   isRBT t
@@ -176,7 +154,7 @@ Definition prop_InsertDelete (t: Tree) (k: Z) (k': Z) (v: Z)  :=
     t' <- (delete k' t) ;;
     t'' <- delete k' (insert k v t) ;;
     Some(toList(insert k v t')
-    =~= toList(if k =? k' then insert k v t else t'')).
+    ==? toList(if k =? k' then insert k v t else t'')).
 
 Definition prop_DeleteInsert (t: Tree) (k: Z) (k': Z) (v': Z)  :=
   isRBT t
@@ -184,7 +162,7 @@ Definition prop_DeleteInsert (t: Tree) (k: Z) (k': Z) (v': Z)  :=
     t' <- delete k (insert k' v' t) ;;
     t'' <- delete k t ;;
     let t''' := insert k' v' t'' in
-    Some(toList t' =~= toList (if k =? k' then t'' else t''')).
+    Some(toList t' ==? toList (if k =? k' then t'' else t''')).
 
 Definition prop_DeleteDelete  (t: Tree) (k: Z) (k': Z) :=
   isRBT t
@@ -193,7 +171,7 @@ Definition prop_DeleteDelete  (t: Tree) (k: Z) (k': Z) :=
     t'' <- delete k t' ;;
     t1' <- delete k t ;;
     t1'' <- delete k' t1' ;;
-    Some (toList t'' =~= toList t1'').
+    Some (toList t'' ==? toList t1'').
 
 (* ---------- *)
 
