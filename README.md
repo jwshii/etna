@@ -1,8 +1,8 @@
-Current status: 
+For language-specific instructions, see `Haskell.md` or `Coq.md`. We are also currently in the process of improving our documentation.
 
-The code in `bench-suite` should be mostly readable (though not well-documented).
-There is also some light documentation on the Haskell side in `Haskell.md` and `Haskell2.md`. 
+# Getting Started
 
-The code in `bench-tool` is a bit rougher and has not been refactored yet. 
-It is high on our to-do list to clean up the code for data analysis and presentation.
-For now, see `experiments/haskell-experiments/One.py` for an example of how to generate results.
+`bench-suite` is the benchmark suite, with one subdirectory per language. `bench-tool` is the benchmark tool, written in Python.
+
+To get `bench-tool` working, run `make install`. It assumes that you have Python 3.10.5+.
+
