@@ -17,8 +17,8 @@ draft/paper.pdf
 
 
 **/benchtool.egg-info
-bench-tool/build
-bench-tool/dist
+tool/build
+tool/dist
 
 bin/
 /lib/**
