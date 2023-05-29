@@ -1,6 +1,6 @@
 module Spec where
 
-import Bench.Lib
+import Etna.Lib
 import Control.Applicative
 import Data.Function
 import qualified Data.List as L

@@ -1,8 +1,8 @@
-name: qc-bench
+name: etna-workload
 
 dependencies:
     - base >= 4.7 && < 5
-    - bench-lib
+    - etna-lib
     - QuickCheck
     - generic-random
     - smallcheck
@@ -12,7 +12,7 @@ library:
     source-dirs: src
 
 executables:
-    qc-bench:
+    etna-workload:
         main: Main.hs
         source-dirs: app
         ghc-options:
@@ -20,4 +20,4 @@ executables:
             - -rtsopts
             - -with-rtsopts=-N
         dependencies:
-            - qc-bench
+            - etna-workload

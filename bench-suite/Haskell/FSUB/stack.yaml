@@ -5,4 +5,4 @@ system-ghc: true
 
 packages:
     - .
-    - ../common/bench-lib
+    - ../common/etna-lib

@@ -1,6 +1,6 @@
 module Spec where
 
-import Bench.Lib
+import Etna.Lib
 import Data.Maybe (fromJust, isJust)
 import Impl
 
