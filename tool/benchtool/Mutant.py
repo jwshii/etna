@@ -57,8 +57,8 @@ class Parser():
 
         return Mutants(base, mutants_ls), s
 
-    def parse(self, bench: Entry) -> dict[str, list[Node]]:
-        impl_path = os.path.join(bench.path, self.config.impl_path)
+    def parse(self, workload: Entry) -> dict[str, list[Node]]:
+        impl_path = os.path.join(workload.path, self.config.impl_path)
         paths = list(map(
             lambda filename: os.path.join(impl_path, filename),
             (list(filter(

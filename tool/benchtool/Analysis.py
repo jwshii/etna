@@ -16,7 +16,7 @@ def parse_results(results: str) -> pd.DataFrame:
     df['inputs'] = df.apply(lambda x: x['passed'] + (1 if x['foundbug'] else 0), axis=1)
     df = df.drop(['passed'], axis=1)
 
-    df['task'] = df['bench'] + ',' + df['mutant'] + ',' + df['property']
+    df['task'] = df['workload'] + ',' + df['mutant'] + ',' + df['property']
     return df
 
 
@@ -32,9 +32,9 @@ def overall_solved(df: pd.DataFrame,
         df['solved'] &= df[solved_type] < within
 
     # Compute number of tasks where any / all trials were solved.
-    df = df.groupby(['bench', 'method', 'task'], as_index=False).agg({'solved': agg})
+    df = df.groupby(['workload', 'strategy', 'task'], as_index=False).agg({'solved': agg})
     df['total'] = 1
-    df = df.groupby(['bench', 'method']).sum()
+    df = df.groupby(['workload', 'strategy']).sum()
 
     return df[['solved', 'total']]
 
@@ -42,7 +42,7 @@ def overall_solved(df: pd.DataFrame,
 def everyone_solved(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
 
-    # Only include tasks where every method found the bug.
+    # Only include tasks where every strategy found the bug.
     dft = df.copy()
     dft = dft.groupby(['task']).agg({'foundbug': 'all'})
 
@@ -56,7 +56,7 @@ def task_average(df: pd.DataFrame, col: str) -> pd.DataFrame:
     # Compute averages and standard deviations.
     std = col + '_std'
     df[std] = df[col]
-    df = df.groupby(['bench', 'method', 'task']).agg({col: 'mean', std: 'std'})
+    df = df.groupby(['workload', 'strategy', 'task']).agg({col: 'mean', std: 'std'})
 
     return df[[col, std]]
 
@@ -69,9 +69,9 @@ def statistical_differences(df: pd.DataFrame,
     df = everyone_solved(df)
 
     tasks = df['task'].unique()
-    methods = df['method'].unique()
+    strategies = df['strategy'].unique()
 
-    df = df.groupby(['task', 'method'])[col].apply(list)
+    df = df.groupby(['task', 'strategy'])[col].apply(list)
 
     def pair_name(m1, m2):
         if m1 > m2:
@@ -86,23 +86,23 @@ def statistical_differences(df: pd.DataFrame,
             c2 = dft.loc[m2]
 
             if m1 not in det and m2 not in det:
-                # For random methods, Mann-Whitney U test.
+                # For random strategies, Mann-Whitney U test.
                 pvalue = sc.mannwhitneyu(c1, c2).pvalue
             elif m1 in det and m2 in det:
-                # For two deterministic methods, trivially significant.
+                # For two deterministic strategies, trivially significant.
                 pvalue = 0
             else:
                 if m1 in det:
                     det, rands = c1[0], c2
                 else:
                     det, rands = c2[0], c1
-                # For one random and one deterministic method,
+                # For one random and one deterministic strategy,
                 # one-sample Wilcoxon test.
                 pvalue = sc.wilcoxon([r - det for r in rands]).pvalue
 
             results[(pair_name(m1, m2), task)] = [pvalue]
 
-    idx = pd.MultiIndex.from_tuples(results.keys(), names=('methods', 'task'))
+    idx = pd.MultiIndex.from_tuples(results.keys(), names=('strategies', 'task'))
     pvalues = pd.DataFrame(list(results.values()), index=idx, columns=['pvalue'])
     # The row
     #   m1/m2   t   value
@@ -110,11 +110,11 @@ def statistical_differences(df: pd.DataFrame,
     # different distributions on task [t] is [value]
 
     results = {}
-    for m1 in methods:
+    for m1 in strategies:
         results[m1] = []
-        for m2 in methods:
+        for m2 in strategies:
             score = 0
-            for task in tasks:  # Assumes that all methods are run on all tasks.
+            for task in tasks:  # Assumes that all strategies are run on all tasks.
                 c1 = np.mean(df.loc[task, m1])
                 c2 = np.mean(df.loc[task, m2])
                 if c1 < c2 and pvalues.loc[pair_name(m1, m2), task]['pvalue'] < alpha:
@@ -122,7 +122,7 @@ def statistical_differences(df: pd.DataFrame,
 
             results[m1].append(score)
 
-    scores = pd.DataFrame(list(results.values()), index=methods, columns=methods)
+    scores = pd.DataFrame(list(results.values()), index=strategies, columns=strategies)
     # The table
     #       m1  m2
     #   m1   0   7
@@ -133,7 +133,7 @@ def statistical_differences(df: pd.DataFrame,
     return (pvalues, scores, len(tasks))
 
 
-def effect_sizes(df: pd.DataFrame, col: str, method1: str, method2: str) -> pd.DataFrame:
+def effect_sizes(df: pd.DataFrame, col: str, strategy1: str, strategy2: str) -> pd.DataFrame:
 
     def a12(l1, l2):
         # Compute the Vargha and Delaney's A12 statistic.
@@ -147,19 +147,19 @@ def effect_sizes(df: pd.DataFrame, col: str, method1: str, method2: str) -> pd.D
         return numer / n
 
     df = df.copy()
-    df = df[df['method'].isin([method1, method2])]
+    df = df[df['strategy'].isin([strategy1, strategy2])]
     df = everyone_solved(df)
 
     tasks = df['task'].unique()
 
-    df = df.groupby(['task', 'method'])[col].apply(list)
+    df = df.groupby(['task', 'strategy'])[col].apply(list)
 
     results = {}
     # Pairwise comparisons per task.
-    # > 0.5 if [method1] values are *higher* than [method2].
+    # > 0.5 if [strategy1] values are *higher* than [strategy2].
     for task in tasks:
-        c1 = df.loc[task, method1]
-        c2 = df.loc[task, method2]
+        c1 = df.loc[task, strategy1]
+        c2 = df.loc[task, strategy2]
         a12_value = a12(c1, c2)
         results[task] = [a12_value]
 
@@ -168,17 +168,17 @@ def effect_sizes(df: pd.DataFrame, col: str, method1: str, method2: str) -> pd.D
     return a12_values
 
 
-def boxplots(df: pd.DataFrame, col: str, method1: str, method2: str, bench_orders: list[str]):
+def boxplots(df: pd.DataFrame, col: str, strategy1: str, strategy2: str, workload_orders: list[str]):
     dfes = []
-    for bench in df['bench'].unique():
-        dfb = df[df['bench'] == bench]
+    for workload in df['workload'].unique():
+        dfb = df[df['workload'] == workload]
 
-        effects = effect_sizes(dfb, col, method1, method2)
-        effects['bench'] = bench
+        effects = effect_sizes(dfb, col, strategy1, strategy2)
+        effects['workload'] = workload
         dfes.append(effects)
 
     dfe = pd.concat(dfes)
-    boxplot = px.box(dfe, x='bench', y='a12', category_orders={'bench': bench_orders})
+    boxplot = px.box(dfe, x='workload', y='a12', category_orders={'workload': workload_orders})
     return boxplot
 
 

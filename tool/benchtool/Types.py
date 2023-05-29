@@ -21,15 +21,15 @@ class Config:
     ''' File extension. '''
 
     path: FilePath
-    ''' Path to directory containing benchmarks. '''
+    ''' Path to directory containing workloads. '''
     ignore: str
     ''' Directory name to ignore (e.g. contains library code). '''
 
-    methods: FilePath
-    ''' Relative path to directory containing methods. '''
+    strategies: FilePath
+    ''' Relative path to directory containing strategies. '''
     impl_path: FilePath
-    ''' Relative path to directory containing base and mutant implementations. '''
-    spec: FilePath
+    ''' Relative path to file containing base and mutant implementations. '''
+    spec_path: FilePath
     ''' Relative path to file containing properties. '''
 
 
@@ -112,7 +112,7 @@ class Modified(Variant):
 class Entry:
     '''
     A simpler version of `os.DirEntry` that stores
-    both the name of a benchmark, method, etc. and its path.
+    both the name of a workload, strategy, etc. and its path.
     '''
 
     name: str
@@ -123,8 +123,8 @@ class Entry:
 class TrialArgs:
     file: str
     trials: int
-    bench: str
-    method: str
+    workload: str
+    strategy: str
     mutant: str
     property: str
     label: str
@@ -137,11 +137,11 @@ class TrialArgs:
 @dataclass
 class TrialConfig:
     trials: int
-    bench: Entry
-    method: str
+    workload: Entry
+    strategy: str
     property: str
     file: str | None = None  # if not provided, use default format
-    label: str | None = None  # if not provided, use same as method
+    label: str | None = None  # if not provided, use same as strategy
     timeout: float | None = None  # in seconds
 
 

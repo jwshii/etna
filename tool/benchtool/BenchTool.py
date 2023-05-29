@@ -45,45 +45,45 @@ class BenchTool(ABC):
         '''
         Parses command-line arguments passed in via `--mode`.
 
-        :return: Pair of (whether to run benchmarks, whether to plot data).
+        :return: Pair of (whether to run workloads, whether to plot data).
         '''
 
         p = argparse.ArgumentParser()
-        p.add_argument('--mode', default='both', choices=['bench', 'plot', 'both'])
+        p.add_argument('--mode', default='both', choices=['run', 'plot', 'both'])
         args = p.parse_args()
 
-        return (args.mode != 'plot', args.mode != 'bench')
+        return (args.mode != 'plot', args.mode != 'run')
 
     def set_log_level(self, log_level: LogLevel):
         ''' Sets log level.'''
         self._log_level = log_level
 
-    def all_benches(self) -> list[Entry]:
+    def all_workloads(self) -> list[Entry]:
         '''
         Assumes that all top-level directories in `config.path`
-        other than `config.ignore` are benchmarks.
+        other than `config.ignore` are workloads.
 
-        :return: List of benchmarks.
+        :return: List of workloads.
         '''
 
-        def is_bench(entry) -> bool:
+        def is_workload(entry) -> bool:
             return os.path.isdir(entry) and entry.name != self._config.ignore
 
-        return scandir_filter(self._config.path, is_bench)
+        return scandir_filter(self._config.path, is_workload)
 
-    def all_variants(self, bench: Entry) -> list[Variant]:
+    def all_variants(self, workload: Entry) -> list[Variant]:
         '''
         Assumes that all variants are in `config.impl` file.
 
-        :return: List of variants in `bench`.
+        :return: List of variants in `workload`.
         '''
 
         p = Parser(self._config)
-        return p.extract(p.parse(bench))
+        return p.extract(p.parse(workload))
 
-    def apply_variant(self, bench: Entry, variant: Variant, no_base=False) -> Callable[[TrialConfig], None]:
+    def apply_variant(self, workload: Entry, variant: Variant, no_base=False) -> Callable[[TrialConfig], None]:
         '''
-        Overwrites `config.impl` file for `bench` with contents
+        Overwrites `config.impl` file for `workload` with contents
         of the provided `variant`.
 
         :return: A function that can be used to run a trial.
@@ -94,28 +94,28 @@ class BenchTool(ABC):
 
         with self._change_dir(self.__temp):
             self._log(f'Applying variant {variant}', LogLevel.DEBUG)
-            self.__apply_variant_in_impl(bench, variant)
+            self.__apply_variant_in_impl(workload, variant)
 
             self._log(f'Building with mutant: {variant.name}', LogLevel.INFO)
-            self._build(bench.path)
+            self._build(workload.path)
 
         self.__variant = variant
 
         return self.__trial
 
-    def all_methods(self, bench: Entry) -> list[Entry]:
+    def all_strategies(self, workload: Entry) -> list[Entry]:
         '''
-        Assumes that all files in the `config.method` folder of `bench`
-        that end in `config.ext` are methods.
+        Assumes that all files in the `config.strategy` folder of `workload`
+        that end in `config.ext` are strategies.
 
-        :return: List of methods in `bench`.
+        :return: List of strategies in `workload`.
         '''
 
-        def is_method(entry) -> bool:
+        def is_strategy(entry) -> bool:
             return os.path.isfile(entry) and entry.name.endswith(self._config.ext)
 
-        methods = os.path.join(bench.path, self._config.methods)
-        entries = recursive_scandir_filter(methods, is_method)
+        strategies = os.path.join(workload.path, self._config.strategies)
+        entries = recursive_scandir_filter(strategies, is_strategy)
 
         def get_base(e: Entry) -> Entry:
             # Remove file extension to get base name.
@@ -124,21 +124,21 @@ class BenchTool(ABC):
         return [get_base(e) for e in entries]
 
     @abstractmethod
-    def all_properties(self, bench: Entry) -> list[Entry]:
+    def all_properties(self, workload: Entry) -> list[Entry]:
         pass
 
     @abstractmethod
-    def _build(self, bench_path: str):
+    def _build(self, workload_path: str):
         '''
-        Takes a path and returns the command to build the benchmark suite.
+        Takes a path and returns the command to build the workloads.
         '''
         pass
 
     @abstractmethod
-    def _run_trial(self, bench_path: str, args: TrialArgs):
+    def _run_trial(self, workload_path: str, args: TrialArgs):
         '''
         Takes a path and an argument structure, and returns the command to run
-        the benchmark suite.
+        the workloads.
         '''
         pass
 
@@ -170,7 +170,7 @@ class BenchTool(ABC):
         '''
         return ChangeDir(path)
 
-    def __apply_variant_in_impl(self, bench: Entry, variant: Variant) -> None:
+    def __apply_variant_in_impl(self, workload: Entry, variant: Variant) -> None:
         '''
         Private helper for applying variant.
         '''
@@ -181,9 +181,9 @@ class BenchTool(ABC):
 
     def __trial(self, cfg: TrialConfig) -> None:
         '''
-        Generate one set of data for `bench`.
+        Generate one set of data for `workload`.
 
-        Assumes that `bench` is already instantiated
+        Assumes that `workload` is already instantiated
         (via `apply_variant`) with the current variant.
 
         This is private; it should not be called directly. Instead you should
@@ -192,10 +192,10 @@ class BenchTool(ABC):
         if not self.__variant:
             raise Exception('Cannot run trial without variant')
 
-        method_label = cfg.label if cfg.label else cfg.method
+        strategy_label = cfg.label if cfg.label else cfg.strategy
 
         if not cfg.file:
-            experiment = f'{cfg.bench.name},{method_label},{self.__variant.name},{cfg.property}'
+            experiment = f'{cfg.workload.name},{strategy_label},{self.__variant.name},{cfg.property}'
         else:
             experiment = cfg.file
         file = os.path.join(self.results, f'{experiment}.json')
@@ -213,19 +213,19 @@ class BenchTool(ABC):
         self._log(f'Running {experiment}', LogLevel.INFO)
         with self._change_dir(self.__temp):
             self._run_trial(
-                cfg.bench.path,
+                cfg.workload.path,
                 TrialArgs(file=file,
                           trials=cfg.trials,
-                          bench=cfg.bench.name,
-                          method=cfg.method,
+                          workload=cfg.workload.name,
+                          strategy=cfg.strategy,
                           mutant=self.__variant.name,
                           property=cfg.property,
                           timeout=cfg.timeout,
-                          label=method_label))
+                          label=strategy_label))
 
     @abstractmethod
-    def _preprocess(self, bench: Entry) -> None:
+    def _preprocess(self, workload: Entry) -> None:
         '''
-        Takes a bench and does the required preprocessing.
+        Takes a workload and does the required preprocessing.
         '''
         pass

@@ -8,7 +8,7 @@ import subprocess
 import ctypes
 
 IMPL_DIR = 'Src'
-METHODS_DIR = 'Methods'
+STRATEGIES_DIR = 'Methods' # TODO: change this
 RUNNERS_DIR = 'Runners'
 SPEC_PATH = 'Src/Spec.v'
 
@@ -21,33 +21,33 @@ class Coq(BenchTool):
             Config(start='(*',
                    end='*)',
                    ext='.v',
-                   path='bench-suite/Coq',
+                   path='workloads/Coq',
                    ignore='common',
-                   methods=METHODS_DIR,
+                   strategies=STRATEGIES_DIR,
                    impl_path=IMPL_DIR,
-                   spec=SPEC_PATH), results, log_level, replace_level)
+                   spec_path=SPEC_PATH), results, log_level, replace_level)
 
-    def all_properties(self, bench: Entry) -> set[str]:
-        spec = os.path.join(bench.path, SPEC_PATH)
+    def all_properties(self, workload: Entry) -> set[str]:
+        spec = os.path.join(workload.path, SPEC_PATH)
         with open(spec) as f:
             contents = f.read()
             regex = re.compile(r'prop_[^\s]*')
             matches = regex.findall(contents)
             return list(dict.fromkeys(matches))
 
-    def _build(self, bench_path: str):
-        methods = self._get_generator_names(bench_path)
-        method_build_commands = map(lambda method: self._get_method_build_command(method), methods)
-        fuzzers = self._get_fuzzer_names(bench_path)
+    def _build(self, workload_path: str):
+        strategies = self._get_generator_names(workload_path)
+        strategy_build_commands = map(lambda strategy: self._get_strategy_build_command(strategy), strategies)
+        fuzzers = self._get_fuzzer_names(workload_path)
         fuzzer_build_commands = map(lambda fuzzer: self._get_fuzzer_build_command(fuzzer), fuzzers)
-        with self._change_dir(bench_path):
+        with self._change_dir(workload_path):
             self._shell_command(['coq_makefile', '-f', '_CoqProject', '-o', 'Makefile'])
             self._shell_command(['make', 'clean'])
             self._shell_command(['make'])
 
-            for cmd in method_build_commands:
+            for cmd in strategy_build_commands:
                 self._shell_command(cmd.split(" "))
-                self._log(f"Built method {cmd}", LogLevel.DEBUG)
+                self._log(f"Built strategy {cmd}", LogLevel.DEBUG)
 
             for i, fuzzer_build_command in enumerate(fuzzer_build_commands):
                 self._log(f"Built fuzzer {fuzzers[i]}", LogLevel.DEBUG)
@@ -59,25 +59,25 @@ class Coq(BenchTool):
                 self._shell_command(fuzzer_build_command[0].split(" "))
                 self._shell_command(fuzzer_build_command[1].split(" "))
 
-    def _run_trial(self, bench_path: str, params: TrialArgs):
+    def _run_trial(self, workload_path: str, params: TrialArgs):
         self._log(f"Running trial {params}", LogLevel.DEBUG)
-        if "Fuzzer" in params.method:
-            self._run_trial_fuzzer(bench_path, params)
+        if "Fuzzer" in params.strategy:
+            self._run_trial_fuzzer(workload_path, params)
         else:
-            self._run_trial_method(bench_path, params)
+            self._run_trial_strategy(workload_path, params)
 
-    def _run_trial_fuzzer(self, bench_path: str, params: TrialArgs):
-        with self._change_dir(bench_path):
+    def _run_trial_fuzzer(self, workload_path: str, params: TrialArgs):
+        with self._change_dir(workload_path):
             cmd = ['./main_exec', f'./qc_exec {params.property}']
             results = []
-            self._log(f"Running {params.method} on {params.bench} with {params.property}", LogLevel.INFO)
+            self._log(f"Running {params.strategy} on {params.workload} with {params.property}", LogLevel.INFO)
             for _ in range(params.trials):
                 try:
                     trial_result = {
-                        "bench": params.bench,
+                        "workload": params.workload,
                         "discards": None,
                         "foundbug": None,
-                        "method": params.method,
+                        "strategy": params.strategy,
                         "mutant": params.mutant,
                         "passed": None,
                         "property": params.property,
@@ -93,7 +93,7 @@ class Coq(BenchTool):
                     end = result.stdout.find("|]")
 
                     if start == -1 or end == -1:
-                        self._log(f"Unexpected! Error Processing {params.method} Output:", LogLevel.ERROR)
+                        self._log(f"Unexpected! Error Processing {params.strategy} Output:", LogLevel.ERROR)
                         self._log(f"[{result.stdout}]", LogLevel.ERROR)
                         self._log(f"[{result.stderr}]", LogLevel.ERROR)
                         trial_result["foundbug"] = False
@@ -102,8 +102,8 @@ class Coq(BenchTool):
                         trial_result["time"] = -1
                     else:
                         result = result.stdout[start + 2:end]
-                        self._log(f"{params.method} Result: {result}", LogLevel.INFO)
-                        json_result = json.loads(result) 
+                        self._log(f"{params.strategy} Result: {result}", LogLevel.INFO)
+                        json_result = json.loads(result)
                         trial_result["foundbug"] = json_result["result"] in ["failed", "expected_failure"]
                         trial_result["discards"] = json_result["discards"]
                         trial_result["passed"] = json_result["tests"]
@@ -119,10 +119,10 @@ class Coq(BenchTool):
                     trial_result["discards"] = 0
                     trial_result["passed"] = 0
                     trial_result["time"] = params.timeout
-                    self._log(f"{params.method} Result: Timeout", LogLevel.INFO)
+                    self._log(f"{params.strategy} Result: Timeout", LogLevel.INFO)
 
                 except subprocess.CalledProcessError as e:
-                    self._log(f"Error Running {params.method}:", LogLevel.ERROR)
+                    self._log(f"Error Running {params.strategy}:", LogLevel.ERROR)
                     self._log(f"[{e.stdout}]", LogLevel.ERROR)
                     self._log(f"[{e.stderr}]", LogLevel.ERROR)
                     trial_result["foundbug"] = False
@@ -139,16 +139,16 @@ class Coq(BenchTool):
 
             json.dump(results, open(params.file, 'w'))
 
-    def _run_trial_method(self, bench_path: str, params: TrialArgs):
-        with self._change_dir(bench_path):
-            cmd = [f"./{params.method}_test_runner.native", params.property]
+    def _run_trial_strategy(self, workload_path: str, params: TrialArgs):
+        with self._change_dir(workload_path):
+            cmd = [f"./{params.strategy}_test_runner.native", params.property]
             results = []
             for _ in range(params.trials):
                 trial_result = {
-                    "bench": params.bench,
+                    "workload": params.workload,
                     "discards": None,
                     "foundbug": None,
-                    "method": params.method,
+                    "strategy": params.strategy,
                     "mutant": params.mutant,
                     "passed": None,
                     "property": params.property,
@@ -162,7 +162,7 @@ class Coq(BenchTool):
                     start = result.find("[|")
                     end = result.find("|]")
                     result = result[start + 2:end]
-                    self._log(f"{params.method} Result: {result}", LogLevel.INFO)
+                    self._log(f"{params.strategy} Result: {result}", LogLevel.INFO)
                     json_result = json.loads(result)
                     trial_result["foundbug"] = json_result["result"] in [
                         "failed", "expected_failure"
@@ -178,7 +178,7 @@ class Coq(BenchTool):
                     trial_result["discards"] = 0
                     trial_result["passed"] = 0
                     trial_result["time"] = params.timeout
-                    self._log(f"{params.method} Result: Timeout", LogLevel.INFO)
+                    self._log(f"{params.strategy} Result: Timeout", LogLevel.INFO)
                 results.append(trial_result)
 
             json.dump(results, open(params.file, 'w'))
@@ -196,15 +196,15 @@ class Coq(BenchTool):
             f.write(fuzzer_file.read())
         f.close()
 
-    def _get_executable_method_names(self, bench_path):
-        methods_path = f"{bench_path}/{METHODS_DIR}"
-        methods = self._get_method_names(methods_path)
-        executables = list(map(lambda method: f"{method}_test_runner.native", methods))
+    def _get_executable_strategy_names(self, workload_path):
+        strategies_path = f"{workload_path}/{STRATEGIES_DIR}"
+        strategies = self._get_strategy_names(strategies_path)
+        executables = list(map(lambda strategy: f"{strategy}_test_runner.native", strategies))
         return executables
 
-    def _get_method_build_command(self, method: str) -> str:
-        self._log(f"Building method: {method}", LogLevel.INFO)
-        return f"ocamlfind ocamlopt -linkpkg -package zarith -package unix -rectypes {method}_test_runner.mli {method}_test_runner.ml -o {method}_test_runner.native"
+    def _get_strategy_build_command(self, strategy: str) -> str:
+        self._log(f"Building strategy: {strategy}", LogLevel.INFO)
+        return f"ocamlfind ocamlopt -linkpkg -package zarith -package unix -rectypes {strategy}_test_runner.mli {strategy}_test_runner.ml -o {strategy}_test_runner.native"
 
     def _get_fuzzer_build_command(self, fuzzer: str) -> str:
         qc_path = os.environ['OPAM_SWITCH_PREFIX'] + '/lib/coq/user-contrib/QuickChick'
@@ -217,21 +217,21 @@ class Coq(BenchTool):
 
         return fuzzer_build_command
 
-    def _get_fuzzer_names(self, bench_path):
-        fuzzers = list(filter(lambda f: f.endswith("Fuzzer"), self._get_all_method_names(f"{bench_path}/{METHODS_DIR}")))
+    def _get_fuzzer_names(self, workload_path):
+        fuzzers = list(filter(lambda f: f.endswith("Fuzzer"), self._get_all_strategy_names(f"{workload_path}/{STRATEGIES_DIR}")))
         return fuzzers
 
-    def _get_generator_names(self, bench_path):
-        generators = list(filter(lambda f: f.endswith("Generator"), self._get_all_method_names(f"{bench_path}/{METHODS_DIR}")))
+    def _get_generator_names(self, workload_path):
+        generators = list(filter(lambda f: f.endswith("Generator"), self._get_all_strategy_names(f"{workload_path}/{STRATEGIES_DIR}")))
         return generators
 
-    def _get_all_method_names(self, methods_path) -> list[str]:
-        methods = []
-        for method in os.listdir(methods_path):
-            f = os.path.join(methods_path, method)
+    def _get_all_strategy_names(self, strategies_path) -> list[str]:
+        strategies = []
+        for strategy in os.listdir(strategies_path):
+            f = os.path.join(strategies_path, strategy)
             if os.path.isfile(f) and f.endswith(".v"):
-                methods.append(method[:-2])
-        return methods
+                strategies.append(strategy[:-2])
+        return strategies
 
     def _parse_tests_qc(self, s: str) -> tuple[list, str]:
         return self._parse_tests("QuickChick", s)
@@ -250,10 +250,10 @@ class Coq(BenchTool):
         test_ls = re.findall(test_re, s)
         return test_ls
 
-    def _generate_test_file_qc(self, runners_path: str, method_name: str, tests: list[str], bench: Entry):
-        bench_name = bench.name
-        file_name = f"{method_name}_test_runner.v"
-        method_import = f"From {bench_name} Require Import {method_name}.\n"
+    def _generate_test_file_qc(self, runners_path: str, strategy_name: str, tests: list[str], workload: Entry):
+        workload_name = workload.name
+        file_name = f"{strategy_name}_test_runner.v"
+        strategy_import = f"From {workload_name} Require Import {strategy_name}.\n"
         library_import = "From QuickChick Require Import QuickChick.\n"
         set_warnings = 'Set Warnings "-extraction-opaque-accessed,-extraction".\n'
         size_axiom = 'Axiom num_tests : nat. Extract Constant num_tests => "max_int".\n'
@@ -277,10 +277,10 @@ let () =
 ".
 
 """
-        extraction_string_template = f'Extraction "{method_name}_test_runner.ml" <test-names> qctest_map.\n'
+        extraction_string_template = f'Extraction "{strategy_name}_test_runner.ml" <test-names> qctest_map.\n'
 
         with open(os.path.join(runners_path, file_name), "w") as runner_file:
-            runner_file.write(method_import)
+            runner_file.write(strategy_import)
             runner_file.write(library_import)
             runner_file.write(set_warnings)
             runner_file.write(size_axiom)
@@ -292,10 +292,10 @@ let () =
             extraction_string = extraction_string_template.replace("<test-names>", test_names)
             runner_file.write(extraction_string)
 
-    def _generate_test_file_fc(self, runners_path: str, fuzzer_name: str, tests: list[str], bench: Entry):
-        bench_name = bench.name
+    def _generate_test_file_fc(self, runners_path: str, fuzzer_name: str, tests: list[str], workload: Entry):
+        workload_name = workload.name
         file_name = f"{fuzzer_name}_test_runner.v"
-        method_import = f"From {bench_name} Require Import {fuzzer_name}.\n"
+        strategy_import = f"From {workload_name} Require Import {fuzzer_name}.\n"
         library_import = "From QuickChick Require Import QuickChick.\n"
         set_warnings = 'Set Warnings "-extraction-opaque-accessed,-extraction".\n'
         test_string_template = "Definition qctest_<test-name> := (fun _ : unit => print_extracted_coq_string (\"[|{\" ++ show (withTime (fun tt => (<test-name>_fuzzer tt))) ++ \"}|]\")).\n"
@@ -313,7 +313,7 @@ fun test_name ->
   test ()
 
 
-let () = 
+let () =
   Printf.printf ""Entering main of qc_exec\\n""; flush stdout;
   setup_shm_aux ();
   Sys.argv.(1) |> qctest_map ; flush stdout;
@@ -323,7 +323,7 @@ let () =
         extraction_string_template = f'Extraction "{fuzzer_name}_test_runner.ml" <test-names> qctest_map.'
 
         with open(os.path.join(runners_path, file_name), "w") as runner_file:
-            runner_file.write(method_import)
+            runner_file.write(strategy_import)
             runner_file.write(library_import)
             runner_file.write(set_warnings)
             for test in tests:
@@ -334,35 +334,35 @@ let () =
             extraction_string = extraction_string_template.replace("<test-names>", test_names)
             runner_file.write(extraction_string)
 
-    def _preprocess(self, bench: Entry) -> None:
+    def _preprocess(self, workload: Entry) -> None:
         # Relevant Paths
-        methods_path = f"{bench.path}/{METHODS_DIR}/"
-        runners_path = f"{bench.path}/{RUNNERS_DIR}/"
+        strategies_path = f"{workload.path}/{STRATEGIES_DIR}/"
+        runners_path = f"{workload.path}/{RUNNERS_DIR}/"
         # Generate runner files
-        generators = self._get_generator_names(bench.path)
-        fuzzers = self._get_fuzzer_names(bench.path)
+        generators = self._get_generator_names(workload.path)
+        fuzzers = self._get_fuzzer_names(workload.path)
         # Empty Runner Directory
         self._shell_command(['rm', f"{runners_path}*"])
-        # Generate and Add Runners for each method
-        for method in generators:
-            with open(os.path.join(methods_path, f"{method}.v"), "r") as method_file:
-                content = method_file.read()
+        # Generate and Add Runners for each strategy
+        for strategy in generators:
+            with open(os.path.join(strategies_path, f"{strategy}.v"), "r") as strategy_file:
+                content = strategy_file.read()
                 tests = self._parse_tests_qc(content)
-                self._generate_test_file_qc(runners_path, method, tests, bench)
+                self._generate_test_file_qc(runners_path, strategy, tests, workload)
         # Generate and Add Runners for each fuzzer
         for fuzzer in fuzzers:
-            with open(os.path.join(methods_path, f"{fuzzer}.v"), "r") as method_file:
-                content = method_file.read()
+            with open(os.path.join(strategies_path, f"{fuzzer}.v"), "r") as strategy_file:
+                content = strategy_file.read()
                 tests = self._parse_tests_fc(content)
-                self._generate_test_file_fc(runners_path, fuzzer, tests, bench)
+                self._generate_test_file_fc(runners_path, fuzzer, tests, workload)
         # Add runners to the _CoqProject file
-        with open(f"{bench.path}/_CoqProject", "r") as coq_project_file_reader:
+        with open(f"{workload.path}/_CoqProject", "r") as coq_project_file_reader:
             coq_project_file_contents = coq_project_file_reader.read().splitlines()
 
-        with open(f"{bench.path}/_CoqProject", "w") as coq_project_file_writer:
+        with open(f"{workload.path}/_CoqProject", "w") as coq_project_file_writer:
             for coq_project_file_line in coq_project_file_contents:
                 if not coq_project_file_line.startswith(RUNNERS_DIR) and coq_project_file_line != "":
                     coq_project_file_writer.write(coq_project_file_line + "\n")
 
-            for method in generators + fuzzers:
-                coq_project_file_writer.write(f"{RUNNERS_DIR}/{method}_test_runner.v\n")
+            for strategy in generators + fuzzers:
+                coq_project_file_writer.write(f"{RUNNERS_DIR}/{strategy}_test_runner.v\n")

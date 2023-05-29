@@ -15,31 +15,31 @@ class Haskell(BenchTool):
             Config(start='{-',
                    end='-}',
                    ext='.hs',
-                   path='bench-suite/Haskell',
+                   path='workloads/Haskell',
                    ignore='common',
-                   methods='src/Method',
+                   strategies='src/Strategy',
                    impl_path='src',
-                   spec='src/Spec.hs'), results, log_level, replace_level)
+                   spec_path='src/Spec.hs'), results, log_level, replace_level)
 
-    def all_properties(self, bench: Entry) -> set[str]:
-        spec = os.path.join(bench.path, self._config.spec)
+    def all_properties(self, workload: Entry) -> set[str]:
+        spec = os.path.join(workload.path, self._config.spec_path)
         with open(spec) as f:
             contents = f.read()
             regex = re.compile(r'prop_[^\s]*')
             matches = regex.findall(contents)
             return list(dict.fromkeys(matches))
 
-    def _build(self, bench_path: str):
-        with self._change_dir(bench_path):
+    def _build(self, workload_path: str):
+        with self._change_dir(workload_path):
             self._shell_command(['stack', 'build'])
 
-    def _run_trial(self, bench_path: str, params: TrialArgs):
+    def _run_trial(self, workload_path: str, params: TrialArgs):
 
         def helper(t):
-            with self._change_dir(bench_path):
+            with self._change_dir(workload_path):
                 for _ in range(t):
                     p = params.to_json()
-                    self._shell_command(['stack', 'exec', 'qc-bench', '--', p])
+                    self._shell_command(['stack', 'exec', 'etna-workload', '--', p])
 
         def reformat():
             with open(params.file) as f:
@@ -52,7 +52,7 @@ class Haskell(BenchTool):
         # stop hardcoding the list of deterministic strategies.
         small = 2
         if params.trials > small and \
-                params.method in ['Lean', 'Small', 'LeanRev', 'SmallRev']:
+                params.strategy in ['Lean', 'Small', 'LeanRev', 'SmallRev']:
             helper(small)
 
             with open(params.file) as f:
@@ -67,5 +67,5 @@ class Haskell(BenchTool):
 
         reformat()
 
-    def _preprocess(self, bench: Entry) -> None:
+    def _preprocess(self, workload: Entry) -> None:
         pass

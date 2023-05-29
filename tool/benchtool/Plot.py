@@ -8,6 +8,7 @@ import plotly.graph_objects as go
 from dash import Dash, html, dcc, Input, Output
 from typing import Literal, Optional
 
+# TODO fix names here
 
 pd.options.mode.chained_assignment = None  # default='warn'
 
