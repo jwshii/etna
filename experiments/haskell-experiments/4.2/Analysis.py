@@ -13,7 +13,10 @@ def analyze(results: str, images: str):
 
     df = df.groupby(['task', 'size'], as_index=False).agg({'inputs': 'mean', 'time': 'mean'})
 
-    color_map = {task: 'black' if task in special else 'lightgray' for task in df['task'].unique()}
+    colors = {special[0]: 'red', special[1]: 'green', special[2]: 'blue'}
+    color_map = {
+        task: colors[task] if task in special else 'lightgray' for task in df['task'].unique()
+    }
 
     fig = px.line(df,
                   x='size',
