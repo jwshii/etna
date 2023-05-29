@@ -29,6 +29,7 @@ def analyze(results: str, images: str):
     fig.update_layout(xaxis_title='size of tree', yaxis_title='inputs to failure', showlegend=False)
     fig.update_layout(font={'family': 'Helvetica', 'size': 50}, width=1500, height=1200)
     fig.update_layout(xaxis=dict(tickmode='linear', tick0=3, dtick=3))
+    fig.update_layout(yaxis=dict(tickmode='linear', dtick=200))
 
     fig.write_image(f'{images}/fig2.png')
 
