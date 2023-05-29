@@ -21,4 +21,4 @@ collect4.2:
 
 analyze4.2:
 	mkdir -p $(FIGURES)
-	python3 experiments/haskell-experiments/4.2/Analyze.py --data=$(DATA)/4.2 --figures=$(FIGURES) 
+	python3 experiments/haskell-experiments/4.2/Analysis.py --data=$(DATA)/4.2 --figures=$(FIGURES) 
