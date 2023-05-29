@@ -1,4 +1,3 @@
-# Based on How to Specify It.
 bst = {
     'base': [],
     'insert_1': [
@@ -72,7 +71,6 @@ bst = {
     ],
 }
 
-# Currently based on running FromList for 10 seconds.
 redblack = {
     'miscolor_insert': [
         'InsertValid',
