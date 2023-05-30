@@ -83,13 +83,20 @@ but for the purposes of this artifact we can just run 1 trial.
 
 Run this to collect the data for this experiment:
 ```
-make collect4.1
+$ make collect4.1
 ```
 The raw JSONs will be saved in `data/4.1`.
 
+If data collection stopped before the end, run this to save the list
+of completed tasks:
+```
+$ make save4.1
+```
+Then, running the collect command again should skip over prior tasks.
+
 Run this to analyze the data for this experiment:
 ```
-make analyze4.1
+$ make analyze4.1
 ```
 
 #### Section 4.2: Exploring Size Generation.
@@ -99,16 +106,11 @@ Estimated time for scaled-down experiment: around 1.5 hours.
 While we originally ran 100 trials for each task, the analysis for
 the experiment only focuses on three tasks. So, this version runs the 
 full 100 trials for the three tasks and 10 trials for the other tasks.
-
-Run this to collect the data for this experiment:
+ 
+Commands are the same as 4.1 but with 4.2 instead, e.g. 
 ```
-make collect4.2
-```
-The raw JSONs will be saved in `data/4.2`.
-
-Run this to analyze the data for this experiment:
-```
-make analyze4.2
+$ make collect4.2
+$ make analyze4.2
 ```
 
 Please view the chart `figures/figure2.png`. This should resemble

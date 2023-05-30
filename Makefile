@@ -30,6 +30,9 @@ collect4.2:
 	mkdir -p $(DATA)/4.2
 	python3 experiments/haskell-experiments/4.2/Collect.py --data=$(DATA)/4.2 $(FULL)
 
+save4.2:
+	cd $(DATA)/4.2 && ls >> completed.txt
+
 analyze4.2:
 	mkdir -p $(FIGURES)
 	python3 experiments/haskell-experiments/4.2/Analysis.py --data=$(DATA)/4.2 --figures=$(FIGURES) 

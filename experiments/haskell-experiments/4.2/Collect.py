@@ -20,7 +20,7 @@ def collect(results: str, optimize: bool = True):
             if variant.name == 'base':
                 continue
 
-            run_trial = tool.apply_variant(workload, variant)
+            run_trial = None
 
             for strategy in tool.all_strategies(workload):
                 if strategy.name != 'Size':
@@ -44,6 +44,17 @@ def collect(results: str, optimize: bool = True):
                         os.environ['BSTSIZE'] = str(size)
 
                         file = f'{size:02},{workload.name},{strategy.name},{variant.name},{property}'
+                        
+                        # Don't compile tasks that are already completed.
+                        completed = f'{results}/completed.txt'
+                        if os.path.isfile(completed):
+                            with open(completed) as f:
+                                if file in f.read():
+                                    continue
+
+                        if not run_trial:
+                            run_trial = tool.apply_variant(workload, variant)
+
                         cfg = TrialConfig(workload=workload,
                                           strategy=strategy.name,
                                           property=property,
