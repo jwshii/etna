@@ -65,4 +65,4 @@ if __name__ == '__main__':
     args = p.parse_args()
 
     results_path = f'{os.getcwd()}/{args.data}'
-    collect(results_path, args.full)
+    collect(results_path)
