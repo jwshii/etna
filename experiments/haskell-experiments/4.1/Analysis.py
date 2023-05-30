@@ -9,7 +9,7 @@ def analyze(results: str, images: str):
     df['foundbug'] = df['foundbug'] & (df['time'] < 60)
 
     # Generate task bucket charts used in Figure 1.
-    for workload in ['FSUB']: # 'BST', 'RBT', 'STLC', 'FSUB']:
+    for workload in ['BST', 'RBT', 'STLC', 'FSUB']:
         times = partial(stacked_barchart_times, case=workload, df=df)
         times(
             strategies=['Quick', 'Lean', 'Small', 'Correct'],
