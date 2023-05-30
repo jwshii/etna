@@ -34,7 +34,6 @@ def collect(results: str, optimize: bool = True):
                         # TO SAVE TIME:
                         # Run only 1 trial for deterministic strategies
                         trials = 1 if strategy.name in ['Lean', 'Small'] else 10
-                        print(strategy.name, trials)
 
                         # Also, stop trials as soon as fail to find bug.
                         # (via short_circuit flag below)
