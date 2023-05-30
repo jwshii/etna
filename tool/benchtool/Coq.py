@@ -8,7 +8,7 @@ import subprocess
 import ctypes
 
 IMPL_DIR = 'Src'
-STRATEGIES_DIR = 'Methods'  # TODO: change this
+STRATEGIES_DIR = 'Strategies'
 RUNNERS_DIR = 'Runners'
 SPEC_PATH = 'Src/Spec.v'
 
