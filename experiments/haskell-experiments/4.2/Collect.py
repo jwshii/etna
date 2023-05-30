@@ -63,7 +63,7 @@ def collect(results: str, optimize: bool = True):
                         run_trial(cfg)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     p = argparse.ArgumentParser()
     p.add_argument('--data', help='path to folder for JSON data')
     p.add_argument('--full',

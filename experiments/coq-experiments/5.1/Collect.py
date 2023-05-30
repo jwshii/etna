@@ -8,6 +8,9 @@ import itertools
 
 
 def collect(results: str, optimize: bool = True):
+    if optimize == False:
+        print('The full experiment and the scaled-down experiment are the same for this one.')
+
     tool = Coq(results=results, replace_level=ReplaceLevel.SKIP)
 
     for workload in tool.all_workloads():
@@ -32,13 +35,13 @@ def collect(results: str, optimize: bool = True):
 
                     cfg = TrialConfig(workload=workload,
                                       strategy=strategy.name,
-                                      property="test_" + property,
+                                      property='test_' + property,
                                       trials=10,
                                       timeout=60)
                     run_trial(cfg)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     p = argparse.ArgumentParser()
     p.add_argument('--data', help='path to folder for JSON data')
     p.add_argument('--full',
