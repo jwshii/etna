@@ -40,6 +40,9 @@ def collect(results: str, optimize: bool = True):
                     else:
                         trials = 10
 
+                    # See README discussion about LeanCheck.
+                    timeout = 65 if strategy.name != 'Lean' else 12
+
                     # Don't compile tasks that are already completed.
                     finished = set(os.listdir(results))
                     file = f'{workload.name},{strategy.name},{variant.name},{property}'
@@ -53,7 +56,7 @@ def collect(results: str, optimize: bool = True):
                                       strategy=strategy.name,
                                       property=property,
                                       trials=trials,
-                                      timeout=65,
+                                      timeout=timeout,
                                       short_circuit=optimize)
 
                     run_trial(cfg)
