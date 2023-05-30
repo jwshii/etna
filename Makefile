@@ -13,11 +13,10 @@ uninstall:
 
 DATA = data
 FIGURES = figures
-FULL =
 
 collect4.1:
 	mkdir -p $(DATA)/4.1
-	python3 experiments/haskell-experiments/4.1/Collect.py --data=$(DATA)/4.1 $(FULL)
+	python3 experiments/haskell-experiments/4.1/Collect.py --data=$(DATA)/4.1
 
 analyze4.1:
 	mkdir -p $(FIGURES)/fig1
@@ -25,7 +24,7 @@ analyze4.1:
 
 collect4.2:
 	mkdir -p $(DATA)/4.2
-	python3 experiments/haskell-experiments/4.2/Collect.py --data=$(DATA)/4.2 $(FULL)
+	python3 experiments/haskell-experiments/4.2/Collect.py --data=$(DATA)/4.2
 
 analyze4.2:
 	mkdir -p $(FIGURES)
@@ -33,4 +32,4 @@ analyze4.2:
 
 collect5.1:
 	mkdir -p $(DATA)/5.1
-	python3 experiments/coq-experiments/5.1/Collect.py --data=$(DATA)/5.1 $(FULL)
+	python3 experiments/coq-experiments/5.1/Collect.py --data=$(DATA)/5.1

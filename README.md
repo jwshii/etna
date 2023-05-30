@@ -47,7 +47,7 @@ These steps should already be completed in the VM.
    the repo [here](https://github.com/QuickChick/QuickChick),
    checkout the `pbt-benchmark` branch, and follow the
    instructions for installing from source, including
-   `make install`.
+   `make install` and `make install-fuzzer`.
 
 ### Orientation
 
@@ -65,7 +65,9 @@ Some things to be aware of:
     would take several days in total. As such, we offer scaled-down
     versions that should demonstrate the same trends but take drastically
     less time. The `Makefile` is configured to run these versions by default.
-    To instead run the full experiment, just add the `--full` flag.
+
+-   Experiment scripts should be easily resumable; data will not be
+    re-collected unless it is deleted.
 
 #### Section 4.1: Comparing Frameworks.
 
@@ -149,6 +151,8 @@ Points of comparison with the paper:
     might be instead solved a little slower upon re-running (moving it
     into a lighter bucket), both due to variations in machine speed
     and the inherent randomness of some of the generation strategies.
+
+-   As mentioned above, the scaled-down version
 
 -   In addition to the charts, we can compute the overall solve rates,
     which are outputted as a table by the analyze script.

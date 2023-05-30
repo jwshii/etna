@@ -8,7 +8,7 @@ from benchtool.Tasks import tasks
 # Section 4.1 (Comparing Frameworks)
 
 
-def collect(results: str, optimize: bool = True):
+def collect(results: str):
     tool = Haskell(results, replace_level=ReplaceLevel.SKIP)
 
     for workload in tool.all_workloads():
@@ -30,15 +30,12 @@ def collect(results: str, optimize: bool = True):
                         if property.split('_')[1] not in tasks[workload.name][variant.name]:
                             continue
 
-                    if optimize:
-                        # TO SAVE TIME:
-                        # Run only 1 trial for deterministic strategies
-                        trials = 1 if strategy.name in ['Lean', 'Small'] else 10
+                    # TO SAVE TIME:
+                    # Run only 1 trial for deterministic strategies
+                    trials = 1 if strategy.name in ['Lean', 'Small'] else 10
 
-                        # Also, stop trials as soon as fail to find bug.
-                        # (via short_circuit flag below)
-                    else:
-                        trials = 10
+                    # Also, stop trials as soon as fail to find bug.
+                    # (via short_circuit flag below)
 
                     # See README discussion about LeanCheck.
                     timeout = 65 if strategy.name != 'Lean' else 12
@@ -57,7 +54,7 @@ def collect(results: str, optimize: bool = True):
                                       property=property,
                                       trials=trials,
                                       timeout=timeout,
-                                      short_circuit=optimize)
+                                      short_circuit=True)
 
                     run_trial(cfg)
 
@@ -65,9 +62,6 @@ def collect(results: str, optimize: bool = True):
 if __name__ == '__main__':
     p = argparse.ArgumentParser()
     p.add_argument('--data', help='path to folder for JSON data')
-    p.add_argument('--full',
-                   help='flag to disable faster version of experiment',
-                   action='store_false')
     args = p.parse_args()
 
     results_path = f'{os.getcwd()}/{args.data}'
