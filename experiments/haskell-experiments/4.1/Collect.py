@@ -7,7 +7,6 @@ from benchtool.Tasks import tasks
 
 # Section 4.1 (Comparing Frameworks)
 
-
 def collect(results: str, optimize: bool = True):
     tool = Haskell(results, replace_level=ReplaceLevel.SKIP)
 
@@ -19,7 +18,7 @@ def collect(results: str, optimize: bool = True):
             if variant.name == 'base':
                 continue
 
-            run_trial = tool.apply_variant(workload, variant)
+            run_trial = None
 
             for strategy in tool.all_strategies(workload):
                 if strategy.name not in ['Correct', 'Quick', 'Lean', 'Small']:
@@ -40,14 +39,26 @@ def collect(results: str, optimize: bool = True):
                     else:
                         trials = 10
 
+                    # Don't compile tasks that are already completed.
+                    completed = f'{results}/completed.txt'
+                    if os.path.isfile(completed):
+                        with open(completed) as f:
+                            file = f'{workload.name},{strategy.name},{variant.name},{property}'
+                            if file in f.read():
+                                continue
+
+                    if not run_trial:
+                        run_trial = tool.apply_variant(workload, variant)
+
+
                     cfg = TrialConfig(workload=workload,
                                       strategy=strategy.name,
                                       property=property,
                                       trials=trials,
                                       timeout=65,
                                       short_circuit=optimize)
-                    run_trial(cfg)
 
+                    run_trial(cfg)
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
