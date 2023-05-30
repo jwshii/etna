@@ -1,4 +1,4 @@
-From BinarySearchTree Require Import TypeBasedFuzzer.
+From BST Require Import TypeBasedFuzzer.
 From QuickChick Require Import QuickChick.
 Set Warnings "-extraction-opaque-accessed,-extraction".
 Definition qctest_test_prop_InsertValid := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime (fun tt => (test_prop_InsertValid_fuzzer tt))) ++ "}|]")).
@@ -33,7 +33,7 @@ fun test_name ->
   test ()
 
 
-let () = 
+let () =
   Printf.printf ""Entering main of qc_exec\n""; flush stdout;
   setup_shm_aux ();
   Sys.argv.(1) |> qctest_map ; flush stdout;

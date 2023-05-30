@@ -1,26 +1,26 @@
 
 From QuickChick Require Import QuickChick. Import QcNotation.
 From Coq Require Import Bool ZArith List. Import ListNotations.
-From BinarySearchTree Require Import Impl.
+From BST Require Import Impl.
 
 Fixpoint keys (t: Tree): list nat :=
   match t with
   | E => nil
-  | T l k v r => 
+  | T l k v r =>
     let lk := keys l in
     let rk := keys r in
     [k] ++ lk ++ rk
   end.
 
-  
+
 Fixpoint all {A: Type} (f: A -> bool) (l: list A): bool :=
   match l with
   | nil => true
-  | (x::xs) => 
+  | (x::xs) =>
       f x && all f xs
   end
   .
-  
+
 
 Local Open Scope nat_scope.
 
@@ -36,10 +36,10 @@ Fixpoint isBST (t: Tree): bool:=
       && all (Nat_gtb k) (keys l)
       && all (Nat.ltb k) (keys r)
   end.
-    
-  
-  
-  
+
+
+
+
 Fixpoint toList (t: Tree): list (nat * nat) :=
   match t with
   | E => nil
@@ -74,7 +74,7 @@ Definition prop_DeletePost (t: Tree) (k: nat) (k': nat) :=
 
 Definition prop_UnionPost (t: Tree) (t': Tree) (k: nat) :=
   isBST t
-    -=> 
+    -=>
     let lhs := find k (union t t') in
     let rhs := find k t in
     let rhs':= find k t' in
@@ -173,7 +173,7 @@ Definition prop_InsertUnion (t: Tree) (t': Tree) (k: nat) (v: nat) :=
 
 Definition prop_DeleteInsert (t: Tree) (k: nat) (k': nat) (v': nat) :=
   isBST t
-    -=> 
+    -=>
   (delete k (insert k' v' t) =|= if k =? k' then delete k t else insert k' v' (delete k t)).
 
 Definition prop_DeleteDelete (t: Tree) (k: nat) (k': nat) :=

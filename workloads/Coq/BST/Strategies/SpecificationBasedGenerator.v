@@ -3,8 +3,8 @@ From Coq Require Import List. Import ListNotations.
 From ExtLib Require Import Monad.
 Import MonadNotation.
 
-From BinarySearchTree Require Import Impl.
-From BinarySearchTree Require Import Spec.
+From BST Require Import Impl.
+From BST Require Import Spec.
 
 Inductive between : nat -> nat -> nat -> Prop :=
 | between_n : forall n m, le n m -> between n (S n) (S (S m))
@@ -27,7 +27,7 @@ Derive ArbitrarySizedSuchThat for (fun t => bst lo hi t).
 Derive DecOpt for (bst lo hi t).
 
 
-Definition test_prop_InsertValid   :=  
+Definition test_prop_InsertValid   :=
   forAllMaybe (@arbitrarySizeST _ (fun t => bst 0 100 t) _ 10) (fun (t : Tree) =>
   forAll arbitrary (fun (k: nat)  =>
   forAll arbitrary (fun (v: nat) =>
@@ -37,7 +37,7 @@ Definition test_prop_InsertValid   :=
 
 (*! QuickChick test_prop_InsertValid. *)
 
-Definition test_prop_DeleteValid   :=  
+Definition test_prop_DeleteValid   :=
   forAllMaybe (@arbitrarySizeST _ (fun t => bst 0 100 t) _ 10) (fun (t : Tree) =>
   forAll arbitrary (fun (k: nat) =>
   prop_DeleteValid t k))
@@ -46,7 +46,7 @@ Definition test_prop_DeleteValid   :=
 (*! QuickChick test_prop_DeleteValid. *)
 
 
-Definition test_prop_UnionValid    :=  
+Definition test_prop_UnionValid    :=
   forAllMaybe (@arbitrarySizeST _ (fun t => bst 0 100 t) _ 10) (fun (t1 : Tree) =>
   forAllMaybe (@arbitrarySizeST _ (fun t => bst 0 100 t) _ 10) (fun (t2 : Tree) =>
   prop_UnionValid t1 t2))
@@ -54,7 +54,7 @@ Definition test_prop_UnionValid    :=
 
 (*! QuickChick test_prop_UnionValid. *)
 
-Definition test_prop_InsertPost    :=  
+Definition test_prop_InsertPost    :=
   forAllMaybe (@arbitrarySizeST _ (fun t => bst 0 100 t) _ 10) (fun (t : Tree) =>
   forAll arbitrary (fun (k: nat)  =>
   forAll arbitrary (fun (k': nat)  =>
@@ -64,7 +64,7 @@ Definition test_prop_InsertPost    :=
 
 (*! QuickChick test_prop_InsertPost. *)
 
-Definition test_prop_DeletePost    :=  
+Definition test_prop_DeletePost    :=
   forAllMaybe (@arbitrarySizeST _ (fun t => bst 0 100 t) _ 10) (fun (t : Tree) =>
   forAll arbitrary (fun (k: nat)  =>
   forAll arbitrary (fun (k': nat) =>
@@ -73,7 +73,7 @@ Definition test_prop_DeletePost    :=
 
 (*! QuickChick test_prop_DeletePost. *)
 
-Definition test_prop_UnionPost   :=  
+Definition test_prop_UnionPost   :=
   forAllMaybe (@arbitrarySizeST _ (fun t => bst 0 100 t) _ 10) (fun (t : Tree) =>
   forAllMaybe (@arbitrarySizeST _ (fun t => bst 0 100 t) _ 10) (fun (t' : Tree) =>
   forAll arbitrary (fun (k: nat) =>
@@ -82,7 +82,7 @@ Definition test_prop_UnionPost   :=
 
 (*! QuickChick test_prop_UnionPost. *)
 
-Definition test_prop_InsertModel   :=  
+Definition test_prop_InsertModel   :=
   forAllMaybe (@arbitrarySizeST _ (fun t => bst 0 100 t) _ 10) (fun (t : Tree) =>
   forAll arbitrary (fun (k: nat)  =>
   forAll arbitrary (fun (v: nat) =>
@@ -91,7 +91,7 @@ Definition test_prop_InsertModel   :=
 
 (*! QuickChick test_prop_InsertModel. *)
 
-Definition test_prop_DeleteModel   :=  
+Definition test_prop_DeleteModel   :=
   forAllMaybe (@arbitrarySizeST _ (fun t => bst 0 100 t) _ 10) (fun (t : Tree) =>
   forAll arbitrary (fun (k: nat) =>
   prop_DeleteModel t k))
@@ -99,7 +99,7 @@ Definition test_prop_DeleteModel   :=
 
 (*! QuickChick test_prop_DeleteModel. *)
 
-Definition test_prop_UnionModel    :=  
+Definition test_prop_UnionModel    :=
   forAllMaybe (@arbitrarySizeST _ (fun t => bst 0 100 t) _ 10) (fun (t : Tree) =>
   forAllMaybe (@arbitrarySizeST _ (fun t => bst 0 100 t) _ 10) (fun (t' : Tree) =>
   prop_UnionModel t t'))
@@ -107,7 +107,7 @@ Definition test_prop_UnionModel    :=
 
 (*! QuickChick test_prop_UnionModel. *)
 
-Definition test_prop_InsertInsert    :=  
+Definition test_prop_InsertInsert    :=
   forAllMaybe (@arbitrarySizeST _ (fun t => bst 0 100 t) _ 10) (fun (t : Tree) =>
   forAll arbitrary (fun (k: nat)  =>
   forAll arbitrary (fun (k': nat)  =>
@@ -118,7 +118,7 @@ Definition test_prop_InsertInsert    :=
 
 (*! QuickChick test_prop_InsertInsert. *)
 
-Definition test_prop_InsertDelete    :=  
+Definition test_prop_InsertDelete    :=
   forAllMaybe (@arbitrarySizeST _ (fun t => bst 0 100 t) _ 10) (fun (t : Tree) =>
   forAll arbitrary (fun (k: nat)  =>
   forAll arbitrary (fun (k': nat)  =>
@@ -128,7 +128,7 @@ Definition test_prop_InsertDelete    :=
 
 (*! QuickChick test_prop_InsertDelete. *)
 
-Definition test_prop_InsertUnion   :=  
+Definition test_prop_InsertUnion   :=
   forAllMaybe (@arbitrarySizeST _ (fun t => bst 0 100 t) _ 10) (fun (t : Tree) =>
   forAllMaybe (@arbitrarySizeST _ (fun t => bst 0 100 t) _ 10) (fun (t' : Tree) =>
   forAll arbitrary (fun (k: nat)  =>
@@ -138,7 +138,7 @@ Definition test_prop_InsertUnion   :=
 
 (*! QuickChick test_prop_InsertUnion. *)
 
-Definition test_prop_DeleteInsert    :=  
+Definition test_prop_DeleteInsert    :=
   forAllMaybe (@arbitrarySizeST _ (fun t => bst 0 100 t) _ 10) (fun (t : Tree) =>
   forAll arbitrary (fun (k: nat)  =>
   forAll arbitrary (fun (k': nat)  =>
@@ -148,7 +148,7 @@ Definition test_prop_DeleteInsert    :=
 
 (*! QuickChick test_prop_DeleteInsert. *)
 
-Definition test_prop_DeleteDelete    :=  
+Definition test_prop_DeleteDelete    :=
   forAllMaybe (@arbitrarySizeST _ (fun t => bst 0 100 t) _ 10) (fun (t : Tree) =>
   forAll arbitrary (fun (k: nat)  =>
   forAll arbitrary (fun (k': nat) =>
@@ -157,7 +157,7 @@ Definition test_prop_DeleteDelete    :=
 
 (*! QuickChick test_prop_DeleteDelete. *)
 
-Definition test_prop_DeleteUnion   :=  
+Definition test_prop_DeleteUnion   :=
   forAllMaybe (@arbitrarySizeST _ (fun t => bst 0 100 t) _ 10) (fun (t : Tree) =>
   forAllMaybe (@arbitrarySizeST _ (fun t => bst 0 100 t) _ 10) (fun (t' : Tree) =>
   forAll arbitrary (fun (k: nat) =>
@@ -166,7 +166,7 @@ Definition test_prop_DeleteUnion   :=
 
 (*! QuickChick test_prop_DeleteUnion. *)
 
-Definition test_prop_UnionDeleteInsert   :=  
+Definition test_prop_UnionDeleteInsert   :=
   forAllMaybe (@arbitrarySizeST _ (fun t => bst 0 100 t) _ 10) (fun (t: Tree) =>
   forAllMaybe (@arbitrarySizeST _ (fun t => bst 0 100 t) _ 10) (fun (t' : Tree) =>
   forAll arbitrary (fun (k: nat)  =>
@@ -176,14 +176,14 @@ Definition test_prop_UnionDeleteInsert   :=
 
 (*! QuickChick test_prop_UnionDeleteInsert. *)
 
-Definition test_prop_UnionUnionIdem    :=  
+Definition test_prop_UnionUnionIdem    :=
   forAllMaybe (@arbitrarySizeST _ (fun t => bst 0 100 t) _ 10) (fun (t: Tree) =>
   prop_UnionUnionIdem t)
 .
 
 (*! QuickChick test_prop_UnionUnionIdem. *)
 
-Definition test_prop_UnionUnionAssoc   := 
+Definition test_prop_UnionUnionAssoc   :=
   forAllMaybe (@arbitrarySizeST _ (fun t => bst 0 100 t) _ 10) (fun (t1 : Tree) =>
   forAllMaybe (@arbitrarySizeST _ (fun t => bst 0 100 t) _ 10) (fun (t2 : Tree) =>
   forAllMaybe (@arbitrarySizeST _ (fun t => bst 0 100 t) _ 10) (fun (t3 : Tree) =>
