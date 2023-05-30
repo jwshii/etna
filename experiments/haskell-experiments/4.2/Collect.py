@@ -27,6 +27,9 @@ def collect(results: str, optimize: bool = True):
                     continue
 
                 for property in tool.all_properties(workload):
+                    if property.split('_')[1] not in tasks[workload.name][variant.name]:
+                        continue
+
                     if optimize:
                         # TO SAVE TIME:
                         # Run only 10 trials on tasks other than the three "special"
@@ -35,9 +38,6 @@ def collect(results: str, optimize: bool = True):
                         trials = 100 if task in special else 10
                     else:
                         trials = 100
-
-                    if property.split('_')[1] not in tasks[workload.name][variant.name]:
-                        continue
 
                     for size in range(3, 31, 3):
                         # Vary size of tree from 3 to 30 nodes, at increments of 3.

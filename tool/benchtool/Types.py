@@ -129,6 +129,7 @@ class TrialArgs:
     property: str
     label: str
     timeout: float | None = None
+    short_circuit: bool = False
 
     def to_json(self) -> str:
         return json.dumps(dataclasses.asdict(self))
@@ -143,6 +144,7 @@ class TrialConfig:
     file: str | None = None  # if not provided, use default format
     label: str | None = None  # if not provided, use same as strategy
     timeout: float | None = None  # in seconds
+    short_circuit: bool = False
 
 
 class LogLevel(IntEnum):

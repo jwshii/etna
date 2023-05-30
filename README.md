@@ -16,7 +16,8 @@ These steps should already be completed in the VM.
    $ curl -sSL https://get.haskellstack.org/ | sh
    ```
 
-3. For Coq, [TODO].
+3. For Coq, use `opam` to install OCaml compiler version `4.10.0+afl`
+   and pin Coq version `8.15.0`.
 
 ### Package Dependencies
 
@@ -41,6 +42,10 @@ These steps should already be completed in the VM.
 
 3. For Coq, [TODO].
 
+### Orientation
+
+[TODO].
+
 ### Experiment Replication
 
 Running our experiments in full as we did originally for the paper 
@@ -51,9 +56,43 @@ To instead run the full experiment, just add the `--full` flag.
 
 Estimated times are rough estimates.
 
+We recommend briefly reading the setup described in the corresponding 
+experiment section in the paper to get a sense of what each experiment 
+is evaluating. We focus our explanations here on 1) how we scaled back
+the experiments and 2) which points to look out for when comparing the
+results you get with the results presented in the paper. 
+
 #### Section 4.1: Comparing Frameworks.
 
 Estimated time for scaled-down experiment:
+
+Originally, we ran each strategy on each task for 10 trials, even 
+if the strategy could not solve the task. This is the most time 
+consuming component — running until the 65 second timeout repeatedly.
+So, the scaled-down version "short-circuits" as soon as a strategy fails.
+i.e., If QuickCheck fails to find the bug on the 3rd trial, the 4th 
+through 10th trials are not run.
+
+This has no impact on the majority of the data collected and analyzed
+for this experiment, since we find a task to be (completely) solved 
+only if it was solved on all trials. The only piece that will be lost 
+is the discussion in lines 269 to 278 about partially solved tasks.    
+
+Additionally, the scaled-down version only runs 1 trial for the
+deterministic strategies (LeanCheck and SmallCheck). We ran 10 trials
+in the original since there could be some small variations in time, 
+but for the purposes of this artifact we can just run 1 trial.
+
+Run this to collect the data for this experiment:
+```
+make collect4.1
+```
+The raw JSONs will be saved in `data/4.1`.
+
+Run this to analyze the data for this experiment:
+```
+make analyze4.1
+```
 
 #### Section 4.2: Exploring Size Generation.
 

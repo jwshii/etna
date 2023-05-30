@@ -15,6 +15,14 @@ DATA = data
 FIGURES = figures
 FULL =
 
+collect4.1:
+	mkdir -p $(DATA)/4.1
+	python3 experiments/haskell-experiments/4.1/Collect.py --data=$(DATA)/4.1 $(FULL)
+
+analyze4.1:
+	mkdir -p $(FIGURES)
+	python3 experiments/haskell-experiments/4.1/Analysis.py --data=$(DATA)/4.1 --figures=$(FIGURES) 
+
 collect4.2:
 	mkdir -p $(DATA)/4.2
 	python3 experiments/haskell-experiments/4.2/Collect.py --data=$(DATA)/4.2 $(FULL)

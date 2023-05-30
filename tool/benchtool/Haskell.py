@@ -35,35 +35,22 @@ class Haskell(BenchTool):
 
     def _run_trial(self, workload_path: str, params: TrialArgs):
 
-        def helper(t):
-            with self._change_dir(workload_path):
-                for _ in range(t):
-                    p = params.to_json()
-                    self._shell_command(['stack', 'exec', 'etna-workload', '--', p])
-
         def reformat():
             with open(params.file) as f:
                 results = [json.loads(line) for line in f]
             open('file.txt', 'w').close()
             json.dump(results, open(params.file, 'w'))
 
-        # This is an optimization that stops running the deterministic strategies
-        # if it fails to find the bug in the first two trials. Should eventually
-        # stop hardcoding the list of deterministic strategies.
-        small = 2
-        if params.trials > small and \
-                params.strategy in ['Lean', 'Small', 'LeanRev', 'SmallRev']:
-            helper(small)
+        with self._change_dir(workload_path):
+            for _ in range(params.trials):
+                p = params.to_json()
+                self._shell_command(['stack', 'exec', 'etna-workload', '--', p])
 
-            with open(params.file) as f:
-                count = sum([line.count('"foundbug":false') for line in f])
-                if count == small:
-                    reformat()
-                    return
-
-            helper(params.trials - small)
-        else:
-            helper(params.trials)
+                if params.short_circuit:
+                    with open(params.file) as f:
+                        if '"foundbug":false' in f.read():
+                            reformat()
+                            return
 
         reformat()
 

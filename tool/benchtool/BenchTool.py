@@ -221,7 +221,8 @@ class BenchTool(ABC):
                           mutant=self.__variant.name,
                           property=cfg.property,
                           timeout=cfg.timeout,
-                          label=strategy_label))
+                          label=strategy_label,
+                          short_circuit=cfg.short_circuit))
 
     @abstractmethod
     def _preprocess(self, workload: Entry) -> None:
