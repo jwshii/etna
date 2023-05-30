@@ -7,6 +7,7 @@ from benchtool.Tasks import tasks
 
 # Section 4.1 (Comparing Frameworks)
 
+
 def collect(results: str, optimize: bool = True):
     tool = Haskell(results, replace_level=ReplaceLevel.SKIP)
 
@@ -40,16 +41,13 @@ def collect(results: str, optimize: bool = True):
                         trials = 10
 
                     # Don't compile tasks that are already completed.
-                    completed = f'{results}/completed.txt'
-                    if os.path.isfile(completed):
-                        with open(completed) as f:
-                            file = f'{workload.name},{strategy.name},{variant.name},{property}'
-                            if file in f.read():
-                                continue
+                    finished = set(os.listdir(results))
+                    file = f'{workload.name},{strategy.name},{variant.name},{property}'
+                    if f'{file}.json' in finished:
+                        continue
 
                     if not run_trial:
                         run_trial = tool.apply_variant(workload, variant)
-
 
                     cfg = TrialConfig(workload=workload,
                                       strategy=strategy.name,
@@ -59,6 +57,7 @@ def collect(results: str, optimize: bool = True):
                                       short_circuit=optimize)
 
                     run_trial(cfg)
+
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
