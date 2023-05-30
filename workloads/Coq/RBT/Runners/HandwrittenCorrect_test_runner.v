@@ -1,4 +1,4 @@
-From RedBlack Require Import HandwrittenCorrect.
+From RBT Require Import HandwrittenCorrect.
 From QuickChick Require Import QuickChick.
 Set Warnings "-extraction-opaque-accessed,-extraction".
 Axiom num_tests : nat. Extract Constant num_tests => "max_int".

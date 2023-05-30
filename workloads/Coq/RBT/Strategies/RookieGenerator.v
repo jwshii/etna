@@ -11,68 +11,35 @@ From Coq Require Import List.
 Import ListNotations.
 
 
-From RedBlack Require Import Impl Spec.
+From RBT Require Import Impl Spec.
 
-Open Scope Z_scope.
 
-Fixpoint genTree (lo hi : Z) (c : Color)  (f: nat) (h : nat) : G (option Tree) 
-:=
-if lo >? hi then ret None else
-match f with
-| S f' =>
-  match h, c with
-  | O, R => ret (Some E)
-  | O, B => oneOf [ ret (Some E)
-                        ; k <- choose (lo, hi) ;;
+Fixpoint genTree (lo hi : Z) (c : Color) (f : nat) (d: nat) : G (option Tree) := 
+    match d with 
+      | O => ret (Some E)
+      | S d' => freq [(1, ret (Some E));
+                      (9, c <- arbitrary ;;
+                          l <- genTree lo hi B 0 d' ;;
+                          k <- choose(lo, hi) ;;
                           v <- arbitrary ;;
-                          ret (Some (T R E k v E))]
-  | S h', R =>
-      let margin := (2^(2*(Z.of_nat h) - 1) - 1) in
-      if (lo + margin >? hi - margin) then  ret None else
-      c' <- ret B ;;
-      k <- choose (lo + margin, hi - margin) ;;
-      v <- arbitrary ;;
-      l <- genTree lo (k - 1)  B f' h' ;;
-      r <- genTree (k + 1) hi  B f' h' ;;
-       match l, r with
-      | Some tl, Some tr => ret (Some (T c' tl k v tr))
-      | _, _ => ret None
-      end
-          
-  | S h', B =>
-      let margin := (2^(2*(Z.of_nat h)) - 1) in
-      if (lo + margin >? hi - margin) then ret None else
-      c' <- arbitrary ;;
-      k <- choose (lo + margin, hi - margin) ;;
-      v <- arbitrary ;;
-      let h'' := match c' with R => h | B => h' end in
-      l <- genTree lo (k - 1) c' f' h'' ;;
-      r <- genTree (k + 1) hi c' f' h'' ;;
-      match l, r with
-      | Some tl, Some tr => ret (Some (T c' tl k v tr))
-      | _, _ => ret None
-      end
-  end
-| _ => ret None
-end.
-
-Axiom fuel : nat. Extract Constant fuel => "10000".
-
-Global Instance genTreeSized : GenSized (option Tree) :=
-{| arbitrarySized x := 
-    let y := Nat.min x 2 in
-      genTree 0 (2^(Z.of_nat(y)*2)) R fuel y |}.
-
-
-Definition gSized := 
-    x <- choose (0, 3)%nat;;
-    genTree 0 (2^(Z.of_nat(x)*2)) R fuel x
-.
+                          r <- genTree lo hi B 0 d' ;;
+                          match l, r with
+                          | Some l, Some r =>
+                              ret (Some (T c l k v r))
+                          | _, _ => ret None
+                          end
+                      )]
+    end.
+  
+  
+  Global Instance genTreeSized : GenSized (option Tree) :=
+    {| arbitrarySized x := sized (genTree 0 100 B 0) |}.
+  
 
 (* --------------------- Tests --------------------- *)
 
 Definition test_prop_InsertValid :=  
-    forAllMaybe gSized (fun t =>    
+    forAllMaybe arbitrary (fun t =>    
     forAll arbitrary (fun k =>
     forAll arbitrary (fun v =>
         (prop_InsertValid t k v)))).
@@ -80,14 +47,14 @@ Definition test_prop_InsertValid :=
 (*! QuickChick test_prop_InsertValid. *)
 
 Definition test_prop_DeleteValid :=  
-    forAllMaybe gSized (fun t =>    
+    forAllMaybe arbitrary (fun t =>    
     forAll arbitrary (fun k =>
         prop_DeleteValid t k)).
 
 (*! QuickChick test_prop_DeleteValid. *)
 
 Definition test_prop_InsertPost :=  
-    forAllMaybe gSized (fun t =>    
+    forAllMaybe arbitrary (fun t =>    
     forAll arbitrary (fun k =>
     forAll arbitrary (fun k' =>
      forAll arbitrary (fun v =>
@@ -96,7 +63,7 @@ Definition test_prop_InsertPost :=
 (*! QuickChick test_prop_InsertPost. *)
 
 Definition test_prop_DeletePost := 
-    forAllMaybe gSized (fun t =>    
+    forAllMaybe arbitrary (fun t =>    
     forAll arbitrary (fun k =>
     forAll arbitrary (fun k' =>
         prop_DeletePost t k k'))).
@@ -104,7 +71,7 @@ Definition test_prop_DeletePost :=
 (*! QuickChick test_prop_DeletePost. *)
     
 Definition test_prop_InsertModel :=  
-    forAllMaybe gSized (fun t =>    
+    forAllMaybe arbitrary (fun t =>    
     forAll arbitrary (fun k =>
     forAll arbitrary (fun v =>
         prop_InsertModel t k v))).
@@ -112,14 +79,14 @@ Definition test_prop_InsertModel :=
 (*! QuickChick test_prop_InsertModel. *)
     
 Definition test_prop_DeleteModel :=  
-    forAllMaybe gSized (fun t =>    
+    forAllMaybe arbitrary (fun t =>    
     forAll arbitrary (fun k =>
             prop_DeleteModel t k)).
 
 (*! QuickChick test_prop_DeleteModel. *)
 
 Definition test_prop_InsertInsert :=  
-    forAllMaybe gSized (fun t =>    
+    forAllMaybe arbitrary (fun t =>    
     forAll arbitrary (fun k =>
     forAll arbitrary (fun k' =>
     forAll arbitrary (fun v =>
@@ -129,7 +96,7 @@ Definition test_prop_InsertInsert :=
 (*! QuickChick test_prop_InsertInsert. *)
     
 Definition test_prop_InsertDelete := 
-    forAllMaybe gSized (fun t =>    
+    forAllMaybe arbitrary (fun t =>    
     forAll arbitrary (fun k =>
     forAll arbitrary (fun k' =>
     forAll arbitrary (fun v =>
@@ -138,7 +105,7 @@ Definition test_prop_InsertDelete :=
 (*! QuickChick test_prop_InsertDelete. *)
     
 Definition test_prop_DeleteInsert := 
-    forAllMaybe gSized (fun t =>    
+    forAllMaybe arbitrary (fun t =>    
     forAll arbitrary (fun k =>
     forAll arbitrary (fun k' =>
     forAll arbitrary (fun v' =>
@@ -147,7 +114,7 @@ Definition test_prop_DeleteInsert :=
 (*! QuickChick test_prop_DeleteInsert. *)
     
 Definition test_prop_DeleteDelete :=  
-    forAllMaybe gSized (fun t =>    
+    forAllMaybe arbitrary (fun t =>    
     forAll arbitrary (fun k =>
     forAll arbitrary (fun k' =>
         prop_DeleteDelete t k k'))).

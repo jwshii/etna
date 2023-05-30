@@ -20,10 +20,10 @@ Src/SingleStateArb.v
 Src/SSNI.v
 #SSNICheckerProofs.v
 Src/NotionsOfNI.v
-Methods/BespokeGenerator.v
-Methods/TypeBasedGenerator.v
-Methods/TypeBasedFuzzer.v
-Methods/VariationalFuzzer.v
+Strategies/BespokeGenerator.v
+Strategies/TypeBasedGenerator.v
+Strategies/TypeBasedFuzzer.v
+Strategies/VariationalFuzzer.v
 #Driver.v -- run `make tests` for this
 Runners/TypeBasedGenerator_test_runner.v
 Runners/BespokeGenerator_test_runner.v

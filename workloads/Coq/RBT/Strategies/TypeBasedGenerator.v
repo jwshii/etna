@@ -11,7 +11,7 @@ From Coq Require Import List.
 Import ListNotations.
 
 
-From RedBlack Require Import Impl Spec.
+From RBT Require Import Impl Spec.
 
 (* --------------------- Generator --------------------- *)
 

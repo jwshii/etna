@@ -15,7 +15,7 @@ Import ListNotations.
 
 Local Open Scope Z_scope.
 
-From RedBlack Require Import Impl.
+From RBT Require Import Impl.
 
 
 Fixpoint isBST (t: Tree) : bool :=
