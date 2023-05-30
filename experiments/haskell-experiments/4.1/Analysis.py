@@ -7,7 +7,7 @@ from functools import partial
 def analyze(results: str, images: str):
     df = parse_results(results)
     df['timeout'] = np.where(df['strategy'] == 'Lean', 10, 60)
-    df['foundbug'] = df['foundbug'] & (df['time'] < 60)
+    df['foundbug'] = df['foundbug'] & (df['time'] < df['timeout'])
 
     # Generate task bucket charts used in Figure 1.
     for workload in ['BST', 'RBT', 'STLC', 'FSUB']:
