@@ -58,9 +58,7 @@ Estimated times are rough estimates.
 
 We recommend briefly reading the setup described in the corresponding 
 experiment section in the paper to get a sense of what each experiment 
-is evaluating. We focus our explanations here on 1) how we scaled back
-the experiments and 2) which points to look out for when comparing the
-results you get with the results presented in the paper. 
+is evaluating, since we did not repeat that information here.
 
 #### Section 4.1: Comparing Frameworks.
 
