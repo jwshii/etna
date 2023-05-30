@@ -18,7 +18,7 @@ def collect(results: str, optimize: bool = True):
 
         tool._preprocess(workload)
 
-        tasks_json = json.load(open(f'experiments/coq-experiments/{workload}_tasks.json'))
+        tasks_json = json.load(open(f'experiments/coq-experiments/{workload.name}_tasks.json'))
 
         for variant in tool.all_variants(workload):
 
