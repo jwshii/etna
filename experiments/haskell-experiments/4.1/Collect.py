@@ -5,7 +5,7 @@ from benchtool.Haskell import Haskell
 from benchtool.Types import ReplaceLevel, TrialConfig
 from benchtool.Tasks import tasks
 
-# Section 4.1 (Comparing Frameworks)
+# Section 4.3 (Enumerator Sensitivity)
 
 
 def collect(results: str):
