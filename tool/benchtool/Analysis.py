@@ -10,6 +10,7 @@ from typing import Literal, Optional
 
 def parse_results(results: str) -> pd.DataFrame:
     entries = scandir_filter(results, os.path.isfile)
+    entries = [e for e in entries if e.path.endswith('.json')]
 
     df = pd.concat([pd.read_json(e.path, orient='records', typ='frame') for e in entries])
 
