@@ -22,7 +22,7 @@ def collect(results: str):
             run_trial = None
 
             for strategy in tool.all_strategies(workload):
-                if strategy.name != 'Small':
+                if strategy.name != 'SmallRev':
                     continue
 
                 for property in tool.all_properties(workload):
