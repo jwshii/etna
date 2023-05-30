@@ -12,7 +12,27 @@ def collect(results: str, optimize: bool = True):
 
     for workload in tool.all_workloads():
         tool._preprocess(workload)
-        break
+
+        for variant in tool.all_variants(workload):
+            if variant.name != 'insert_1':
+                continue
+
+            run_trial = tool.apply_variant(workload, variant, no_base=True)
+
+            for strategy in tool.all_strategies(workload):
+                if strategy.name not in ['TypeBasedGenerator']:
+                    continue
+
+                for property in tool.all_properties(workload):
+                    if property != 'test_prop_InsertPost':
+                        continue
+
+                    cfg = TrialConfig(workload=workload,
+                                      strategy=strategy.name,
+                                      property="test_" + property,
+                                      trials=10,
+                                      timeout=60)
+                    run_trial(cfg)
 
 
 if __name__ == "__main__":
