@@ -34,7 +34,7 @@ def overall_solved(df: pd.DataFrame,
     # Compute number of tasks where any / all trials were solved.
     df = df.groupby(['workload', 'strategy', 'task'], as_index=False).agg({'solved': agg})
     df['total'] = 1
-    df = df.groupby(['workload', 'strategy']).sum()
+    df = df.groupby(['workload', 'strategy']).sum(numeric_only=False)
 
     return df[['solved', 'total']]
 
