@@ -48,38 +48,52 @@ These steps should already be completed in the VM.
 
 ### Experiment Replication
 
-Running our experiments in full as we did originally for the paper 
-would take several days in total. As such, we offer scaled-down 
-versions that should demonstrate the same trends but take drastically 
-less time. The `Makefile` is configured to run these versions by default. 
-To instead run the full experiment, just add the `--full` flag.
+Some things to be aware of:
 
-Estimated times are rough estimates.
+- We recommend briefly reading the setup described in the corresponding 
+   experiment section in the paper to get a sense of what each experiment 
+   is evaluating, since we did not repeat that information here.
 
-We recommend briefly reading the setup described in the corresponding 
-experiment section in the paper to get a sense of what each experiment 
-is evaluating, since we did not repeat that information here.
+- Running our experiments in full as we did originally for the paper 
+   would take several days in total. As such, we offer scaled-down 
+   versions that should demonstrate the same trends but take drastically 
+   less time. The `Makefile` is configured to run these versions by default. 
+   To instead run the full experiment, just add the `--full` flag.
 
 #### Section 4.1: Comparing Frameworks.
 
-Estimated time for scaled-down experiment:
+Estimated time for scaled-down experiment: around 5 hours.
 
-Originally, we ran each strategy on each task for 10 trials, even 
-if the strategy could not solve the task. This is the most time 
-consuming component — running until the 65 second timeout repeatedly.
-So, the scaled-down version "short-circuits" as soon as a strategy fails.
-i.e., If QuickCheck fails to find the bug on the 3rd trial, the 4th 
-through 10th trials are not run.
+- Originally, we ran each strategy on each task for 10 trials, even 
+   if the strategy could not solve the task. This is the most time 
+   consuming component — running until the 65 second timeout repeatedly.
+   So, the scaled-down version "short-circuits" as soon as a strategy fails.
+   i.e., If QuickCheck fails to find the bug on the 3rd trial, the 4th 
+   through 10th trials are not run.
 
-This has no impact on the majority of the data collected and analyzed
-for this experiment, since we find a task to be (completely) solved 
-only if it was solved on all trials. The only piece that will be lost 
-is the discussion in lines 269 to 278 about partially solved tasks.    
+   This has no impact on the majority of the data collected and analyzed
+   for this experiment, since we find a task to be (completely) solved 
+   only if it was solved on all trials. The only piece that will be lost 
+   is the discussion in lines 269 to 278 about partially solved tasks.    
 
-Additionally, the scaled-down version only runs 1 trial for the
-deterministic strategies (LeanCheck and SmallCheck). We ran 10 trials
-in the original since there could be some small variations in time, 
-but for the purposes of this artifact we can just run 1 trial.
+- Additionally, the scaled-down version only runs 1 trial for the
+   deterministic strategies (LeanCheck and SmallCheck). We ran 10 trials
+   in the original since there could be some small variations in time, 
+   but for the purposes of this artifact we can just run 1 trial.
+
+One more thing to note:
+
+- The enumeration strategy `LeanCheck` is 
+   [documented](https://github.com/rudymatela/leancheck/blob/master/doc/memory-usage.md)
+   to be quite memory intensive. While we did not have problems on the 
+   (presumably more powerful) server we originally ran our experiments 
+   on, we observed while running our experiments on the VM that it would 
+   sometimes crash. 
+
+   We doubled the allotted memory in the `start.sh` file. If more crashes 
+   happen, please consider increasing the memory further. Please also note 
+   that our scripts are set up so that they should be easily resumable, 
+   where prior tasks will not be re-executed. 
 
 Run this to collect the data for this experiment:
 ```
@@ -99,33 +113,85 @@ Run this to analyze the data for this experiment:
 $ make analyze4.1
 ```
 
+Points of comparison with the paper:
+
+- Please view the charts in `figures/fig1`. There should be four
+   charts, named `BST`, `RBT`, `STLC`, `FSUB`. These charts correspond
+   with those depicted in Fig. 1 from the paper. 
+
+   These are task bucket charts (described in Section 2.4), where 
+   strategies with better bug-finding power will visually have a
+   darker color presence. For example, bespoke QuickCheck is 
+   especially fast, so there should be a nearly full black bar
+   in the fourth row of each chart. Naive SmallCheck is especially
+   slow, so there should be relatively little pink in each chart.
+
+- Mild deviations in the number of tasks in each bucket are to be 
+   expected: for example, a task that was solved in an average time 
+   < 0.1 seconds in the paper's results (the darkest bucket)
+   might be instead solved a little slower upon re-running (moving it
+   into a lighter bucket), both due to variations in machine speed
+   and the inherent randomness of some of the generation strategies.
+
+- In addition to the charts, we can compute the overall solve rates,
+   which are outputted as a table by the analyze script.
+
+   As mentioned in line 252, bespoke QuickCheck (the `Correct` strategy)
+   should solve all tasks. As mentioned in line 253, naive QuickCheck
+   (the `Quick` strategy) should fail to solve approximately 43 tasks. 
+
+   As mentioned in line 259, LeanCheck (`Lean`) and SmallCheck (`Small`)
+   should have approximately 82% and 35% solve rates, respectively.
+
+
 #### Section 4.2: Exploring Size Generation.
 
 Estimated time for scaled-down experiment: around 1.5 hours.
 
-While we originally ran 100 trials for each task, the analysis for
-the experiment only focuses on three tasks. So, this version runs the 
-full 100 trials for the three tasks and 10 trials for the other tasks.
+- While we originally ran 100 trials for each task, the analysis for
+   the experiment only focuses on three tasks. So, this version runs the 
+   full 100 trials for the three tasks and 10 trials for the other tasks.
  
-Commands are the same as 4.1 but with 4.2 instead, e.g. 
+Commands are the same as before but with 4.2 instead, e.g. 
 ```
 $ make collect4.2
 $ make analyze4.2
 ```
 
-Please view the chart `figures/figure2.png`. This should resemble
-Fig. 2 from the paper, though with colors instead of numbered labels.
+Points of comparison with the paper:
 
-As in the paper, the task #1 trendline (red) should have the steepest
-upward trajectory. The task #2 trendline (green) should also go up,
-but less steeply. The task #3 trendline (blue) should be mostly flat
-and near the y-axis.
+- Please view the chart `figures/figure2.png`. This should resemble
+   Fig. 2 from the paper, though with colors instead of numbered labels.
 
-Note that the precise y-axis numbers may differ from the paper — there
-is variance due to the random nature of these generation strategies. 
-However, the relative trends described above should hold.
+   As in the paper, the task #1 trendline (red) should have the steepest
+   upward trajectory. The task #2 trendline (green) should also go up,
+   but less steeply. The task #3 trendline (blue) should be mostly flat
+   and near the y-axis.
+
+- Note that the precise y-axis numbers may differ from the paper — there
+   is variance due to the random nature of these generation strategies. 
+   However, the relative trends described above should hold.
 
 #### Section 4.3: Enumerator Sensitivity.
+
+Estimated time for scaled-down experiment:
+
+- The key result and ensuing discussion is about the observation that 
+   SmallCheck is very sensitive to a reversal of the parameter orders, so 
+   in the scaled-down version, we run only for SmallCheck (and not LeanCheck).
+
+- As before, we run only 1 trial since it is deterministic.
+
+Commands are the same as before but with 4.3 instead, e.g. 
+```
+$ make collect4.3
+$ make analyze4.3
+```
+Please note that the collection script for this experiment generates
+only the new data needed; the analysis script will draw upon some of
+the data collected for SmallCheck in 4.1.
+
+[TODO].
 
 ## QEMU Instructions
 
