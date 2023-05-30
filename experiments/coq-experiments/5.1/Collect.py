@@ -4,7 +4,6 @@ import os
 
 from benchtool.Coq import Coq
 from benchtool.Types import TrialConfig, ReplaceLevel
-import itertools
 
 
 def collect(results: str, optimize: bool = True):
@@ -14,24 +13,41 @@ def collect(results: str, optimize: bool = True):
     tool = Coq(results=results, replace_level=ReplaceLevel.SKIP)
 
     for workload in tool.all_workloads():
-        if workload.name not in ['BST']:
+        if workload.name not in ['BST', 'RBT', 'STLC']:
             continue
 
         tool._preprocess(workload)
 
+        tasks_json = json.load(open(f'experiments/coq-experiments/{workload}_tasks.json'))
+
         for variant in tool.all_variants(workload):
-            if variant.name != 'insert_1':
+
+            if variant.name == 'base':
                 continue
 
-            run_trial = tool.apply_variant(workload, variant, no_base=True)
+            run_trial = None
 
             for strategy in tool.all_strategies(workload):
-                if strategy.name not in ['TypeBasedGenerator']:
+                if strategy.name not in [
+                        'TypeBasedGenerator', 'BespokeGenerator', 'TypeBasedFuzzer',
+                        'SpecificationBasedGenerator'
+                ]:
                     continue
 
                 for property in tool.all_properties(workload):
-                    if property != 'prop_InsertPost':
+                    property = 'test_' + property
+                    if tasks_json['tasks'] and property not in tasks_json['tasks'][variant.name]:
+                        print("SKIPPING", variant.name, property)
                         continue
+
+                    # Don't compile tasks that are already completed.
+                    finished = set(os.listdir(results))
+                    file = f'{workload.name},{strategy.name},{variant.name},{property}'
+                    if f'{file}.json' in finished:
+                        continue
+
+                    if not run_trial:
+                        run_trial = tool.apply_variant(workload, variant, no_base=True)
 
                     cfg = TrialConfig(workload=workload,
                                       strategy=strategy.name,
