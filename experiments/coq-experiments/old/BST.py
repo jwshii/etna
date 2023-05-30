@@ -20,20 +20,27 @@ methods = list(method for method in tool.all_methods(bench) if method.name == 'T
 cfg = json.load(open(f'experiments/coq-experiments/BinarySearchTree_exp_cfg.json'))
 tasks = cfg['tasks']
 finished = set(os.listdir(RESULTS))
-all_tasks = set(map(lambda vpm: f"BinarySearchTree,{vpm[2].name},{vpm[0].name},test_{vpm[1]}.json" if f"test_{vpm[1]}" in tasks[vpm[0].name] else None, itertools.product(variants, properties, methods)))
+all_tasks = set(
+    map(
+        lambda vpm: f"BinarySearchTree,{vpm[2].name},{vpm[0].name},test_{vpm[1]}.json"
+        if f"test_{vpm[1]}" in tasks[vpm[0].name] else None,
+        itertools.product(variants, properties, methods)))
 all_tasks.remove(None)
 remaining_tasks = all_tasks - finished
 remaining_variants = list(set(map(lambda e: e.split(".json")[0].split(",")[2], remaining_tasks)))
 
-for variant in (variant for variant in tool.all_variants(bench) if ((variant.name in tasks.keys()) and (variant.name in remaining_variants))):
+for variant in (variant for variant in tool.all_variants(bench)
+                if ((variant.name in tasks.keys()) and (variant.name in remaining_variants))):
     run_trial = tool.apply_variant(bench, variant, no_base=True)
-    for property in (property for property in tool.all_properties(bench) if "test_" + property in tasks[variant.name]):
+    for property in (property for property in tool.all_properties(bench)
+                     if "test_" + property in tasks[variant.name]):
         print(f'Running {variant.name} {property}...')
-        for method in (method for method in tool.all_methods(bench) if method.name == 'TypeBasedFuzzer'):
+        for method in (
+                method for method in tool.all_methods(bench) if method.name == 'TypeBasedFuzzer'):
             cfg = TrialConfig(bench=bench,
-                            method=method.name,
-                            label=method.name,
-                            property="test_" + property,
-                            trials=10,
-                            timeout=40)
+                              method=method.name,
+                              label=method.name,
+                              property="test_" + property,
+                              trials=10,
+                              timeout=40)
             run_trial(cfg)

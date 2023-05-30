@@ -74,7 +74,7 @@ class Coq(BenchTool):
             cmd = ['./main_exec', f'./qc_exec {params.property}']
             results = []
             self._log(
-                f"Running {params.workload},{params.strategy},{params.variant},{params.property}",
+                f"Running {params.workload},{params.strategy},{params.mutant},{params.property}",
                 LogLevel.INFO)
             for _ in range(params.trials):
                 try:
@@ -155,7 +155,7 @@ class Coq(BenchTool):
             cmd = [f"./{params.strategy}_test_runner.native", params.property]
             results = []
             self._log(
-                f"Running {params.workload},{params.strategy},{params.variant},{params.property}",
+                f"Running {params.workload},{params.strategy},{params.mutant},{params.property}",
                 LogLevel.INFO)
             for _ in range(params.trials):
                 trial_result = {

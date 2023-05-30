@@ -11,6 +11,9 @@ def collect(results: str, optimize: bool = True):
     tool = Coq(results=results, replace_level=ReplaceLevel.SKIP)
 
     for workload in tool.all_workloads():
+        if workload.name not in ['BST']:
+            continue
+
         tool._preprocess(workload)
 
         for variant in tool.all_variants(workload):
@@ -24,7 +27,7 @@ def collect(results: str, optimize: bool = True):
                     continue
 
                 for property in tool.all_properties(workload):
-                    if property != 'test_prop_InsertPost':
+                    if property != 'prop_InsertPost':
                         continue
 
                     cfg = TrialConfig(workload=workload,
