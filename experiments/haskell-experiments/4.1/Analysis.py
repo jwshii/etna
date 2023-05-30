@@ -22,7 +22,7 @@ def analyze(results: str, images: str):
 
     # Compute solve rates.
     dfa = overall_solved(df, 'all').reset_index()
-    dfa = dfa.groupby('strategy').sum()
+    dfa = dfa.groupby('strategy').sum(numeric_only=False)
     dfa['percent'] = dfa['solved'] / dfa['total']
     print(dfa)
 
