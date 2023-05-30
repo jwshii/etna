@@ -51,7 +51,7 @@ def collect(results: str, optimize: bool = True):
 
                     cfg = TrialConfig(workload=workload,
                                       strategy=strategy.name,
-                                      property='test_' + property,
+                                      property=property,
                                       trials=10,
                                       timeout=60)
                     run_trial(cfg)
