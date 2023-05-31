@@ -1,8 +1,8 @@
 default:
 
 install:
-	python3 -m pip install -r tool/requirements.txt; \
-	python3 -m pip install -e tool
+	python -m pip install -r tool/requirements.txt; \
+	python -m pip install -e tool
 
 uninstall:
 	python3 -m pip uninstall benchtool
@@ -32,4 +32,16 @@ analyze4.2:
 
 collect5.1:
 	mkdir -p $(DATA)/5.1
-	python3 experiments/coq-experiments/5.1/Collect.py --data=$(DATA)/5.1
+	python experiments/coq-experiments/5.1/Collect.py --data=$(DATA)/5.1
+
+collect5.2:
+	mkdir -p $(DATA)/5.2/fixed
+	mkdir -p $(DATA)/5.2/fix-reverted
+	git -C ../QuickChick switch etna-experiment-5.2
+	make -C ../QuickChick clean
+	make -C ../QuickChick install
+	python experiments/coq-experiments/5.2/Collect.py --data=$(DATA)/5.2/fix-reverted
+	git -C ../QuickChick switch etna
+	make -C ../QuickChick clean
+	make -C ../QuickChick install
+	python experiments/coq-experiments/5.2/Collect.py --data=$(DATA)/5.2/fixed
