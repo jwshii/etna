@@ -1,8 +1,8 @@
 default:
 
 install:
-	python -m pip install -r tool/requirements.txt; \
-	python -m pip install -e tool
+	python3 -m pip install -r tool/requirements.txt; \
+	python3 -m pip install -e tool
 
 uninstall:
 	python3 -m pip uninstall benchtool
