@@ -71,14 +71,14 @@ Some things to be aware of:
 
 #### Section 4.1: Comparing Frameworks.
 
-Estimated time for scaled-down experiment: around 5 hours.
+Estimated time for scaled-down experiment: around 4 hours.
 
 -   Originally, we ran each strategy on each task for 10 trials, even
     if the strategy could not solve the task. This is the most time
     consuming component — running until the 65 second timeout repeatedly.
     So, the scaled-down version "short-circuits" as soon as a strategy fails.
-    i.e., If QuickCheck fails to find the bug on the 3rd trial, the 4th
-    through 10th trials are not run.
+    i.e., If QuickCheck times out on the 3rd trial, the 4th through 10th 
+    trials are not run.
 
     This has no impact on the majority of the data collected and analyzed
     for this experiment, since we find a task to be (completely) solved
@@ -90,13 +90,7 @@ Estimated time for scaled-down experiment: around 5 hours.
     in the original since there could be some small variations in time,
     but for the purposes of this artifact we can just run 1 trial.
 
-Two more things to note:
-
--   For some strategies, the termination signal after timeout causes the
-    strategy to error out, which it counts as "finding the bug." To avoid
-    this issue, in several places we add a few seconds to the timeout when
-    collecting the data and use the real timeout when analyzing the data.
-    (Just an FYI in case you are confused when you look at the scripts.)
+One more thing to note:
 
 -   The enumeration strategy LeanCheck is
     [documented](https://github.com/rudymatela/leancheck/blob/master/doc/memory-usage.md)
@@ -134,6 +128,8 @@ $ make analyze4.1
 
 Points of comparison with the paper:
 
+Figure 1.
+
 -   Please view the charts in `figures/fig1`. There should be four
     charts, named `BST`, `RBT`, `STLC`, `FSUB`. These charts correspond
     with those depicted in Fig. 1 from the paper.
@@ -146,23 +142,30 @@ Points of comparison with the paper:
     slow, so there should be relatively little pink in each chart.
 
 -   Mild deviations in the number of tasks in each bucket are to be
-    expected: for example, a task that was solved in an average time
-    < 0.1 seconds in the paper's results (the darkest bucket)
-    might be instead solved a little slower upon re-running (moving it
-    into a lighter bucket), both due to variations in machine speed
-    and the inherent randomness of some of the generation strategies.
+    expected, both due to variations in machine speed and the 
+    inherent randomness of some of the generation strategies.
 
--   As mentioned above, the scaled-down version
+-   As mentioned above, the artifact version runs LeanCheck for only 
+    10 seconds, so for `FSUB.png`, we expect not to see the faint
+    purple tasks and instead to see around 14 unsolved tasks.
 
--   In addition to the charts, we can compute the overall solve rates,
-    which are outputted as a table by the analyze script.
+Observation —
+"The bespoke strategy outperforms the naive strategies along multiple axes."
+
+-   We also print a table of solve rates.
 
     As mentioned in line 252, bespoke QuickCheck (the `Correct` strategy)
     should solve all tasks. As mentioned in line 253, naive QuickCheck
     (the `Quick` strategy) should fail to solve approximately 43 tasks.
 
-    As mentioned in line 259, LeanCheck (`Lean`) and SmallCheck (`Small`)
-    should have approximately 82% and 35% solve rates, respectively.
+-   [TODO: Mann-Whitney]
+
+Observation —
+"LeanCheck substantially outperforms SmallCheck."
+
+-   As mentioned in line 259, SmallCheck (`Small`) should have around a
+    35% solve rate. LeanCheck (`Lean`) would normally have a 82% solve 
+    rate, but because of the adjusted timeout, we expect around 76% instead.
 
 #### Section 4.2: Exploring Size Generation.
 
@@ -195,11 +198,11 @@ Points of comparison with the paper:
 
 #### Section 4.3: Enumerator Sensitivity.
 
-Estimated time for scaled-down experiment:
+Estimated time for scaled-down experiment: around 1 hour.
 
 -   The key result and ensuing discussion is about the observation that
     SmallCheck is very sensitive to a reversal of the parameter orders, so
-    in the scaled-down version, we run only for SmallCheck (and not LeanCheck).
+    in the scaled-down version, we run only SmallCheck.
 
 -   As before, we run only 1 trial since it is deterministic.
 
@@ -214,11 +217,22 @@ Please note that the collection script for this experiment generates
 only the new data needed; the analysis script will draw upon some of
 the data collected for SmallCheck in 4.1.
 
-[TODO].
+Points of comparison with the paper:
 
-### Section 5.1: Comparison of Fuzzers, Derived Generators, and Handwritten Generators.
+-
 
-Estimated time for scaled-down experiment:
+
+#### Section 5.1: Comparison of Fuzzers, Derived Generators, and Handwritten Generators.
+
+Estimated time for scaled-down experiment: 1 +
+
+- Analagously to in 4.1, we short-circuit the 10 trials as soon 
+  as a timeout is encountered. This will not have an effect on 
+  the bulk of the data for this experiment, with the exception 
+  of no longer being able to generate Fig. 4, which deals with
+  partially solved tasks.
+
+#### Section 5.2:
 
 ## QEMU Instructions
 
