@@ -214,7 +214,14 @@ for SmallCheck in 4.1.
 
 Points of comparison with the paper:
 
--
+-   The analysis script will output several pices of information. First, the
+    number of tasks solved by SmallCheck in the original but not in the reversed
+    should be 0.
+
+-   Second, the number of tasks solved in the reversed but not in the original
+    should be 17 (line 389). The times to failure for these tasks are also
+    printed in the table. These times should be fairly low — many will be less
+    than 1 second.
 
 #### Section 5.1: Comparison of Fuzzers, Derived Generators, and Handwritten Generators.
 
@@ -225,7 +232,21 @@ Estimated time for scaled-down experiment: 3 +
     this experiment, with the exception of no longer being able to generate Fig.
     4, which deals with partially solved tasks.
 
-#### Section 5.2:
+Please run this command, which will check that the correct branch of
+`QuickChick` is installed (and install it if not).
+
+```
+$
+```
+
+Other commands are the same as before but with 5.1 instead, e.g.
+
+```
+$ make collect5.1
+$ make analyze5.1
+```
+
+#### Section 5.2: Validation and Improvement of Fuzzers
 
 ## QEMU Instructions
 
