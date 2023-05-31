@@ -37,3 +37,5 @@ bin/
 **/Coq/**.mli
 
 tui
+
+data/**

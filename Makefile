@@ -45,3 +45,15 @@ collect5.1:
 analyze5.1:
 	mkdir -p $(FIGURES)
 	python3 experiments/coq-experiments/5.1/Analysis.py --data=$(DATA)/5.1 --figures=$(FIGURES)/fig2
+
+collect5.2:
+	mkdir -p $(DATA)/5.2/fixed
+	mkdir -p $(DATA)/5.2/fix-reverted
+	git -C ../QuickChick switch etna-experiment-5.2
+	make -C ../QuickChick clean
+	make -C ../QuickChick install
+	python3 experiments/coq-experiments/5.2/Collect.py --data=$(DATA)/5.2/fix-reverted
+	git -C ../QuickChick switch etna
+	make -C ../QuickChick clean
+	make -C ../QuickChick install
+	python3 experiments/coq-experiments/5.2/Collect.py --data=$(DATA)/5.2/fixed
