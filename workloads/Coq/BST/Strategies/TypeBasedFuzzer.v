@@ -24,7 +24,7 @@ Derive (Arbitrary, Show, Sized, Fuzzy) for Tree.
 (* ManualExtract Tree. *)
 
 (* QuickChickDebug Debug On. *)
-(*|num_tests|*) Axiom num_tests : nat. Extract Constant num_tests => "max_int".
+Axiom num_tests : nat. Extract Constant num_tests => "max_int".
 
 Definition test_prop_InsertValid (tkv: (Tree * nat * nat)) :=
   let '(t, k, v) := tkv in

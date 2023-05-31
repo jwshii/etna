@@ -39,7 +39,7 @@ ManualExtract Variation. *)
 Definition test_propSSNI_smart (v: @Variation SState) :=
     propSSNI_smart default_table v.
 
-(*|num_tests|*) Axiom num_tests : nat. Extract Constant num_tests => "max_int".
+Axiom num_tests : nat. Extract Constant num_tests => "max_int".
 
 Definition gen_variation_copy : G (@Variation SState) :=
   bindGen arbitrary (fun l  =>
