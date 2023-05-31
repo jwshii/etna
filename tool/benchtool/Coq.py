@@ -121,8 +121,8 @@ class Coq(BenchTool):
 
                 except subprocess.TimeoutExpired as e:
                     shm_id = int(e.stdout.decode("utf-8").split("|?SHM ID: ")[1].split("?|")[0])
-
-                    libc = ctypes.CDLL("/usr/lib/libc.dylib")
+                    
+                    libc = ctypes.CDLL('libc.so.6')
                     self._log(f"Releasing Shared Memory: {libc.shmctl(int(shm_id), 0, 0)}",
                               LogLevel.INFO)
                     self._log(f"Released Shared Memory with ID: {shm_id}", LogLevel.INFO)
@@ -193,7 +193,7 @@ class Coq(BenchTool):
                     trial_result["passed"] = 0
                     trial_result["time"] = params.timeout
                     self._log(f"{params.strategy} Result: Timeout", LogLevel.INFO)
-                
+
                 results.append(trial_result)
                 if params.short_circuit and trial_result['time'] == params.timeout:
                     break
