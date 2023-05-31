@@ -121,8 +121,8 @@ class Coq(BenchTool):
 
                 except subprocess.TimeoutExpired as e:
                     shm_id = int(e.stdout.decode("utf-8").split("|?SHM ID: ")[1].split("?|")[0])
-
-                    libc = ctypes.CDLL("/usr/lib/libc.dylib")
+                    
+                    libc = ctypes.CDLL('libc.so.6')
                     self._log(f"Releasing Shared Memory: {libc.shmctl(int(shm_id), 0, 0)}",
                               LogLevel.INFO)
                     self._log(f"Released Shared Memory with ID: {shm_id}", LogLevel.INFO)
@@ -142,7 +142,7 @@ class Coq(BenchTool):
                     trial_result["time"] = -1
 
                 results.append(trial_result)
-                if trial_result['time'] == params.timeout:
+                if params.short_circuit and trial_result['time'] == params.timeout:
                     break
                 elif trial_result['time'] == -1:
                     self._log(f"Exiting due to erroneous trial", LogLevel.ERROR)
@@ -193,7 +193,10 @@ class Coq(BenchTool):
                     trial_result["passed"] = 0
                     trial_result["time"] = params.timeout
                     self._log(f"{params.strategy} Result: Timeout", LogLevel.INFO)
+
                 results.append(trial_result)
+                if params.short_circuit and trial_result['time'] == params.timeout:
+                    break
 
             json.dump(results, open(params.file, 'w'))
 
@@ -222,7 +225,7 @@ class Coq(BenchTool):
     def _get_fuzzer_build_command(self, fuzzer: str) -> str:
         qc_path = os.environ['OPAM_SWITCH_PREFIX'] + '/lib/coq/user-contrib/QuickChick'
         fuzzer_build_command = (
-            f"ocamlfind ocamlopt -ccopt -Wno-error=implicit-function-declaration -afl-instrument -linkpkg -package unix -package str -package coq-core.plugins.extraction -package coq-quickchick.plugin -thread -rectypes -w a -o ./qc_exec ./{fuzzer}_test_runner_ext.ml {qc_path}/SHM.c",
+            f"ocamlfind ocamlopt -ccopt -Wno-error=implicit-function-declaration -afl-instrument -linkpkg -package unix -package str -package coq-core.plugins.extraction -thread -rectypes -w a -o ./qc_exec ./{fuzzer}_test_runner_ext.ml {qc_path}/SHM.c",
             f"ocamlfind ocamlopt -ccopt -Wno-error=implicit-function-declaration -linkpkg -package unix -package str -rectypes -w a -I . -o main_exec {qc_path}/Main.ml {qc_path}/SHM.c",
             f"{qc_path}/cmdprefix.pl {fuzzer}_test_runner_ext.ml",
             f"{qc_path}/cmdsuffix.pl {fuzzer}_test_runner_ext.ml")

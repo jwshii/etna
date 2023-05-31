@@ -1,5 +1,4 @@
 from benchtool.Analysis import *
-from Plot import *
 from functools import partial
 
 RESULTS = '../qcb-results/final/exp3'

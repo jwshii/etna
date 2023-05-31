@@ -30,9 +30,22 @@ analyze4.2:
 	mkdir -p $(FIGURES)
 	python3 experiments/haskell-experiments/4.2/Analysis.py --data=$(DATA)/4.2 --figures=$(FIGURES)
 
+collect4.3:
+	mkdir -p $(DATA)/4.3
+	python3 experiments/haskell-experiments/4.3/Collect.py --data=$(DATA)/4.3
+
+analyze4.3:
+	mkdir -p $(FIGURES)
+	python3 experiments/haskell-experiments/4.3/Analysis.py --data=$(DATA)/4.3 --figures=$(FIGURES)
+
 collect5.1:
 	mkdir -p $(DATA)/5.1
-	python experiments/coq-experiments/5.1/Collect.py --data=$(DATA)/5.1
+	python3 experiments/coq-experiments/5.1/Collect.py --data=$(DATA)/5.1
+	python3 experiments/coq-experiments/5.1/CollectIFC.py --data=$(DATA)/5.1
+
+analyze5.1:
+	mkdir -p $(FIGURES)
+	python3 experiments/coq-experiments/5.1/Analysis.py --data=$(DATA)/5.1 --figures=$(FIGURES)/fig2
 
 collect5.2:
 	mkdir -p $(DATA)/5.2/fixed
@@ -40,8 +53,8 @@ collect5.2:
 	git -C ../QuickChick switch etna-experiment-5.2
 	make -C ../QuickChick clean
 	make -C ../QuickChick install
-	python experiments/coq-experiments/5.2/Collect.py --data=$(DATA)/5.2/fix-reverted
+	python3 experiments/coq-experiments/5.2/Collect.py --data=$(DATA)/5.2/fix-reverted
 	git -C ../QuickChick switch etna
 	make -C ../QuickChick clean
 	make -C ../QuickChick install
-	python experiments/coq-experiments/5.2/Collect.py --data=$(DATA)/5.2/fixed
+	python3 experiments/coq-experiments/5.2/Collect.py --data=$(DATA)/5.2/fixed
