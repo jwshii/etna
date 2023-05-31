@@ -34,7 +34,6 @@ def collect(results: str):
                 for property in tool.all_properties(workload):
                     property = 'test_' + property
                     if tasks_json['tasks'] and property not in tasks_json['tasks'][variant.name]:
-                        print("SKIPPING", variant.name, property)
                         continue
 
                     # Don't compile tasks that are already completed.
