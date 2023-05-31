@@ -21,7 +21,7 @@ Derive (Arbitrary, Fuzzy) for Expr.
 (* ManualExtract Expr.
 ManualExtract Typ. *)
 
-Axiom num_tests : nat. Extract Constant num_tests => "max_int".
+(*|toggle|*)Axiom num_tests : nat. Extract Constant num_tests => "max_int".
 
 Definition test_prop_SinglePreserve (e: Expr) :=
     prop_SinglePreserve e.

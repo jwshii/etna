@@ -1,5 +1,5 @@
-max_int_version = 'Axiom num_tests : nat. Extract Constant num_tests => "max_int".'
-small_int_version = 'Axiom num_tests : nat. Extract Constant num_tests => "100000".'
+max_int_version = '(*|toggle|*)Axiom num_tests : nat. Extract Constant num_tests => "max_int".'
+small_int_version = '(*|toggle|*)Axiom num_tests : nat. Extract Constant num_tests => "100000".'
 
 # Look at all that has .v output, change max_int_version with small_int_version
 import glob
