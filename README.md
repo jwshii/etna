@@ -56,8 +56,8 @@ Please see `DOCUMENTATION.md` to learn more about these details.
 
 3. For Coq, we need a newer version of QuickChick. Clone the repo
    [here](https://github.com/QuickChick/QuickChick), checkout the
-   `pbt-benchmark` branch, and follow the instructions for installing from
-   source, including `make install` and `make install-fuzzer`.
+   `etna` branch, and follow the instructions for installing from
+   source, including `make install` and `make install-fuzz`.
 
 ### Experiment Reproduction
 
