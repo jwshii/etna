@@ -1,6 +1,6 @@
-
 import os
 import sys
+
 qc_path = os.environ['OPAM_SWITCH_PREFIX'] + '/lib/coq/user-contrib/QuickChick'
 
 try:

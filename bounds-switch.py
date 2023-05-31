@@ -1,7 +1,3 @@
-
-
-
-
 max_int_version = '(*|num_tests|*)Axiom num_tests : nat. Extract Constant num_tests => "max_int".'
 small_int_version = '(*|num_tests|*)Axiom num_tests : nat. Extract Constant num_tests => "100000".'
 
