@@ -267,7 +267,8 @@ Estimated time for scaled-down experiment:
 
 One of the strategies in this experiment uses an older (and worse) version of
 QuickChick, since the purpose of the experiment is to notice how the changes to
-the implementation improved the bug-finding performance.
+the implementation improved the bug-finding performance. (There is also a 
+change to the max bound on the number of tests, which the script will apply for you, since this older version had overflow problems.)
 
 To switch to this older version, run
 
