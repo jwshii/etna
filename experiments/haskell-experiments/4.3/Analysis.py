@@ -1,42 +1,44 @@
+import argparse
 from benchtool.Analysis import *
-from functools import partial
-
-RESULTS = '../qcb-results/final/exp3'
-df = parse_results(RESULTS)
-df['foundbug'] = df['foundbug'] & (df['time'] < 60)
-
-# for benches in [('trees', ['BST', 'RBT']), ('langs', ['STLC', 'FSUB'])]:
-#     times = partial(stacked_barchart_times,
-#                     case=benches[0],
-#                     df=df[df['bench'].isin(benches[1])],
-#                     show=False)
-#     times(methods=['SmallRev', 'Small', 'LeanRev', 'Lean'],
-#           colors=['#D61C4E', '#D61C4E', '#6D0E56', '#6D0E56'],
-#           limits=[0.1, 1, 10, 60],
-#           save='revs')
-
-df = df[df['bench'].isin(['BST', 'RBT'])]
+from benchtool.Plot import *
 
 
-def solved_by(df, method: str, agg='all'):
-    df = df.groupby(['bench', 'method', 'task'], as_index=False).agg({'foundbug': agg})
-    return list(df[(df['method'] == method) & df['foundbug']]['task'])
+def analyze(results: str, original: str):
+    dfsc = parse_results(original)
+    dfsc = dfsc[(dfsc['strategy'] == 'Small') & (dfsc['workload'].isin(['BST', 'RBT']))]
+
+    df = parse_results(results)
+    df = pd.concat([df, dfsc])
+    df['foundbug'] = df['foundbug'] & (df['time'] < 60)
+
+    smallonly = solved_by_one(df, 'Small', 'SmallRev')
+    print('Number of tasks solved by SmallCheck in original order but not reversed order:')
+    print(len(smallonly))
+
+    revonly = solved_by_one(df, 'SmallRev', 'Small')
+    print('Number of tasks solved by SmallCheck in reversed order but not original order:')
+    print(len(revonly))
+
+    print('Times to failure for these tasks:')
+    dfrev = df[(df['strategy'] == 'SmallRev') & (df['task'].isin(revonly))]
+    print(dfrev[['strategy', 'task', 'time']])
 
 
-def oneorder(df, method: str):
-    return [t for t in solved_by(df, f'{method}Rev') if t not in solved_by(df, method)]
+def solved_by(df, strategy: str):
+    df = df.groupby(['workload', 'strategy', 'task'], as_index=False).agg({'foundbug': 'all'})
+    return list(df[(df['strategy'] == strategy) & df['foundbug']]['task'])
 
 
-assert (len([t for t in solved_by(df, 'Lean') if t not in solved_by(df, 'LeanRev')]) == 0)
-assert (len([t for t in solved_by(df, 'Small') if t not in solved_by(df, 'SmallRev')]) == 0)
+def solved_by_one(df, strat1: str, strat2: str):
+    return [t for t in solved_by(df, strat1) if t not in solved_by(df, strat2)]
 
-leanonly = oneorder(df, 'Lean')
-smallonly = oneorder(df, 'Small')
 
-dfsc = df[(df['method'] == 'SmallRev') & (df['task'].isin(smallonly))]
-dfsc = dfsc.groupby('task').mean()
-print(dfsc)
+if __name__ == "__main__":
+    p = argparse.ArgumentParser()
+    p.add_argument('--data', help='path to folder for JSON data')
+    p.add_argument('--original', help='path to folder for JSON data (original SmallCheck results)')
+    args = p.parse_args()
 
-dflc = df[(df['method'] == 'LeanRev') & (df['task'].isin(leanonly))]
-dflc = dflc.groupby('task').mean()
-print(dflc)
+    results_path = f'{os.getcwd()}/{args.data}'
+    original_path = f'{os.getcwd()}/{args.original}'
+    analyze(results_path, original_path)

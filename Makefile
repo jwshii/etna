@@ -35,8 +35,7 @@ collect4.3:
 	python3 experiments/haskell-experiments/4.3/Collect.py --data=$(DATA)/4.3
 
 analyze4.3:
-	mkdir -p $(FIGURES)
-	python3 experiments/haskell-experiments/4.3/Analysis.py --data=$(DATA)/4.3 --figures=$(FIGURES)
+	python3 experiments/haskell-experiments/4.3/Analysis.py --data=$(DATA)/4.3 --original=$(DATA)/4.1
 
 collect5.1:
 	mkdir -p $(DATA)/5.1

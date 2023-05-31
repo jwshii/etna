@@ -40,14 +40,12 @@ These steps should already be completed in the VM.
     $ stack ghci src/Impl.hs
     ```
 
-    Doing this for the first time will force `stack` to
-    install GHC 9.0.2 and the required packages.
+    Doing this for the first time will force `stack` to install GHC 9.0.2 and the required packages.
 
-3. For Coq, we need a newer version of QuickChick. Clone
-   the repo [here](https://github.com/QuickChick/QuickChick),
-   checkout the `pbt-benchmark` branch, and follow the
-   instructions for installing from source, including
-   `make install` and `make install-fuzzer`.
+3. For Coq, we need a newer version of QuickChick. Clone the repo
+   [here](https://github.com/QuickChick/QuickChick), checkout the
+   `pbt-benchmark` branch, and follow the instructions for installing from
+   source, including `make install` and `make install-fuzzer`.
 
 ### Orientation
 
@@ -58,37 +56,35 @@ These steps should already be completed in the VM.
 Some things to be aware of:
 
 -   We recommend briefly reading the setup described in the corresponding
-    experiment section in the paper to get a sense of what each experiment
-    is evaluating, since we did not repeat that information here.
+    experiment section in the paper to get a sense of what each experiment is evaluating, since we did not repeat that information here.
 
--   Running our experiments in full as we did originally for the paper
-    would take several days in total. As such, we offer scaled-down
-    versions that should demonstrate the same trends but take drastically
-    less time. The `Makefile` is configured to run these versions by default.
+-   Running our experiments in full as we did originally for the paper would
+    take several days in total. As such, we offer scaled-down versions that
+    should demonstrate the same trends but take drastically less time. The
+    `Makefile` is configured to run these versions by default.
 
--   Experiment scripts should be easily resumable; data will not be
-    re-collected unless it is deleted.
+-   Experiment scripts should be easily resumable; data will not be re-collected
+    unless it is deleted.
 
 #### Section 4.1: Comparing Frameworks.
 
 Estimated time for scaled-down experiment: around 4 hours.
 
--   Originally, we ran each strategy on each task for 10 trials, even
-    if the strategy could not solve the task. This is the most time
-    consuming component — running until the 65 second timeout repeatedly.
-    So, the scaled-down version "short-circuits" as soon as a strategy fails.
-    i.e., If QuickCheck times out on the 3rd trial, the 4th through 10th 
-    trials are not run.
+-   Originally, we ran each strategy on each task for 10 trials, even if the
+    strategy could not solve the task. This is the most time consuming component
+    — running until the 65 second timeout repeatedly. So, the scaled-down
+    version "short-circuits" as soon as a strategy fails. i.e., If QuickCheck
+    times out on the 3rd trial, the 4th through 10th trials are not run.
 
-    This has no impact on the majority of the data collected and analyzed
-    for this experiment, since we find a task to be (completely) solved
-    only if it was solved on all trials. The only piece that will be lost
-    is the discussion in lines 269 to 278 about partially solved tasks.
+    This has no impact on the majority of the data collected and analyzed for
+    this experiment, since we find a task to be (completely) solved only if it
+    was solved on all trials. The only piece that will be lost is the discussion
+    in lines 269 to 278 about partially solved tasks.
 
 -   Additionally, the scaled-down version only runs 1 trial for the
-    deterministic strategies (LeanCheck and SmallCheck). We ran 10 trials
-    in the original since there could be some small variations in time,
-    but for the purposes of this artifact we can just run 1 trial.
+    deterministic strategies (LeanCheck and SmallCheck). We ran 10 trials in the
+    original since there could be some small variations in time, but for the
+    purposes of this artifact we can just run 1 trial.
 
 One more thing to note:
 
@@ -96,21 +92,21 @@ One more thing to note:
     [documented](https://github.com/rudymatela/leancheck/blob/master/doc/memory-usage.md)
     to be quite memory intensive when run for prolonged periods of time.
 
-    We ran our experiments on a powerful server (300+GB of memory), so
-    we did not run into problems previously, but the typical machine will
-    not be equipped to handle this, which we did not realize until we tried
-    to run the experiments on the VM locally.
+    We ran our experiments on a powerful server (300+GB of memory), so we did
+    not run into problems previously, but the typical machine will not be
+    equipped to handle this, which we did not realize until we tried to run the
+    experiments on the VM locally.
 
     We'll make sure to mention the specs of our servers and the implications
     for LeanCheck's performance in the camera-ready.
 
     In the meantime, we've provided a less space-intensive version that changes
-    the timeout for LeanCheck to 10 seconds instead of 60. We chose 10 since
-    it is the boundary between the second-highest and highest buckets in the
-    task bucket chart.
+    the timeout for LeanCheck to 10 seconds instead of 60. We chose 10 since it
+    is the boundary between the second-highest and highest buckets in the task
+    bucket chart.
 
-    We will note in the discussion that follows the places where this will
-    cause some deviations from the paper's data.
+    We will note in the discussion that follows the places where this will cause
+    some deviations from the paper's data.
 
 Run this to collect the data for this experiment:
 
@@ -130,24 +126,23 @@ Points of comparison with the paper:
 
 Figure 1.
 
--   Please view the charts in `figures/fig1`. There should be four
-    charts, named `BST`, `RBT`, `STLC`, `FSUB`. These charts correspond
-    with those depicted in Fig. 1 from the paper.
+-   Please view the charts in `figures/fig1`. There should be four charts, named
+    `BST`, `RBT`, `STLC`, `FSUB`. These charts correspond with those depicted in
+    Fig. 1 from the paper.
 
-    These are task bucket charts (described in Section 2.4), where
-    strategies with better bug-finding power will visually have a
-    darker color presence. For example, bespoke QuickCheck is
-    especially fast, so there should be a nearly full black bar
-    in the fourth row of each chart. Naive SmallCheck is especially
-    slow, so there should be relatively little pink in each chart.
+    These are task bucket charts (described in Section 2.4), where strategies
+    with better bug-finding power will visually have a darker color presence.
+    For example, bespoke QuickCheck is especially fast, so there should be a
+    nearly full black bar in the fourth row of each chart. Naive SmallCheck is
+    especially slow, so there should be relatively little pink in each chart.
 
--   Mild deviations in the number of tasks in each bucket are to be
-    expected, both due to variations in machine speed and the 
-    inherent randomness of some of the generation strategies.
+-   Mild deviations in the number of tasks in each bucket are to be expected,
+    both due to variations in machine speed and the inherent randomness of some
+    of the generation strategies.
 
--   As mentioned above, the artifact version runs LeanCheck for only 
-    10 seconds, so for `FSUB.png`, we expect not to see the faint
-    purple tasks and instead to see around 14 unsolved tasks.
+-   As mentioned above, the artifact version runs LeanCheck for only 10 seconds,
+    so for `FSUB.png`, we expect not to see the faint purple tasks and instead
+    to see around 14 unsolved tasks.
 
 Observation —
 "The bespoke strategy outperforms the naive strategies along multiple axes."
@@ -163,17 +158,17 @@ Observation —
 Observation —
 "LeanCheck substantially outperforms SmallCheck."
 
--   As mentioned in line 259, SmallCheck (`Small`) should have around a
-    35% solve rate. LeanCheck (`Lean`) would normally have a 82% solve 
-    rate, but because of the adjusted timeout, we expect around 76% instead.
+-   As mentioned in line 259, SmallCheck (`Small`) should have around a 35%
+    solve rate. LeanCheck (`Lean`) would normally have a 82% solve rate, but
+    because of the adjusted timeout, we expect around 76% instead.
 
 #### Section 4.2: Exploring Size Generation.
 
 Estimated time for scaled-down experiment: around 1.5 hours.
 
--   While we originally ran 100 trials for each task, the analysis for
-    the experiment only focuses on three tasks. So, this version runs the
-    full 100 trials for the three tasks and 10 trials for the other tasks.
+-   While we originally ran 100 trials for each task, the analysis for the
+    experiment only focuses on three tasks. So, this version runs the full 100
+    trials for the three tasks and 10 trials for the other tasks.
 
 Commands are the same as before but with 4.2 instead, e.g.
 
@@ -184,25 +179,25 @@ $ make analyze4.2
 
 Points of comparison with the paper:
 
--   Please view the chart `figures/figure2.png`. This should resemble
-    Fig. 2 from the paper, though with colors instead of numbered labels.
+-   Please view the chart `figures/figure2.png`. This should resemble Fig. 2
+    from the paper, though with colors instead of numbered labels.
 
-    As in the paper, the task #1 trendline (red) should have the steepest
-    upward trajectory. The task #2 trendline (green) should also go up,
-    but less steeply. The task #3 trendline (blue) should be mostly flat
-    and near the y-axis.
+    As in the paper, the task #1 trendline (red) should have the steepest upward
+    trajectory. The task #2 trendline (green) should also go up, but less
+    steeply. The task #3 trendline (blue) should be mostly flat and near the
+    y-axis.
 
--   Note that the precise y-axis numbers may differ from the paper — there
-    is variance due to the random nature of these generation strategies.
-    However, the relative trends described above should hold.
+-   Note that the precise y-axis numbers may differ from the paper — there is
+    variance due to the random nature of these generation strategies. However,
+    the relative trends described above should hold.
 
 #### Section 4.3: Enumerator Sensitivity.
 
 Estimated time for scaled-down experiment: around 1 hour.
 
 -   The key result and ensuing discussion is about the observation that
-    SmallCheck is very sensitive to a reversal of the parameter orders, so
-    in the scaled-down version, we run only SmallCheck.
+    SmallCheck is very sensitive to a reversal of the parameter orders, so in
+    the scaled-down version, we run only SmallCheck.
 
 -   As before, we run only 1 trial since it is deterministic.
 
@@ -213,24 +208,22 @@ $ make collect4.3
 $ make analyze4.3
 ```
 
-Please note that the collection script for this experiment generates
-only the new data needed; the analysis script will draw upon some of
-the data collected for SmallCheck in 4.1.
+Please note that the collection script for this experiment generates only the
+new data needed; the analysis script will draw upon some of the data collected
+for SmallCheck in 4.1.
 
 Points of comparison with the paper:
 
 -
 
-
 #### Section 5.1: Comparison of Fuzzers, Derived Generators, and Handwritten Generators.
 
-Estimated time for scaled-down experiment: 1 +
+Estimated time for scaled-down experiment: 3 +
 
-- Analagously to in 4.1, we short-circuit the 10 trials as soon 
-  as a timeout is encountered. This will not have an effect on 
-  the bulk of the data for this experiment, with the exception 
-  of no longer being able to generate Fig. 4, which deals with
-  partially solved tasks.
+-   Analagously to in 4.1, we short-circuit the 10 trials as soon as a timeout
+    is encountered. This will not have an effect on the bulk of the data for
+    this experiment, with the exception of no longer being able to generate Fig.
+    4, which deals with partially solved tasks.
 
 #### Section 5.2:
 
