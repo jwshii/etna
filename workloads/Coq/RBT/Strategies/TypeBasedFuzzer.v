@@ -42,7 +42,7 @@ Derive (Arbitrary, Show, Sized, Fuzzy) for Tree.
     ret (ma,mb))
 |}.
 
-Axiom num_tests : nat. Extract Constant num_tests => "20000".
+Axiom num_tests : nat. Extract Constant num_tests => "max_int".
 
 (* --------------------- Tests --------------------- *)
 

@@ -39,7 +39,7 @@ ManualExtract Variation. *)
 Definition test_propSSNI_smart (v: @Variation SState) :=
     propSSNI_smart default_table v.
 
-Axiom num_tests : nat. Extract Constant num_tests => "20000".
+Axiom num_tests : nat. Extract Constant num_tests => "max_int".
 
 Definition test_propSSNI_smart_fuzzer :=
   fun (u : unit) => fuzzLoopWith (updMaxDiscard (updMaxSuccess (updAnalysis stdArgs true) num_tests) num_tests) arbitrary fuzz show test_propSSNI_smart.
