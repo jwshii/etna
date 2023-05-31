@@ -4,9 +4,20 @@ Name: Etna: An Evaluation Platform for Property-Based Testing
 
 ## Artifact Instructions
 
+### Orientation
+
+The contents of this `README` focus on showing you how to reproduce the
+experiments discussed in our paper. Beyond artifact evaluation, we hope that our
+system will be useful to researchers who want to empirically evaluate their
+property-based testing strategies. As such, we also have `DOCUMENTATION.md`
+which describes in much more detail how this tool is structured and what users
+should do if they want to run their own experiments or otherwise extend it.
+
+Please see `DOCUMENTATION.md` to learn more about these details.
+
 ### Language Dependencies
 
-These steps should already be completed in the VM.
+**These steps should already be completed in the VM.**
 
 1. For Python, install version 3.10.5,
    and make sure `python3` points to this version.
@@ -22,7 +33,7 @@ These steps should already be completed in the VM.
 
 ### Package Dependencies
 
-These steps should already be completed in the VM.
+**These steps should already be completed in the VM.**
 
 1. For Python, make sure you have `pip` installed.
 
@@ -40,23 +51,23 @@ These steps should already be completed in the VM.
     $ stack ghci src/Impl.hs
     ```
 
-    Doing this for the first time will force `stack` to install GHC 9.0.2 and the required packages.
+    Doing this for the first time will force `stack` to install GHC 9.0.2 and
+    the required packages.
 
 3. For Coq, we need a newer version of QuickChick. Clone the repo
    [here](https://github.com/QuickChick/QuickChick), checkout the
    `pbt-benchmark` branch, and follow the instructions for installing from
    source, including `make install` and `make install-fuzzer`.
 
-### Orientation
+### Experiment Reproduction
 
-[TODO].
-
-### Experiment Replication
+**Start here if you're in the VM.**
 
 Some things to be aware of:
 
 -   We recommend briefly reading the setup described in the corresponding
-    experiment section in the paper to get a sense of what each experiment is evaluating, since we did not repeat that information here.
+    experiment section in the paper to get a sense of what each experiment is
+    evaluating, since we did not repeat that information here.
 
 -   Running our experiments in full as we did originally for the paper would
     take several days in total. As such, we offer scaled-down versions that
@@ -65,6 +76,10 @@ Some things to be aware of:
 
 -   Experiment scripts should be easily resumable; data will not be re-collected
     unless it is deleted.
+
+-   There are two experiments that use prior results when the same strategy is
+    evaluated again (to save time). So, experiment 4.1 must be completed before
+    4.3, and 5.1 before 5.2.
 
 #### Section 4.1: Comparing Frameworks.
 
@@ -232,13 +247,6 @@ Estimated time for scaled-down experiment: 3 +
     this experiment, with the exception of no longer being able to generate Fig.
     4, which deals with partially solved tasks.
 
-Please run this command, which will check that the correct branch of
-`QuickChick` is installed (and install it if not).
-
-```
-$
-```
-
 Other commands are the same as before but with 5.1 instead, e.g.
 
 ```
@@ -246,7 +254,45 @@ $ make collect5.1
 $ make analyze5.1
 ```
 
+If you get an error about the QuickChick version, see 5.2.
+
+Points of comparison with the paper:
+
 #### Section 5.2: Validation and Improvement of Fuzzers
+
+Estimated time for scaled-down experiment:
+
+-   Analagously to before, we short-circuit the 10 trials as soon as a timeout
+    is encountered.
+
+One of the strategies in this experiment uses an older (and worse) version of
+QuickChick, since the purpose of the experiment is to notice how the changes to
+the implementation improved the bug-finding performance.
+
+To switch to this older version, run
+
+```
+$ make switchold
+```
+
+Other commands are the same as before but with 5.2 instead, e.g.
+
+```
+$ make collect5.2
+$ make analyze5.2
+```
+
+After you are done with this experiment, make sure to switch back to the newer
+version, especially if you need to rerun any parts of 5.1.
+
+```
+$ make switchnew
+```
+
+The collection script for this experiment generates only the new data needed;
+the analysis script will draw upon data collected in 5.1.
+
+Points of comparison with the paper:
 
 ## QEMU Instructions
 
