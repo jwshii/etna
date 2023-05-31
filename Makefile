@@ -37,7 +37,14 @@ collect4.3:
 analyze4.3:
 	python3 experiments/haskell-experiments/4.3/Analysis.py --data=$(DATA)/4.3 --original=$(DATA)/4.1
 
+switchnew:
+	git -C ../QuickChick switch etna
+	make -C ../QuickChick clean
+	make -C ../QuickChick install
+
 collect5.1:
+	python3 qc-checker.py use_new_qc
+	python3 bounds-switch.py to_max
 	mkdir -p $(DATA)/5.1
 	python3 experiments/coq-experiments/5.1/Collect.py --data=$(DATA)/5.1
 	python3 experiments/coq-experiments/5.1/CollectIFC.py --data=$(DATA)/5.1
@@ -46,14 +53,14 @@ analyze5.1:
 	mkdir -p $(FIGURES)
 	python3 experiments/coq-experiments/5.1/Analysis.py --data=$(DATA)/5.1 --figures=$(FIGURES)/fig2
 
-collect5.2:
-	mkdir -p $(DATA)/5.2/fixed
-	mkdir -p $(DATA)/5.2/fix-reverted
+switchold:
 	git -C ../QuickChick switch etna-experiment-5.2
 	make -C ../QuickChick clean
 	make -C ../QuickChick install
+
+collect5.2:
+	python3 qc-checker.py use_old_qc
+	python3 bounds-switch.py to_small
+	mkdir -p $(DATA)/5.2/fix-reverted
 	python3 experiments/coq-experiments/5.2/Collect.py --data=$(DATA)/5.2/fix-reverted
-	git -C ../QuickChick switch etna
-	make -C ../QuickChick clean
-	make -C ../QuickChick install
-	python3 experiments/coq-experiments/5.2/Collect.py --data=$(DATA)/5.2/fixed
+
