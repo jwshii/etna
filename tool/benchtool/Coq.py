@@ -127,7 +127,7 @@ class Coq(BenchTool):
 
                 except subprocess.TimeoutExpired as e:
                     print(f"Process Timed Out {process.pid}")
-                    os.kill(process.pid, signal.SIGTERM)  # Send the signal to all the process groups
+                    os.system(f"pkill qc_exec")
                     print("Process Killed")
                     print(f"Process Output: {e}")
                     shm_id = int(e.stdout.decode("utf-8").split("|?SHM ID: ")[1].split("?|")[0])
