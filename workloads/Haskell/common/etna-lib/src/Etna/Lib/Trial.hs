@@ -41,7 +41,6 @@ type Timeout = Maybe Double
 
 type Info = (String, String, String, String)
 
--- TODO: negative?
 runOne :: Info -> Timeout -> IO Result -> IO FullResult
 runOne (workload, strategy, mutant, property) mtimeout test = do
   case mtimeout of
@@ -55,7 +54,6 @@ runOne (workload, strategy, mutant, property) mtimeout test = do
     fromSec :: Double -> Int
     fromSec = round . (1000000 *)
 
-    -- TODO: indicate timeout more cleanly
     defaultResult time =
       FullResult
         { foundbug = False,
@@ -74,7 +72,6 @@ myTimeIt ioa = do
   let t t2 t1 = fromIntegral (toNanoSecs t2 - toNanoSecs t1) * 1e-9
   return (t mt2 mt1, a)
 
--- TODO: use deepseq to do this instead?
 eval :: IO Result -> IO Result
 eval ia = do
   Result {..} <- ia
