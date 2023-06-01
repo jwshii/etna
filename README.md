@@ -129,7 +129,8 @@ One more thing to note:
     We will note in the discussion that follows the places where this will cause
     some deviations from the paper's data.
 
-Run this to collect the data for this experiment:
+Run this to collect the data for this experiment: (Don't worry about the
+OpenBLAS warning if you see it on the VM.)
 
 ```
 $ make collect4.1
