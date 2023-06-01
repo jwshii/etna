@@ -20,8 +20,15 @@ import System.IO.Silently (capture)
 import Test.QuickCheck hiding (Result)
 import qualified Test.QuickCheck as QC
 
+-- To use QuickCheck, can just implement an Arbitrary instance
+-- and call (qcRunArb qcDefaults [approach]), where approach
+-- should be Naive if your generator does not necessarily generate 
+-- inputs that satisfy the precondition, and Correct otherwise.
+
 qcDefaults :: Args
-qcDefaults = stdArgs {maxSuccess = maxCap}
+qcDefaults = 
+  -- By default, use timeout instead of max tests.
+  stdArgs {maxSuccess = maxCap} 
 
 qcMakeProp :: Approach -> Task a -> (a -> Property)
 qcMakeProp Naive task =

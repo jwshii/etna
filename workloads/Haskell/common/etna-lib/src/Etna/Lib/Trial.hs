@@ -54,6 +54,7 @@ runOne (workload, strategy, mutant, property) mtimeout test = do
     fromSec :: Double -> Int
     fromSec = round . (1000000 *)
 
+    -- Returned if the trial timed out
     defaultResult time =
       FullResult
         { foundbug = False,
@@ -72,6 +73,7 @@ myTimeIt ioa = do
   let t t2 t1 = fromIntegral (toNanoSecs t2 - toNanoSecs t1) * 1e-9
   return (t mt2 mt1, a)
 
+-- Force evaluation (avoid laziness problems).
 eval :: IO Result -> IO Result
 eval ia = do
   Result {..} <- ia
