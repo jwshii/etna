@@ -6,6 +6,8 @@ import os
 import re
 import subprocess
 import ctypes
+import signal
+import platform
 
 IMPL_DIR = 'Src'
 STRATEGIES_DIR = 'Strategies'
@@ -88,14 +90,18 @@ class Coq(BenchTool):
                         "property": params.property,
                         "time": None
                     }
-                    result = subprocess.run(cmd,
-                                            check=True,
-                                            capture_output=True,
-                                            text=True,
-                                            timeout=params.timeout)
-
-                    start = result.stdout.find("[|")
-                    end = result.stdout.find("|]")
+                    print("Process Created")
+                    process = subprocess.Popen(
+                        cmd,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.PIPE,
+                        text=True
+                    )
+                    print(f"Process Started with {params.timeout} timeout")
+                    stdout_data, stderr_data = process.communicate(timeout=params.timeout)
+                    print("Process Finished")
+                    start = stdout_data.find("[|")
+                    end = stdout_data.find("|]")
 
                     if start == -1 or end == -1:
                         self._log(f"Unexpected! Error Processing {params.strategy} Output:",
@@ -120,9 +126,18 @@ class Coq(BenchTool):
                             [:-2]) * 0.001  # ms as string to seconds as float conversion
 
                 except subprocess.TimeoutExpired as e:
+                    print(f"Process Timed Out {process.pid}")
+                    os.kill(process.pid, signal.SIGTERM)  # Send the signal to all the process groups
+                    print("Process Killed")
+                    print(f"Process Output: {e}")
                     shm_id = int(e.stdout.decode("utf-8").split("|?SHM ID: ")[1].split("?|")[0])
-                    
-                    libc = ctypes.CDLL('libc.so.6')
+                    print(f"Shared Memory ID: {shm_id}")
+                    # Libc is platform dependent, so we need to load it dynamically
+                    if platform.system() == "Darwin":
+                        libc = ctypes.CDLL("/usr/lib/libc.dylib")
+                    elif platform.system() == "Linux":
+                        libc = ctypes.CDLL("libc.so.6")
+
                     self._log(f"Releasing Shared Memory: {libc.shmctl(int(shm_id), 0, 0)}",
                               LogLevel.INFO)
                     self._log(f"Released Shared Memory with ID: {shm_id}", LogLevel.INFO)
