@@ -63,6 +63,12 @@ Please see `DOCUMENTATION.md` to learn more about these details.
 
 **Start here if you're in the VM.**
 
+All of the below should be done in the `etna` folder, so please first
+
+```
+$ cd etna
+```
+
 Some things to be aware of:
 
 -   We recommend briefly reading the setup described in the corresponding
@@ -167,8 +173,6 @@ Observation —
     As mentioned in line 252, bespoke QuickCheck (the `Correct` strategy)
     should solve all tasks. As mentioned in line 253, naive QuickCheck
     (the `Quick` strategy) should fail to solve approximately 43 tasks.
-
--   [TODO: Mann-Whitney]
 
 Observation —
 "LeanCheck substantially outperforms SmallCheck."
@@ -276,7 +280,7 @@ Points of comparison with the paper:
     paper), so the exact number of tasks solved and the proportions of the tasks
     in each bucket may deviate from the paper.
 
-#### Section 5.2: Validation and Improvement of Fuzzers
+#### Section 5.2: Validation and Improvement of Fuzzers.
 
 Estimated time for scaled-down experiment:
 
