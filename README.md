@@ -242,7 +242,7 @@ Points of comparison with the paper:
 
 Estimated time for scaled-down experiment: 3 +
 
--   Analagously to in 4.1, we short-circuit the 10 trials as soon as a timeout
+-   Analogously to in 4.1, we short-circuit the 10 trials as soon as a timeout
     is encountered. This will not have an effect on the bulk of the data for
     this experiment, with the exception of no longer being able to generate Fig.
     4, which deals with partially solved tasks.
@@ -258,17 +258,36 @@ If you get an error about the QuickChick version, see 5.2.
 
 Points of comparison with the paper:
 
+-   Please view the charts in `figures/fig3`. There should be four charts, named
+    `BST`, `RBT`, `STLC`, `IFC`. These charts correspond with those depicted in
+    Fig. 3 from the paper.
+
+-   While some variance is expected, the general trends should be consistent
+    with the paper. For example, the specification-based generator (in red) and
+    bespoke generator (in black) should generally outperform the other
+    strategies, and they should perform on par with each other.
+
+    The fuzzers (in orange in (a) through (c) and in orange and green in (d))
+    may be slightly slower than the type-based generator (on the top row, in
+    blue), but they will be able to solve more tasks than the type-based
+    generator in the IFC workload, which has the sparsest precondition.
+
+    Note that fuzzers especially have high variance (which is noted in the
+    paper), so the exact number of tasks solved and the proportions of the tasks
+    in each bucket may deviate from the paper.
+
 #### Section 5.2: Validation and Improvement of Fuzzers
 
 Estimated time for scaled-down experiment:
 
--   Analagously to before, we short-circuit the 10 trials as soon as a timeout
+-   Analogously to before, we short-circuit the 10 trials as soon as a timeout
     is encountered.
 
 One of the strategies in this experiment uses an older (and worse) version of
 QuickChick, since the purpose of the experiment is to notice how the changes to
-the implementation improved the bug-finding performance. (There is also a 
-change to the max bound on the number of tests, which the script will apply for you, since this older version had overflow problems.)
+the implementation improved the bug-finding performance. (There is also a change
+to the max bound on the number of tests, which the script will apply for you,
+since this older version had overflow problems.)
 
 To switch to this older version, run
 
@@ -294,6 +313,14 @@ The collection script for this experiment generates only the new data needed;
 the analysis script will draw upon data collected in 5.1.
 
 Points of comparison with the paper:
+
+-   Please view the charts in `figures/fig5`. There should be three charts, named
+    `BST`, `RBT`, `STLC`. These charts correspond with those depicted in
+    Fig. 5 from the paper.
+
+-   Visually, it should be clear that the lower strategy (tuned FuzzChick)
+    significantly outperforms the upper strategy (original FuzzChick), which
+    solves very few tasks overall.
 
 ## QEMU Instructions
 

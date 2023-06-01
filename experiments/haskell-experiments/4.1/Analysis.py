@@ -9,6 +9,9 @@ def analyze(results: str, images: str):
     df['timeout'] = np.where(df['strategy'] == 'Lean', 10, 60)
     df['foundbug'] = df['foundbug'] & (df['time'] < df['timeout'])
 
+    if not os.path.exists(images):
+        os.make_dirs(images)
+
     # Generate task bucket charts used in Figure 1.
     for workload in ['BST', 'RBT', 'STLC', 'FSUB']:
         times = partial(stacked_barchart_times, case=workload, df=df)

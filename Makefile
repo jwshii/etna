@@ -19,7 +19,6 @@ collect4.1:
 	python3 experiments/haskell-experiments/4.1/Collect.py --data=$(DATA)/4.1
 
 analyze4.1:
-	mkdir -p $(FIGURES)/fig1
 	python3 experiments/haskell-experiments/4.1/Analysis.py --data=$(DATA)/4.1 --figures=$(FIGURES)/fig1
 
 collect4.2:
@@ -27,7 +26,6 @@ collect4.2:
 	python3 experiments/haskell-experiments/4.2/Collect.py --data=$(DATA)/4.2
 
 analyze4.2:
-	mkdir -p $(FIGURES)
 	python3 experiments/haskell-experiments/4.2/Analysis.py --data=$(DATA)/4.2 --figures=$(FIGURES)
 
 collect4.3:
@@ -50,8 +48,7 @@ collect5.1:
 	python3 experiments/coq-experiments/5.1/CollectIFC.py --data=$(DATA)/5.1
 
 analyze5.1:
-	mkdir -p $(FIGURES)
-	python3 experiments/coq-experiments/5.1/Analysis.py --data=$(DATA)/5.1 --figures=$(FIGURES)/fig2
+	python3 experiments/coq-experiments/5.1/Analysis.py --data=$(DATA)/5.1 --figures=$(FIGURES)/fig3
 
 switchold:
 	git -C ../QuickChick switch etna-experiment-5.2
@@ -63,4 +60,7 @@ collect5.2:
 	python3 bounds-switch.py to_small
 	mkdir -p $(DATA)/5.2/fix-reverted
 	python3 experiments/coq-experiments/5.2/Collect.py --data=$(DATA)/5.2/fix-reverted
+
+analyze5.2:
+	python3 experiments/coq-experiments/5.2/Analysis.py --data=$(DATA)/5.2/fix-reverted --original=$(DATA)/5.1 --figures=$(FIGURES)/fig5
 

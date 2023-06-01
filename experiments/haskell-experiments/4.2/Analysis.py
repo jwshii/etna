@@ -18,6 +18,9 @@ def analyze(results: str, images: str):
         task: colors[task] if task in special else 'lightgray' for task in df['task'].unique()
     }
 
+    if not os.path.exists(images):
+        os.make_dirs(images)
+
     fig = px.line(df,
                   x='size',
                   y='inputs',
