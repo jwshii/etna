@@ -32,7 +32,7 @@ def analyze(results: str, images: str):
                 'TypeBasedGenerator', 'TypeBasedFuzzer', 'VariationalFuzzer',
                 'BespokeGenerator'
             ],
-            colors=['#000000', '#900D0D', '#436E4F', '#243763'],
+            colors=['#000000', '#436E4F', '#DC5F00', '#243763'],
             limits=[0.1, 1, 10, 60],
             limit_type='time',
             image_path=images,
