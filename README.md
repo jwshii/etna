@@ -93,7 +93,7 @@ Estimated time for scaled-down experiment: around 4 hours.
 
 -   Originally, we ran each strategy on each task for 10 trials, even if the
     strategy could not solve the task. This is the most time consuming component
-    — running until the 65 second timeout repeatedly. So, the scaled-down
+    — running until the 60+ second timeout repeatedly. So, the scaled-down
     version "short-circuits" as soon as a strategy fails. i.e., If QuickCheck
     times out on the 3rd trial, the 4th through 10th trials are not run.
 
