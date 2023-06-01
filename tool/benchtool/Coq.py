@@ -6,7 +6,6 @@ import os
 import re
 import subprocess
 import ctypes
-import signal
 import platform
 
 IMPL_DIR = 'Src'
@@ -90,16 +89,13 @@ class Coq(BenchTool):
                         "property": params.property,
                         "time": None
                     }
-                    print("Process Created")
                     process = subprocess.Popen(
                         cmd,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.PIPE,
                         text=True
                     )
-                    print(f"Process Started with {params.timeout} timeout")
                     stdout_data, stderr_data = process.communicate(timeout=params.timeout)
-                    print("Process Finished")
                     start = stdout_data.find("[|")
                     end = stdout_data.find("|]")
 
@@ -128,7 +124,6 @@ class Coq(BenchTool):
                 except subprocess.TimeoutExpired as e:
                     print(f"Process Timed Out {process.pid}")
                     os.system(f"pkill qc_exec")
-                    print("Process Killed")
                     print(f"Process Output: {e}")
                     shm_id = int(e.stdout.decode("utf-8").split("|?SHM ID: ")[1].split("?|")[0])
                     print(f"Shared Memory ID: {shm_id}")
@@ -184,13 +179,18 @@ class Coq(BenchTool):
                     "time": None
                 }
                 try:
-                    result = subprocess.run(cmd,
-                                            check=True,
-                                            capture_output=True,
-                                            timeout=params.timeout).stdout.decode('utf-8')
-                    start = result.find("[|")
-                    end = result.find("|]")
-                    result = result[start + 2:end]
+                    process = subprocess.Popen(
+                        cmd,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.PIPE,
+                        text=True
+                    )
+
+                    stdout_data, stderr_data = process.communicate(timeout=params.timeout)
+
+                    start = stdout_data.find("[|")
+                    end = stdout_data.find("|]")
+                    result = stdout_data[start + 2:end]
                     self._log(f"{params.strategy} Result: {result}", LogLevel.INFO)
                     json_result = json.loads(result)
                     trial_result["foundbug"] = json_result["result"] in [
@@ -203,6 +203,8 @@ class Coq(BenchTool):
                         [:-2]) * 0.001  # ms as string to seconds as float conversion
 
                 except subprocess.TimeoutExpired:
+                    process.kill()
+
                     trial_result["foundbug"] = False
                     trial_result["discards"] = 0
                     trial_result["passed"] = 0
