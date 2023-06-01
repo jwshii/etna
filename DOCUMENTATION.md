@@ -30,9 +30,41 @@ There are three top-level folders in Etna:
 
 The experiment driver is responsible for toggling between variant
 implementations, compiling and executing strategies, and collecting and
-analyzing experiment data.
+analyzing experiment data. The relevant code is in `tool/benchtool`.
+
+First, consider `BenchTool.py`. This consists of an interface that each language
+can implement. Some functions have default implementations based on the provided
+configurations and some do not — e.g. the procedure for parsing and applying
+mutants should be language-independent, while compilation is language-dependent.
+
+Then, `Haskell.py` and `Coq.py` implement `BenchTool` — further details are
+described in the sections below. New languages can be added in a similar fashion.
+
+See `Types.py` for further documentation.
+
+The files `Analysis.py` and `Plot.py` contain helper code to gather statistics
+on and plot the data collected during an experiment, respectively.
 
 ### More About: `experiments`
+
+The high-level structure of an experiment is that it instantiates a `BenchTool`
+for a particular language and selects which tasks to execute.
+
+Consider `experiments/haskell-experiments/4.1/Collect.py` as an example. This is
+a Haskell experiment that runs all four currently available workloads on four
+strategies — a bespoke, correct-by-construction generator and a naive generator
+for each of the three currently available frameworks. The call to
+`tool.apply_variant` builds the executable with the chosen variant, and the
+`TrialConfig` sets up things like the number of trials to run and the timeout.
+
+Current experiments can be modified or new experiments can be added; for
+example, one might want to run a different subset of
+workloads/strategies/properties, or with different configurations.
+
+The `Analysis.py` file in the same folder generates "task bucket charts" for
+each workload and compute the rate of solved tasks. The JSON data is parsed into
+a `pandas` dataframe, so the user is also free to use the full force of the
+`pandas` library to run the specific analyses they wish.
 
 ### More About: `workloads/Haskell`
 

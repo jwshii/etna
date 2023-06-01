@@ -282,7 +282,7 @@ Points of comparison with the paper:
 
 #### Section 5.2: Validation and Improvement of Fuzzers.
 
-Estimated time for scaled-down experiment:
+Estimated time for scaled-down experiment: around 3 hours.
 
 -   Analogously to before, we short-circuit the 10 trials as soon as a timeout
     is encountered.

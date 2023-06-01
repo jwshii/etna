@@ -17,6 +17,7 @@ def collect(results: str):
 
         for variant in tool.all_variants(workload):
             if variant.name == 'base':
+                # Don't run on base (non-buggy) implementation.
                 continue
 
             run_trial = None
