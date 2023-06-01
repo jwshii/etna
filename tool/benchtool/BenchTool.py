@@ -41,19 +41,6 @@ class BenchTool(ABC):
 
         sh.copytree(self._config.path, os.path.join(self.__temp, self._config.path))
 
-    def parse_args(self) -> tuple[bool, bool]:
-        '''
-        Parses command-line arguments passed in via `--mode`.
-
-        :return: Pair of (whether to run workloads, whether to plot data).
-        '''
-
-        p = argparse.ArgumentParser()
-        p.add_argument('--mode', default='both', choices=['run', 'plot', 'both'])
-        args = p.parse_args()
-
-        return (args.mode != 'plot', args.mode != 'run')
-
     def set_log_level(self, log_level: LogLevel):
         ''' Sets log level.'''
         self._log_level = log_level
@@ -172,7 +159,7 @@ class BenchTool(ABC):
 
     def __apply_variant_in_impl(self, workload: Entry, variant: Variant) -> None:
         '''
-        Private helper for applying variant.
+        Helper for applying variant.
         '''
 
         # Overwrite `config.impl` file with current variant.
@@ -186,8 +173,8 @@ class BenchTool(ABC):
         Assumes that `workload` is already instantiated
         (via `apply_variant`) with the current variant.
 
-        This is private; it should not be called directly. Instead you should
-        call `apply_variant` first.
+        This is private; it should not be called directly. 
+        Instead you should call `apply_variant` first.
         '''
         if not self.__variant:
             raise Exception('Cannot run trial without variant')

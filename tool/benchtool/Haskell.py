@@ -12,14 +12,18 @@ class Haskell(BenchTool):
                  log_level: LogLevel = LogLevel.INFO,
                  replace_level: ReplaceLevel = ReplaceLevel.REPLACE):
         super().__init__(
-            Config(start='{-',
-                   end='-}',
-                   ext='.hs',
-                   path='workloads/Haskell',
-                   ignore='common',
-                   strategies='src/Strategy',
-                   impl_path='src',
-                   spec_path='src/Spec.hs'), results, log_level, replace_level)
+            Config(
+                start='{-',  # Haskell multi-line comment syntax
+                end='-}',
+                ext='.hs',
+                path='workloads/Haskell',
+                ignore='common',  # This contains the library code
+                strategies='src/Strategy',
+                impl_path='src',
+                spec_path='src/Spec.hs'),
+            results,
+            log_level,
+            replace_level)
 
     def all_properties(self, workload: Entry) -> set[str]:
         spec = os.path.join(workload.path, self._config.spec_path)
@@ -36,6 +40,8 @@ class Haskell(BenchTool):
     def _run_trial(self, workload_path: str, params: TrialArgs):
 
         def reformat():
+            # Get JSONs into a format that
+            # makes it easier to parse later on.
             with open(params.file) as f:
                 results = [json.loads(line) for line in f]
             open('file.txt', 'w').close()
@@ -43,10 +49,13 @@ class Haskell(BenchTool):
 
         with self._change_dir(workload_path):
             for _ in range(params.trials):
+                # Re-run per trial to avoid caching problems.
                 p = params.to_json()
                 self._shell_command(['stack', 'exec', 'etna-workload', '--', p])
 
                 if params.short_circuit:
+                    # Optimization: terminate as soon as a task is not solved
+                    # instead of running for the full umber of trials.
                     with open(params.file) as f:
                         if '"foundbug":false' in f.read():
                             reformat()
