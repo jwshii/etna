@@ -8,7 +8,7 @@ def analyze(results: str, images: str):
     df = parse_results(results)
 
     if not os.path.exists(images):
-        os.make_dirs(images)
+        os.makedirs(images)
 
     # Generate task bucket charts used in Figure 3.
     for workload in ['BST', 'RBT', 'STLC']:

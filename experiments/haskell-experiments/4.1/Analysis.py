@@ -10,7 +10,7 @@ def analyze(results: str, images: str):
     df['foundbug'] = df['foundbug'] & (df['time'] < df['timeout'])
 
     if not os.path.exists(images):
-        os.make_dirs(images)
+        os.makedirs(images)
 
     # Generate task bucket charts used in Figure 1.
     for workload in ['BST', 'RBT', 'STLC', 'FSUB']:

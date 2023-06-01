@@ -19,7 +19,7 @@ def analyze(results: str, images: str):
     }
 
     if not os.path.exists(images):
-        os.make_dirs(images)
+        os.makedirs(images)
 
     fig = px.line(df,
                   x='size',

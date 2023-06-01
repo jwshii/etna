@@ -17,7 +17,7 @@ def analyze(results: str, original: str, images: str):
     df = pd.concat([df, dforig])
 
     if not os.path.exists(images):
-        os.make_dirs(images)
+        os.makedirs(images)
 
     # Generate task bucket charts used in Figure 5.
     for workload in workloads:
