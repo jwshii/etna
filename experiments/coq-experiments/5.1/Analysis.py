@@ -40,13 +40,6 @@ def analyze(results: str, images: str):
         )
 
 
-    # Compute solve rates.
-    dfa = overall_solved(df, 'all').reset_index()
-    dfa = dfa.groupby('strategy').sum(numeric_only=True)
-    dfa['percent'] = dfa['solved'] / dfa['total']
-    print(dfa)
-
-
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument('--data', help='path to folder for JSON data')
