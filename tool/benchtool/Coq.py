@@ -106,14 +106,14 @@ class Coq(BenchTool):
                     if start == -1 or end == -1:
                         self._log(f"Unexpected! Error Processing {params.strategy} Output:",
                                   LogLevel.ERROR)
-                        self._log(f"[{result.stdout}]", LogLevel.ERROR)
-                        self._log(f"[{result.stderr}]", LogLevel.ERROR)
+                        self._log(f"[{stdout_data}]", LogLevel.ERROR)
+                        self._log(f"[{stderr_data}]", LogLevel.ERROR)
                         trial_result["foundbug"] = False
                         trial_result["discards"] = 0
                         trial_result["passed"] = 0
                         trial_result["time"] = -1
                     else:
-                        result = result.stdout[start + 2:end]
+                        result = stdout_data[start + 2:end]
                         self._log(f"{params.strategy} Result: {result}", LogLevel.INFO)
                         json_result = json.loads(result)
                         trial_result["foundbug"] = json_result["result"] in [
