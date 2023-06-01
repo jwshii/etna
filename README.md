@@ -245,7 +245,7 @@ Points of comparison with the paper:
 
 #### Section 5.1: Comparison of Fuzzers, Derived Generators, and Handwritten Generators.
 
-Estimated time for scaled-down experiment: 3 +
+Estimated time for scaled-down experiment: around 8 hours.
 
 -   Analogously to in 4.1, we short-circuit the 10 trials as soon as a timeout
     is encountered. This will not have an effect on the bulk of the data for
