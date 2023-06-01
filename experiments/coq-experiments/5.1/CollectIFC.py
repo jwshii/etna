@@ -23,6 +23,9 @@ def collect(results: str):
             if variant.name == 'base':
                 continue
 
+            if variant.name in ['OpBRet_8', 'OpBRet_9', 'OpWrite_8', 'OpWrite_9']:
+                continue
+
             run_trial = None
 
             for strategy in tool.all_strategies(workload):

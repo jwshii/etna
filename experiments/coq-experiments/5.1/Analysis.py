@@ -25,6 +25,21 @@ def analyze(results: str, images: str):
             show=False,
         )
 
+    for workload in ['IFC']:
+        times = partial(stacked_barchart_times, case=workload, df=df)
+        times(
+            strategies=[
+                'TypeBasedGenerator', 'TypeBasedFuzzer', 'SpecificationBasedFuzzer',
+                'BespokeGenerator'
+            ],
+            colors=['#000000', '#900D0D', '#436E4F', '#243763'],
+            limits=[0.1, 1, 10, 60],
+            limit_type='time',
+            image_path=images,
+            show=False,
+        )
+
+
     # Compute solve rates.
     dfa = overall_solved(df, 'all').reset_index()
     dfa = dfa.groupby('strategy').sum(numeric_only=True)
