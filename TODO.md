@@ -50,10 +50,17 @@
     this file was hobbled together — instead, want
     more principled collection of useful functions
 
+- `tasks.py`:
+
+  - (in a tree):
+    make this a lot less clunky
+
 - miscellaneous:
 
   - (low hanging):
     better error message when result {folder, file} is empty
+  - (in a tree):
+    more graceful representation of timeouts
   - (open ended) (bug):
     currently, can start/stop at the task-level
     also want to be able to do that at the trial-level
@@ -77,6 +84,9 @@
     add support for discards
   - (in a tree):
     add back support for `hedgehog`
+  - (in a tree):
+    allow some properties to not be implemented by some strategies
+    (this might have been fixed, not sure)
 
 - miscellaneous:
 
