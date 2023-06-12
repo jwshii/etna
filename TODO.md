@@ -27,7 +27,7 @@
 
 - `Haskell.py`:
 
-  - (open ended):
+  - (in a tree):
     reduce compilation overhead, e.g.
     prevent files that are not used from being compiled
 
@@ -60,6 +60,8 @@
   - (open ended):
     add support for collecting other kinds of data, e.g.
     statistics in lines 264–265 of paper
+  - (open ended):
+    mode for testing whether strategy is behaving as expected
 
 # Haskell:
 
@@ -69,7 +71,7 @@
     inconsistent argument order between `QuickCheck` and other framework
   - (on the ground):
     rename `Strategy` to `Framework`
-  - (low hanging):
+  - (low hanging) (bug):
     fix mkStrategies to support one-argument properties
   - (in a tree):
     add support for discards
@@ -83,7 +85,7 @@
   - (on the ground):
     rename `Term` to `Expr` in FSUB to be consistent with STLC
     (and change variable names accordingly)
-  - (open ended):
+  - (in a tree):
     separate mode for collecting number of tests for
     strategies that don't explicitly compute discards
   - (open ended):
