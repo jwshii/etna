@@ -1,6 +1,6 @@
 cabal-version: 1.12
 
--- This file has been generated from package.yaml by hpack version 0.34.4.
+-- This file has been generated from package.yaml by hpack version 0.35.0.
 --
 -- see: https://github.com/sol/hpack
 
@@ -13,6 +13,7 @@ library
       Impl
       Spec
       Strategy.Correct
+      Strategy.Hedgehog
       Strategy.Lean
       Strategy.LeanRev
       Strategy.Quick
@@ -29,6 +30,7 @@ library
     , base >=4.7 && <5
     , etna-lib
     , generic-random
+    , hedgehog
     , leancheck
     , smallcheck
   default-language: Haskell2010
@@ -46,6 +48,7 @@ executable etna-workload
     , etna-lib
     , etna-workload
     , generic-random
+    , hedgehog
     , leancheck
     , smallcheck
   default-language: Haskell2010

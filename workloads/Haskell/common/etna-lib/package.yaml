@@ -13,6 +13,8 @@ dependencies:
     - bytestring
     - clock
     - regex-tdfa
+    - hedgehog
+    - regex-pcre
 
 library:
     source-dirs: src

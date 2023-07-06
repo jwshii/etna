@@ -7,6 +7,7 @@ dependencies:
     - smallcheck
     - leancheck
     - generic-random
+    - hedgehog
 
 library:
     source-dirs: src
