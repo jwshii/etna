@@ -10,7 +10,7 @@ def collect(results: str):
     tool = Coq(results=results, replace_level=ReplaceLevel.SKIP)
 
     for workload in tool.all_workloads():
-        if workload.name not in ['BST', 'RBT', 'STLC']:
+        if workload.name not in ['STLC']:
             continue
 
         tool._preprocess(workload)
@@ -25,10 +25,7 @@ def collect(results: str):
             run_trial = None
 
             for strategy in tool.all_strategies(workload):
-                if strategy.name not in [
-                        'TypeBasedGenerator', 'BespokeGenerator', 'TypeBasedFuzzer',
-                        'SpecificationBasedGenerator'
-                ]:
+                if strategy.name not in ['BespokeGenerator', 'NewApproach']:
                     continue
 
                 for property in tool.all_properties(workload):
