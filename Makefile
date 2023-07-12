@@ -45,7 +45,7 @@ collect5.1:
 	python3 bounds-switch.py to_max
 	mkdir -p $(DATA)/5.1
 	python3 experiments/coq-experiments/5.1/Collect.py --data=$(DATA)/5.1
-	python3 experiments/coq-experiments/5.1/CollectIFC.py --data=$(DATA)/5.1
+	# python3 experiments/coq-experiments/5.1/CollectIFC.py --data=$(DATA)/5.1
 
 analyze5.1:
 	python3 experiments/coq-experiments/5.1/Analysis.py --data=$(DATA)/5.1 --figures=$(FIGURES)/fig3
