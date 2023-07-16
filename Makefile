@@ -57,7 +57,7 @@ collectnew:
 	python3 experiments/coq-experiments/new/Collect.py --data=$(DATA)/new
 
 analyzenew:
-	python3 experiments/coq-experiments/new/Analysis.py --data=$(DATA)/new --figures=$(FIGURES)/fig
+	python3 experiments/coq-experiments/new/Analysis.py --data=$(DATA)/new --figures=$(FIGURES)
 
 switchold:
 	git -C ../QuickChick switch etna-experiment-5.2
