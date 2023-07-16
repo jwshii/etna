@@ -10,7 +10,7 @@ def collect(results: str):
     tool = Coq(results=results, replace_level=ReplaceLevel.SKIP)
 
     for workload in tool.all_workloads():
-        if workload.name not in ['BST', 'RBT', 'STLC']:
+        if workload.name not in ['STLC']:
             continue
 
         tool._preprocess(workload)
