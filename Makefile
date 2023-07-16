@@ -56,6 +56,9 @@ collectnew:
 	mkdir -p $(DATA)/new
 	python3 experiments/coq-experiments/new/Collect.py --data=$(DATA)/new
 
+analyzenew:
+	python3 experiments/coq-experiments/new/Analysis.py --data=$(DATA)/new --figures=$(FIGURES)/fig
+
 switchold:
 	git -C ../QuickChick switch etna-experiment-5.2
 	make -C ../QuickChick clean
