@@ -22,6 +22,22 @@ Fixpoint gen_bst (s : nat) (lo hi : nat) : G Tree :=
 Definition bespoke := gen_bst 5 0 40.
 
 
+(* Fixpoint gen_kvs (s : nat) : G (list (nat * nat)) :=
+  match s with
+  | O => ret []
+  | S s' => k <- choose(0, 2000);;
+           v <- arbitrary;;
+           kvs <- gen_kvs s';;
+           ret ((k, v) :: kvs)
+  end.
+
+
+Definition gen_tree (s : nat) : G Tree :=
+  kvs <- gen_kvs s;;
+  ret (fold_right (fun '(k, v) t => insert k v t) E kvs).
+
+Definition bespoke := gen_tree 70. *)
+
 Definition test_prop_InsertValid   :=
   forAll bespoke (fun (t: Tree)  =>
   forAll arbitrary (fun (k: nat)  =>

@@ -67,6 +67,23 @@ Definition isRBT (t: Tree) : bool :=
     isBST t && consistentBlackHeight t && noRedRed t
 .
 
+Definition color_eqb c1 c2 :=
+    match c1, c2 with
+    | R, R => true
+    | B, B => true
+    | _, _ => false
+    end.
+
+
+
+Fixpoint tree_eqb (t: Tree) (t': Tree) : bool :=
+  match t, t' with
+  | E, E => true
+  | T c l k v r, T c' l' k' v' r' =>
+    (color_eqb c c') &&  (k =? k') && (v =? v') && tree_eqb l l' && tree_eqb r r'
+  | _, _ => false
+  end.
+
 Fixpoint toList (t: Tree) : list (Z * Z) :=
     match t with
     | E => nil
@@ -83,8 +100,10 @@ Definition prop_InsertValid  (t: Tree) (k: Z) (v: Z) :=
 
 Definition prop_DeleteValid  (t: Tree) (k: Z) :=
   isRBT t -=> 
-    (t' <- delete k t ;;
-    Some (isRBT t')).
+    match delete k t with
+    | None => Some false
+    | Some t' => Some (isRBT t')
+    end.
 
 (* ---------- *)
 
@@ -151,27 +170,51 @@ Definition prop_InsertInsert  (t: Tree) (k: Z) (k': Z) (v: Z) (v': Z) :=
 Definition prop_InsertDelete (t: Tree) (k: Z) (k': Z) (v: Z)  :=
   isRBT t
     -=> 
-    t' <- (delete k' t) ;;
-    t'' <- delete k' (insert k v t) ;;
-    Some(toList(insert k v t')
-    ==? toList(if k =? k' then insert k v t else t'')).
+    match (delete k' t) with
+    | None => Some false
+    | Some t' =>
+      match delete k' (insert k v t) with
+      | None => Some false
+      | Some t'' =>
+        Some(toList(insert k v t')
+        ==? toList(if k =? k' then insert k v t else t''))
+      end
+    end.
 
 Definition prop_DeleteInsert (t: Tree) (k: Z) (k': Z) (v': Z)  :=
   isRBT t
     -=> 
-    t' <- delete k (insert k' v' t) ;;
-    t'' <- delete k t ;;
-    let t''' := insert k' v' t'' in
-    Some(toList t' ==? toList (if k =? k' then t'' else t''')).
+    match delete k (insert k' v' t) with
+    | None => Some false
+    | Some t' =>
+      match delete k t with
+      | None => Some false
+      | Some t'' =>
+        let t''' := insert k' v' t'' in
+        Some(toList t' ==? toList (if k =? k' then t'' else t'''))
+      end
+    end.
 
 Definition prop_DeleteDelete  (t: Tree) (k: Z) (k': Z) :=
   isRBT t
     -=> 
-    t' <- delete k' t ;;
-    t'' <- delete k t' ;;
-    t1' <- delete k t ;;
-    t1'' <- delete k' t1' ;;
-    Some (toList t'' ==? toList t1'').
+    match delete k' t with
+    | None => Some false
+    | Some t' =>
+      match delete k t' with
+      | None => Some false
+      | Some t'' =>
+        match delete k t with
+        | None => Some false
+        | Some t1' =>
+          match delete k' t1' with
+          | None => Some false
+          | Some t1'' =>
+            Some(toList t'' ==? toList t1'')
+          end
+        end
+      end
+    end.
 
 (* ---------- *)
 
