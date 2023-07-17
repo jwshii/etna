@@ -4,18 +4,16 @@ import os
 
 from benchtool.Coq import Coq
 from benchtool.Types import TrialConfig, ReplaceLevel
-
+from benchtool.Tasks import tasks
 
 def collect(results: str):
     tool = Coq(results=results, replace_level=ReplaceLevel.SKIP)
 
     for workload in tool.all_workloads():
-        if workload.name not in ['STLC']:
+        if workload.name not in ['BST', 'RBT']:
             continue
 
         tool._preprocess(workload)
-
-        tasks_json = json.load(open(f'experiments/coq-experiments/5.1/{workload.name}_tasks.json'))
 
         for variant in tool.all_variants(workload):
 
@@ -25,12 +23,13 @@ def collect(results: str):
             run_trial = None
 
             for strategy in tool.all_strategies(workload):
-                if strategy.name not in ['BespokeGenerator', 'NewGenerator']:
+                if strategy.name in ['RookieGenerator']:
                     continue
 
                 for property in tool.all_properties(workload):
                     property = 'test_' + property
-                    if tasks_json['tasks'] and property not in tasks_json['tasks'][variant.name]:
+                    if property[10:] not in tasks[workload.name][variant.name]:
+                        print(f'Skipping {workload.name},{strategy.name},{variant.name},{property}')
                         continue
 
                     # Don't compile tasks that are already completed.
