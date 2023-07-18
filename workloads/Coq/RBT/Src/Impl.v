@@ -24,9 +24,8 @@ Inductive Tree :=
 
 Derive (Show) for Tree.
 
-(* Axiom fuel : nat. Extract Constant fuel => "100000". *)
+Axiom fuel : nat. Extract Constant fuel => "100000".
 
-Definition fuel := 1000%nat.
 (* ---------- *)
 
 (* -- Used for insert and delete. *)
