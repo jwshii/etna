@@ -62,21 +62,6 @@ Definition gen_tree (s : nat) : G Tree :=
 Definition bespoke :=
     gen_tree 20.
     
-    
-(* 
-Axiom fuel : nat. Extract Constant fuel => "10000".
-
-Global Instance genTreeSized : GenSized (option Tree) :=
-{| arbitrarySized x := 
-    let y := Nat.min x 2 in
-      genTree 0 (2^(Z.of_nat(y)*2)) R fuel y |}.
-
-
-Definition gSized := 
-    x <- choose (0, 3)%nat;;
-    genTree 0 (2^(Z.of_nat(x)*2)) R fuel x
-. *)
-
 (* --------------------- Tests --------------------- *)
 
 Definition test_prop_InsertValid :=  
