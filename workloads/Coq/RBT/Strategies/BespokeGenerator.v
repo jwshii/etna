@@ -60,7 +60,6 @@ Definition gen_tree (s : nat) : G Tree :=
     ret (fold_right (fun '(k, v) t => insert_ k v t) E kvs).
 
 Definition bespoke :=
-    (* x <- choose (20, 100)%nat ;; *)
     gen_tree 20.
     
     
