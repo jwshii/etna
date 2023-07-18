@@ -14,47 +14,6 @@ Import ListNotations.
 From RBT Require Import Impl Spec.
 
 Open Scope Z_scope.
-(* 
-Fixpoint genTree (lo hi : Z) (c : Color)  (f: nat) (h : nat) : G (option Tree) 
-:=
-if lo >? hi then ret None else
-match f with
-| S f' =>
-  match h, c with
-  | O, R => ret (Some E)
-  | O, B => oneOf [ ret (Some E)
-                        ; k <- choose (lo, hi) ;;
-                          v <- arbitrary ;;
-                          ret (Some (T R E k v E))]
-  | S h', R =>
-      let margin := (2^(2*(Z.of_nat h) - 1) - 1) in
-      if (lo + margin >? hi - margin) then  ret None else
-      c' <- ret B ;;
-      k <- choose (lo + margin, hi - margin) ;;
-      v <- arbitrary ;;
-      l <- genTree lo (k - 1)  B f' h' ;;
-      r <- genTree (k + 1) hi  B f' h' ;;
-       match l, r with
-      | Some tl, Some tr => ret (Some (T c' tl k v tr))
-      | _, _ => ret None
-      end
-          
-  | S h', B =>
-      let margin := (2^(2*(Z.of_nat h)) - 1) in
-      if (lo + margin >? hi - margin) then ret None else
-      c' <- arbitrary ;;
-      k <- choose (lo + margin, hi - margin) ;;
-      v <- arbitrary ;;
-      let h'' := match c' with R => h | B => h' end in
-      l <- genTree lo (k - 1) c' f' h'' ;;
-      r <- genTree (k + 1) hi c' f' h'' ;;
-      match l, r with
-      | Some tl, Some tr => ret (Some (T c' tl k v tr))
-      | _, _ => ret None
-      end
-  end
-| _ => ret None
-end. *)
 
 Definition genZ := choose (-20, 20).
 

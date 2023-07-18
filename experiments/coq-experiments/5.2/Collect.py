@@ -27,9 +27,10 @@ def collect(results: str):
 
                 for property in tool.all_properties(workload):
                     property = 'test_' + property
-                    if property[10:] not in tasks[workload.name][variant.name]:
-                        print(f'Skipping {workload.name},{strategy.name},{variant.name},{property}')
-                        continue
+                    if workload.name != 'STLC':
+                        if property[10:] not in tasks[workload.name][variant.name]:
+                            print(f'Skipping {workload.name},{strategy.name},{variant.name},{property}')
+                            continue
 
                     # Don't compile tasks that are already completed.
                     finished = set(os.listdir(results))
