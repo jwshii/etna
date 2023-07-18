@@ -23,7 +23,10 @@ def collect(results: str):
             run_trial = None
 
             for strategy in tool.all_strategies(workload):
-                if strategy.name in ['RookieGenerator']:
+                if strategy.name not in [
+                        'TypeBasedGenerator', 'BespokeGenerator', 'TypeBasedFuzzer',
+                        'SpecificationBasedGenerator'
+                ]:
                     continue
 
                 for property in tool.all_properties(workload):
