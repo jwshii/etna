@@ -58,14 +58,14 @@ class Parser():
         return Mutants(base, mutants_ls), s
 
     def parse(self, workload: Entry) -> dict[str, list[Node]]:
-        impl_path = os.path.join(workload.path, self.config.impl_path)
+        impl_path = os.path.join(workload.path, self.config.impl_spec_path)
         paths = list(map(
             lambda filename: os.path.join(impl_path, filename),
             (list(filter(
                 # TODO: is this necessary since listdir is not recursive?
                 lambda filename: filename.endswith(self.config.ext)
-                                and "Runners/" not in filename
-                                and "Methods/" not in filename,
+                and "Runners/" not in filename
+                and "Methods/" not in filename,
                 os.listdir(impl_path)
             )))
         ))
