@@ -1,0 +1,4 @@
+(executable
+ (public_name BST)
+ (name main)
+ (libraries BST))
