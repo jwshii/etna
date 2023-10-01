@@ -1,2 +1,4 @@
 (library
- (name BST))
+ (name BST)
+ (modules impl spec)
+ (libraries qcheck))
