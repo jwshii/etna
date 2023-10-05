@@ -3,6 +3,8 @@ open Impl
 open List
 
 type kvlist = (int * int) list
+type key = int
+type value = int
 
 let rec keys (t: tree): int list =
   match t with
@@ -36,12 +38,12 @@ let rec toList (t: tree) : kvlist =
 
 (* -- Validity Properties. *)
 
-let prop_InsertValid : (tree * int * int) -> bool =
+let prop_InsertValid : (tree * key * value) -> bool =
   fun (t, k, v)->
     assume (isBST t);
     isBST (insert k v t)
 
-let prop_DeleteValid : (tree * int) -> bool =
+let prop_DeleteValid : (tree * key) -> bool =
   fun (t, k) ->
     assume (isBST t);
     isBST (delete k t)
@@ -56,17 +58,17 @@ let prop_UnionValid : (tree * tree) -> bool =
 
 (* -- Postcondition Properties. *)
 
-let prop_InsertPost : (tree * int * int * int) -> bool =
+let prop_InsertPost : (tree * key * key * value) -> bool =
   fun (t, k, k', v) ->
     assume (isBST t);
     Impl.find k' (insert k v t) = (if k = k' then Some v else Impl.find k' t)
 
-let prop_DeletePost : (tree * int * int) -> bool =
+let prop_DeletePost : (tree * key * key) -> bool =
   fun (t, k, k') ->
     Impl.find k' (delete k t) = (if k = k' then None else Impl.find k' t)
 
 
-let prop_UnionPost : (tree * tree * int) -> bool =
+let prop_UnionPost : (tree * tree * key) -> bool =
   fun (t, t', k) ->
     let lhs  = Impl.find k (union t t') in
     let rhs  = Impl.find k t in
@@ -77,11 +79,11 @@ let prop_UnionPost : (tree * tree * int) -> bool =
 
 (* -- Model-based properties. *)
 
-let deleteKey (k: int) (l: kvlist): kvlist =
+let deleteKey (k: key) (l: kvlist): kvlist =
   filter (fun (x, _) -> x = k) l
 
 
-let rec l_insert ((k, v): int * int) (l: kvlist) : kvlist =
+let rec l_insert ((k, v): key * value) (l: kvlist) : kvlist =
   match l with
   | [] -> [(k, v)]
   | (k', v')::xs ->
@@ -98,12 +100,12 @@ let rec sorted (l: kvlist) : bool =
     | (k', _v')::_l'' ->
       (k < k') && sorted l'
 
-let prop_InsertModel : (tree * int * int) -> bool =
+let prop_InsertModel : (tree * key * value) -> bool =
   fun (t, k, v) ->
     assume (isBST t);
     toList (insert k v t) = l_insert (k, v) (deleteKey k (toList t))
 
-let prop_DeleteModel : (tree * int) -> bool =
+let prop_DeleteModel : (tree * key) -> bool =
   fun (t, k) ->
     assume (isBST t);
     toList (delete k t) = deleteKey k (toList t)
@@ -114,7 +116,7 @@ let rec l_sort (l: kvlist) : kvlist =
   | (k, v)::l' ->
     l_insert (k, v) (l_sort l')
 
-let l_find (k: int) (l: kvlist): int option =
+let l_find (k: key) (l: kvlist): value option =
   match filter (fun (x, _) -> x = k) l with
   | [] -> None
   | (_, v)::_ -> Some v
@@ -145,39 +147,39 @@ let (=|=) = treeEq
 (* -- Metamorphic properties. *)
 
 
-let prop_InsertInsert : (tree * int * int * int * int) -> bool =
+let prop_InsertInsert : (tree * key * key * value * value) -> bool =
   fun (t, k, k', v, v') ->
     assume (isBST t);
     insert k v (insert k' v' t) =|= if k = k' then insert k v t else insert k' v' (insert k v t)
 
-let prop_InsertDelete : (tree * int * int * int) -> bool =
+let prop_InsertDelete : (tree * key * key * value) -> bool =
   fun (t, k, k', v) ->
     assume (isBST t);
     insert k v (delete k' t) =|= if k = k' then insert k v t else delete k' (insert k v t)
 
-let prop_InsertUnion : (tree * tree * int * int) -> bool =
+let prop_InsertUnion : (tree * tree * value * value) -> bool =
   fun (t, t', k, v) ->
     assume (isBST t);
     assume (isBST t');
     insert k v (union t t') =|= union (insert k v t) t'
 
-let prop_DeleteInsert : (tree * int * int * int) -> bool =
+let prop_DeleteInsert : (tree * key * key * value) -> bool =
   fun (t, k, k', v') ->
     assume (isBST t);
     delete k (insert k' v' t) =|= if k = k' then delete k t else insert k' v' (delete k t)
 
-let prop_DeleteDelete : (tree * int * int) -> bool =
+let prop_DeleteDelete : (tree * key * key) -> bool =
   fun (t, k, k') ->
   assume (isBST t);
   delete k (delete k' t) =|= delete k' (delete k t)
 
-let prop_DeleteUnion : (tree * tree * int) -> bool  =
+let prop_DeleteUnion : (tree * tree * key) -> bool  =
   fun (t, t', k) ->
     assume (isBST t);
     assume (isBST t');
     delete k (union t t')  =|= union (delete k t) (delete k t')
 
-let prop_UnionDeleteInsert : (tree * tree * int * int) -> bool =
+let prop_UnionDeleteInsert : (tree * tree * key * value) -> bool =
   fun (t, t', k, v) ->
     assume (isBST t);
     assume (isBST t');
@@ -203,3 +205,35 @@ let sizeBST (t: tree) : int =
 
 (* -- Size properties. *)
 
+let bst_gen =
+  let open QCheck.Gen in
+  let rec tree_gen n =
+    if n <= 0 then
+      return E
+    else
+      frequency
+        [ 1, return E;
+          2, map2 (fun (left, right) (key, value) -> T (left, key, value, right))
+                 (pair (tree_gen (n / 2)) (tree_gen (n / 2))) (pair nat nat)
+        ]
+  in
+  sized (fun n -> tree_gen n)
+
+let arbitrary_tree =
+  let rec print_tree = function
+    | E -> "Empty"
+    | T (l, k, v, r) -> "Tree (" ^ (print_tree l) ^ "," ^ (string_of_int k) ^ "," ^ (string_of_int v) ^ "," ^ (print_tree r) ^ ")"
+  in
+  QCheck.make bst_gen ~print:print_tree;;
+
+let test =
+  QCheck.Test.make ~count:1000 ~name:"bst_trial"
+   QCheck.(triple arbitrary_tree small_int small_int)
+   prop_InsertValid
+
+let test_nonsense =
+  QCheck.Test.make ~count:1000 ~name:"bst_trial"
+   arbitrary_tree
+   (fun _t -> false)
+
+let _ = QCheck.Test.check_exn test;;
