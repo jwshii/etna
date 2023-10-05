@@ -1,4 +1,6 @@
+(include_subdirs unqualified)
+
 (library
  (name BST)
- (modules impl spec)
+ (modules impl spec typeBasedGenerator)
  (libraries qcheck))
