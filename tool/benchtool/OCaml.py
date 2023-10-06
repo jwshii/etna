@@ -9,7 +9,7 @@ import ctypes
 import platform
 
 STRATEGIES_DIR = 'lib/Strategies'
-IMPL_DIR = 'lib/'
+IMPL_PATH = 'lib'
 SPEC_PATH = 'lib/spec.ml'
 WORKLOAD = 'BST'
 
@@ -20,10 +20,11 @@ class OCaml(BenchTool):
         super().__init__(
             Config(start='(*',
                    end='*)',
-                   ext='.v',
+                   ext='.ml',
                    path='workloads/OCaml',
+                   ignore='nothing',
                    strategies=STRATEGIES_DIR,
-                   impl_path=IMPL_DIR,
+                   impl_path=IMPL_PATH,
                    spec_path=SPEC_PATH), results, log_level, replace_level)
 
     def all_properties(self, workload: Entry) -> list[Entry]:

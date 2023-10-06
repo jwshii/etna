@@ -173,7 +173,7 @@ class BenchTool(ABC):
         Assumes that `workload` is already instantiated
         (via `apply_variant`) with the current variant.
 
-        This is private; it should not be called directly. 
+        This is private; it should not be called directly.
         Instead you should call `apply_variant` first.
         '''
         if not self.__variant:
