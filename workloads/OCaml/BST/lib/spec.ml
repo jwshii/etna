@@ -65,6 +65,7 @@ let prop_InsertPost : (tree * key * key * value) -> bool =
 
 let prop_DeletePost : (tree * key * key) -> bool =
   fun (t, k, k') ->
+    assume (isBST t);
     Impl.find k' (delete k t) = (if k = k' then None else Impl.find k' t)
 
 
@@ -80,7 +81,7 @@ let prop_UnionPost : (tree * tree * key) -> bool =
 (* -- Model-based properties. *)
 
 let deleteKey (k: key) (l: kvlist): kvlist =
-  filter (fun (x, _) -> x = k) l
+  filter (fun (x, _) -> x <> k) l
 
 
 let rec l_insert ((k, v): key * value) (l: kvlist) : kvlist =
