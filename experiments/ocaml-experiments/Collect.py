@@ -22,8 +22,6 @@ def collect(results: str):
             run_trial = None
             print(f'Strategies: {tool.all_strategies(workload)}')
             for strategy in tool.all_strategies(workload):
-                if strategy.name not in ['QCheck']:
-                    continue
 
                 for property in tool.all_properties(workload):
                     if workload.name in ['BST']:
