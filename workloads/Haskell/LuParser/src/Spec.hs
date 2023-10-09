@@ -40,6 +40,7 @@ reserved =
     "while"
   ]
 
+-- preconditions
 doesNotContainEscapeChar :: String -> Bool
 doesNotContainEscapeChar s = not ("\"" `isInfixOf` s) && foldr (\x acc -> (isPrint x || isSpace x) && acc) True s
 
@@ -55,6 +56,7 @@ isNotEmpty s = s /= ""
 startWithLowerUpperOrUnderscore :: String -> Bool
 startWithLowerUpperOrUnderscore (x : _) = isUpper x || isLower x || x == '_'
 
+-- recursively apply the preconditions
 nameIsParsable :: VarName -> Bool
 nameIsParsable (VarName n) = doesNotContainReservedWords n && isNotEmpty n && startWithLowerUpperOrUnderscore n && containsOnlyAlphaNumeralsOrUnderscore n
 
@@ -91,6 +93,7 @@ valueIsParsable :: Value -> Bool
 valueIsParsable (StringVal s) = doesNotContainEscapeChar s
 valueIsParsable _ = True
 
+-- properties
 prop_roundtrip_val :: Task Value
 prop_roundtrip_val v = valueIsParsable v --> P.parse valueP (pretty v) == Right v
 

@@ -1,5 +1,5 @@
-{-# LANGUAGE ImportQualifiedPost #-}
 {-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE ImportQualifiedPost #-}
 
 module PrettyPrinter where
 
@@ -9,6 +9,8 @@ import Level
 import LuSyntax
 import Text.PrettyPrint (Doc, (<+>))
 import Text.PrettyPrint qualified as PP
+
+-- Code in this file is from a CIS 5520 homework assignment at Penn.
 
 -- Pretty Printer implementation
 

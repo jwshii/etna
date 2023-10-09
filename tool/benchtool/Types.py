@@ -28,7 +28,7 @@ class Config:
     strategies: FilePath
     ''' Relative path to directory containing strategies. '''
     impl_spec_path: FilePath
-    ''' Relative path to file containing properties as well as base and mutant implementations. '''
+    ''' Relative path to directory containing base and mutant implementations and properties. '''
 
 
 class Node:
@@ -92,7 +92,8 @@ class Original(Variant):
 
     def append_mutant(self, path: str, ms: Mutants) -> list[Variant]:
         base = self.append_base(path, ms.base)
-        mutants: list[Variant] = [Modified(path, self.body + m.body, m.tag) for m in ms.mutants]
+        mutants: list[Variant] = [
+            Modified(path, self.body + m.body, m.tag) for m in ms.mutants]
         return [base] + mutants
 
 

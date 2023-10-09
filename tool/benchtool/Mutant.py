@@ -69,7 +69,7 @@ class Parser():
                 os.listdir(impl_path)
             )))
         ))
-        nodes_dict = { path: [] for path in paths }
+        nodes_dict = {path: [] for path in paths}
         for path in paths:
             with open(path) as f:
                 s = f.read()

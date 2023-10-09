@@ -15,6 +15,8 @@ import Parser qualified as P
 import GHC.Base (eqChar)
 import Level
 
+-- Code in this file is adapted from a CIS 5520 homework assignment at Penn.
+
 -- Parser implementation
 wsP :: Parser a -> Parser a
 wsP p = p <* spaces
@@ -234,7 +236,6 @@ uopP = wsP (constP "-" Neg <|> constP "not" Not <|> constP "#" Len)
 
 bopP :: Parser Bop
 bopP =
-  {-! -}
   wsP
     ( constP "+" Plus
         <|> constP "-" Minus
@@ -242,28 +243,18 @@ bopP =
         <|> constP "//" Divide
         <|> constP "%" Modulo
         <|> constP "==" Eq
+        {-! -}
         <|> constP ">=" Ge
         <|> constP ">" Gt
+        {-!! bofP_1 -}
+        {-!
+        <|> constP ">" Gt
+        <|> constP ">=" Ge
+        -}
         <|> constP "<=" Le
         <|> constP "<" Lt
         <|> constP ".." Concat
     )
-  {-!! bofP_1 -}
-  {-!
-  wsP
-    ( constP "+" Plus
-        <|> constP "-" Minus
-        <|> constP "*" Times
-        <|> constP "//" Divide
-        <|> constP "%" Modulo
-        <|> constP "==" Eq
-        <|> constP ">" Gt
-        <|> constP ">=" Ge
-        <|> constP "<" Lt
-        <|> constP "<=" Le
-        <|> constP ".." Concat
-    )
-  -}
 
 tableConstP :: Parser Expression
 tableConstP = TableConst <$> braces (P.sepBy tableFieldP (wsP (P.char ',')))

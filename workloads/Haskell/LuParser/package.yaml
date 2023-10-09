@@ -4,11 +4,8 @@ dependencies:
     - base >= 4.7 && < 5
     - etna-lib
     - QuickCheck
-    - smallcheck
-    - leancheck
     - generic-random
     - containers
-    - HUnit
     - pretty
 
 library:
