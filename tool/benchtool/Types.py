@@ -92,8 +92,7 @@ class Original(Variant):
 
     def append_mutant(self, path: str, ms: Mutants) -> list[Variant]:
         base = self.append_base(path, ms.base)
-        mutants: list[Variant] = [
-            Modified(path, self.body + m.body, m.tag) for m in ms.mutants]
+        mutants: list[Variant] = [Modified(path, self.body + m.body, m.tag) for m in ms.mutants]
         return [base] + mutants
 
 
@@ -160,3 +159,4 @@ class ReplaceLevel(IntEnum):
     ''' Skip existing data. '''
     FAIL = 2
     ''' Fail if existing data is found. '''
+    
