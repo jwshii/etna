@@ -1,0 +1,140 @@
+[prop_UnionUnionIdem|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionIdem
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionIdem (generating)
+[✗]    7    0    1    4 / 1000     0.0s test_prop_UnionUnionIdem
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_UnionUnionIdem failed (0 shrink steps):
+
+Tree (Empty,5,5,Empty)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_UnionUnionIdem]
+[prop_UnionUnionIdem|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionIdem
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionIdem (generating)
+[✗]    3    0    1    0 / 1000     0.0s test_prop_UnionUnionIdem
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_UnionUnionIdem failed (0 shrink steps):
+
+Tree (Empty,12,9,Empty)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_UnionUnionIdem]
+[prop_UnionUnionIdem|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionIdem
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionIdem (generating)
+[✗]    5    0    1    1 / 1000     0.0s test_prop_UnionUnionIdem
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_UnionUnionIdem failed (0 shrink steps):
+
+Tree (Tree (Empty,52,6,Tree (Empty,205,36,Empty)),768,822,Empty)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_UnionUnionIdem]
+[prop_UnionUnionIdem|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionIdem
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionIdem (generating)
+[✗]    2    0    1    0 / 1000     0.0s test_prop_UnionUnionIdem
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_UnionUnionIdem failed (0 shrink steps):
+
+Tree (Empty,74,14,Empty)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_UnionUnionIdem]
+[prop_UnionUnionIdem|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionIdem
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionIdem (generating)
+[✗]   15    0    1    3 / 1000     0.0s test_prop_UnionUnionIdem
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_UnionUnionIdem failed (0 shrink steps):
+
+Tree (Empty,9,6,Empty)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_UnionUnionIdem]
+[prop_UnionUnionIdem|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionIdem
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionIdem (generating)
+[✗]    5    0    1    2 / 1000     0.0s test_prop_UnionUnionIdem
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_UnionUnionIdem failed (0 shrink steps):
+
+Tree (Tree (Empty,486,87,Empty),641,19,Empty)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_UnionUnionIdem]
+[prop_UnionUnionIdem|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionIdem
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionIdem (generating)
+[✗]    1    0    1    0 / 1000     0.0s test_prop_UnionUnionIdem
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_UnionUnionIdem failed (0 shrink steps):
+
+Tree (Tree (Empty,716,3,Empty),799,2,Empty)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_UnionUnionIdem]
+[prop_UnionUnionIdem|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionIdem
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionIdem (generating)
+[✗]    4    0    1    2 / 1000     0.0s test_prop_UnionUnionIdem
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_UnionUnionIdem failed (0 shrink steps):
+
+Tree (Empty,5,52,Tree (Empty,8,6,Empty))
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_UnionUnionIdem]
+[prop_UnionUnionIdem|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionIdem
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionIdem (generating)
+[✗]    2    0    1    1 / 1000     0.0s test_prop_UnionUnionIdem
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_UnionUnionIdem failed (0 shrink steps):
+
+Tree (Empty,5,11,Empty)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_UnionUnionIdem]
+[prop_UnionUnionIdem|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionIdem
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionIdem (generating)
+[✗]   12    0    1    2 / 1000     0.0s test_prop_UnionUnionIdem
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_UnionUnionIdem failed (0 shrink steps):
+
+Tree (Empty,0,41,Tree (Empty,1,599,Empty))
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_UnionUnionIdem]

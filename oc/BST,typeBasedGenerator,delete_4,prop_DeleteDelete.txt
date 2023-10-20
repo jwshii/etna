@@ -1,0 +1,89 @@
+[prop_DeleteDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteDelete (generating)
+[ ] 1174    0    0  609 / 1000     0.1s test_prop_DeleteDelete (collecting)
+[✓] 1200    0    0  623 / 1000     0.1s test_prop_DeleteDelete
+================================================================================
+success (ran 1 tests)
+|prop_DeleteDelete]
+[prop_DeleteDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteDelete (generating)
+[ ] 1014    0    0  521 / 1000     0.1s test_prop_DeleteDelete (collecting)
+[✓] 1200    0    0  614 / 1000     0.1s test_prop_DeleteDelete
+================================================================================
+success (ran 1 tests)
+|prop_DeleteDelete]
+[prop_DeleteDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteDelete (generating)
+[ ] 1095    0    0  574 / 1000     0.1s test_prop_DeleteDelete (collecting)
+[✓] 1200    0    0  624 / 1000     0.1s test_prop_DeleteDelete
+================================================================================
+success (ran 1 tests)
+|prop_DeleteDelete]
+[prop_DeleteDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteDelete (generating)
+[ ] 1177    0    0  614 / 1000     0.1s test_prop_DeleteDelete (collecting)
+[✓] 1200    0    0  626 / 1000     0.1s test_prop_DeleteDelete
+================================================================================
+success (ran 1 tests)
+|prop_DeleteDelete]
+[prop_DeleteDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteDelete (generating)
+[ ]  982    0    0  475 / 1000     0.1s test_prop_DeleteDelete (collecting)
+[✓] 1200    0    0  589 / 1000     0.1s test_prop_DeleteDelete
+================================================================================
+success (ran 1 tests)
+|prop_DeleteDelete]
+[prop_DeleteDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteDelete (generating)
+[✓] 1200    0    0  595 / 1000     0.1s test_prop_DeleteDelete
+================================================================================
+success (ran 1 tests)
+|prop_DeleteDelete]
+[prop_DeleteDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteDelete (generating)
+[ ] 1184    0    0  607 / 1000     0.1s test_prop_DeleteDelete (collecting)
+[✓] 1200    0    0  616 / 1000     0.1s test_prop_DeleteDelete
+================================================================================
+success (ran 1 tests)
+|prop_DeleteDelete]
+[prop_DeleteDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteDelete (generating)
+[ ] 1171    0    0  582 / 1000     0.1s test_prop_DeleteDelete (collecting)
+[✓] 1200    0    0  598 / 1000     0.1s test_prop_DeleteDelete
+================================================================================
+success (ran 1 tests)
+|prop_DeleteDelete]
+[prop_DeleteDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteDelete (generating)
+[ ] 1085    0    0  531 / 1000     0.1s test_prop_DeleteDelete (collecting)
+[✓] 1200    0    0  578 / 1000     0.1s test_prop_DeleteDelete
+================================================================================
+success (ran 1 tests)
+|prop_DeleteDelete]
+[prop_DeleteDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteDelete (generating)
+[ ]  848    0    0  423 / 1000     0.1s test_prop_DeleteDelete (collecting)
+[✓] 1200    0    0  603 / 1000     0.1s test_prop_DeleteDelete
+================================================================================
+success (ran 1 tests)
+|prop_DeleteDelete]

@@ -117,14 +117,14 @@ class BenchTool(ABC):
     @abstractmethod
     def _build(self, workload_path: str):
         '''
-        Takes a path and returns the command to build the workloads.
+        Takes a path and executes the command to build the workloads.
         '''
         pass
 
     @abstractmethod
     def _run_trial(self, workload_path: str, args: TrialArgs):
         '''
-        Takes a path and an argument structure, and returns the command to run
+        Takes a path and an argument structure, and executes the command to run
         the workloads.
         '''
         pass

@@ -1,0 +1,91 @@
+[prop_UnionPost|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionPost
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionPost (generating)
+[ ]  635    0    0  635 / 1000     0.1s test_prop_UnionPost (collecting)
+[✓] 1000    0    0 1000 / 1000     0.2s test_prop_UnionPost
+================================================================================
+success (ran 1 tests)
+|prop_UnionPost]
+[prop_UnionPost|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionPost
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionPost (generating)
+[ ]  623    0    0  623 / 1000     0.1s test_prop_UnionPost (collecting)
+[✓] 1000    0    0 1000 / 1000     0.2s test_prop_UnionPost
+================================================================================
+success (ran 1 tests)
+|prop_UnionPost]
+[prop_UnionPost|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionPost
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionPost (generating)
+[ ]  605    0    0  605 / 1000     0.1s test_prop_UnionPost (collecting)
+[✓] 1000    0    0 1000 / 1000     0.2s test_prop_UnionPost
+================================================================================
+success (ran 1 tests)
+|prop_UnionPost]
+[prop_UnionPost|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionPost
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionPost (generating)
+[ ]  418    0    0  418 / 1000     0.1s test_prop_UnionPost (collecting)
+[ ]  970    0    0  970 / 1000     0.2s test_prop_UnionPost (collecting)
+[✓] 1000    0    0 1000 / 1000     0.2s test_prop_UnionPost
+================================================================================
+success (ran 1 tests)
+|prop_UnionPost]
+[prop_UnionPost|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionPost
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionPost (generating)
+[ ]  748    0    0  748 / 1000     0.1s test_prop_UnionPost (collecting)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_UnionPost
+================================================================================
+success (ran 1 tests)
+|prop_UnionPost]
+[prop_UnionPost|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionPost
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionPost (generating)
+[ ]  770    0    0  770 / 1000     0.1s test_prop_UnionPost (collecting)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_UnionPost
+================================================================================
+success (ran 1 tests)
+|prop_UnionPost]
+[prop_UnionPost|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionPost
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionPost (generating)
+[ ]  623    0    0  623 / 1000     0.1s test_prop_UnionPost (collecting)
+[✓] 1000    0    0 1000 / 1000     0.2s test_prop_UnionPost
+================================================================================
+success (ran 1 tests)
+|prop_UnionPost]
+[prop_UnionPost|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionPost
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionPost (generating)
+[ ]  565    0    0  565 / 1000     0.1s test_prop_UnionPost (collecting)
+[✓] 1000    0    0 1000 / 1000     0.2s test_prop_UnionPost
+================================================================================
+success (ran 1 tests)
+|prop_UnionPost]
+[prop_UnionPost|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionPost
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionPost (generating)
+[ ]  650    0    0  650 / 1000     0.1s test_prop_UnionPost (collecting)
+[✓] 1000    0    0 1000 / 1000     0.2s test_prop_UnionPost
+================================================================================
+success (ran 1 tests)
+|prop_UnionPost]
+[prop_UnionPost|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionPost
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionPost (generating)
+[ ]  588    0    0  588 / 1000     0.1s test_prop_UnionPost (collecting)
+[✓] 1000    0    0 1000 / 1000     0.2s test_prop_UnionPost
+================================================================================
+success (ran 1 tests)
+|prop_UnionPost]

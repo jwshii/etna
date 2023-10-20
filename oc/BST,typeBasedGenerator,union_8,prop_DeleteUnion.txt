@@ -1,0 +1,96 @@
+[prop_DeleteUnion|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion (generating)
+[ ]  701    0    0  172 / 1000     0.1s test_prop_DeleteUnion (collecting)
+[✓] 1200    0    0  295 / 1000     0.2s test_prop_DeleteUnion
+================================================================================
+success (ran 1 tests)
+|prop_DeleteUnion]
+[prop_DeleteUnion|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion (generating)
+[ ]  562    0    0  162 / 1000     0.1s test_prop_DeleteUnion (collecting)
+[ ] 1005    0    0  294 / 1000     0.2s test_prop_DeleteUnion (collecting)
+[✓] 1200    0    0  333 / 1000     0.2s test_prop_DeleteUnion
+================================================================================
+success (ran 1 tests)
+|prop_DeleteUnion]
+[prop_DeleteUnion|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion (generating)
+[ ]  634    0    0  181 / 1000     0.1s test_prop_DeleteUnion (collecting)
+[ ] 1117    0    0  302 / 1000     0.2s test_prop_DeleteUnion (collecting)
+[✓] 1200    0    0  322 / 1000     0.2s test_prop_DeleteUnion
+================================================================================
+success (ran 1 tests)
+|prop_DeleteUnion]
+[prop_DeleteUnion|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion (generating)
+[ ]  506    0    0  131 / 1000     0.1s test_prop_DeleteUnion (collecting)
+[ ]  989    0    0  249 / 1000     0.2s test_prop_DeleteUnion (collecting)
+[✓] 1200    0    0  298 / 1000     0.2s test_prop_DeleteUnion
+================================================================================
+success (ran 1 tests)
+|prop_DeleteUnion]
+[prop_DeleteUnion|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion (generating)
+[ ]  555    0    0  135 / 1000     0.1s test_prop_DeleteUnion (collecting)
+[ ] 1022    0    0  250 / 1000     0.2s test_prop_DeleteUnion (collecting)
+[✓] 1200    0    0  292 / 1000     0.2s test_prop_DeleteUnion
+================================================================================
+success (ran 1 tests)
+|prop_DeleteUnion]
+[prop_DeleteUnion|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion (generating)
+[ ]  619    0    0  164 / 1000     0.1s test_prop_DeleteUnion (collecting)
+[ ] 1083    0    0  282 / 1000     0.2s test_prop_DeleteUnion (collecting)
+[✓] 1200    0    0  314 / 1000     0.2s test_prop_DeleteUnion
+================================================================================
+success (ran 1 tests)
+|prop_DeleteUnion]
+[prop_DeleteUnion|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion (generating)
+[ ]  602    0    0  166 / 1000     0.1s test_prop_DeleteUnion (collecting)
+[✓] 1200    0    0  340 / 1000     0.2s test_prop_DeleteUnion
+================================================================================
+success (ran 1 tests)
+|prop_DeleteUnion]
+[prop_DeleteUnion|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion (generating)
+[ ]  717    0    0  181 / 1000     0.1s test_prop_DeleteUnion (collecting)
+[✓] 1200    0    0  316 / 1000     0.2s test_prop_DeleteUnion
+================================================================================
+success (ran 1 tests)
+|prop_DeleteUnion]
+[prop_DeleteUnion|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion (generating)
+[ ]  555    0    0  128 / 1000     0.1s test_prop_DeleteUnion (collecting)
+[ ] 1144    0    0  282 / 1000     0.2s test_prop_DeleteUnion (collecting)
+[✓] 1200    0    0  295 / 1000     0.2s test_prop_DeleteUnion
+================================================================================
+success (ran 1 tests)
+|prop_DeleteUnion]
+[prop_DeleteUnion|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion (generating)
+[ ]  808    0    0  219 / 1000     0.1s test_prop_DeleteUnion (collecting)
+[✓] 1200    0    0  316 / 1000     0.2s test_prop_DeleteUnion
+================================================================================
+success (ran 1 tests)
+|prop_DeleteUnion]

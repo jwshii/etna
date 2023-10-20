@@ -16,7 +16,7 @@ let rec insert (k: int) (v: int) (t: tree) =
       else T (l, k', v, r)
     (*!! insert_1 *)
       (*!
-      T (E, k, v, E)
+      let _ = ignore (l, k', v', r, insert) in T (E, k, v, E)
       *)
     (*!! insert_2 *)
       (*!
@@ -47,6 +47,7 @@ let rec delete (k: int) (t: tree) =
   else join l r
   (*!! delete_4 *)
   (*!
+  let _ = ignore v' in
   if k < k' then delete k l
   else if k' < k then delete k r
   else join l r

@@ -40,19 +40,13 @@ class OCaml(BenchTool):
             self._shell_command(['dune', 'build'])
 
     def _run_trial(self, workload_path: str, params: TrialArgs):
-
-        def reformat():
-            with open(params.file) as f:
-                results = [json.loads(line) for line in f]
-            open('file.txt', 'w').close()
-            json.dump(results, open(params.file, 'w'))
-
         with self._change_dir(workload_path):
             for _ in range(params.trials):
                 p = params.to_json()
-                self._shell_command(['dune', 'exec', WORKLOAD])
+                self._shell_command(['dune', 'exec', '--',  WORKLOAD, '--', params.property, params.file])
 
-        reformat()
+
+
 
     def _preprocess(self, workload: Entry) -> None:
         pass
