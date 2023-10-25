@@ -2,12 +2,15 @@ import re
 import os
 import json
 
+DATA_PATH = './oc/'
+OUTPUT_FILE = './experiments/ocaml-experiments/parsed.json'
+
 def parse(filename):
     # Sample input data
     workload, strategy, mutant, prop = os.path.splitext(os.path.basename(filename))[0].split(',')
 
     file = ""
-    with open(f"./oc/{filename}") as f:
+    with open(f"{filename}") as f:
         file = "".join(f.readlines())
 
     pattern_chunk = r'(?s)\[(\w+)\|(.*?)\|\1 -> ([.0-9]+)\]'
@@ -41,8 +44,15 @@ def parse(filename):
         }
         data.append(run)
 
-    print(json.dumps(data))
-    return
+    return data
+
+def main():
+    filenames = os.listdir(DATA_PATH)
+    filenames = list(map(lambda s: DATA_PATH + s, filenames))
+    parsed = [run for filename in filenames for run in parse(filename)]
+    with open(OUTPUT_FILE, 'w') as f:
+        json.dump(parsed, f, indent=4)
+    print(f"Successfully parsed through {DATA_PATH} directory")
 
 if __name__ == '__main__':
     main()

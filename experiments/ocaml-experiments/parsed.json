@@ -1,0 +1,5302 @@
+[
+    {
+        "workload": "BST",
+        "discards": 615,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 585,
+        "property": "prop_InsertDelete",
+        "time": 98.46
+    },
+    {
+        "workload": "BST",
+        "discards": 585,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 615,
+        "property": "prop_InsertDelete",
+        "time": 156.44
+    },
+    {
+        "workload": "BST",
+        "discards": 599,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 601,
+        "property": "prop_InsertDelete",
+        "time": 113.41
+    },
+    {
+        "workload": "BST",
+        "discards": 574,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 626,
+        "property": "prop_InsertDelete",
+        "time": 101.26
+    },
+    {
+        "workload": "BST",
+        "discards": 567,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 633,
+        "property": "prop_InsertDelete",
+        "time": 106.22
+    },
+    {
+        "workload": "BST",
+        "discards": 185,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 194,
+        "property": "prop_InsertDelete",
+        "time": 26.19
+    },
+    {
+        "workload": "BST",
+        "discards": 587,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 613,
+        "property": "prop_InsertDelete",
+        "time": 85.32
+    },
+    {
+        "workload": "BST",
+        "discards": 615,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 585,
+        "property": "prop_InsertDelete",
+        "time": 94.76
+    },
+    {
+        "workload": "BST",
+        "discards": 579,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 564,
+        "property": "prop_InsertDelete",
+        "time": 70.19
+    },
+    {
+        "workload": "BST",
+        "discards": 124,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 133,
+        "property": "prop_InsertDelete",
+        "time": 22.25
+    },
+    {
+        "workload": "BST",
+        "discards": 365,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 402,
+        "property": "prop_InsertPost",
+        "time": 53.4
+    },
+    {
+        "workload": "BST",
+        "discards": 592,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 608,
+        "property": "prop_InsertPost",
+        "time": 105.18
+    },
+    {
+        "workload": "BST",
+        "discards": 596,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 604,
+        "property": "prop_InsertPost",
+        "time": 101.78
+    },
+    {
+        "workload": "BST",
+        "discards": 580,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 620,
+        "property": "prop_InsertPost",
+        "time": 108.09
+    },
+    {
+        "workload": "BST",
+        "discards": 357,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 410,
+        "property": "prop_InsertPost",
+        "time": 62.36
+    },
+    {
+        "workload": "BST",
+        "discards": 602,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 598,
+        "property": "prop_InsertPost",
+        "time": 123.73
+    },
+    {
+        "workload": "BST",
+        "discards": 561,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 639,
+        "property": "prop_InsertPost",
+        "time": 85.35
+    },
+    {
+        "workload": "BST",
+        "discards": 74,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 67,
+        "property": "prop_InsertPost",
+        "time": 13.85
+    },
+    {
+        "workload": "BST",
+        "discards": 587,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 613,
+        "property": "prop_InsertPost",
+        "time": 116.8
+    },
+    {
+        "workload": "BST",
+        "discards": 428,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 466,
+        "property": "prop_InsertPost",
+        "time": 116.28
+    },
+    {
+        "workload": "BST",
+        "discards": 4,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 2,
+        "property": "prop_InsertModel",
+        "time": 5.59
+    },
+    {
+        "workload": "BST",
+        "discards": 22,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 17,
+        "property": "prop_InsertModel",
+        "time": 0.41
+    },
+    {
+        "workload": "BST",
+        "discards": 17,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 17,
+        "property": "prop_InsertModel",
+        "time": 4.06
+    },
+    {
+        "workload": "BST",
+        "discards": 7,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 8,
+        "property": "prop_InsertModel",
+        "time": 4.9
+    },
+    {
+        "workload": "BST",
+        "discards": 17,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 19,
+        "property": "prop_InsertModel",
+        "time": 5.49
+    },
+    {
+        "workload": "BST",
+        "discards": 21,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 10,
+        "property": "prop_InsertModel",
+        "time": 4.72
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 0,
+        "property": "prop_InsertModel",
+        "time": 0.14
+    },
+    {
+        "workload": "BST",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 0,
+        "property": "prop_InsertModel",
+        "time": 2.8
+    },
+    {
+        "workload": "BST",
+        "discards": 14,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 14,
+        "property": "prop_InsertModel",
+        "time": 3.03
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 3,
+        "property": "prop_InsertModel",
+        "time": 0.13
+    },
+    {
+        "workload": "BST",
+        "discards": 2,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 3,
+        "property": "prop_DeleteInsert",
+        "time": 0.25
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 0,
+        "property": "prop_DeleteInsert",
+        "time": 0.14
+    },
+    {
+        "workload": "BST",
+        "discards": 4,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 3,
+        "property": "prop_DeleteInsert",
+        "time": 0.15
+    },
+    {
+        "workload": "BST",
+        "discards": 8,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 8,
+        "property": "prop_DeleteInsert",
+        "time": 3.66
+    },
+    {
+        "workload": "BST",
+        "discards": 73,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 90,
+        "property": "prop_DeleteInsert",
+        "time": 22.75
+    },
+    {
+        "workload": "BST",
+        "discards": 30,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 41,
+        "property": "prop_DeleteInsert",
+        "time": 7.21
+    },
+    {
+        "workload": "BST",
+        "discards": 39,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 42,
+        "property": "prop_DeleteInsert",
+        "time": 10.2
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 4,
+        "property": "prop_DeleteInsert",
+        "time": 1.33
+    },
+    {
+        "workload": "BST",
+        "discards": 113,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 133,
+        "property": "prop_DeleteInsert",
+        "time": 34.91
+    },
+    {
+        "workload": "BST",
+        "discards": 49,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 47,
+        "property": "prop_DeleteInsert",
+        "time": 8.05
+    },
+    {
+        "workload": "BST",
+        "discards": 2,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 2,
+        "property": "prop_DeleteModel",
+        "time": 0.74
+    },
+    {
+        "workload": "BST",
+        "discards": 5,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 3,
+        "property": "prop_DeleteModel",
+        "time": 0.2
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 1,
+        "property": "prop_DeleteModel",
+        "time": 0.2
+    },
+    {
+        "workload": "BST",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 2,
+        "property": "prop_DeleteModel",
+        "time": 0.13
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 1,
+        "property": "prop_DeleteModel",
+        "time": 0.12
+    },
+    {
+        "workload": "BST",
+        "discards": 3,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 9,
+        "property": "prop_DeleteModel",
+        "time": 0.21
+    },
+    {
+        "workload": "BST",
+        "discards": 2,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 1,
+        "property": "prop_DeleteModel",
+        "time": 0.13
+    },
+    {
+        "workload": "BST",
+        "discards": 3,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 4,
+        "property": "prop_DeleteModel",
+        "time": 0.14
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 0,
+        "property": "prop_DeleteModel",
+        "time": 0.14
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 0,
+        "property": "prop_DeleteModel",
+        "time": 0.13
+    },
+    {
+        "workload": "BST",
+        "discards": 84,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 73,
+        "property": "prop_InsertPost",
+        "time": 16.0
+    },
+    {
+        "workload": "BST",
+        "discards": 38,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 42,
+        "property": "prop_InsertPost",
+        "time": 12.08
+    },
+    {
+        "workload": "BST",
+        "discards": 31,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 29,
+        "property": "prop_InsertPost",
+        "time": 7.17
+    },
+    {
+        "workload": "BST",
+        "discards": 87,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 91,
+        "property": "prop_InsertPost",
+        "time": 6.27
+    },
+    {
+        "workload": "BST",
+        "discards": 78,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 86,
+        "property": "prop_InsertPost",
+        "time": 22.08
+    },
+    {
+        "workload": "BST",
+        "discards": 57,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 82,
+        "property": "prop_InsertPost",
+        "time": 6.31
+    },
+    {
+        "workload": "BST",
+        "discards": 121,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 115,
+        "property": "prop_InsertPost",
+        "time": 28.11
+    },
+    {
+        "workload": "BST",
+        "discards": 2,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 1,
+        "property": "prop_InsertPost",
+        "time": 0.42
+    },
+    {
+        "workload": "BST",
+        "discards": 65,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 48,
+        "property": "prop_InsertPost",
+        "time": 13.39
+    },
+    {
+        "workload": "BST",
+        "discards": 8,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 11,
+        "property": "prop_InsertPost",
+        "time": 2.87
+    },
+    {
+        "workload": "BST",
+        "discards": 11,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 1,
+        "property": "prop_UnionDeleteInsert",
+        "time": 6.11
+    },
+    {
+        "workload": "BST",
+        "discards": 30,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 8,
+        "property": "prop_UnionDeleteInsert",
+        "time": 2.97
+    },
+    {
+        "workload": "BST",
+        "discards": 24,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 5,
+        "property": "prop_UnionDeleteInsert",
+        "time": 7.51
+    },
+    {
+        "workload": "BST",
+        "discards": 8,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 4,
+        "property": "prop_UnionDeleteInsert",
+        "time": 0.56
+    },
+    {
+        "workload": "BST",
+        "discards": 8,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 4,
+        "property": "prop_UnionDeleteInsert",
+        "time": 0.41
+    },
+    {
+        "workload": "BST",
+        "discards": 10,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 1,
+        "property": "prop_UnionDeleteInsert",
+        "time": 0.63
+    },
+    {
+        "workload": "BST",
+        "discards": 7,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 3,
+        "property": "prop_UnionDeleteInsert",
+        "time": 0.4
+    },
+    {
+        "workload": "BST",
+        "discards": 27,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 7,
+        "property": "prop_UnionDeleteInsert",
+        "time": 5.1
+    },
+    {
+        "workload": "BST",
+        "discards": 3,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 0,
+        "property": "prop_UnionDeleteInsert",
+        "time": 0.22
+    },
+    {
+        "workload": "BST",
+        "discards": 4,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 0,
+        "property": "prop_UnionDeleteInsert",
+        "time": 0.2
+    },
+    {
+        "workload": "BST",
+        "discards": 36,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 34,
+        "property": "prop_InsertPost",
+        "time": 12.36
+    },
+    {
+        "workload": "BST",
+        "discards": 169,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 188,
+        "property": "prop_InsertPost",
+        "time": 30.49
+    },
+    {
+        "workload": "BST",
+        "discards": 12,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 31,
+        "property": "prop_InsertPost",
+        "time": 7.51
+    },
+    {
+        "workload": "BST",
+        "discards": 198,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 191,
+        "property": "prop_InsertPost",
+        "time": 21.58
+    },
+    {
+        "workload": "BST",
+        "discards": 3,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 6,
+        "property": "prop_InsertPost",
+        "time": 0.22
+    },
+    {
+        "workload": "BST",
+        "discards": 226,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 222,
+        "property": "prop_InsertPost",
+        "time": 56.33
+    },
+    {
+        "workload": "BST",
+        "discards": 88,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 114,
+        "property": "prop_InsertPost",
+        "time": 16.58
+    },
+    {
+        "workload": "BST",
+        "discards": 4,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 4,
+        "property": "prop_InsertPost",
+        "time": 0.15
+    },
+    {
+        "workload": "BST",
+        "discards": 91,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 91,
+        "property": "prop_InsertPost",
+        "time": 17.97
+    },
+    {
+        "workload": "BST",
+        "discards": 213,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 204,
+        "property": "prop_InsertPost",
+        "time": 47.13
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 193.89
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 156.3
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 165.37
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 162.37
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 165.54
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 223.27
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 169.55
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 190.88
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 140.49
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 172.87
+    },
+    {
+        "workload": "BST",
+        "discards": 113,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 55,
+        "property": "prop_UnionModel",
+        "time": 19.15
+    },
+    {
+        "workload": "BST",
+        "discards": 178,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 50,
+        "property": "prop_UnionModel",
+        "time": 44.09
+    },
+    {
+        "workload": "BST",
+        "discards": 176,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 57,
+        "property": "prop_UnionModel",
+        "time": 19.78
+    },
+    {
+        "workload": "BST",
+        "discards": 3,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 0,
+        "property": "prop_UnionModel",
+        "time": 0.22
+    },
+    {
+        "workload": "BST",
+        "discards": 113,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 33,
+        "property": "prop_UnionModel",
+        "time": 26.83
+    },
+    {
+        "workload": "BST",
+        "discards": 233,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 79,
+        "property": "prop_UnionModel",
+        "time": 56.91
+    },
+    {
+        "workload": "BST",
+        "discards": 325,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 101,
+        "property": "prop_UnionModel",
+        "time": 77.49
+    },
+    {
+        "workload": "BST",
+        "discards": 86,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 30,
+        "property": "prop_UnionModel",
+        "time": 19.32
+    },
+    {
+        "workload": "BST",
+        "discards": 276,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 94,
+        "property": "prop_UnionModel",
+        "time": 59.22
+    },
+    {
+        "workload": "BST",
+        "discards": 55,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 30,
+        "property": "prop_UnionModel",
+        "time": 20.71
+    },
+    {
+        "workload": "BST",
+        "discards": 276,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 96,
+        "property": "prop_DeleteUnion",
+        "time": 50.45
+    },
+    {
+        "workload": "BST",
+        "discards": 201,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 74,
+        "property": "prop_DeleteUnion",
+        "time": 34.25
+    },
+    {
+        "workload": "BST",
+        "discards": 893,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 307,
+        "property": "prop_DeleteUnion",
+        "time": 190.55
+    },
+    {
+        "workload": "BST",
+        "discards": 421,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 129,
+        "property": "prop_DeleteUnion",
+        "time": 89.69
+    },
+    {
+        "workload": "BST",
+        "discards": 885,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 315,
+        "property": "prop_DeleteUnion",
+        "time": 211.57
+    },
+    {
+        "workload": "BST",
+        "discards": 257,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 102,
+        "property": "prop_DeleteUnion",
+        "time": 50.38
+    },
+    {
+        "workload": "BST",
+        "discards": 679,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 265,
+        "property": "prop_DeleteUnion",
+        "time": 155.02
+    },
+    {
+        "workload": "BST",
+        "discards": 295,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 99,
+        "property": "prop_DeleteUnion",
+        "time": 59.85
+    },
+    {
+        "workload": "BST",
+        "discards": 339,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 119,
+        "property": "prop_DeleteUnion",
+        "time": 75.45
+    },
+    {
+        "workload": "BST",
+        "discards": 4,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 1,
+        "property": "prop_DeleteUnion",
+        "time": 0.38
+    },
+    {
+        "workload": "BST",
+        "discards": 995,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 152,
+        "property": "prop_UnionUnionAssoc",
+        "time": 322.24
+    },
+    {
+        "workload": "BST",
+        "discards": 835,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 135,
+        "property": "prop_UnionUnionAssoc",
+        "time": 250.51
+    },
+    {
+        "workload": "BST",
+        "discards": 130,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 26,
+        "property": "prop_UnionUnionAssoc",
+        "time": 33.63
+    },
+    {
+        "workload": "BST",
+        "discards": 548,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 65,
+        "property": "prop_UnionUnionAssoc",
+        "time": 153.27
+    },
+    {
+        "workload": "BST",
+        "discards": 149,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 18,
+        "property": "prop_UnionUnionAssoc",
+        "time": 44.1
+    },
+    {
+        "workload": "BST",
+        "discards": 136,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 15,
+        "property": "prop_UnionUnionAssoc",
+        "time": 55.82
+    },
+    {
+        "workload": "BST",
+        "discards": 1038,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 162,
+        "property": "prop_UnionUnionAssoc",
+        "time": 319.06
+    },
+    {
+        "workload": "BST",
+        "discards": 32,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 4,
+        "property": "prop_UnionUnionAssoc",
+        "time": 5.84
+    },
+    {
+        "workload": "BST",
+        "discards": 139,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 23,
+        "property": "prop_UnionUnionAssoc",
+        "time": 39.78
+    },
+    {
+        "workload": "BST",
+        "discards": 6,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 1,
+        "property": "prop_UnionUnionAssoc",
+        "time": 1.37
+    },
+    {
+        "workload": "BST",
+        "discards": 37,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 7,
+        "property": "prop_UnionDeleteInsert",
+        "time": 3.28
+    },
+    {
+        "workload": "BST",
+        "discards": 3,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 0,
+        "property": "prop_UnionDeleteInsert",
+        "time": 0.45
+    },
+    {
+        "workload": "BST",
+        "discards": 12,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 4,
+        "property": "prop_UnionDeleteInsert",
+        "time": 4.84
+    },
+    {
+        "workload": "BST",
+        "discards": 4,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 1,
+        "property": "prop_UnionDeleteInsert",
+        "time": 6.69
+    },
+    {
+        "workload": "BST",
+        "discards": 40,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 13,
+        "property": "prop_UnionDeleteInsert",
+        "time": 8.76
+    },
+    {
+        "workload": "BST",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 1,
+        "property": "prop_UnionDeleteInsert",
+        "time": 0.17
+    },
+    {
+        "workload": "BST",
+        "discards": 4,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 0,
+        "property": "prop_UnionDeleteInsert",
+        "time": 0.24
+    },
+    {
+        "workload": "BST",
+        "discards": 15,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 3,
+        "property": "prop_UnionDeleteInsert",
+        "time": 1.51
+    },
+    {
+        "workload": "BST",
+        "discards": 4,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 1,
+        "property": "prop_UnionDeleteInsert",
+        "time": 4.51
+    },
+    {
+        "workload": "BST",
+        "discards": 3,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 0,
+        "property": "prop_UnionDeleteInsert",
+        "time": 0.22
+    },
+    {
+        "workload": "BST",
+        "discards": 15,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 6,
+        "property": "prop_UnionModel",
+        "time": 1.21
+    },
+    {
+        "workload": "BST",
+        "discards": 8,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 1,
+        "property": "prop_UnionModel",
+        "time": 1.35
+    },
+    {
+        "workload": "BST",
+        "discards": 38,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 12,
+        "property": "prop_UnionModel",
+        "time": 15.21
+    },
+    {
+        "workload": "BST",
+        "discards": 57,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 12,
+        "property": "prop_UnionModel",
+        "time": 13.52
+    },
+    {
+        "workload": "BST",
+        "discards": 48,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 25,
+        "property": "prop_UnionModel",
+        "time": 12.67
+    },
+    {
+        "workload": "BST",
+        "discards": 104,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 38,
+        "property": "prop_UnionModel",
+        "time": 35.06
+    },
+    {
+        "workload": "BST",
+        "discards": 18,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 6,
+        "property": "prop_UnionModel",
+        "time": 4.34
+    },
+    {
+        "workload": "BST",
+        "discards": 227,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 67,
+        "property": "prop_UnionModel",
+        "time": 46.44
+    },
+    {
+        "workload": "BST",
+        "discards": 4,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 1,
+        "property": "prop_UnionModel",
+        "time": 0.22
+    },
+    {
+        "workload": "BST",
+        "discards": 75,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 35,
+        "property": "prop_UnionModel",
+        "time": 19.03
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 0,
+        "property": "prop_InsertInsert",
+        "time": 0.16
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 0,
+        "property": "prop_InsertInsert",
+        "time": 0.16
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 0,
+        "property": "prop_InsertInsert",
+        "time": 0.17
+    },
+    {
+        "workload": "BST",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 1,
+        "property": "prop_InsertInsert",
+        "time": 0.16
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 0,
+        "property": "prop_InsertInsert",
+        "time": 0.17
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 0,
+        "property": "prop_InsertInsert",
+        "time": 0.14
+    },
+    {
+        "workload": "BST",
+        "discards": 2,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 0,
+        "property": "prop_InsertInsert",
+        "time": 1.11
+    },
+    {
+        "workload": "BST",
+        "discards": 2,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 0,
+        "property": "prop_InsertInsert",
+        "time": 0.16
+    },
+    {
+        "workload": "BST",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 0,
+        "property": "prop_InsertInsert",
+        "time": 0.13
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 0,
+        "property": "prop_InsertInsert",
+        "time": 1.87
+    },
+    {
+        "workload": "BST",
+        "discards": 24,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 5,
+        "property": "prop_UnionDeleteInsert",
+        "time": 2.07
+    },
+    {
+        "workload": "BST",
+        "discards": 78,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 34,
+        "property": "prop_UnionDeleteInsert",
+        "time": 21.12
+    },
+    {
+        "workload": "BST",
+        "discards": 28,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 12,
+        "property": "prop_UnionDeleteInsert",
+        "time": 11.12
+    },
+    {
+        "workload": "BST",
+        "discards": 40,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 13,
+        "property": "prop_UnionDeleteInsert",
+        "time": 7.26
+    },
+    {
+        "workload": "BST",
+        "discards": 47,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 10,
+        "property": "prop_UnionDeleteInsert",
+        "time": 8.12
+    },
+    {
+        "workload": "BST",
+        "discards": 17,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 4,
+        "property": "prop_UnionDeleteInsert",
+        "time": 1.39
+    },
+    {
+        "workload": "BST",
+        "discards": 61,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 27,
+        "property": "prop_UnionDeleteInsert",
+        "time": 12.72
+    },
+    {
+        "workload": "BST",
+        "discards": 54,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 21,
+        "property": "prop_UnionDeleteInsert",
+        "time": 15.33
+    },
+    {
+        "workload": "BST",
+        "discards": 150,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 58,
+        "property": "prop_UnionDeleteInsert",
+        "time": 27.18
+    },
+    {
+        "workload": "BST",
+        "discards": 8,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 0,
+        "property": "prop_UnionDeleteInsert",
+        "time": 3.25
+    },
+    {
+        "workload": "BST",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 1,
+        "property": "prop_InsertUnion",
+        "time": 7.43
+    },
+    {
+        "workload": "BST",
+        "discards": 4,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 1,
+        "property": "prop_InsertUnion",
+        "time": 0.28
+    },
+    {
+        "workload": "BST",
+        "discards": 20,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 7,
+        "property": "prop_InsertUnion",
+        "time": 8.86
+    },
+    {
+        "workload": "BST",
+        "discards": 16,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 2,
+        "property": "prop_InsertUnion",
+        "time": 4.27
+    },
+    {
+        "workload": "BST",
+        "discards": 17,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 5,
+        "property": "prop_InsertUnion",
+        "time": 3.66
+    },
+    {
+        "workload": "BST",
+        "discards": 9,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 4,
+        "property": "prop_InsertUnion",
+        "time": 0.59
+    },
+    {
+        "workload": "BST",
+        "discards": 5,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 0,
+        "property": "prop_InsertUnion",
+        "time": 5.33
+    },
+    {
+        "workload": "BST",
+        "discards": 19,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 6,
+        "property": "prop_InsertUnion",
+        "time": 11.21
+    },
+    {
+        "workload": "BST",
+        "discards": 2,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 1,
+        "property": "prop_InsertUnion",
+        "time": 1.12
+    },
+    {
+        "workload": "BST",
+        "discards": 12,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 7,
+        "property": "prop_InsertUnion",
+        "time": 0.85
+    },
+    {
+        "workload": "BST",
+        "discards": 1054,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 146,
+        "property": "prop_UnionUnionAssoc",
+        "time": 314.48
+    },
+    {
+        "workload": "BST",
+        "discards": 1050,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 150,
+        "property": "prop_UnionUnionAssoc",
+        "time": 323.03
+    },
+    {
+        "workload": "BST",
+        "discards": 1038,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 162,
+        "property": "prop_UnionUnionAssoc",
+        "time": 311.31
+    },
+    {
+        "workload": "BST",
+        "discards": 1023,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 177,
+        "property": "prop_UnionUnionAssoc",
+        "time": 306.86
+    },
+    {
+        "workload": "BST",
+        "discards": 1028,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 172,
+        "property": "prop_UnionUnionAssoc",
+        "time": 321.91
+    },
+    {
+        "workload": "BST",
+        "discards": 1046,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 154,
+        "property": "prop_UnionUnionAssoc",
+        "time": 281.1
+    },
+    {
+        "workload": "BST",
+        "discards": 1029,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 171,
+        "property": "prop_UnionUnionAssoc",
+        "time": 316.84
+    },
+    {
+        "workload": "BST",
+        "discards": 1046,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 154,
+        "property": "prop_UnionUnionAssoc",
+        "time": 289.02
+    },
+    {
+        "workload": "BST",
+        "discards": 1056,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 144,
+        "property": "prop_UnionUnionAssoc",
+        "time": 365.45
+    },
+    {
+        "workload": "BST",
+        "discards": 1054,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 146,
+        "property": "prop_UnionUnionAssoc",
+        "time": 294.82
+    },
+    {
+        "workload": "BST",
+        "discards": 896,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 304,
+        "property": "prop_UnionModel",
+        "time": 186.86
+    },
+    {
+        "workload": "BST",
+        "discards": 684,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 226,
+        "property": "prop_UnionModel",
+        "time": 117.02
+    },
+    {
+        "workload": "BST",
+        "discards": 876,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 324,
+        "property": "prop_UnionModel",
+        "time": 221.38
+    },
+    {
+        "workload": "BST",
+        "discards": 901,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 299,
+        "property": "prop_UnionModel",
+        "time": 225.66
+    },
+    {
+        "workload": "BST",
+        "discards": 871,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 329,
+        "property": "prop_UnionModel",
+        "time": 185.81
+    },
+    {
+        "workload": "BST",
+        "discards": 864,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 336,
+        "property": "prop_UnionModel",
+        "time": 219.83
+    },
+    {
+        "workload": "BST",
+        "discards": 526,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 168,
+        "property": "prop_UnionModel",
+        "time": 139.91
+    },
+    {
+        "workload": "BST",
+        "discards": 49,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 11,
+        "property": "prop_UnionModel",
+        "time": 12.05
+    },
+    {
+        "workload": "BST",
+        "discards": 8,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 2,
+        "property": "prop_UnionModel",
+        "time": 2.54
+    },
+    {
+        "workload": "BST",
+        "discards": 886,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 314,
+        "property": "prop_UnionModel",
+        "time": 197.17
+    },
+    {
+        "workload": "BST",
+        "discards": 75,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 71,
+        "property": "prop_InsertModel",
+        "time": 14.24
+    },
+    {
+        "workload": "BST",
+        "discards": 183,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 165,
+        "property": "prop_InsertModel",
+        "time": 41.34
+    },
+    {
+        "workload": "BST",
+        "discards": 21,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 19,
+        "property": "prop_InsertModel",
+        "time": 3.25
+    },
+    {
+        "workload": "BST",
+        "discards": 78,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 86,
+        "property": "prop_InsertModel",
+        "time": 15.69
+    },
+    {
+        "workload": "BST",
+        "discards": 104,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 100,
+        "property": "prop_InsertModel",
+        "time": 22.16
+    },
+    {
+        "workload": "BST",
+        "discards": 232,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 225,
+        "property": "prop_InsertModel",
+        "time": 37.82
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 0,
+        "property": "prop_InsertModel",
+        "time": 0.15
+    },
+    {
+        "workload": "BST",
+        "discards": 69,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 61,
+        "property": "prop_InsertModel",
+        "time": 12.27
+    },
+    {
+        "workload": "BST",
+        "discards": 157,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 122,
+        "property": "prop_InsertModel",
+        "time": 21.38
+    },
+    {
+        "workload": "BST",
+        "discards": 26,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 16,
+        "property": "prop_InsertModel",
+        "time": 5.29
+    },
+    {
+        "workload": "BST",
+        "discards": 417,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 440,
+        "property": "prop_DeleteModel",
+        "time": 95.11
+    },
+    {
+        "workload": "BST",
+        "discards": 568,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 632,
+        "property": "prop_DeleteModel",
+        "time": 99.77
+    },
+    {
+        "workload": "BST",
+        "discards": 141,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 111,
+        "property": "prop_DeleteModel",
+        "time": 21.37
+    },
+    {
+        "workload": "BST",
+        "discards": 605,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 595,
+        "property": "prop_DeleteModel",
+        "time": 82.24
+    },
+    {
+        "workload": "BST",
+        "discards": 124,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 111,
+        "property": "prop_DeleteModel",
+        "time": 44.03
+    },
+    {
+        "workload": "BST",
+        "discards": 132,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 146,
+        "property": "prop_DeleteModel",
+        "time": 23.91
+    },
+    {
+        "workload": "BST",
+        "discards": 64,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 71,
+        "property": "prop_DeleteModel",
+        "time": 12.58
+    },
+    {
+        "workload": "BST",
+        "discards": 177,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 150,
+        "property": "prop_DeleteModel",
+        "time": 34.15
+    },
+    {
+        "workload": "BST",
+        "discards": 305,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 310,
+        "property": "prop_DeleteModel",
+        "time": 55.13
+    },
+    {
+        "workload": "BST",
+        "discards": 219,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 230,
+        "property": "prop_DeleteModel",
+        "time": 37.12
+    },
+    {
+        "workload": "BST",
+        "discards": 74,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 67,
+        "property": "prop_DeleteInsert",
+        "time": 13.28
+    },
+    {
+        "workload": "BST",
+        "discards": 173,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 199,
+        "property": "prop_DeleteInsert",
+        "time": 19.64
+    },
+    {
+        "workload": "BST",
+        "discards": 32,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 30,
+        "property": "prop_DeleteInsert",
+        "time": 4.33
+    },
+    {
+        "workload": "BST",
+        "discards": 59,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 58,
+        "property": "prop_DeleteInsert",
+        "time": 9.44
+    },
+    {
+        "workload": "BST",
+        "discards": 109,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 87,
+        "property": "prop_DeleteInsert",
+        "time": 3.93
+    },
+    {
+        "workload": "BST",
+        "discards": 32,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 22,
+        "property": "prop_DeleteInsert",
+        "time": 9.21
+    },
+    {
+        "workload": "BST",
+        "discards": 79,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 78,
+        "property": "prop_DeleteInsert",
+        "time": 8.31
+    },
+    {
+        "workload": "BST",
+        "discards": 120,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 96,
+        "property": "prop_DeleteInsert",
+        "time": 8.72
+    },
+    {
+        "workload": "BST",
+        "discards": 13,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 7,
+        "property": "prop_DeleteInsert",
+        "time": 0.23
+    },
+    {
+        "workload": "BST",
+        "discards": 34,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 38,
+        "property": "prop_DeleteInsert",
+        "time": 3.51
+    },
+    {
+        "workload": "BST",
+        "discards": 18,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 2,
+        "property": "prop_UnionDeleteInsert",
+        "time": 3.9
+    },
+    {
+        "workload": "BST",
+        "discards": 35,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 9,
+        "property": "prop_UnionDeleteInsert",
+        "time": 4.55
+    },
+    {
+        "workload": "BST",
+        "discards": 28,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 4,
+        "property": "prop_UnionDeleteInsert",
+        "time": 8.78
+    },
+    {
+        "workload": "BST",
+        "discards": 8,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 3,
+        "property": "prop_UnionDeleteInsert",
+        "time": 1.25
+    },
+    {
+        "workload": "BST",
+        "discards": 4,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 1,
+        "property": "prop_UnionDeleteInsert",
+        "time": 0.19
+    },
+    {
+        "workload": "BST",
+        "discards": 26,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 8,
+        "property": "prop_UnionDeleteInsert",
+        "time": 0.56
+    },
+    {
+        "workload": "BST",
+        "discards": 15,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 3,
+        "property": "prop_UnionDeleteInsert",
+        "time": 5.13
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 0,
+        "property": "prop_UnionDeleteInsert",
+        "time": 0.14
+    },
+    {
+        "workload": "BST",
+        "discards": 38,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 10,
+        "property": "prop_UnionDeleteInsert",
+        "time": 8.15
+    },
+    {
+        "workload": "BST",
+        "discards": 18,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 7,
+        "property": "prop_UnionDeleteInsert",
+        "time": 5.02
+    },
+    {
+        "workload": "BST",
+        "discards": 892,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 308,
+        "property": "prop_DeleteUnion",
+        "time": 211.93
+    },
+    {
+        "workload": "BST",
+        "discards": 895,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 305,
+        "property": "prop_DeleteUnion",
+        "time": 221.61
+    },
+    {
+        "workload": "BST",
+        "discards": 880,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 320,
+        "property": "prop_DeleteUnion",
+        "time": 219.32
+    },
+    {
+        "workload": "BST",
+        "discards": 896,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 304,
+        "property": "prop_DeleteUnion",
+        "time": 203.38
+    },
+    {
+        "workload": "BST",
+        "discards": 887,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 313,
+        "property": "prop_DeleteUnion",
+        "time": 161.67
+    },
+    {
+        "workload": "BST",
+        "discards": 882,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 318,
+        "property": "prop_DeleteUnion",
+        "time": 250.32
+    },
+    {
+        "workload": "BST",
+        "discards": 905,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 295,
+        "property": "prop_DeleteUnion",
+        "time": 207.42
+    },
+    {
+        "workload": "BST",
+        "discards": 881,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 319,
+        "property": "prop_DeleteUnion",
+        "time": 189.14
+    },
+    {
+        "workload": "BST",
+        "discards": 879,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 321,
+        "property": "prop_DeleteUnion",
+        "time": 213.26
+    },
+    {
+        "workload": "BST",
+        "discards": 867,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 333,
+        "property": "prop_DeleteUnion",
+        "time": 176.01
+    },
+    {
+        "workload": "BST",
+        "discards": 583,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 617,
+        "property": "prop_DeleteDelete",
+        "time": 90.77
+    },
+    {
+        "workload": "BST",
+        "discards": 142,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 140,
+        "property": "prop_DeleteDelete",
+        "time": 21.39
+    },
+    {
+        "workload": "BST",
+        "discards": 593,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 607,
+        "property": "prop_DeleteDelete",
+        "time": 76.18
+    },
+    {
+        "workload": "BST",
+        "discards": 301,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 330,
+        "property": "prop_DeleteDelete",
+        "time": 56.9
+    },
+    {
+        "workload": "BST",
+        "discards": 594,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 606,
+        "property": "prop_DeleteDelete",
+        "time": 114.69
+    },
+    {
+        "workload": "BST",
+        "discards": 586,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 614,
+        "property": "prop_DeleteDelete",
+        "time": 90.67
+    },
+    {
+        "workload": "BST",
+        "discards": 593,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 607,
+        "property": "prop_DeleteDelete",
+        "time": 118.75
+    },
+    {
+        "workload": "BST",
+        "discards": 603,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 576,
+        "property": "prop_DeleteDelete",
+        "time": 77.01
+    },
+    {
+        "workload": "BST",
+        "discards": 596,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 604,
+        "property": "prop_DeleteDelete",
+        "time": 101.63
+    },
+    {
+        "workload": "BST",
+        "discards": 578,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 622,
+        "property": "prop_DeleteDelete",
+        "time": 102.05
+    },
+    {
+        "workload": "BST",
+        "discards": 44,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 21,
+        "property": "prop_UnionDeleteInsert",
+        "time": 16.02
+    },
+    {
+        "workload": "BST",
+        "discards": 889,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 311,
+        "property": "prop_UnionDeleteInsert",
+        "time": 202.89
+    },
+    {
+        "workload": "BST",
+        "discards": 295,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 109,
+        "property": "prop_UnionDeleteInsert",
+        "time": 63.22
+    },
+    {
+        "workload": "BST",
+        "discards": 923,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 277,
+        "property": "prop_UnionDeleteInsert",
+        "time": 196.93
+    },
+    {
+        "workload": "BST",
+        "discards": 719,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 235,
+        "property": "prop_UnionDeleteInsert",
+        "time": 175.11
+    },
+    {
+        "workload": "BST",
+        "discards": 883,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 317,
+        "property": "prop_UnionDeleteInsert",
+        "time": 205.32
+    },
+    {
+        "workload": "BST",
+        "discards": 140,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 37,
+        "property": "prop_UnionDeleteInsert",
+        "time": 29.35
+    },
+    {
+        "workload": "BST",
+        "discards": 923,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 277,
+        "property": "prop_UnionDeleteInsert",
+        "time": 233.85
+    },
+    {
+        "workload": "BST",
+        "discards": 733,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 250,
+        "property": "prop_UnionDeleteInsert",
+        "time": 164.13
+    },
+    {
+        "workload": "BST",
+        "discards": 547,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 203,
+        "property": "prop_UnionDeleteInsert",
+        "time": 146.68
+    },
+    {
+        "workload": "BST",
+        "discards": 891,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 309,
+        "property": "prop_DeleteUnion",
+        "time": 206.99
+    },
+    {
+        "workload": "BST",
+        "discards": 895,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 305,
+        "property": "prop_DeleteUnion",
+        "time": 211.24
+    },
+    {
+        "workload": "BST",
+        "discards": 863,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 337,
+        "property": "prop_DeleteUnion",
+        "time": 214.54
+    },
+    {
+        "workload": "BST",
+        "discards": 876,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 324,
+        "property": "prop_DeleteUnion",
+        "time": 230.68
+    },
+    {
+        "workload": "BST",
+        "discards": 759,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 243,
+        "property": "prop_DeleteUnion",
+        "time": 142.26
+    },
+    {
+        "workload": "BST",
+        "discards": 177,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 67,
+        "property": "prop_DeleteUnion",
+        "time": 52.01
+    },
+    {
+        "workload": "BST",
+        "discards": 371,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 122,
+        "property": "prop_DeleteUnion",
+        "time": 107.73
+    },
+    {
+        "workload": "BST",
+        "discards": 896,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 304,
+        "property": "prop_DeleteUnion",
+        "time": 201.0
+    },
+    {
+        "workload": "BST",
+        "discards": 385,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 122,
+        "property": "prop_DeleteUnion",
+        "time": 88.89
+    },
+    {
+        "workload": "BST",
+        "discards": 609,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 226,
+        "property": "prop_DeleteUnion",
+        "time": 134.8
+    },
+    {
+        "workload": "BST",
+        "discards": 252,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 87,
+        "property": "prop_UnionValid",
+        "time": 64.24
+    },
+    {
+        "workload": "BST",
+        "discards": 21,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 4,
+        "property": "prop_UnionValid",
+        "time": 1.88
+    },
+    {
+        "workload": "BST",
+        "discards": 111,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 43,
+        "property": "prop_UnionValid",
+        "time": 32.04
+    },
+    {
+        "workload": "BST",
+        "discards": 125,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 57,
+        "property": "prop_UnionValid",
+        "time": 37.46
+    },
+    {
+        "workload": "BST",
+        "discards": 115,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 27,
+        "property": "prop_UnionValid",
+        "time": 43.37
+    },
+    {
+        "workload": "BST",
+        "discards": 358,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 116,
+        "property": "prop_UnionValid",
+        "time": 91.24
+    },
+    {
+        "workload": "BST",
+        "discards": 14,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 4,
+        "property": "prop_UnionValid",
+        "time": 8.91
+    },
+    {
+        "workload": "BST",
+        "discards": 240,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 74,
+        "property": "prop_UnionValid",
+        "time": 52.27
+    },
+    {
+        "workload": "BST",
+        "discards": 59,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 21,
+        "property": "prop_UnionValid",
+        "time": 19.62
+    },
+    {
+        "workload": "BST",
+        "discards": 21,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 5,
+        "property": "prop_UnionValid",
+        "time": 2.59
+    },
+    {
+        "workload": "BST",
+        "discards": 91,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 20,
+        "property": "prop_UnionDeleteInsert",
+        "time": 16.19
+    },
+    {
+        "workload": "BST",
+        "discards": 48,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 19,
+        "property": "prop_UnionDeleteInsert",
+        "time": 5.42
+    },
+    {
+        "workload": "BST",
+        "discards": 4,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 2,
+        "property": "prop_UnionDeleteInsert",
+        "time": 1.62
+    },
+    {
+        "workload": "BST",
+        "discards": 22,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 4,
+        "property": "prop_UnionDeleteInsert",
+        "time": 2.31
+    },
+    {
+        "workload": "BST",
+        "discards": 6,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 3,
+        "property": "prop_UnionDeleteInsert",
+        "time": 5.04
+    },
+    {
+        "workload": "BST",
+        "discards": 21,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 4,
+        "property": "prop_UnionDeleteInsert",
+        "time": 3.75
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 0,
+        "property": "prop_UnionDeleteInsert",
+        "time": 0.13
+    },
+    {
+        "workload": "BST",
+        "discards": 19,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 4,
+        "property": "prop_UnionDeleteInsert",
+        "time": 4.64
+    },
+    {
+        "workload": "BST",
+        "discards": 27,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 12,
+        "property": "prop_UnionDeleteInsert",
+        "time": 19.04
+    },
+    {
+        "workload": "BST",
+        "discards": 15,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 4,
+        "property": "prop_UnionDeleteInsert",
+        "time": 4.71
+    },
+    {
+        "workload": "BST",
+        "discards": 1058,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 142,
+        "property": "prop_UnionUnionAssoc",
+        "time": 343.31
+    },
+    {
+        "workload": "BST",
+        "discards": 1051,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 149,
+        "property": "prop_UnionUnionAssoc",
+        "time": 295.74
+    },
+    {
+        "workload": "BST",
+        "discards": 1030,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 170,
+        "property": "prop_UnionUnionAssoc",
+        "time": 347.28
+    },
+    {
+        "workload": "BST",
+        "discards": 1048,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 152,
+        "property": "prop_UnionUnionAssoc",
+        "time": 329.35
+    },
+    {
+        "workload": "BST",
+        "discards": 1034,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 166,
+        "property": "prop_UnionUnionAssoc",
+        "time": 330.91
+    },
+    {
+        "workload": "BST",
+        "discards": 1050,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 150,
+        "property": "prop_UnionUnionAssoc",
+        "time": 294.38
+    },
+    {
+        "workload": "BST",
+        "discards": 1032,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 168,
+        "property": "prop_UnionUnionAssoc",
+        "time": 307.9
+    },
+    {
+        "workload": "BST",
+        "discards": 1048,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 152,
+        "property": "prop_UnionUnionAssoc",
+        "time": 328.32
+    },
+    {
+        "workload": "BST",
+        "discards": 1046,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 154,
+        "property": "prop_UnionUnionAssoc",
+        "time": 357.51
+    },
+    {
+        "workload": "BST",
+        "discards": 1049,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 151,
+        "property": "prop_UnionUnionAssoc",
+        "time": 370.02
+    },
+    {
+        "workload": "BST",
+        "discards": 65,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 23,
+        "property": "prop_UnionValid",
+        "time": 33.41
+    },
+    {
+        "workload": "BST",
+        "discards": 37,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 14,
+        "property": "prop_UnionValid",
+        "time": 5.01
+    },
+    {
+        "workload": "BST",
+        "discards": 7,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 3,
+        "property": "prop_UnionValid",
+        "time": 0.47
+    },
+    {
+        "workload": "BST",
+        "discards": 22,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 8,
+        "property": "prop_UnionValid",
+        "time": 3.84
+    },
+    {
+        "workload": "BST",
+        "discards": 93,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 42,
+        "property": "prop_UnionValid",
+        "time": 20.29
+    },
+    {
+        "workload": "BST",
+        "discards": 14,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 4,
+        "property": "prop_UnionValid",
+        "time": 5.14
+    },
+    {
+        "workload": "BST",
+        "discards": 24,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 6,
+        "property": "prop_UnionValid",
+        "time": 4.4
+    },
+    {
+        "workload": "BST",
+        "discards": 74,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 23,
+        "property": "prop_UnionValid",
+        "time": 17.04
+    },
+    {
+        "workload": "BST",
+        "discards": 253,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 92,
+        "property": "prop_UnionValid",
+        "time": 69.72
+    },
+    {
+        "workload": "BST",
+        "discards": 47,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 16,
+        "property": "prop_UnionValid",
+        "time": 7.82
+    },
+    {
+        "workload": "BST",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 0,
+        "property": "prop_InsertInsert",
+        "time": 2.0
+    },
+    {
+        "workload": "BST",
+        "discards": 2,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 0,
+        "property": "prop_InsertInsert",
+        "time": 0.16
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 0,
+        "property": "prop_InsertInsert",
+        "time": 5.65
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 0,
+        "property": "prop_InsertInsert",
+        "time": 0.15
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 0,
+        "property": "prop_InsertInsert",
+        "time": 1.26
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 2,
+        "property": "prop_InsertInsert",
+        "time": 0.14
+    },
+    {
+        "workload": "BST",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 0,
+        "property": "prop_InsertInsert",
+        "time": 0.13
+    },
+    {
+        "workload": "BST",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 0,
+        "property": "prop_InsertInsert",
+        "time": 0.14
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 0,
+        "property": "prop_InsertInsert",
+        "time": 0.14
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 0,
+        "property": "prop_InsertInsert",
+        "time": 2.45
+    },
+    {
+        "workload": "BST",
+        "discards": 863,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 337,
+        "property": "prop_UnionDeleteInsert",
+        "time": 175.38
+    },
+    {
+        "workload": "BST",
+        "discards": 877,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 323,
+        "property": "prop_UnionDeleteInsert",
+        "time": 224.48
+    },
+    {
+        "workload": "BST",
+        "discards": 877,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 323,
+        "property": "prop_UnionDeleteInsert",
+        "time": 201.18
+    },
+    {
+        "workload": "BST",
+        "discards": 895,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 305,
+        "property": "prop_UnionDeleteInsert",
+        "time": 195.57
+    },
+    {
+        "workload": "BST",
+        "discards": 892,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 308,
+        "property": "prop_UnionDeleteInsert",
+        "time": 212.53
+    },
+    {
+        "workload": "BST",
+        "discards": 849,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 351,
+        "property": "prop_UnionDeleteInsert",
+        "time": 225.94
+    },
+    {
+        "workload": "BST",
+        "discards": 878,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 322,
+        "property": "prop_UnionDeleteInsert",
+        "time": 184.33
+    },
+    {
+        "workload": "BST",
+        "discards": 891,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 309,
+        "property": "prop_UnionDeleteInsert",
+        "time": 199.96
+    },
+    {
+        "workload": "BST",
+        "discards": 890,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 310,
+        "property": "prop_UnionDeleteInsert",
+        "time": 163.9
+    },
+    {
+        "workload": "BST",
+        "discards": 908,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 292,
+        "property": "prop_UnionDeleteInsert",
+        "time": 198.39
+    },
+    {
+        "workload": "BST",
+        "discards": 399,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 440,
+        "property": "prop_InsertDelete",
+        "time": 74.58
+    },
+    {
+        "workload": "BST",
+        "discards": 5,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 7,
+        "property": "prop_InsertDelete",
+        "time": 0.17
+    },
+    {
+        "workload": "BST",
+        "discards": 228,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 218,
+        "property": "prop_InsertDelete",
+        "time": 54.48
+    },
+    {
+        "workload": "BST",
+        "discards": 30,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 34,
+        "property": "prop_InsertDelete",
+        "time": 8.51
+    },
+    {
+        "workload": "BST",
+        "discards": 2,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 3,
+        "property": "prop_InsertDelete",
+        "time": 5.03
+    },
+    {
+        "workload": "BST",
+        "discards": 147,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 144,
+        "property": "prop_InsertDelete",
+        "time": 35.69
+    },
+    {
+        "workload": "BST",
+        "discards": 34,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 41,
+        "property": "prop_InsertDelete",
+        "time": 4.14
+    },
+    {
+        "workload": "BST",
+        "discards": 82,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 62,
+        "property": "prop_InsertDelete",
+        "time": 14.01
+    },
+    {
+        "workload": "BST",
+        "discards": 4,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 4,
+        "property": "prop_InsertDelete",
+        "time": 0.14
+    },
+    {
+        "workload": "BST",
+        "discards": 254,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 268,
+        "property": "prop_InsertDelete",
+        "time": 40.46
+    },
+    {
+        "workload": "BST",
+        "discards": 70,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 78,
+        "property": "prop_DeletePost",
+        "time": 24.06
+    },
+    {
+        "workload": "BST",
+        "discards": 17,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 20,
+        "property": "prop_DeletePost",
+        "time": 6.11
+    },
+    {
+        "workload": "BST",
+        "discards": 28,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 33,
+        "property": "prop_DeletePost",
+        "time": 5.3
+    },
+    {
+        "workload": "BST",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 2,
+        "property": "prop_DeletePost",
+        "time": 0.71
+    },
+    {
+        "workload": "BST",
+        "discards": 15,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 19,
+        "property": "prop_DeletePost",
+        "time": 0.51
+    },
+    {
+        "workload": "BST",
+        "discards": 24,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 29,
+        "property": "prop_DeletePost",
+        "time": 3.59
+    },
+    {
+        "workload": "BST",
+        "discards": 207,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 184,
+        "property": "prop_DeletePost",
+        "time": 46.2
+    },
+    {
+        "workload": "BST",
+        "discards": 11,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 18,
+        "property": "prop_DeletePost",
+        "time": 6.41
+    },
+    {
+        "workload": "BST",
+        "discards": 337,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 348,
+        "property": "prop_DeletePost",
+        "time": 51.49
+    },
+    {
+        "workload": "BST",
+        "discards": 77,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 78,
+        "property": "prop_DeletePost",
+        "time": 8.26
+    },
+    {
+        "workload": "BST",
+        "discards": 24,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 7,
+        "property": "prop_InsertUnion",
+        "time": 4.41
+    },
+    {
+        "workload": "BST",
+        "discards": 901,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 299,
+        "property": "prop_InsertUnion",
+        "time": 212.29
+    },
+    {
+        "workload": "BST",
+        "discards": 897,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 303,
+        "property": "prop_InsertUnion",
+        "time": 185.86
+    },
+    {
+        "workload": "BST",
+        "discards": 879,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 321,
+        "property": "prop_InsertUnion",
+        "time": 228.17
+    },
+    {
+        "workload": "BST",
+        "discards": 331,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 108,
+        "property": "prop_InsertUnion",
+        "time": 87.47
+    },
+    {
+        "workload": "BST",
+        "discards": 892,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 308,
+        "property": "prop_InsertUnion",
+        "time": 203.31
+    },
+    {
+        "workload": "BST",
+        "discards": 868,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 332,
+        "property": "prop_InsertUnion",
+        "time": 185.09
+    },
+    {
+        "workload": "BST",
+        "discards": 884,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 316,
+        "property": "prop_InsertUnion",
+        "time": 179.78
+    },
+    {
+        "workload": "BST",
+        "discards": 853,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 347,
+        "property": "prop_InsertUnion",
+        "time": 180.78
+    },
+    {
+        "workload": "BST",
+        "discards": 248,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 90,
+        "property": "prop_InsertUnion",
+        "time": 40.07
+    },
+    {
+        "workload": "BST",
+        "discards": 553,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 647,
+        "property": "prop_DeletePost",
+        "time": 109.71
+    },
+    {
+        "workload": "BST",
+        "discards": 221,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 271,
+        "property": "prop_DeletePost",
+        "time": 25.5
+    },
+    {
+        "workload": "BST",
+        "discards": 596,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 604,
+        "property": "prop_DeletePost",
+        "time": 84.49
+    },
+    {
+        "workload": "BST",
+        "discards": 619,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 581,
+        "property": "prop_DeletePost",
+        "time": 68.25
+    },
+    {
+        "workload": "BST",
+        "discards": 589,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 611,
+        "property": "prop_DeletePost",
+        "time": 120.73
+    },
+    {
+        "workload": "BST",
+        "discards": 571,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 629,
+        "property": "prop_DeletePost",
+        "time": 84.46
+    },
+    {
+        "workload": "BST",
+        "discards": 606,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 594,
+        "property": "prop_DeletePost",
+        "time": 94.76
+    },
+    {
+        "workload": "BST",
+        "discards": 597,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 603,
+        "property": "prop_DeletePost",
+        "time": 92.48
+    },
+    {
+        "workload": "BST",
+        "discards": 568,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 632,
+        "property": "prop_DeletePost",
+        "time": 106.11
+    },
+    {
+        "workload": "BST",
+        "discards": 600,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 600,
+        "property": "prop_DeletePost",
+        "time": 69.94
+    },
+    {
+        "workload": "BST",
+        "discards": 60,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 18,
+        "property": "prop_InsertUnion",
+        "time": 9.88
+    },
+    {
+        "workload": "BST",
+        "discards": 55,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 25,
+        "property": "prop_InsertUnion",
+        "time": 12.04
+    },
+    {
+        "workload": "BST",
+        "discards": 2,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 0,
+        "property": "prop_InsertUnion",
+        "time": 6.73
+    },
+    {
+        "workload": "BST",
+        "discards": 10,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 2,
+        "property": "prop_InsertUnion",
+        "time": 6.47
+    },
+    {
+        "workload": "BST",
+        "discards": 120,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 47,
+        "property": "prop_InsertUnion",
+        "time": 12.6
+    },
+    {
+        "workload": "BST",
+        "discards": 27,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 16,
+        "property": "prop_InsertUnion",
+        "time": 1.45
+    },
+    {
+        "workload": "BST",
+        "discards": 16,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 1,
+        "property": "prop_InsertUnion",
+        "time": 6.97
+    },
+    {
+        "workload": "BST",
+        "discards": 20,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 5,
+        "property": "prop_InsertUnion",
+        "time": 0.46
+    },
+    {
+        "workload": "BST",
+        "discards": 52,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 16,
+        "property": "prop_InsertUnion",
+        "time": 14.99
+    },
+    {
+        "workload": "BST",
+        "discards": 34,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 11,
+        "property": "prop_InsertUnion",
+        "time": 11.97
+    },
+    {
+        "workload": "BST",
+        "discards": 4,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 0,
+        "property": "prop_DeleteInsert",
+        "time": 0.25
+    },
+    {
+        "workload": "BST",
+        "discards": 71,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 72,
+        "property": "prop_DeleteInsert",
+        "time": 20.7
+    },
+    {
+        "workload": "BST",
+        "discards": 110,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 111,
+        "property": "prop_DeleteInsert",
+        "time": 9.03
+    },
+    {
+        "workload": "BST",
+        "discards": 87,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 72,
+        "property": "prop_DeleteInsert",
+        "time": 18.75
+    },
+    {
+        "workload": "BST",
+        "discards": 34,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 33,
+        "property": "prop_DeleteInsert",
+        "time": 15.12
+    },
+    {
+        "workload": "BST",
+        "discards": 28,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 41,
+        "property": "prop_DeleteInsert",
+        "time": 3.81
+    },
+    {
+        "workload": "BST",
+        "discards": 34,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 26,
+        "property": "prop_DeleteInsert",
+        "time": 4.79
+    },
+    {
+        "workload": "BST",
+        "discards": 37,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 32,
+        "property": "prop_DeleteInsert",
+        "time": 12.22
+    },
+    {
+        "workload": "BST",
+        "discards": 91,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 104,
+        "property": "prop_DeleteInsert",
+        "time": 14.3
+    },
+    {
+        "workload": "BST",
+        "discards": 56,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_2",
+        "passed": 69,
+        "property": "prop_DeleteInsert",
+        "time": 17.55
+    },
+    {
+        "workload": "BST",
+        "discards": 44,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 31,
+        "property": "prop_InsertInsert",
+        "time": 3.97
+    },
+    {
+        "workload": "BST",
+        "discards": 3,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 1,
+        "property": "prop_InsertInsert",
+        "time": 0.2
+    },
+    {
+        "workload": "BST",
+        "discards": 6,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 5,
+        "property": "prop_InsertInsert",
+        "time": 0.18
+    },
+    {
+        "workload": "BST",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 0,
+        "property": "prop_InsertInsert",
+        "time": 0.13
+    },
+    {
+        "workload": "BST",
+        "discards": 16,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 7,
+        "property": "prop_InsertInsert",
+        "time": 2.5
+    },
+    {
+        "workload": "BST",
+        "discards": 27,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 28,
+        "property": "prop_InsertInsert",
+        "time": 1.89
+    },
+    {
+        "workload": "BST",
+        "discards": 10,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 6,
+        "property": "prop_InsertInsert",
+        "time": 5.68
+    },
+    {
+        "workload": "BST",
+        "discards": 13,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 12,
+        "property": "prop_InsertInsert",
+        "time": 2.65
+    },
+    {
+        "workload": "BST",
+        "discards": 5,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 10,
+        "property": "prop_InsertInsert",
+        "time": 0.21
+    },
+    {
+        "workload": "BST",
+        "discards": 48,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 53,
+        "property": "prop_InsertInsert",
+        "time": 14.68
+    },
+    {
+        "workload": "BST",
+        "discards": 56,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 23,
+        "property": "prop_InsertUnion",
+        "time": 6.88
+    },
+    {
+        "workload": "BST",
+        "discards": 109,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 28,
+        "property": "prop_InsertUnion",
+        "time": 19.41
+    },
+    {
+        "workload": "BST",
+        "discards": 31,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 12,
+        "property": "prop_InsertUnion",
+        "time": 14.19
+    },
+    {
+        "workload": "BST",
+        "discards": 53,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 20,
+        "property": "prop_InsertUnion",
+        "time": 8.31
+    },
+    {
+        "workload": "BST",
+        "discards": 15,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 3,
+        "property": "prop_InsertUnion",
+        "time": 3.51
+    },
+    {
+        "workload": "BST",
+        "discards": 94,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 23,
+        "property": "prop_InsertUnion",
+        "time": 9.56
+    },
+    {
+        "workload": "BST",
+        "discards": 6,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 3,
+        "property": "prop_InsertUnion",
+        "time": 0.45
+    },
+    {
+        "workload": "BST",
+        "discards": 96,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 28,
+        "property": "prop_InsertUnion",
+        "time": 22.34
+    },
+    {
+        "workload": "BST",
+        "discards": 63,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 17,
+        "property": "prop_InsertUnion",
+        "time": 7.11
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_7",
+        "passed": 0,
+        "property": "prop_InsertUnion",
+        "time": 0.14
+    },
+    {
+        "workload": "BST",
+        "discards": 423,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 144,
+        "property": "prop_DeleteUnion",
+        "time": 82.41
+    },
+    {
+        "workload": "BST",
+        "discards": 837,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 303,
+        "property": "prop_DeleteUnion",
+        "time": 234.42
+    },
+    {
+        "workload": "BST",
+        "discards": 766,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 232,
+        "property": "prop_DeleteUnion",
+        "time": 192.27
+    },
+    {
+        "workload": "BST",
+        "discards": 588,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 184,
+        "property": "prop_DeleteUnion",
+        "time": 119.27
+    },
+    {
+        "workload": "BST",
+        "discards": 151,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 34,
+        "property": "prop_DeleteUnion",
+        "time": 24.73
+    },
+    {
+        "workload": "BST",
+        "discards": 569,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 212,
+        "property": "prop_DeleteUnion",
+        "time": 127.15
+    },
+    {
+        "workload": "BST",
+        "discards": 869,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 331,
+        "property": "prop_DeleteUnion",
+        "time": 216.08
+    },
+    {
+        "workload": "BST",
+        "discards": 379,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 136,
+        "property": "prop_DeleteUnion",
+        "time": 86.71
+    },
+    {
+        "workload": "BST",
+        "discards": 54,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 22,
+        "property": "prop_DeleteUnion",
+        "time": 5.56
+    },
+    {
+        "workload": "BST",
+        "discards": 546,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 187,
+        "property": "prop_DeleteUnion",
+        "time": 102.11
+    },
+    {
+        "workload": "BST",
+        "discards": 2,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 2,
+        "property": "prop_UnionUnionIdem",
+        "time": 3.09
+    },
+    {
+        "workload": "BST",
+        "discards": 12,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 6,
+        "property": "prop_UnionUnionIdem",
+        "time": 7.5
+    },
+    {
+        "workload": "BST",
+        "discards": 5,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 4,
+        "property": "prop_UnionUnionIdem",
+        "time": 1.9
+    },
+    {
+        "workload": "BST",
+        "discards": 2,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 0,
+        "property": "prop_UnionUnionIdem",
+        "time": 0.14
+    },
+    {
+        "workload": "BST",
+        "discards": 11,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 3,
+        "property": "prop_UnionUnionIdem",
+        "time": 3.41
+    },
+    {
+        "workload": "BST",
+        "discards": 7,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 4,
+        "property": "prop_UnionUnionIdem",
+        "time": 0.57
+    },
+    {
+        "workload": "BST",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 2,
+        "property": "prop_UnionUnionIdem",
+        "time": 1.32
+    },
+    {
+        "workload": "BST",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 1,
+        "property": "prop_UnionUnionIdem",
+        "time": 0.13
+    },
+    {
+        "workload": "BST",
+        "discards": 15,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 6,
+        "property": "prop_UnionUnionIdem",
+        "time": 1.15
+    },
+    {
+        "workload": "BST",
+        "discards": 11,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 2,
+        "property": "prop_UnionUnionIdem",
+        "time": 1.49
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 181.45
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 171.09
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 201.12
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 162.23
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 185.34
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 169.5
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 158.68
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 186.96
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 180.35
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_8",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 190.09
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 0,
+        "property": "prop_DeleteInsert",
+        "time": 0.16
+    },
+    {
+        "workload": "BST",
+        "discards": 3,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 0,
+        "property": "prop_DeleteInsert",
+        "time": 0.14
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 0,
+        "property": "prop_DeleteInsert",
+        "time": 0.13
+    },
+    {
+        "workload": "BST",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 0,
+        "property": "prop_DeleteInsert",
+        "time": 0.21
+    },
+    {
+        "workload": "BST",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 0,
+        "property": "prop_DeleteInsert",
+        "time": 0.78
+    },
+    {
+        "workload": "BST",
+        "discards": 6,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 0,
+        "property": "prop_DeleteInsert",
+        "time": 0.24
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 0,
+        "property": "prop_DeleteInsert",
+        "time": 0.42
+    },
+    {
+        "workload": "BST",
+        "discards": 2,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 0,
+        "property": "prop_DeleteInsert",
+        "time": 0.23
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 0,
+        "property": "prop_DeleteInsert",
+        "time": 0.13
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 0,
+        "property": "prop_DeleteInsert",
+        "time": 0.13
+    },
+    {
+        "workload": "BST",
+        "discards": 547,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 215,
+        "property": "prop_UnionDeleteInsert",
+        "time": 112.12
+    },
+    {
+        "workload": "BST",
+        "discards": 148,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 48,
+        "property": "prop_UnionDeleteInsert",
+        "time": 19.97
+    },
+    {
+        "workload": "BST",
+        "discards": 456,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 140,
+        "property": "prop_UnionDeleteInsert",
+        "time": 81.17
+    },
+    {
+        "workload": "BST",
+        "discards": 376,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 138,
+        "property": "prop_UnionDeleteInsert",
+        "time": 91.5
+    },
+    {
+        "workload": "BST",
+        "discards": 33,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 16,
+        "property": "prop_UnionDeleteInsert",
+        "time": 6.8
+    },
+    {
+        "workload": "BST",
+        "discards": 239,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 88,
+        "property": "prop_UnionDeleteInsert",
+        "time": 38.38
+    },
+    {
+        "workload": "BST",
+        "discards": 23,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 8,
+        "property": "prop_UnionDeleteInsert",
+        "time": 7.47
+    },
+    {
+        "workload": "BST",
+        "discards": 127,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 47,
+        "property": "prop_UnionDeleteInsert",
+        "time": 22.17
+    },
+    {
+        "workload": "BST",
+        "discards": 382,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 125,
+        "property": "prop_UnionDeleteInsert",
+        "time": 72.01
+    },
+    {
+        "workload": "BST",
+        "discards": 258,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 121,
+        "property": "prop_UnionDeleteInsert",
+        "time": 62.26
+    },
+    {
+        "workload": "BST",
+        "discards": 237,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 87,
+        "property": "prop_InsertUnion",
+        "time": 46.64
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 0,
+        "property": "prop_InsertUnion",
+        "time": 0.2
+    },
+    {
+        "workload": "BST",
+        "discards": 360,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 134,
+        "property": "prop_InsertUnion",
+        "time": 87.0
+    },
+    {
+        "workload": "BST",
+        "discards": 368,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 134,
+        "property": "prop_InsertUnion",
+        "time": 88.78
+    },
+    {
+        "workload": "BST",
+        "discards": 705,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 229,
+        "property": "prop_InsertUnion",
+        "time": 146.31
+    },
+    {
+        "workload": "BST",
+        "discards": 23,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 6,
+        "property": "prop_InsertUnion",
+        "time": 8.73
+    },
+    {
+        "workload": "BST",
+        "discards": 93,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 37,
+        "property": "prop_InsertUnion",
+        "time": 16.43
+    },
+    {
+        "workload": "BST",
+        "discards": 133,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 52,
+        "property": "prop_InsertUnion",
+        "time": 31.47
+    },
+    {
+        "workload": "BST",
+        "discards": 222,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 79,
+        "property": "prop_InsertUnion",
+        "time": 45.25
+    },
+    {
+        "workload": "BST",
+        "discards": 74,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_3",
+        "passed": 19,
+        "property": "prop_InsertUnion",
+        "time": 11.95
+    },
+    {
+        "workload": "BST",
+        "discards": 615,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 585,
+        "property": "prop_DeleteDelete",
+        "time": 102.48
+    },
+    {
+        "workload": "BST",
+        "discards": 611,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 589,
+        "property": "prop_DeleteDelete",
+        "time": 120.53
+    },
+    {
+        "workload": "BST",
+        "discards": 617,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 583,
+        "property": "prop_DeleteDelete",
+        "time": 111.91
+    },
+    {
+        "workload": "BST",
+        "discards": 569,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 631,
+        "property": "prop_DeleteDelete",
+        "time": 100.82
+    },
+    {
+        "workload": "BST",
+        "discards": 592,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 608,
+        "property": "prop_DeleteDelete",
+        "time": 89.33
+    },
+    {
+        "workload": "BST",
+        "discards": 580,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 620,
+        "property": "prop_DeleteDelete",
+        "time": 99.51
+    },
+    {
+        "workload": "BST",
+        "discards": 545,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 655,
+        "property": "prop_DeleteDelete",
+        "time": 88.95
+    },
+    {
+        "workload": "BST",
+        "discards": 572,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 628,
+        "property": "prop_DeleteDelete",
+        "time": 94.79
+    },
+    {
+        "workload": "BST",
+        "discards": 566,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 634,
+        "property": "prop_DeleteDelete",
+        "time": 121.43
+    },
+    {
+        "workload": "BST",
+        "discards": 225,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 210,
+        "property": "prop_DeleteDelete",
+        "time": 55.19
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 0,
+        "property": "prop_InsertDelete",
+        "time": 0.23
+    },
+    {
+        "workload": "BST",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 0,
+        "property": "prop_InsertDelete",
+        "time": 0.13
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 0,
+        "property": "prop_InsertDelete",
+        "time": 0.13
+    },
+    {
+        "workload": "BST",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 0,
+        "property": "prop_InsertDelete",
+        "time": 0.14
+    },
+    {
+        "workload": "BST",
+        "discards": 3,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 0,
+        "property": "prop_InsertDelete",
+        "time": 0.15
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 0,
+        "property": "prop_InsertDelete",
+        "time": 0.14
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 0,
+        "property": "prop_InsertDelete",
+        "time": 0.14
+    },
+    {
+        "workload": "BST",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 0,
+        "property": "prop_InsertDelete",
+        "time": 0.2
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 0,
+        "property": "prop_InsertDelete",
+        "time": 0.14
+    },
+    {
+        "workload": "BST",
+        "discards": 5,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_4",
+        "passed": 1,
+        "property": "prop_InsertDelete",
+        "time": 1.1
+    },
+    {
+        "workload": "BST",
+        "discards": 910,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 290,
+        "property": "prop_DeleteUnion",
+        "time": 198.36
+    },
+    {
+        "workload": "BST",
+        "discards": 96,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 47,
+        "property": "prop_DeleteUnion",
+        "time": 24.67
+    },
+    {
+        "workload": "BST",
+        "discards": 259,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 101,
+        "property": "prop_DeleteUnion",
+        "time": 80.87
+    },
+    {
+        "workload": "BST",
+        "discards": 735,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 272,
+        "property": "prop_DeleteUnion",
+        "time": 188.48
+    },
+    {
+        "workload": "BST",
+        "discards": 18,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 7,
+        "property": "prop_DeleteUnion",
+        "time": 1.47
+    },
+    {
+        "workload": "BST",
+        "discards": 865,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 335,
+        "property": "prop_DeleteUnion",
+        "time": 173.29
+    },
+    {
+        "workload": "BST",
+        "discards": 149,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 58,
+        "property": "prop_DeleteUnion",
+        "time": 18.87
+    },
+    {
+        "workload": "BST",
+        "discards": 861,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 339,
+        "property": "prop_DeleteUnion",
+        "time": 250.49
+    },
+    {
+        "workload": "BST",
+        "discards": 546,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 180,
+        "property": "prop_DeleteUnion",
+        "time": 149.87
+    },
+    {
+        "workload": "BST",
+        "discards": 564,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "delete_5",
+        "passed": 196,
+        "property": "prop_DeleteUnion",
+        "time": 127.07
+    },
+    {
+        "workload": "BST",
+        "discards": 18,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 9,
+        "property": "prop_InsertUnion",
+        "time": 7.29
+    },
+    {
+        "workload": "BST",
+        "discards": 8,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 1,
+        "property": "prop_InsertUnion",
+        "time": 1.02
+    },
+    {
+        "workload": "BST",
+        "discards": 97,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 28,
+        "property": "prop_InsertUnion",
+        "time": 16.39
+    },
+    {
+        "workload": "BST",
+        "discards": 11,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 1,
+        "property": "prop_InsertUnion",
+        "time": 1.21
+    },
+    {
+        "workload": "BST",
+        "discards": 91,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 20,
+        "property": "prop_InsertUnion",
+        "time": 19.02
+    },
+    {
+        "workload": "BST",
+        "discards": 11,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 3,
+        "property": "prop_InsertUnion",
+        "time": 0.85
+    },
+    {
+        "workload": "BST",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 1,
+        "property": "prop_InsertUnion",
+        "time": 0.2
+    },
+    {
+        "workload": "BST",
+        "discards": 16,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 9,
+        "property": "prop_InsertUnion",
+        "time": 4.72
+    },
+    {
+        "workload": "BST",
+        "discards": 6,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 4,
+        "property": "prop_InsertUnion",
+        "time": 0.19
+    },
+    {
+        "workload": "BST",
+        "discards": 3,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 0,
+        "property": "prop_InsertUnion",
+        "time": 1.07
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 135.28
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 163.89
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 173.42
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 142.11
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 168.28
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 155.91
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 178.14
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 175.58
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 194.64
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "union_6",
+        "passed": 1000,
+        "property": "prop_UnionPost",
+        "time": 168.05
+    },
+    {
+        "workload": "BST",
+        "discards": 2,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 3,
+        "property": "prop_InsertModel",
+        "time": 1.72
+    },
+    {
+        "workload": "BST",
+        "discards": 6,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 6,
+        "property": "prop_InsertModel",
+        "time": 0.48
+    },
+    {
+        "workload": "BST",
+        "discards": 8,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 1,
+        "property": "prop_InsertModel",
+        "time": 2.69
+    },
+    {
+        "workload": "BST",
+        "discards": 2,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 4,
+        "property": "prop_InsertModel",
+        "time": 0.14
+    },
+    {
+        "workload": "BST",
+        "discards": 2,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 2,
+        "property": "prop_InsertModel",
+        "time": 7.23
+    },
+    {
+        "workload": "BST",
+        "discards": 17,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 10,
+        "property": "prop_InsertModel",
+        "time": 4.38
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 1,
+        "property": "prop_InsertModel",
+        "time": 0.22
+    },
+    {
+        "workload": "BST",
+        "discards": 5,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 4,
+        "property": "prop_InsertModel",
+        "time": 2.75
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 2,
+        "property": "prop_InsertModel",
+        "time": 0.28
+    },
+    {
+        "workload": "BST",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "insert_1",
+        "passed": 1,
+        "property": "prop_InsertModel",
+        "time": 0.21
+    }
+]
