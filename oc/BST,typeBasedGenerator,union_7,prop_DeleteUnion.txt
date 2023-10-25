@@ -2,116 +2,122 @@
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion (generating)
-[ ]  715    0    0  177 / 1000     0.1s test_prop_DeleteUnion (collecting)
-[✓] 1200    0    0  297 / 1000     0.2s test_prop_DeleteUnion
+[ ]  532    0    0  137 / 1000     0.1s test_prop_DeleteUnion (collecting)
+[ ] 1150    0    0  299 / 1000     0.2s test_prop_DeleteUnion (collecting)
+[✓] 1200    0    0  309 / 1000     0.2s test_prop_DeleteUnion
 ================================================================================
 success (ran 1 tests)
-|prop_DeleteUnion]
+|prop_DeleteUnion -> 206.99]
 [prop_DeleteUnion|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion (generating)
-[ ]  742    0    0  216 / 1000     0.1s test_prop_DeleteUnion (collecting)
-[✓] 1200    0    0  320 / 1000     0.2s test_prop_DeleteUnion
+[ ]  635    0    0  166 / 1000     0.1s test_prop_DeleteUnion (collecting)
+[ ] 1136    0    0  288 / 1000     0.2s test_prop_DeleteUnion (collecting)
+[✓] 1200    0    0  305 / 1000     0.2s test_prop_DeleteUnion
 ================================================================================
 success (ran 1 tests)
-|prop_DeleteUnion]
+|prop_DeleteUnion -> 211.24]
 [prop_DeleteUnion|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion (generating)
-[✗]  417    0    1  103 / 1000     0.1s test_prop_DeleteUnion
+[ ]  587    0    0  165 / 1000     0.1s test_prop_DeleteUnion (collecting)
+[ ] 1106    0    0  316 / 1000     0.2s test_prop_DeleteUnion (collecting)
+[✓] 1200    0    0  337 / 1000     0.2s test_prop_DeleteUnion
+================================================================================
+success (ran 1 tests)
+|prop_DeleteUnion -> 214.54]
+[prop_DeleteUnion|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion (generating)
+[ ]  443    0    0  107 / 1000     0.1s test_prop_DeleteUnion (collecting)
+[ ] 1018    0    0  267 / 1000     0.2s test_prop_DeleteUnion (collecting)
+[✓] 1200    0    0  324 / 1000     0.2s test_prop_DeleteUnion
+================================================================================
+success (ran 1 tests)
+|prop_DeleteUnion -> 230.68]
+[prop_DeleteUnion|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion (generating)
+[ ]  753    0    0  190 / 1000     0.1s test_prop_DeleteUnion (collecting)
+[✗] 1003    0    1  243 / 1000     0.1s test_prop_DeleteUnion
 
 --- Failure --------------------------------------------------------------------
 
 Test test_prop_DeleteUnion failed (0 shrink steps):
 
-(Tree (Tree (Empty,0,464,Empty),65,5,Tree (Empty,81,1,Empty)), Tree (Empty,25,2,Empty), 0)
+(Tree (Tree (Empty,8,6,Empty),274,9,Empty), Tree (Empty,60,97,Empty), 8)
 ================================================================================
 failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_DeleteUnion]
+|prop_DeleteUnion -> 142.26]
 [prop_DeleteUnion|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion (generating)
-[✗]  464    0    1  114 / 1000     0.0s test_prop_DeleteUnion
+[✗]  245    0    1   67 / 1000     0.1s test_prop_DeleteUnion
 
 --- Failure --------------------------------------------------------------------
 
 Test test_prop_DeleteUnion failed (0 shrink steps):
 
-(Tree (Tree (Tree (Empty,1,6,Empty),4,50,Empty),532,743,Empty), Tree (Empty,6,1,Tree (Empty,9,177,Empty)), 4)
+(Tree (Tree (Empty,2,0,Empty),7,30,Tree (Empty,6035,692,Empty)), Tree (Empty,5,476,Empty), 7)
 ================================================================================
 failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_DeleteUnion]
+|prop_DeleteUnion -> 52.01]
 [prop_DeleteUnion|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion (generating)
-[✗]  323    0    1   82 / 1000     0.0s test_prop_DeleteUnion
+[ ]  463    0    0  115 / 1000     0.1s test_prop_DeleteUnion (collecting)
+[✗]  494    0    1  122 / 1000     0.1s test_prop_DeleteUnion
 
 --- Failure --------------------------------------------------------------------
 
 Test test_prop_DeleteUnion failed (0 shrink steps):
 
-(Tree (Tree (Empty,1,2,Empty),33,1,Empty), Tree (Empty,3,7,Empty), 1)
+(Tree (Empty,3,0,Tree (Empty,702,20,Empty)), Tree (Empty,2,9,Tree (Empty,7,296,Tree (Empty,78,9471,Empty))), 2)
 ================================================================================
 failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_DeleteUnion]
+|prop_DeleteUnion -> 107.73]
 [prop_DeleteUnion|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion (generating)
-[ ]  547    0    0  131 / 1000     0.1s test_prop_DeleteUnion (collecting)
-[ ] 1083    0    0  269 / 1000     0.2s test_prop_DeleteUnion (collecting)
-[✓] 1200    0    0  297 / 1000     0.2s test_prop_DeleteUnion
+[ ]  642    0    0  167 / 1000     0.1s test_prop_DeleteUnion (collecting)
+[ ] 1184    0    0  300 / 1000     0.2s test_prop_DeleteUnion (collecting)
+[✓] 1200    0    0  304 / 1000     0.2s test_prop_DeleteUnion
 ================================================================================
 success (ran 1 tests)
-|prop_DeleteUnion]
+|prop_DeleteUnion -> 201.00]
 [prop_DeleteUnion|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion (generating)
-[ ]  650    0    0  168 / 1000     0.1s test_prop_DeleteUnion (collecting)
-[✓] 1200    0    0  332 / 1000     0.2s test_prop_DeleteUnion
-================================================================================
-success (ran 1 tests)
-|prop_DeleteUnion]
-[prop_DeleteUnion|
-generated error fail pass / total     time test name
-[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion
-[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion (generating)
-[✗]  772    0    1  211 / 1000     0.1s test_prop_DeleteUnion
+[✗]  508    0    1  122 / 1000     0.1s test_prop_DeleteUnion
 
 --- Failure --------------------------------------------------------------------
 
 Test test_prop_DeleteUnion failed (0 shrink steps):
 
-(Tree (Empty,94,3,Empty), Tree (Tree (Empty,1,0,Empty),158,3,Tree (Empty,558,2,Empty)), 1)
+(Tree (Tree (Empty,1,17,Tree (Empty,4,0,Empty)),9,7,Empty), Tree (Empty,5,0,Empty), 4)
 ================================================================================
 failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_DeleteUnion]
+|prop_DeleteUnion -> 88.89]
 [prop_DeleteUnion|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion (generating)
-[ ]  718    0    0  150 / 1000     0.1s test_prop_DeleteUnion (collecting)
-[✓] 1200    0    0  260 / 1000     0.2s test_prop_DeleteUnion
-================================================================================
-success (ran 1 tests)
-|prop_DeleteUnion]
-[prop_DeleteUnion|
-generated error fail pass / total     time test name
-[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion
-[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteUnion (generating)
-[ ]  442    0    0  119 / 1000     0.1s test_prop_DeleteUnion (collecting)
-[✗]  691    0    1  192 / 1000     0.1s test_prop_DeleteUnion
+[ ]  594    0    0  158 / 1000     0.1s test_prop_DeleteUnion (collecting)
+[✗]  836    0    1  226 / 1000     0.1s test_prop_DeleteUnion
 
 --- Failure --------------------------------------------------------------------
 
 Test test_prop_DeleteUnion failed (0 shrink steps):
 
-(Tree (Empty,6,1,Tree (Empty,808,5,Empty)), Tree (Tree (Empty,7,45,Empty),8,7,Empty), 6)
+(Tree (Empty,5,9,Tree (Empty,37,56,Empty)), Tree (Tree (Tree (Empty,0,0,Empty),2,269,Empty),97,81,Empty), 2)
 ================================================================================
 failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_DeleteUnion]
+|prop_DeleteUnion -> 134.80]

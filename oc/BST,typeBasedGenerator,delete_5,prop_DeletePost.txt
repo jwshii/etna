@@ -2,100 +2,88 @@
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost (generating)
-[✓] 1200    0    0  644 / 1000     0.1s test_prop_DeletePost
+[ ] 1062    0    0  564 / 1000     0.1s test_prop_DeletePost (collecting)
+[✓] 1200    0    0  647 / 1000     0.1s test_prop_DeletePost
 ================================================================================
 success (ran 1 tests)
-|prop_DeletePost]
+|prop_DeletePost -> 109.71]
 [prop_DeletePost|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost (generating)
-[ ]  995    0    0  523 / 1000     0.1s test_prop_DeletePost (collecting)
-[✓] 1200    0    0  627 / 1000     0.1s test_prop_DeletePost
-================================================================================
-success (ran 1 tests)
-|prop_DeletePost]
-[prop_DeletePost|
-generated error fail pass / total     time test name
-[ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost
-[ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost (generating)
-[✓] 1200    0    0  633 / 1000     0.1s test_prop_DeletePost
-================================================================================
-success (ran 1 tests)
-|prop_DeletePost]
-[prop_DeletePost|
-generated error fail pass / total     time test name
-[ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost
-[ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost (generating)
-[✗]  937    0    1  479 / 1000     0.1s test_prop_DeletePost
+[✗]  493    0    1  271 / 1000     0.0s test_prop_DeletePost
 
 --- Failure --------------------------------------------------------------------
 
 Test test_prop_DeletePost failed (0 shrink steps):
 
-(Tree (Tree (Empty,4,195,Empty),9,70,Empty), 4, 4)
+(Tree (Tree (Tree (Empty,2,75,Empty),8,94,Empty),167,4,Tree (Tree (Empty,233,821,Empty),282,8364,Empty)), 2, 2)
 ================================================================================
 failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_DeletePost]
+|prop_DeletePost -> 25.50]
 [prop_DeletePost|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost (generating)
-[✓] 1200    0    0  630 / 1000     0.1s test_prop_DeletePost
+[✓] 1200    0    0  604 / 1000     0.1s test_prop_DeletePost
 ================================================================================
 success (ran 1 tests)
-|prop_DeletePost]
+|prop_DeletePost -> 84.49]
 [prop_DeletePost|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost (generating)
-[ ] 1021    0    0  521 / 1000     0.1s test_prop_DeletePost (collecting)
-[✓] 1200    0    0  613 / 1000     0.1s test_prop_DeletePost
+[✓] 1200    0    0  581 / 1000     0.1s test_prop_DeletePost
 ================================================================================
 success (ran 1 tests)
-|prop_DeletePost]
+|prop_DeletePost -> 68.25]
 [prop_DeletePost|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost (generating)
-[✗]  169    0    1   85 / 1000     0.0s test_prop_DeletePost
-
---- Failure --------------------------------------------------------------------
-
-Test test_prop_DeletePost failed (0 shrink steps):
-
-(Tree (Tree (Empty,4,748,Empty),6,270,Tree (Empty,9,85,Empty)), 4, 4)
-================================================================================
-failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_DeletePost]
-[prop_DeletePost|
-generated error fail pass / total     time test name
-[ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost
-[ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost (generating)
-[✓] 1200    0    0  613 / 1000     0.1s test_prop_DeletePost
+[ ]  946    0    0  490 / 1000     0.1s test_prop_DeletePost (collecting)
+[✓] 1200    0    0  611 / 1000     0.1s test_prop_DeletePost
 ================================================================================
 success (ran 1 tests)
-|prop_DeletePost]
+|prop_DeletePost -> 120.73]
 [prop_DeletePost|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost
 [ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost (generating)
-[✗]   52    0    1   23 / 1000     0.0s test_prop_DeletePost
-
---- Failure --------------------------------------------------------------------
-
-Test test_prop_DeletePost failed (0 shrink steps):
-
-(Tree (Tree (Empty,0,39,Tree (Empty,86,143,Empty)),620,73,Empty), 0, 0)
-================================================================================
-failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_DeletePost]
-[prop_DeletePost|
-generated error fail pass / total     time test name
-[ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost
-[ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost (generating)
-[ ] 1080    0    0  524 / 1000     0.1s test_prop_DeletePost (collecting)
-[✓] 1200    0    0  583 / 1000     0.1s test_prop_DeletePost
+[✓] 1200    0    0  629 / 1000     0.1s test_prop_DeletePost
 ================================================================================
 success (ran 1 tests)
-|prop_DeletePost]
+|prop_DeletePost -> 84.46]
+[prop_DeletePost|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost (generating)
+[✓] 1200    0    0  594 / 1000     0.1s test_prop_DeletePost
+================================================================================
+success (ran 1 tests)
+|prop_DeletePost -> 94.76]
+[prop_DeletePost|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost (generating)
+[✓] 1200    0    0  603 / 1000     0.1s test_prop_DeletePost
+================================================================================
+success (ran 1 tests)
+|prop_DeletePost -> 92.48]
+[prop_DeletePost|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost (generating)
+[ ] 1164    0    0  611 / 1000     0.1s test_prop_DeletePost (collecting)
+[✓] 1200    0    0  632 / 1000     0.1s test_prop_DeletePost
+================================================================================
+success (ran 1 tests)
+|prop_DeletePost -> 106.11]
+[prop_DeletePost|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeletePost (generating)
+[✓] 1200    0    0  600 / 1000     0.1s test_prop_DeletePost
+================================================================================
+success (ran 1 tests)
+|prop_DeletePost -> 69.94]

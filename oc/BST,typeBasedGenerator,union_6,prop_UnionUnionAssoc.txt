@@ -2,108 +2,106 @@
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc
 [ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc (generating)
-[ ]  395    0    0   51 / 1000     0.1s test_prop_UnionUnionAssoc (collecting)
-[ ]  677    0    0   89 / 1000     0.2s test_prop_UnionUnionAssoc (collecting)
-[ ] 1047    0    0  137 / 1000     0.3s test_prop_UnionUnionAssoc (collecting)
-[✓] 1200    0    0  159 / 1000     0.3s test_prop_UnionUnionAssoc
-================================================================================
-success (ran 1 tests)
-|prop_UnionUnionAssoc]
-[prop_UnionUnionAssoc|
-generated error fail pass / total     time test name
-[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc
-[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc (generating)
-[ ]  443    0    0   59 / 1000     0.1s test_prop_UnionUnionAssoc (collecting)
-[ ]  743    0    0   94 / 1000     0.2s test_prop_UnionUnionAssoc (collecting)
-[ ] 1102    0    0  132 / 1000     0.3s test_prop_UnionUnionAssoc (collecting)
+[ ]  358    0    0   42 / 1000     0.1s test_prop_UnionUnionAssoc (collecting)
+[ ]  791    0    0   96 / 1000     0.2s test_prop_UnionUnionAssoc (collecting)
+[ ] 1159    0    0  140 / 1000     0.3s test_prop_UnionUnionAssoc (collecting)
 [✓] 1200    0    0  146 / 1000     0.3s test_prop_UnionUnionAssoc
 ================================================================================
 success (ran 1 tests)
-|prop_UnionUnionAssoc]
+|prop_UnionUnionAssoc -> 314.48]
 [prop_UnionUnionAssoc|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc
 [ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc (generating)
-[ ]  302    0    0   46 / 1000     0.1s test_prop_UnionUnionAssoc (collecting)
-[ ]  719    0    0   99 / 1000     0.2s test_prop_UnionUnionAssoc (collecting)
-[ ] 1064    0    0  147 / 1000     0.3s test_prop_UnionUnionAssoc (collecting)
+[ ]  440    0    0   53 / 1000     0.1s test_prop_UnionUnionAssoc (collecting)
+[ ]  804    0    0   96 / 1000     0.2s test_prop_UnionUnionAssoc (collecting)
+[ ] 1123    0    0  139 / 1000     0.3s test_prop_UnionUnionAssoc (collecting)
+[✓] 1200    0    0  150 / 1000     0.3s test_prop_UnionUnionAssoc
+================================================================================
+success (ran 1 tests)
+|prop_UnionUnionAssoc -> 323.03]
+[prop_UnionUnionAssoc|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc (generating)
+[ ]  527    0    0   71 / 1000     0.1s test_prop_UnionUnionAssoc (collecting)
+[ ]  930    0    0  120 / 1000     0.2s test_prop_UnionUnionAssoc (collecting)
+[ ] 1198    0    0  161 / 1000     0.3s test_prop_UnionUnionAssoc (collecting)
+[✓] 1200    0    0  162 / 1000     0.3s test_prop_UnionUnionAssoc
+================================================================================
+success (ran 1 tests)
+|prop_UnionUnionAssoc -> 311.31]
+[prop_UnionUnionAssoc|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc (generating)
+[ ]  471    0    0   76 / 1000     0.1s test_prop_UnionUnionAssoc (collecting)
+[ ]  844    0    0  126 / 1000     0.2s test_prop_UnionUnionAssoc (collecting)
+[ ] 1160    0    0  174 / 1000     0.3s test_prop_UnionUnionAssoc (collecting)
+[✓] 1200    0    0  177 / 1000     0.3s test_prop_UnionUnionAssoc
+================================================================================
+success (ran 1 tests)
+|prop_UnionUnionAssoc -> 306.86]
+[prop_UnionUnionAssoc|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc (generating)
+[ ]  393    0    0   58 / 1000     0.1s test_prop_UnionUnionAssoc (collecting)
+[ ]  868    0    0  127 / 1000     0.2s test_prop_UnionUnionAssoc (collecting)
+[ ] 1169    0    0  163 / 1000     0.3s test_prop_UnionUnionAssoc (collecting)
+[✓] 1200    0    0  172 / 1000     0.3s test_prop_UnionUnionAssoc
+================================================================================
+success (ran 1 tests)
+|prop_UnionUnionAssoc -> 321.91]
+[prop_UnionUnionAssoc|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc (generating)
+[ ]  407    0    0   47 / 1000     0.1s test_prop_UnionUnionAssoc (collecting)
+[ ]  876    0    0  105 / 1000     0.2s test_prop_UnionUnionAssoc (collecting)
+[✓] 1200    0    0  154 / 1000     0.3s test_prop_UnionUnionAssoc
+================================================================================
+success (ran 1 tests)
+|prop_UnionUnionAssoc -> 281.10]
+[prop_UnionUnionAssoc|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc (generating)
+[ ]  398    0    0   57 / 1000     0.1s test_prop_UnionUnionAssoc (collecting)
+[ ]  770    0    0  107 / 1000     0.2s test_prop_UnionUnionAssoc (collecting)
+[ ] 1118    0    0  158 / 1000     0.3s test_prop_UnionUnionAssoc (collecting)
 [✓] 1200    0    0  171 / 1000     0.3s test_prop_UnionUnionAssoc
 ================================================================================
 success (ran 1 tests)
-|prop_UnionUnionAssoc]
+|prop_UnionUnionAssoc -> 316.84]
 [prop_UnionUnionAssoc|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc
 [ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc (generating)
-[ ]  356    0    0   52 / 1000     0.1s test_prop_UnionUnionAssoc (collecting)
-[ ]  771    0    0  113 / 1000     0.2s test_prop_UnionUnionAssoc (collecting)
-[ ] 1193    0    0  165 / 1000     0.3s test_prop_UnionUnionAssoc (collecting)
-[✓] 1200    0    0  166 / 1000     0.3s test_prop_UnionUnionAssoc
+[ ]  506    0    0   67 / 1000     0.1s test_prop_UnionUnionAssoc (collecting)
+[ ]  889    0    0  115 / 1000     0.2s test_prop_UnionUnionAssoc (collecting)
+[✓] 1200    0    0  154 / 1000     0.3s test_prop_UnionUnionAssoc
 ================================================================================
 success (ran 1 tests)
-|prop_UnionUnionAssoc]
+|prop_UnionUnionAssoc -> 289.02]
 [prop_UnionUnionAssoc|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc
 [ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc (generating)
-[ ]  412    0    0   50 / 1000     0.1s test_prop_UnionUnionAssoc (collecting)
-[ ]  716    0    0   93 / 1000     0.2s test_prop_UnionUnionAssoc (collecting)
-[ ] 1076    0    0  127 / 1000     0.3s test_prop_UnionUnionAssoc (collecting)
-[✓] 1200    0    0  148 / 1000     0.4s test_prop_UnionUnionAssoc
+[ ]  275    0    0   31 / 1000     0.1s test_prop_UnionUnionAssoc (collecting)
+[ ]  610    0    0   63 / 1000     0.2s test_prop_UnionUnionAssoc (collecting)
+[ ]  930    0    0  110 / 1000     0.3s test_prop_UnionUnionAssoc (collecting)
+[✓] 1200    0    0  144 / 1000     0.4s test_prop_UnionUnionAssoc
 ================================================================================
 success (ran 1 tests)
-|prop_UnionUnionAssoc]
+|prop_UnionUnionAssoc -> 365.45]
 [prop_UnionUnionAssoc|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc
 [ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc (generating)
-[ ]  424    0    0   63 / 1000     0.1s test_prop_UnionUnionAssoc (collecting)
-[ ]  700    0    0   98 / 1000     0.2s test_prop_UnionUnionAssoc (collecting)
-[ ] 1010    0    0  153 / 1000     0.3s test_prop_UnionUnionAssoc (collecting)
-[✓] 1200    0    0  178 / 1000     0.4s test_prop_UnionUnionAssoc
+[ ]  475    0    0   54 / 1000     0.1s test_prop_UnionUnionAssoc (collecting)
+[ ]  850    0    0  102 / 1000     0.2s test_prop_UnionUnionAssoc (collecting)
+[✓] 1200    0    0  146 / 1000     0.3s test_prop_UnionUnionAssoc
 ================================================================================
 success (ran 1 tests)
-|prop_UnionUnionAssoc]
-[prop_UnionUnionAssoc|
-generated error fail pass / total     time test name
-[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc
-[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc (generating)
-[ ]  422    0    0   40 / 1000     0.1s test_prop_UnionUnionAssoc (collecting)
-[ ]  865    0    0   98 / 1000     0.2s test_prop_UnionUnionAssoc (collecting)
-[ ] 1175    0    0  141 / 1000     0.3s test_prop_UnionUnionAssoc (collecting)
-[✓] 1200    0    0  143 / 1000     0.3s test_prop_UnionUnionAssoc
-================================================================================
-success (ran 1 tests)
-|prop_UnionUnionAssoc]
-[prop_UnionUnionAssoc|
-generated error fail pass / total     time test name
-[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc
-[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc (generating)
-[ ]  382    0    0   46 / 1000     0.1s test_prop_UnionUnionAssoc (collecting)
-[ ]  851    0    0   95 / 1000     0.2s test_prop_UnionUnionAssoc (collecting)
-[✓] 1200    0    0  133 / 1000     0.3s test_prop_UnionUnionAssoc
-================================================================================
-success (ran 1 tests)
-|prop_UnionUnionAssoc]
-[prop_UnionUnionAssoc|
-generated error fail pass / total     time test name
-[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc
-[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc (generating)
-[ ]  283    0    0   41 / 1000     0.1s test_prop_UnionUnionAssoc (collecting)
-[ ]  684    0    0   90 / 1000     0.2s test_prop_UnionUnionAssoc (collecting)
-[ ]  987    0    0  133 / 1000     0.3s test_prop_UnionUnionAssoc (collecting)
-[✓] 1200    0    0  165 / 1000     0.4s test_prop_UnionUnionAssoc
-================================================================================
-success (ran 1 tests)
-|prop_UnionUnionAssoc]
-[prop_UnionUnionAssoc|
-generated error fail pass / total     time test name
-[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc
-[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionUnionAssoc (generating)
-[ ]  406    0    0   50 / 1000     0.1s test_prop_UnionUnionAssoc (collecting)
-[ ]  864    0    0  116 / 1000     0.2s test_prop_UnionUnionAssoc (collecting)
-[ ] 1199    0    0  159 / 1000     0.3s test_prop_UnionUnionAssoc (collecting)
-[✓] 1200    0    0  159 / 1000     0.3s test_prop_UnionUnionAssoc
-================================================================================
-success (ran 1 tests)
-|prop_UnionUnionAssoc]
+|prop_UnionUnionAssoc -> 294.82]

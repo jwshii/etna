@@ -37,7 +37,7 @@ let execute (testname : string) (file : string) : unit =
     let st = Sys.time () in
     let _  = QCheck_runner.run_tests [test] ~colors:false ~verbose:true ~out:oc in
     let dt = (Sys.time ()  -. st) *. 1000.0 in
-    let _  = Printf.fprintf oc "|%s %.2f]\n" testname dt in
+    let _  = Printf.fprintf oc "|%s -> %.2f]\n" testname dt in
     close_out oc
 
 let main () : unit =

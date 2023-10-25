@@ -40,10 +40,17 @@ class OCaml(BenchTool):
             self._shell_command(['dune', 'build'])
 
     def _run_trial(self, workload_path: str, params: TrialArgs):
+        def reformat(filename):
+            if filename.endswith('.json'):
+                new_filename = os.path.splitext(filename)[0] + '.txt'
+                os.rename(filename, new_filename)
+
         with self._change_dir(workload_path):
             for _ in range(params.trials):
                 p = params.to_json()
                 self._shell_command(['dune', 'exec', '--',  WORKLOAD, '--', params.property, params.file])
+
+        reformat(params.file)
 
 
 
