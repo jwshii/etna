@@ -2,139 +2,139 @@
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion
 [ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion (generating)
-[✗]   79    0    1   18 / 1000     0.0s test_prop_InsertUnion
-
---- Failure --------------------------------------------------------------------
-
-Test test_prop_InsertUnion failed (6 shrink steps):
-
-(Empty, Tree (Empty,5,845,Empty), 6, 0)
-================================================================================
-failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_InsertUnion -> 9.88]
-[prop_InsertUnion|
-generated error fail pass / total     time test name
-[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion
-[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion (generating)
-[✗]   81    0    1   25 / 1000     0.0s test_prop_InsertUnion
-
---- Failure --------------------------------------------------------------------
-
-Test test_prop_InsertUnion failed (7 shrink steps):
-
-(Empty, Tree (Empty,6,266,Empty), 7, 0)
-================================================================================
-failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_InsertUnion -> 12.04]
-[prop_InsertUnion|
-generated error fail pass / total     time test name
-[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion
-[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion (generating)
-[✗]    3    0    1    0 / 1000     0.0s test_prop_InsertUnion
-
---- Failure --------------------------------------------------------------------
-
-Test test_prop_InsertUnion failed (10 shrink steps):
-
-(Empty, Tree (Empty,0,2,Empty), 1, 0)
-================================================================================
-failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_InsertUnion -> 6.73]
-[prop_InsertUnion|
-generated error fail pass / total     time test name
-[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion
-[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion (generating)
-[✗]   13    0    1    2 / 1000     0.0s test_prop_InsertUnion
-
---- Failure --------------------------------------------------------------------
-
-Test test_prop_InsertUnion failed (6 shrink steps):
-
-(Empty, Tree (Empty,0,28,Empty), 1, 0)
-================================================================================
-failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_InsertUnion -> 6.47]
-[prop_InsertUnion|
-generated error fail pass / total     time test name
-[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion
-[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion (generating)
-[✗]  168    0    1   47 / 1000     0.0s test_prop_InsertUnion
-
---- Failure --------------------------------------------------------------------
-
-Test test_prop_InsertUnion failed (7 shrink steps):
-
-(Empty, Tree (Tree (Empty,0,0,Empty),1,3,Tree (Empty,5,4,Empty)), 2, 0)
-================================================================================
-failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_InsertUnion -> 12.60]
-[prop_InsertUnion|
-generated error fail pass / total     time test name
-[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion
-[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion (generating)
-[✗]   44    0    1   16 / 1000     0.0s test_prop_InsertUnion
-
---- Failure --------------------------------------------------------------------
-
-Test test_prop_InsertUnion failed (6 shrink steps):
-
-(Empty, Tree (Empty,0,1,Empty), 1, 0)
-================================================================================
-failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_InsertUnion -> 1.45]
-[prop_InsertUnion|
-generated error fail pass / total     time test name
-[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion
-[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion (generating)
-[✗]   18    0    1    1 / 1000     0.0s test_prop_InsertUnion
+[✗]   56    0    1   16 / 1000     0.0s test_prop_InsertUnion
 
 --- Failure --------------------------------------------------------------------
 
 Test test_prop_InsertUnion failed (8 shrink steps):
 
-(Empty, Tree (Empty,1,1,Empty), 2, 0)
+(Empty, Tree (Tree (Empty,5,799,Tree (Empty,82,5,Empty)),277,7,Empty), 6, 0)
 ================================================================================
 failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_InsertUnion -> 6.97]
+|prop_InsertUnion -> 8.10]
 [prop_InsertUnion|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion
 [ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion (generating)
-[✗]   26    0    1    5 / 1000     0.0s test_prop_InsertUnion
+[✗]   37    0    1   12 / 1000     0.0s test_prop_InsertUnion
 
 --- Failure --------------------------------------------------------------------
 
-Test test_prop_InsertUnion failed (10 shrink steps):
+Test test_prop_InsertUnion failed (3 shrink steps):
 
-(Empty, Tree (Empty,1,93,Empty), 2, 0)
+(Empty, Tree (Empty,2,5,Empty), 3, 0)
 ================================================================================
 failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_InsertUnion -> 0.46]
+|prop_InsertUnion -> 10.53]
 [prop_InsertUnion|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion
 [ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion (generating)
-[✗]   69    0    1   16 / 1000     0.0s test_prop_InsertUnion
-
---- Failure --------------------------------------------------------------------
-
-Test test_prop_InsertUnion failed (11 shrink steps):
-
-(Empty, Tree (Empty,2,62,Empty), 3, 0)
-================================================================================
-failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_InsertUnion -> 14.99]
-[prop_InsertUnion|
-generated error fail pass / total     time test name
-[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion
-[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion (generating)
-[✗]   46    0    1   11 / 1000     0.0s test_prop_InsertUnion
+[✗]   23    0    1    6 / 1000     0.0s test_prop_InsertUnion
 
 --- Failure --------------------------------------------------------------------
 
 Test test_prop_InsertUnion failed (6 shrink steps):
 
-(Tree (Tree (Empty,8,53,Empty),37,4,Empty), Tree (Empty,1,9,Empty), 2, 0)
+(Empty, Tree (Empty,75,5,Empty), 76, 0)
 ================================================================================
 failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_InsertUnion -> 11.97]
+|prop_InsertUnion -> 0.72]
+[prop_InsertUnion|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion (generating)
+[✗]   41    0    1    9 / 1000     0.0s test_prop_InsertUnion
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_InsertUnion failed (13 shrink steps):
+
+(Tree (Empty,582,1,Empty), Tree (Empty,7,25,Empty), 8, 0)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_InsertUnion -> 4.89]
+[prop_InsertUnion|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion (generating)
+[✗]   10    0    1    3 / 1000     0.0s test_prop_InsertUnion
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_InsertUnion failed (11 shrink steps):
+
+(Empty, Tree (Empty,50,1,Empty), 51, 0)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_InsertUnion -> 0.26]
+[prop_InsertUnion|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion (generating)
+[✗]   48    0    1   10 / 1000     0.0s test_prop_InsertUnion
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_InsertUnion failed (6 shrink steps):
+
+(Empty, Tree (Empty,9,1,Empty), 10, 0)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_InsertUnion -> 6.81]
+[prop_InsertUnion|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion (generating)
+[✗]   45    0    1   14 / 1000     0.0s test_prop_InsertUnion
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_InsertUnion failed (10 shrink steps):
+
+(Tree (Empty,272,4,Empty), Tree (Empty,3,629,Tree (Empty,5,6,Empty)), 4, 0)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_InsertUnion -> 4.68]
+[prop_InsertUnion|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion (generating)
+[✗]   29    0    1    7 / 1000     0.0s test_prop_InsertUnion
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_InsertUnion failed (5 shrink steps):
+
+(Empty, Tree (Tree (Empty,5,3,Empty),9,0,Empty), 6, 0)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_InsertUnion -> 4.13]
+[prop_InsertUnion|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion (generating)
+[✗]   26    0    1    7 / 1000     0.0s test_prop_InsertUnion
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_InsertUnion failed (9 shrink steps):
+
+(Empty, Tree (Empty,3,8429,Empty), 4, 0)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_InsertUnion -> 3.40]
+[prop_InsertUnion|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertUnion (generating)
+[✗]   65    0    1   13 / 1000     0.0s test_prop_InsertUnion
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_InsertUnion failed (5 shrink steps):
+
+(Empty, Tree (Empty,5,5,Empty), 6, 0)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_InsertUnion -> 14.88]

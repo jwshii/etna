@@ -48,7 +48,7 @@ class OCaml(BenchTool):
         with self._change_dir(workload_path):
             for _ in range(params.trials):
                 p = params.to_json()
-                self._shell_command(['dune', 'exec', '--',  WORKLOAD, '--', params.property, params.file])
+                self._shell_command(['dune', 'exec', '--',  WORKLOAD, '--', params.property, params.file, params.strategy])
 
         reformat(params.file)
 

@@ -1,4 +1,6 @@
 open BST.TypeBasedGenerator
+open BST.BespokeGenerator
+open QCheck
 
 let rec lookup l k =
   match l with
@@ -27,25 +29,36 @@ let tests = [
   ("prop_UnionUnionAssoc", test_prop_UnionUnionAssoc)
 ];;
 
-let execute (testname : string) (file : string) : unit =
+let strategies = [
+  ("typeBasedGenerator", typebased);
+  ("bespokeGenerator", bespoke)
+]
+
+let arbitrary_of_gen g =
+  make g ~print:print_tree;;
+
+let execute (testname : string) (file : string) (strategy: string) : unit =
   let test = lookup tests testname in
-  match test with
-  | None -> Printf.printf "Test %s not found\n" testname
-  | Some test ->
+  let gen  = lookup strategies strategy in
+  match test, gen with
+  | None, _ -> Printf.printf "Test %s not found\n" testname
+  | _, None -> Printf.printf "Strategy %s not found\n" strategy
+  | Some test, Some gen ->
     let oc = open_out_gen [Open_wronly; Open_append; Open_creat] 0o666 file in
     let _  = Printf.fprintf oc "[%s|\n" testname in
     let st = Sys.time () in
-    let _  = QCheck_runner.run_tests [test] ~colors:false ~verbose:true ~out:oc in
+    let _  = QCheck_runner.run_tests [test (arbitrary_of_gen gen)] ~colors:false ~verbose:true ~out:oc in
     let dt = (Sys.time ()  -. st) *. 1000.0 in
     let _  = Printf.fprintf oc "|%s -> %.2f]\n" testname dt in
     close_out oc
 
 let main () : unit =
-  if Array.length Sys.argv >= 4 then
+  if Array.length Sys.argv >= 5 then
     let testname = Sys.argv.(2) in
     let filename = Sys.argv.(3) in
-    let _ = Printf.printf "Executing test %s into file %s" testname filename in
-    execute testname filename
+    let strategy = Sys.argv.(4) in
+    let _ = Printf.printf "Executing test %s into file %s using strategy %s" testname filename strategy in
+    execute testname filename strategy
   else
     Printf.printf "Not enough arguments were provided to `dune exec`\n"
 

@@ -2,114 +2,110 @@
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel
 [ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel (generating)
-[ ]  590    0    0  139 / 1000     0.1s test_prop_UnionModel (collecting)
-[✓] 1200    0    0  304 / 1000     0.2s test_prop_UnionModel
+[ ]  533    0    0  135 / 1000     0.1s test_prop_UnionModel (collecting)
+[ ] 1140    0    0  272 / 1000     0.2s test_prop_UnionModel (collecting)
+[✓] 1200    0    0  284 / 1000     0.2s test_prop_UnionModel
 ================================================================================
 success (ran 1 tests)
-|prop_UnionModel -> 186.86]
+|prop_UnionModel -> 211.01]
 [prop_UnionModel|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel
 [ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel (generating)
-[ ]  738    0    0  178 / 1000     0.1s test_prop_UnionModel (collecting)
-[✗]  911    0    1  226 / 1000     0.1s test_prop_UnionModel
+[ ]  709    0    0  190 / 1000     0.1s test_prop_UnionModel (collecting)
+[✓] 1200    0    0  331 / 1000     0.2s test_prop_UnionModel
+================================================================================
+success (ran 1 tests)
+|prop_UnionModel -> 186.53]
+[prop_UnionModel|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel (generating)
+[✗]  356    0    1   99 / 1000     0.1s test_prop_UnionModel
 
 --- Failure --------------------------------------------------------------------
 
 Test test_prop_UnionModel failed (0 shrink steps):
 
-(Tree (Tree (Tree (Empty,5,9,Empty),8,66,Tree (Empty,373,5,Empty)),683,5161,Empty), Tree (Tree (Empty,5,8,Empty),357,26,Empty))
+(Tree (Tree (Tree (Empty,0,2,Empty),1,1,Empty),97,95,Empty), Tree (Empty,1,76,Empty))
 ================================================================================
 failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_UnionModel -> 117.02]
+|prop_UnionModel -> 75.49]
 [prop_UnionModel|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel
 [ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel (generating)
-[ ]  624    0    0  157 / 1000     0.1s test_prop_UnionModel (collecting)
-[ ] 1102    0    0  294 / 1000     0.2s test_prop_UnionModel (collecting)
-[✓] 1200    0    0  324 / 1000     0.2s test_prop_UnionModel
+[ ]  442    0    0  118 / 1000     0.1s test_prop_UnionModel (collecting)
+[ ]  873    0    0  231 / 1000     0.2s test_prop_UnionModel (collecting)
+[✓] 1200    0    0  321 / 1000     0.3s test_prop_UnionModel
 ================================================================================
 success (ran 1 tests)
-|prop_UnionModel -> 221.38]
+|prop_UnionModel -> 267.79]
 [prop_UnionModel|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel
 [ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel (generating)
-[ ]  449    0    0  112 / 1000     0.1s test_prop_UnionModel (collecting)
-[ ] 1097    0    0  272 / 1000     0.2s test_prop_UnionModel (collecting)
-[✓] 1200    0    0  299 / 1000     0.2s test_prop_UnionModel
+[ ]  446    0    0  108 / 1000     0.1s test_prop_UnionModel (collecting)
+[ ] 1002    0    0  240 / 1000     0.2s test_prop_UnionModel (collecting)
+[✓] 1200    0    0  306 / 1000     0.2s test_prop_UnionModel
 ================================================================================
 success (ran 1 tests)
-|prop_UnionModel -> 225.66]
+|prop_UnionModel -> 239.25]
 [prop_UnionModel|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel
 [ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel (generating)
-[ ]  577    0    0  160 / 1000     0.1s test_prop_UnionModel (collecting)
-[✓] 1200    0    0  329 / 1000     0.2s test_prop_UnionModel
-================================================================================
-success (ran 1 tests)
-|prop_UnionModel -> 185.81]
-[prop_UnionModel|
-generated error fail pass / total     time test name
-[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel
-[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel (generating)
-[ ]  500    0    0  141 / 1000     0.1s test_prop_UnionModel (collecting)
-[ ] 1057    0    0  300 / 1000     0.2s test_prop_UnionModel (collecting)
-[✓] 1200    0    0  336 / 1000     0.2s test_prop_UnionModel
-================================================================================
-success (ran 1 tests)
-|prop_UnionModel -> 219.83]
-[prop_UnionModel|
-generated error fail pass / total     time test name
-[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel
-[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel (generating)
-[ ]  452    0    0  101 / 1000     0.1s test_prop_UnionModel (collecting)
-[✗]  695    0    1  168 / 1000     0.1s test_prop_UnionModel
+[ ]  483    0    0  119 / 1000     0.1s test_prop_UnionModel (collecting)
+[✗]  965    0    1  240 / 1000     0.2s test_prop_UnionModel
 
 --- Failure --------------------------------------------------------------------
 
 Test test_prop_UnionModel failed (0 shrink steps):
 
-(Tree (Empty,3,6,Tree (Tree (Empty,7,73,Empty),23,8,Empty)), Tree (Empty,7,302,Empty))
+(Tree (Tree (Empty,2,669,Empty),69,1,Empty), Tree (Empty,2,622,Empty))
 ================================================================================
 failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_UnionModel -> 139.91]
+|prop_UnionModel -> 184.88]
 [prop_UnionModel|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel
 [ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel (generating)
-[✗]   61    0    1   11 / 1000     0.0s test_prop_UnionModel
-
---- Failure --------------------------------------------------------------------
-
-Test test_prop_UnionModel failed (0 shrink steps):
-
-(Tree (Tree (Empty,3,250,Empty),9,492,Empty), Tree (Empty,3,58,Empty))
-================================================================================
-failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_UnionModel -> 12.05]
-[prop_UnionModel|
-generated error fail pass / total     time test name
-[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel
-[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel (generating)
-[✗]   11    0    1    2 / 1000     0.0s test_prop_UnionModel
-
---- Failure --------------------------------------------------------------------
-
-Test test_prop_UnionModel failed (0 shrink steps):
-
-(Tree (Empty,7,550,Empty), Tree (Empty,1,911,Tree (Empty,7,7,Empty)))
-================================================================================
-failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_UnionModel -> 2.54]
-[prop_UnionModel|
-generated error fail pass / total     time test name
-[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel
-[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel (generating)
-[ ]  592    0    0  154 / 1000     0.1s test_prop_UnionModel (collecting)
-[✓] 1200    0    0  314 / 1000     0.2s test_prop_UnionModel
+[ ]  536    0    0  125 / 1000     0.1s test_prop_UnionModel (collecting)
+[✓] 1200    0    0  321 / 1000     0.2s test_prop_UnionModel
 ================================================================================
 success (ran 1 tests)
-|prop_UnionModel -> 197.17]
+|prop_UnionModel -> 199.02]
+[prop_UnionModel|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel (generating)
+[✗]  248    0    1   67 / 1000     0.0s test_prop_UnionModel
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_UnionModel failed (0 shrink steps):
+
+(Tree (Tree (Empty,1,4,Empty),29,6,Empty), Tree (Tree (Empty,1,8,Empty),5,2,Empty))
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_UnionModel -> 41.71]
+[prop_UnionModel|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel (generating)
+[ ]  570    0    0  141 / 1000     0.1s test_prop_UnionModel (collecting)
+[ ]  932    0    0  220 / 1000     0.2s test_prop_UnionModel (collecting)
+[✓] 1200    0    0  293 / 1000     0.2s test_prop_UnionModel
+================================================================================
+success (ran 1 tests)
+|prop_UnionModel -> 242.21]
+[prop_UnionModel|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel
+[ ]    0    0    0    0 / 1000     0.0s test_prop_UnionModel (generating)
+[ ]  547    0    0  128 / 1000     0.1s test_prop_UnionModel (collecting)
+[ ]  997    0    0  253 / 1000     0.2s test_prop_UnionModel (collecting)
+[✓] 1200    0    0  306 / 1000     0.2s test_prop_UnionModel
+================================================================================
+success (ran 1 tests)
+|prop_UnionModel -> 234.87]

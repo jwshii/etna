@@ -19,7 +19,6 @@ def collect(results: str):
 
             run_trial = None
             for strategy in tool.all_strategies(workload):
-
                 for property in tool.all_properties(workload):
                     if workload.name in ['BST']:
                         if property.split('_')[1] not in tasks[workload.name][variant.name]:

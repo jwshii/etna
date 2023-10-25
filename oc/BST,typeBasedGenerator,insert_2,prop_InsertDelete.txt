@@ -2,139 +2,139 @@
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
 [ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
-[✗]  840    0    1  440 / 1000     0.1s test_prop_InsertDelete
+[✗]  553    0    1  289 / 1000     0.0s test_prop_InsertDelete
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_InsertDelete failed (5 shrink steps):
+
+(Tree (Empty,4,9,Empty), 5, 4, 0)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_InsertDelete -> 43.61]
+[prop_InsertDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
+[✗]  248    0    1  132 / 1000     0.0s test_prop_InsertDelete
 
 --- Failure --------------------------------------------------------------------
 
 Test test_prop_InsertDelete failed (9 shrink steps):
 
-(Tree (Empty,4,9,Empty), 5, 4, 0)
+(Tree (Empty,0,5,Tree (Empty,9,1,Empty)), 1, 0, 0)
 ================================================================================
 failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_InsertDelete -> 74.58]
+|prop_InsertDelete -> 14.41]
 [prop_InsertDelete|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
 [ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
-[✗]   13    0    1    7 / 1000     0.0s test_prop_InsertDelete
-
---- Failure --------------------------------------------------------------------
-
-Test test_prop_InsertDelete failed (5 shrink steps):
-
-(Tree (Empty,2,83,Empty), 3, 2, 0)
-================================================================================
-failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_InsertDelete -> 0.17]
-[prop_InsertDelete|
-generated error fail pass / total     time test name
-[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
-[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
-[✗]  447    0    1  218 / 1000     0.1s test_prop_InsertDelete
+[✗]  382    0    1  198 / 1000     0.0s test_prop_InsertDelete
 
 --- Failure --------------------------------------------------------------------
 
 Test test_prop_InsertDelete failed (8 shrink steps):
 
-(Tree (Empty,0,8,Tree (Tree (Empty,7,3,Empty),59,66,Empty)), 1, 0, 0)
+(Tree (Empty,6,690,Tree (Empty,44,980,Empty)), 7, 6, 0)
 ================================================================================
 failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_InsertDelete -> 54.48]
+|prop_InsertDelete -> 17.36]
 [prop_InsertDelete|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
 [ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
-[✗]   65    0    1   34 / 1000     0.0s test_prop_InsertDelete
+[✗]  978    0    1  499 / 1000     0.1s test_prop_InsertDelete
 
 --- Failure --------------------------------------------------------------------
 
-Test test_prop_InsertDelete failed (7 shrink steps):
+Test test_prop_InsertDelete failed (6 shrink steps):
 
-(Tree (Empty,1,0,Empty), 2, 1, 0)
+(Tree (Tree (Empty,5,0,Tree (Empty,27,0,Empty)),82,6,Empty), 6, 5, 0)
 ================================================================================
 failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_InsertDelete -> 8.51]
+|prop_InsertDelete -> 80.48]
 [prop_InsertDelete|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
 [ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
-[✗]    6    0    1    3 / 1000     0.0s test_prop_InsertDelete
-
---- Failure --------------------------------------------------------------------
-
-Test test_prop_InsertDelete failed (4 shrink steps):
-
-(Tree (Empty,2,943,Tree (Empty,3,2,Empty)), 3, 2, 3)
-================================================================================
-failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_InsertDelete -> 5.03]
-[prop_InsertDelete|
-generated error fail pass / total     time test name
-[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
-[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
-[✗]  292    0    1  144 / 1000     0.0s test_prop_InsertDelete
-
---- Failure --------------------------------------------------------------------
-
-Test test_prop_InsertDelete failed (5 shrink steps):
-
-(Tree (Empty,3,70,Empty), 4, 3, 0)
-================================================================================
-failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_InsertDelete -> 35.69]
-[prop_InsertDelete|
-generated error fail pass / total     time test name
-[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
-[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
-[✗]   76    0    1   41 / 1000     0.0s test_prop_InsertDelete
+[✗]   53    0    1   21 / 1000     0.0s test_prop_InsertDelete
 
 --- Failure --------------------------------------------------------------------
 
 Test test_prop_InsertDelete failed (8 shrink steps):
 
-(Tree (Empty,7,77,Empty), 8, 7, 0)
+(Tree (Empty,8,9,Tree (Empty,31,84,Empty)), 9, 8, 0)
 ================================================================================
 failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_InsertDelete -> 4.14]
+|prop_InsertDelete -> 6.55]
 [prop_InsertDelete|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
 [ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
-[✗]  145    0    1   62 / 1000     0.0s test_prop_InsertDelete
+[✗]  166    0    1   83 / 1000     0.0s test_prop_InsertDelete
 
 --- Failure --------------------------------------------------------------------
 
 Test test_prop_InsertDelete failed (4 shrink steps):
 
-(Tree (Empty,1,576,Empty), 2, 1, 0)
+(Tree (Empty,1,938,Empty), 2, 1, 0)
 ================================================================================
 failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_InsertDelete -> 14.01]
+|prop_InsertDelete -> 9.88]
 [prop_InsertDelete|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
 [ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
-[✗]    9    0    1    4 / 1000     0.0s test_prop_InsertDelete
+[✗]  507    0    1  253 / 1000     0.0s test_prop_InsertDelete
 
 --- Failure --------------------------------------------------------------------
 
-Test test_prop_InsertDelete failed (3 shrink steps):
+Test test_prop_InsertDelete failed (10 shrink steps):
 
-(Tree (Empty,2,1,Empty), 3, 2, 0)
+(Tree (Empty,1,2,Tree (Empty,9,744,Empty)), 2, 1, 0)
 ================================================================================
 failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_InsertDelete -> 0.14]
+|prop_InsertDelete -> 30.07]
 [prop_InsertDelete|
 generated error fail pass / total     time test name
 [ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
 [ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
-[✗]  523    0    1  268 / 1000     0.0s test_prop_InsertDelete
+[✗]   64    0    1   29 / 1000     0.0s test_prop_InsertDelete
 
 --- Failure --------------------------------------------------------------------
 
-Test test_prop_InsertDelete failed (7 shrink steps):
+Test test_prop_InsertDelete failed (5 shrink steps):
 
-(Tree (Tree (Empty,5,998,Empty),798,4,Empty), 6, 5, 0)
+(Tree (Empty,2,31,Empty), 3, 2, 0)
 ================================================================================
 failure (1 tests failed, 0 tests errored, ran 1 tests)
-|prop_InsertDelete -> 40.46]
+|prop_InsertDelete -> 1.83]
+[prop_InsertDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
+[✗]   83    0    1   41 / 1000     0.0s test_prop_InsertDelete
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_InsertDelete failed (13 shrink steps):
+
+(Tree (Tree (Empty,3,7242,Empty),5,4,Empty), 5, 5, 0)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_InsertDelete -> 3.99]
+[prop_InsertDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
+[✗]  554    0    1  289 / 1000     0.0s test_prop_InsertDelete
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_InsertDelete failed (4 shrink steps):
+
+(Tree (Empty,5,5,Tree (Empty,6,99,Empty)), 6, 5, 0)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_InsertDelete -> 37.10]
