@@ -47,7 +47,7 @@ let rec insert (k : 'a) (v : 'b) (t : ('a, 'b) tree) : ('a, 'b) tree =
     (*!
       T (B, E, x, vx, E)
     *)
-    | x, vx, T (rb, a, y, vy, b) ->
+    | x, vx, T (rb, a, y, vy, b) -> let _ = ignore (rb, a, y, vy, b, ins) in
         (*! *)
         if x < y then balance rb (ins x vx a) y vy b
         else if y < x then balance rb a y vy (ins x vx b)
@@ -159,15 +159,15 @@ let join (t1 : ('a, 'b) tree) (t2 : ('a, 'b) tree) : ('a, 'b) tree option =
 let rec del (x : 'a) (s : ('a, 'b) tree) (f : int) : ('a, 'b) tree option =
   match f with
   | 0 -> None
-  | f -> (
+  | f ->
       let f' = f - 1 in
       match s with
       | E -> Some E
-      | T (_, a, y, vy, b) ->
+      | T (_, a, y, vy, b) -> let _ = ignore (vy) in
           (*! *)
           if x < y then delLeft x a y vy b f'
           else if y < x then delRight x a y vy b f
-          else join a b)
+          else join a b
 
 (*!! delete_4 *)
 (*!
