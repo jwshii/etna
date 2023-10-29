@@ -2,5 +2,5 @@
 
 (library
  (name RBT)
- (modules impl)
+ (modules impl spec typeBasedGenerator)
  (libraries qcheck))
