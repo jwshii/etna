@@ -1,0 +1,81 @@
+[prop_InsertDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_InsertDelete
+================================================================================
+success (ran 1 tests)
+|prop_InsertDelete -> 97.22]
+[prop_InsertDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_InsertDelete
+================================================================================
+success (ran 1 tests)
+|prop_InsertDelete -> 80.83]
+[prop_InsertDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_InsertDelete
+================================================================================
+success (ran 1 tests)
+|prop_InsertDelete -> 87.73]
+[prop_InsertDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_InsertDelete
+================================================================================
+success (ran 1 tests)
+|prop_InsertDelete -> 88.92]
+[prop_InsertDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_InsertDelete
+================================================================================
+success (ran 1 tests)
+|prop_InsertDelete -> 99.40]
+[prop_InsertDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_InsertDelete
+================================================================================
+success (ran 1 tests)
+|prop_InsertDelete -> 97.10]
+[prop_InsertDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_InsertDelete
+================================================================================
+success (ran 1 tests)
+|prop_InsertDelete -> 86.14]
+[prop_InsertDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_InsertDelete
+================================================================================
+success (ran 1 tests)
+|prop_InsertDelete -> 95.59]
+[prop_InsertDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_InsertDelete
+================================================================================
+success (ran 1 tests)
+|prop_InsertDelete -> 70.09]
+[prop_InsertDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
+[ ]  995    0    0  995 / 1000     0.1s test_prop_InsertDelete
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_InsertDelete
+================================================================================
+success (ran 1 tests)
+|prop_InsertDelete -> 100.44]

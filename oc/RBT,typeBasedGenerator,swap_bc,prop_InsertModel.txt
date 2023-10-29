@@ -1,0 +1,105 @@
+[prop_InsertModel|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertModel
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertModel (generating)
+[ ]  346    0    0   41 / 1000     0.1s test_prop_InsertModel (collecting)
+[ ]  750    0    0   79 / 1000     0.2s test_prop_InsertModel (collecting)
+[✓] 1200    0    0  129 / 1000     0.3s test_prop_InsertModel
+================================================================================
+success (ran 1 tests)
+|prop_InsertModel -> 296.77]
+[prop_InsertModel|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertModel
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertModel (generating)
+[ ]  476    0    0   56 / 1000     0.1s test_prop_InsertModel (collecting)
+[ ]  744    0    0   88 / 1000     0.2s test_prop_InsertModel (collecting)
+[ ] 1076    0    0  114 / 1000     0.3s test_prop_InsertModel (collecting)
+[✓] 1200    0    0  129 / 1000     0.3s test_prop_InsertModel
+================================================================================
+success (ran 1 tests)
+|prop_InsertModel -> 335.34]
+[prop_InsertModel|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertModel
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertModel (generating)
+[ ]  295    0    0   33 / 1000     0.1s test_prop_InsertModel (collecting)
+[ ]  592    0    0   54 / 1000     0.2s test_prop_InsertModel (collecting)
+[ ]  998    0    0  101 / 1000     0.3s test_prop_InsertModel (collecting)
+[✓] 1200    0    0  125 / 1000     0.4s test_prop_InsertModel
+================================================================================
+success (ran 1 tests)
+|prop_InsertModel -> 367.19]
+[prop_InsertModel|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertModel
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertModel (generating)
+[ ]  445    0    0   59 / 1000     0.1s test_prop_InsertModel (collecting)
+[ ]  979    0    0  127 / 1000     0.2s test_prop_InsertModel (collecting)
+[✓] 1200    0    0  157 / 1000     0.3s test_prop_InsertModel
+================================================================================
+success (ran 1 tests)
+|prop_InsertModel -> 280.59]
+[prop_InsertModel|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertModel
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertModel (generating)
+[ ]  499    0    0   50 / 1000     0.1s test_prop_InsertModel (collecting)
+[ ]  930    0    0  103 / 1000     0.2s test_prop_InsertModel (collecting)
+[✓] 1200    0    0  134 / 1000     0.3s test_prop_InsertModel
+================================================================================
+success (ran 1 tests)
+|prop_InsertModel -> 254.51]
+[prop_InsertModel|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertModel
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertModel (generating)
+[ ]  339    0    0   35 / 1000     0.1s test_prop_InsertModel (collecting)
+[ ]  611    0    0   64 / 1000     0.2s test_prop_InsertModel (collecting)
+[ ] 1027    0    0  111 / 1000     0.3s test_prop_InsertModel (collecting)
+[✓] 1200    0    0  137 / 1000     0.3s test_prop_InsertModel
+================================================================================
+success (ran 1 tests)
+|prop_InsertModel -> 345.25]
+[prop_InsertModel|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertModel
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertModel (generating)
+[ ]  482    0    0   49 / 1000     0.1s test_prop_InsertModel (collecting)
+[ ]  928    0    0  108 / 1000     0.2s test_prop_InsertModel (collecting)
+[✓] 1200    0    0  134 / 1000     0.3s test_prop_InsertModel
+================================================================================
+success (ran 1 tests)
+|prop_InsertModel -> 263.83]
+[prop_InsertModel|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertModel
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertModel (generating)
+[ ]  371    0    0   51 / 1000     0.1s test_prop_InsertModel (collecting)
+[ ]  746    0    0   87 / 1000     0.2s test_prop_InsertModel (collecting)
+[ ] 1115    0    0  120 / 1000     0.3s test_prop_InsertModel (collecting)
+[✓] 1200    0    0  130 / 1000     0.3s test_prop_InsertModel
+================================================================================
+success (ran 1 tests)
+|prop_InsertModel -> 339.06]
+[prop_InsertModel|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertModel
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertModel (generating)
+[ ]  372    0    0   41 / 1000     0.1s test_prop_InsertModel (collecting)
+[ ]  746    0    0   87 / 1000     0.2s test_prop_InsertModel (collecting)
+[ ] 1169    0    0  134 / 1000     0.3s test_prop_InsertModel (collecting)
+[✓] 1200    0    0  137 / 1000     0.3s test_prop_InsertModel
+================================================================================
+success (ran 1 tests)
+|prop_InsertModel -> 301.82]
+[prop_InsertModel|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertModel
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertModel (generating)
+[ ]  426    0    0   41 / 1000     0.1s test_prop_InsertModel (collecting)
+[ ]  760    0    0   82 / 1000     0.2s test_prop_InsertModel (collecting)
+[✓] 1200    0    0  129 / 1000     0.3s test_prop_InsertModel
+================================================================================
+success (ran 1 tests)
+|prop_InsertModel -> 254.09]

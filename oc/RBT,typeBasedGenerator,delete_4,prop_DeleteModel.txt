@@ -1,0 +1,140 @@
+[prop_DeleteModel|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteModel
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteModel (generating)
+[✗]   12    0    1    2 / 1000     0.0s test_prop_DeleteModel
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_DeleteModel failed (0 shrink steps):
+
+(Tree (R,Empty,2,19,Empty), 3)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_DeleteModel -> 0.51]
+[prop_DeleteModel|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteModel
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteModel (generating)
+[✗]    5    0    1    0 / 1000     0.0s test_prop_DeleteModel
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_DeleteModel failed (0 shrink steps):
+
+(Tree (B,Empty,3,53,Empty), 0)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_DeleteModel -> 0.40]
+[prop_DeleteModel|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteModel
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteModel (generating)
+[✗]   24    0    1    0 / 1000     0.0s test_prop_DeleteModel
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_DeleteModel failed (1 shrink steps):
+
+(Tree (R,Empty,20,5,Empty), 0)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_DeleteModel -> 0.90]
+[prop_DeleteModel|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteModel
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteModel (generating)
+[✗]    5    0    1    0 / 1000     0.0s test_prop_DeleteModel
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_DeleteModel failed (4 shrink steps):
+
+(Tree (B,Empty,229,6,Empty), 0)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_DeleteModel -> 8.96]
+[prop_DeleteModel|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteModel
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteModel (generating)
+[✗]    7    0    1    0 / 1000     0.0s test_prop_DeleteModel
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_DeleteModel failed (6 shrink steps):
+
+(Tree (B,Empty,0,839,Empty), 1)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_DeleteModel -> 0.34]
+[prop_DeleteModel|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteModel
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteModel (generating)
+[✗]    3    0    1    0 / 1000     0.0s test_prop_DeleteModel
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_DeleteModel failed (8 shrink steps):
+
+(Tree (B,Empty,489,1027,Empty), 0)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_DeleteModel -> 0.13]
+[prop_DeleteModel|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteModel
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteModel (generating)
+[✗]   27    0    1    4 / 1000     0.0s test_prop_DeleteModel
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_DeleteModel failed (3 shrink steps):
+
+(Tree (R,Empty,492,54,Empty), 0)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_DeleteModel -> 1.62]
+[prop_DeleteModel|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteModel
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteModel (generating)
+[✗]    4    0    1    0 / 1000     0.0s test_prop_DeleteModel
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_DeleteModel failed (3 shrink steps):
+
+(Tree (R,Empty,268,215,Empty), 0)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_DeleteModel -> 0.20]
+[prop_DeleteModel|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteModel
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteModel (generating)
+[✗]   34    0    1    1 / 1000     0.0s test_prop_DeleteModel
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_DeleteModel failed (2 shrink steps):
+
+(Tree (B,Empty,1,0,Empty), 2)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_DeleteModel -> 1.03]
+[prop_DeleteModel|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteModel
+[ ]    0    0    0    0 / 1000     0.0s test_prop_DeleteModel (generating)
+[✗]   11    0    1    0 / 1000     0.0s test_prop_DeleteModel
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_DeleteModel failed (3 shrink steps):
+
+(Tree (R,Empty,390,81,Empty), 0)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_DeleteModel -> 0.22]

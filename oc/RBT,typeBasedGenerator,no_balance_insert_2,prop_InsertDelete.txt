@@ -1,0 +1,104 @@
+[prop_InsertDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
+[ ]  471    0    0   51 / 1000     0.1s test_prop_InsertDelete (collecting)
+[ ]  747    0    0   81 / 1000     0.2s test_prop_InsertDelete (collecting)
+[ ] 1156    0    0  116 / 1000     0.3s test_prop_InsertDelete (collecting)
+[✓] 1200    0    0  121 / 1000     0.3s test_prop_InsertDelete
+================================================================================
+success (ran 1 tests)
+|prop_InsertDelete -> 319.48]
+[prop_InsertDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
+[ ]  318    0    0   32 / 1000     0.1s test_prop_InsertDelete (collecting)
+[ ]  684    0    0   70 / 1000     0.2s test_prop_InsertDelete (collecting)
+[ ] 1006    0    0   99 / 1000     0.3s test_prop_InsertDelete (collecting)
+[✓] 1200    0    0  118 / 1000     0.4s test_prop_InsertDelete
+================================================================================
+success (ran 1 tests)
+|prop_InsertDelete -> 363.29]
+[prop_InsertDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
+[ ]  573    0    0   55 / 1000     0.1s test_prop_InsertDelete (collecting)
+[ ] 1019    0    0  102 / 1000     0.2s test_prop_InsertDelete (collecting)
+[✓] 1200    0    0  117 / 1000     0.3s test_prop_InsertDelete
+================================================================================
+success (ran 1 tests)
+|prop_InsertDelete -> 271.67]
+[prop_InsertDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
+[ ]  291    0    0   31 / 1000     0.1s test_prop_InsertDelete (collecting)
+[ ]  825    0    0   88 / 1000     0.2s test_prop_InsertDelete (collecting)
+[ ] 1107    0    0  120 / 1000     0.3s test_prop_InsertDelete (collecting)
+[✓] 1200    0    0  133 / 1000     0.3s test_prop_InsertDelete
+================================================================================
+success (ran 1 tests)
+|prop_InsertDelete -> 311.56]
+[prop_InsertDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
+[ ]  532    0    0   51 / 1000     0.1s test_prop_InsertDelete (collecting)
+[ ]  986    0    0   91 / 1000     0.2s test_prop_InsertDelete (collecting)
+[✓] 1200    0    0  112 / 1000     0.3s test_prop_InsertDelete
+================================================================================
+success (ran 1 tests)
+|prop_InsertDelete -> 272.71]
+[prop_InsertDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
+[ ]  505    0    0   53 / 1000     0.1s test_prop_InsertDelete (collecting)
+[ ]  866    0    0   86 / 1000     0.2s test_prop_InsertDelete (collecting)
+[✓] 1200    0    0  119 / 1000     0.3s test_prop_InsertDelete
+================================================================================
+success (ran 1 tests)
+|prop_InsertDelete -> 272.64]
+[prop_InsertDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
+[ ]  538    0    0   59 / 1000     0.1s test_prop_InsertDelete (collecting)
+[ ]  995    0    0  111 / 1000     0.2s test_prop_InsertDelete (collecting)
+[✓] 1200    0    0  137 / 1000     0.3s test_prop_InsertDelete
+================================================================================
+success (ran 1 tests)
+|prop_InsertDelete -> 268.28]
+[prop_InsertDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
+[ ]  517    0    0   51 / 1000     0.1s test_prop_InsertDelete (collecting)
+[ ] 1014    0    0  107 / 1000     0.2s test_prop_InsertDelete (collecting)
+[✓] 1200    0    0  134 / 1000     0.3s test_prop_InsertDelete
+================================================================================
+success (ran 1 tests)
+|prop_InsertDelete -> 266.65]
+[prop_InsertDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
+[ ]  443    0    0   50 / 1000     0.1s test_prop_InsertDelete (collecting)
+[ ]  801    0    0   80 / 1000     0.2s test_prop_InsertDelete (collecting)
+[✓] 1200    0    0  122 / 1000     0.3s test_prop_InsertDelete
+================================================================================
+success (ran 1 tests)
+|prop_InsertDelete -> 300.98]
+[prop_InsertDelete|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertDelete (generating)
+[ ]  387    0    0   39 / 1000     0.1s test_prop_InsertDelete (collecting)
+[ ]  794    0    0   93 / 1000     0.2s test_prop_InsertDelete (collecting)
+[ ] 1162    0    0  118 / 1000     0.3s test_prop_InsertDelete (collecting)
+[✓] 1200    0    0  121 / 1000     0.3s test_prop_InsertDelete
+================================================================================
+success (ran 1 tests)
+|prop_InsertDelete -> 309.61]

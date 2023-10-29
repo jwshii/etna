@@ -1,0 +1,140 @@
+[prop_InsertValid|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid (generating)
+[✗]    2    0    1    1 / 1000     0.0s test_prop_InsertValid
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_InsertValid failed (11 shrink steps):
+
+(Tree (B,Tree (R,Empty,82,882,Empty),394,9,Tree (R,Empty,766,9,Empty)), 0, 0)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_InsertValid -> 0.13]
+[prop_InsertValid|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid (generating)
+[✗]    4    0    1    3 / 1000     0.0s test_prop_InsertValid
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_InsertValid failed (5 shrink steps):
+
+(Tree (B,Tree (B,Empty,5,6,Empty),27,59,Tree (R,Tree (B,Tree (R,Empty,29,753,Empty),88,5800,Tree (R,Empty,758,634,Empty)),808,79,Tree (B,Empty,9125,82,Empty))), 30, 0)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_InsertValid -> 0.14]
+[prop_InsertValid|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid (generating)
+[✗]   38    0    1   37 / 1000     0.0s test_prop_InsertValid
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_InsertValid failed (6 shrink steps):
+
+(Tree (B,Tree (B,Tree (R,Empty,7,307,Empty),8,5567,Empty),423,3,Tree (B,Empty,443,88,Empty)), 0, 0)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_InsertValid -> 3.18]
+[prop_InsertValid|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid (generating)
+[✗]    7    0    1    6 / 1000     0.0s test_prop_InsertValid
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_InsertValid failed (11 shrink steps):
+
+(Tree (B,Tree (R,Empty,36,44,Empty),611,58,Tree (R,Empty,942,98,Empty)), 0, 0)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_InsertValid -> 0.16]
+[prop_InsertValid|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid (generating)
+[✗]   23    0    1   22 / 1000     0.0s test_prop_InsertValid
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_InsertValid failed (7 shrink steps):
+
+(Tree (B,Tree (B,Tree (B,Tree (R,Tree (B,Tree (R,Empty,1,8,Empty),2,94,Empty),3,761,Tree (B,Tree (R,Empty,4,8,Empty),6,8,Empty)),7,0,Tree (R,Tree (B,Empty,9,630,Tree (R,Empty,10,7840,Empty)),11,1,Tree (B,Empty,27,297,Tree (R,Empty,28,7,Empty)))),29,40,Tree (B,Tree (B,Tree (R,Empty,45,5,Empty),56,3,Empty),61,444,Tree (B,Empty,62,18,Empty))),91,5,Tree (B,Tree (B,Tree (B,Empty,97,42,Empty),98,16,Tree (R,Tree (B,Empty,188,400,Empty),200,168,Tree (B,Tree (R,Empty,254,4,Empty),270,99,Tree (R,Empty,281,3,Empty)))),341,3,Tree (B,Tree (R,Tree (B,Tree (R,Empty,467,97,Empty),517,9,Empty),845,500,Tree (B,Empty,873,77,Empty)),894,74,Tree (R,Tree (B,Empty,2994,265,Empty),3710,5,Tree (B,Empty,7633,84,Empty))))), 0, 0)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_InsertValid -> 1.25]
+[prop_InsertValid|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid (generating)
+[✗]    1    0    1    0 / 1000     0.0s test_prop_InsertValid
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_InsertValid failed (6 shrink steps):
+
+(Tree (B,Tree (B,Tree (B,Tree (R,Empty,1,78,Empty),6,560,Empty),7,1,Tree (R,Tree (B,Empty,8,786,Empty),32,969,Tree (B,Tree (R,Empty,51,8,Empty),96,87,Empty))),380,772,Tree (B,Tree (B,Empty,905,1,Empty),990,3,Tree (B,Empty,3538,2,Empty))), 0, 0)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_InsertValid -> 0.11]
+[prop_InsertValid|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid (generating)
+[✗]    2    0    1    1 / 1000     0.0s test_prop_InsertValid
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_InsertValid failed (5 shrink steps):
+
+(Tree (B,Tree (B,Tree (R,Empty,5,9,Empty),6,85,Empty),84,7,Tree (B,Empty,802,0,Empty)), 0, 0)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_InsertValid -> 0.10]
+[prop_InsertValid|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid (generating)
+[✗]    8    0    1    7 / 1000     0.0s test_prop_InsertValid
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_InsertValid failed (5 shrink steps):
+
+(Tree (B,Tree (R,Tree (B,Tree (R,Empty,0,261,Empty),4,641,Tree (R,Empty,5,4,Empty)),6,9,Tree (B,Empty,7,45,Empty)),9,6,Tree (B,Empty,32,13,Tree (R,Empty,998,268,Empty))), 1, 0)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_InsertValid -> 0.36]
+[prop_InsertValid|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid (generating)
+[✗]    1    0    1    0 / 1000     0.0s test_prop_InsertValid
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_InsertValid failed (5 shrink steps):
+
+(Tree (B,Tree (R,Empty,2,395,Empty),171,72,Empty), 3, 0)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_InsertValid -> 0.10]
+[prop_InsertValid|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid (generating)
+[✗]   10    0    1    9 / 1000     0.0s test_prop_InsertValid
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_InsertValid failed (10 shrink steps):
+
+(Tree (B,Tree (B,Tree (B,Tree (R,Tree (B,Tree (R,Empty,0,1,Empty),1,2,Empty),2,68,Tree (B,Empty,3,4,Empty)),4,8,Tree (B,Empty,6,3779,Empty)),7,6,Tree (B,Tree (R,Tree (B,Empty,8,7,Tree (R,Empty,18,8,Empty)),28,9,Tree (B,Empty,31,194,Empty)),36,44,Tree (B,Tree (R,Empty,53,1,Empty),66,954,Tree (R,Empty,81,9,Empty)))),83,7,Tree (B,Tree (B,Tree (B,Empty,106,6,Empty),257,4,Tree (B,Empty,336,1,Empty)),446,7,Tree (B,Tree (B,Tree (R,Empty,707,9,Empty),883,943,Empty),962,0,Tree (R,Tree (B,Empty,993,6,Empty),1304,5,Tree (B,Tree (R,Empty,1367,188,Empty),4306,227,Tree (R,Empty,5360,28,Empty)))))), 9, 0)
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_InsertValid -> 0.27]

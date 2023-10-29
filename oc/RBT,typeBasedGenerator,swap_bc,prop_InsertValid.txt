@@ -1,0 +1,103 @@
+[prop_InsertValid|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid (generating)
+[ ]  386    0    0   46 / 1000     0.1s test_prop_InsertValid (collecting)
+[ ]  958    0    0  114 / 1000     0.2s test_prop_InsertValid (collecting)
+[✓] 1200    0    0  141 / 1000     0.2s test_prop_InsertValid
+================================================================================
+success (ran 1 tests)
+|prop_InsertValid -> 234.96]
+[prop_InsertValid|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid (generating)
+[ ]  272    0    0   24 / 1000     0.1s test_prop_InsertValid (collecting)
+[ ]  681    0    0   67 / 1000     0.2s test_prop_InsertValid (collecting)
+[ ]  998    0    0  102 / 1000     0.3s test_prop_InsertValid (collecting)
+[✓] 1200    0    0  134 / 1000     0.4s test_prop_InsertValid
+================================================================================
+success (ran 1 tests)
+|prop_InsertValid -> 381.76]
+[prop_InsertValid|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid (generating)
+[ ]  416    0    0   42 / 1000     0.1s test_prop_InsertValid (collecting)
+[ ]  889    0    0   89 / 1000     0.2s test_prop_InsertValid (collecting)
+[✓] 1200    0    0  119 / 1000     0.3s test_prop_InsertValid
+================================================================================
+success (ran 1 tests)
+|prop_InsertValid -> 278.44]
+[prop_InsertValid|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid (generating)
+[ ]  348    0    0   40 / 1000     0.1s test_prop_InsertValid (collecting)
+[ ]  863    0    0  101 / 1000     0.2s test_prop_InsertValid (collecting)
+[✓] 1200    0    0  135 / 1000     0.3s test_prop_InsertValid
+================================================================================
+success (ran 1 tests)
+|prop_InsertValid -> 273.64]
+[prop_InsertValid|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid (generating)
+[ ]  452    0    0   55 / 1000     0.1s test_prop_InsertValid (collecting)
+[ ]  789    0    0   91 / 1000     0.2s test_prop_InsertValid (collecting)
+[✓] 1200    0    0  138 / 1000     0.3s test_prop_InsertValid
+================================================================================
+success (ran 1 tests)
+|prop_InsertValid -> 307.60]
+[prop_InsertValid|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid (generating)
+[ ]  319    0    0   36 / 1000     0.1s test_prop_InsertValid (collecting)
+[ ]  817    0    0   92 / 1000     0.2s test_prop_InsertValid (collecting)
+[ ] 1195    0    0  138 / 1000     0.3s test_prop_InsertValid (collecting)
+[✓] 1200    0    0  138 / 1000     0.3s test_prop_InsertValid
+================================================================================
+success (ran 1 tests)
+|prop_InsertValid -> 319.76]
+[prop_InsertValid|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid (generating)
+[ ]  519    0    0   66 / 1000     0.1s test_prop_InsertValid (collecting)
+[ ]  963    0    0  134 / 1000     0.2s test_prop_InsertValid (collecting)
+[✓] 1200    0    0  165 / 1000     0.3s test_prop_InsertValid
+================================================================================
+success (ran 1 tests)
+|prop_InsertValid -> 251.66]
+[prop_InsertValid|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid (generating)
+[ ]  519    0    0   65 / 1000     0.1s test_prop_InsertValid (collecting)
+[ ]  909    0    0  106 / 1000     0.2s test_prop_InsertValid (collecting)
+[✓] 1200    0    0  133 / 1000     0.3s test_prop_InsertValid
+================================================================================
+success (ran 1 tests)
+|prop_InsertValid -> 263.16]
+[prop_InsertValid|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid (generating)
+[ ]  733    0    0   94 / 1000     0.1s test_prop_InsertValid (collecting)
+[ ] 1129    0    0  125 / 1000     0.2s test_prop_InsertValid (collecting)
+[✓] 1200    0    0  129 / 1000     0.2s test_prop_InsertValid
+================================================================================
+success (ran 1 tests)
+|prop_InsertValid -> 245.72]
+[prop_InsertValid|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid
+[ ]    0    0    0    0 / 1000     0.0s test_prop_InsertValid (generating)
+[ ]  422    0    0   48 / 1000     0.1s test_prop_InsertValid (collecting)
+[ ]  686    0    0   82 / 1000     0.2s test_prop_InsertValid (collecting)
+[ ] 1131    0    0  140 / 1000     0.3s test_prop_InsertValid (collecting)
+[✓] 1200    0    0  143 / 1000     0.3s test_prop_InsertValid
+================================================================================
+success (ran 1 tests)
+|prop_InsertValid -> 305.27]

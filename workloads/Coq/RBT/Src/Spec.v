@@ -30,7 +30,7 @@ Fixpoint isBST (t: Tree) : bool :=
   (* -- Difference from SC: don't allow repeated keys. *)
         every (Z.gtb x) a && every (Z.ltb x) b && isBST a && isBST b
     end.
-    
+
 (* -- "No red node has a red parent." *)
 Fixpoint noRedRed (t: Tree) : bool :=
     let fix blackRoot (t: Tree) : bool :=
@@ -43,7 +43,7 @@ Fixpoint noRedRed (t: Tree) : bool :=
     | (T B a _ _ b) => noRedRed a && noRedRed b
     | (T R a _ _ b) => blackRoot a && blackRoot b && noRedRed a && noRedRed b
     end.
-    
+
 
 (* -- "Every path from the root to an empty node contains the same number of black nodes." *)
 Definition consistentBlackHeight  (t: Tree) : bool :=
@@ -58,7 +58,7 @@ Definition consistentBlackHeight  (t: Tree) : bool :=
                 | B => 1
                 | R => 0
                 end in
-            
+
         (andb (andb aBool bBool) (aHeight =? bHeight), aHeight + isBlack rb)
         end in
     fst (go t).
@@ -75,14 +75,14 @@ Fixpoint toList (t: Tree) : list (Z * Z) :=
     end.
 
 (* ---------- *)
-  
+
 (* -- Validity properties. *)
 
 Definition prop_InsertValid  (t: Tree) (k: Z) (v: Z) :=
   isRBT t -=> isRBT (insert k v t).
 
 Definition prop_DeleteValid  (t: Tree) (k: Z) :=
-  isRBT t -=> 
+  isRBT t -=>
     (t' <- delete k t ;;
     Some (isRBT t')).
 
@@ -94,7 +94,7 @@ Definition prop_InsertPost  (t: Tree) (k: Z) (k': Z) (v: Z) :=
   isRBT t
     -=> (
     let v' := find k' (insert k v t) in
-    if k =? k' then v' ==? Some v 
+    if k =? k' then v' ==? Some v
     else v' ==? find k' t)
 .
 
@@ -125,14 +125,14 @@ Definition deleteKey  (k: Z) (l: list (Z * Z)): list (Z * Z) :=
 
 Definition prop_InsertModel  (t: Tree) (k: Z) (v: Z) :=
   isRBT t
-    -=> 
+    -=>
     ((toList (insert k v t)) ==? (L_insert (k, v) (deleteKey k (toList t)))).
 
 
 
 Definition prop_DeleteModel  (t: Tree) (k: Z) :=
   isRBT t
-    -=> 
+    -=>
     t' <- delete k t ;;
     Some(toList t'
     ==? deleteKey k (toList t)).
@@ -150,7 +150,7 @@ Definition prop_InsertInsert  (t: Tree) (k: Z) (k': Z) (v: Z) (v': Z) :=
 
 Definition prop_InsertDelete (t: Tree) (k: Z) (k': Z) (v: Z)  :=
   isRBT t
-    -=> 
+    -=>
     t' <- (delete k' t) ;;
     t'' <- delete k' (insert k v t) ;;
     Some(toList(insert k v t')
@@ -158,7 +158,7 @@ Definition prop_InsertDelete (t: Tree) (k: Z) (k': Z) (v: Z)  :=
 
 Definition prop_DeleteInsert (t: Tree) (k: Z) (k': Z) (v': Z)  :=
   isRBT t
-    -=> 
+    -=>
     t' <- delete k (insert k' v' t) ;;
     t'' <- delete k t ;;
     let t''' := insert k' v' t'' in
@@ -166,7 +166,7 @@ Definition prop_DeleteInsert (t: Tree) (k: Z) (k': Z) (v': Z)  :=
 
 Definition prop_DeleteDelete  (t: Tree) (k: Z) (k': Z) :=
   isRBT t
-    -=> 
+    -=>
     t' <- delete k' t ;;
     t'' <- delete k t' ;;
     t1' <- delete k t ;;

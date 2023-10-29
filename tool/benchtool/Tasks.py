@@ -77,6 +77,7 @@ redblack = {
         'DeleteInsert',
     ],
     'miscolor_delete': ['DeleteValid'],
+    'miscolordelete': ['DeleteValid'],
     'miscolor_balLeft': [
         'DeleteValid',
         'DeleteDelete',
@@ -101,6 +102,18 @@ redblack = {
         'InsertDelete',
     ],
     'swap_cd': [
+        'InsertValid',
+        'InsertModel',
+        'InsertPost',
+        'DeleteValid',
+        'DeletePost',
+        'DeleteModel',
+        'DeleteDelete',
+        'DeleteInsert',
+        'InsertDelete',
+        'InsertInsert',
+    ],
+    'swap_ad': [
         'InsertValid',
         'InsertModel',
         'InsertPost',

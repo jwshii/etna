@@ -206,7 +206,7 @@ and delRight (x : 'a) (dl : ('a, 'b) tree) (dy : 'a) (dvy : 'b)
 let delete (x : 'a) (t : ('a, 'b) tree) : ('a, 'b) tree option =
   (*! *)
   del x t fuel >>= fun t' -> Some (blacken t')
-(*!! miscolordelete *)
+(*!! miscolor_delete *)
 (*!
   del x t fuel
 *)
