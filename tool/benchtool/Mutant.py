@@ -64,8 +64,8 @@ class Parser():
             (list(filter(
                 # TODO: is this necessary since listdir is not recursive?
                 lambda filename: filename.endswith(self.config.ext)
-                    and "Runners/" not in filename
-                    and "Methods/" not in filename,
+                and "Runners/" not in filename
+                and "Methods/" not in filename,
                 os.listdir(impl_path)
             )))
         ))

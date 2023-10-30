@@ -159,4 +159,3 @@ class ReplaceLevel(IntEnum):
     ''' Skip existing data. '''
     FAIL = 2
     ''' Fail if existing data is found. '''
-    
