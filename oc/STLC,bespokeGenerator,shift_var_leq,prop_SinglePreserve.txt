@@ -1,0 +1,90 @@
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_SinglePreserve
+================================================================================
+success (ran 1 tests)
+|prop_SinglePreserve -> 86.87]
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_SinglePreserve
+================================================================================
+success (ran 1 tests)
+|prop_SinglePreserve -> 91.91]
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_SinglePreserve
+================================================================================
+success (ran 1 tests)
+|prop_SinglePreserve -> 90.79]
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[ ]  845    0    0  845 / 1000     0.1s test_prop_SinglePreserve (collecting)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_SinglePreserve
+================================================================================
+success (ran 1 tests)
+|prop_SinglePreserve -> 121.18]
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[✗]  717    0    1  716 / 1000     0.1s test_prop_SinglePreserve
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_SinglePreserve failed (0 shrink steps):
+
+\a:Bool,\b:Bool,\c:(Bool->Bool),\d:Bool,\e:((Bool->(Bool->(Bool->(Bool->(Bool->Bool)))))->Bool),false a \a:(((Bool->Bool)->Bool)->(Bool->(Bool->Bool))),\b:Bool,false \a:((Bool->Bool)->Bool),\b:Bool,\c:Bool,true \a:(((Bool->Bool)->Bool)->(Bool->(Bool->Bool))),\b:Bool,true \a:((Bool->Bool)->Bool),\b:Bool,\c:Bool,true \a:Bool,false true \a:Bool,\b:Bool,\c:(Bool->Bool),b a \b:Bool,b \a:Bool,\b:Bool,true false true
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_SinglePreserve -> 77.78]
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[ ]  807    0    0  807 / 1000     0.1s test_prop_SinglePreserve (collecting)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_SinglePreserve
+================================================================================
+success (ran 1 tests)
+|prop_SinglePreserve -> 121.54]
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[ ]  887    0    0  887 / 1000     0.1s test_prop_SinglePreserve (collecting)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_SinglePreserve
+================================================================================
+success (ran 1 tests)
+|prop_SinglePreserve -> 108.45]
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_SinglePreserve
+================================================================================
+success (ran 1 tests)
+|prop_SinglePreserve -> 88.08]
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[ ]  757    0    0  757 / 1000     0.1s test_prop_SinglePreserve (collecting)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_SinglePreserve
+================================================================================
+success (ran 1 tests)
+|prop_SinglePreserve -> 121.50]
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_SinglePreserve
+================================================================================
+success (ran 1 tests)
+|prop_SinglePreserve -> 94.59]

@@ -74,7 +74,7 @@ let rec subst (n : int) (s : expr) (e : expr) : expr =
       Abs (t, subst (n + 1) (shift 1 s) e)
       (*!! subst_abs_no_shift *)
       (*!
-        Abs t (subst (n + 1) s e)
+        Abs (t, subst (n + 1) s e)
       *)
       (*!! subst_abs_no_incr *)
       (*!

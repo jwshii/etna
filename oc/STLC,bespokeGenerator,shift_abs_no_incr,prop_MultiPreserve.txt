@@ -1,0 +1,163 @@
+[prop_MultiPreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve (generating)
+[✗]   10    1    0    9 / 1000     0.0s test_prop_MultiPreserve
+
+=== Error ======================================================================
+
+Test test_prop_MultiPreserve errored on (0 shrink steps):
+
+\a:Bool,\b:(Bool->Bool),a true \a:Bool,\b:Bool,false \a:Bool,\b:(((Bool->(Bool->(((Bool->Bool)->Bool)->(Bool->Bool))))->Bool)->Bool),true \a:Bool,true true \a:(Bool->Bool),\b:((Bool->(Bool->(((Bool->Bool)->Bool)->(Bool->Bool))))->Bool),false \a:((Bool->(Bool->Bool))->((Bool->Bool)->Bool)),\b:Bool,true \a:(Bool->(Bool->Bool)),\b:(Bool->Bool),true \a:(Bool->(Bool->Bool)),\b:Bool,\c:Bool,false true \a:(Bool->((Bool->Bool)->((Bool->Bool)->Bool))),\b:Bool,\c:Bool,true \a:Bool,\b:(Bool->Bool),\c:(Bool->Bool),false false
+
+exception Invalid_argument("List.nth")
+
+================================================================================
+failure (0 tests failed, 1 tests errored, ran 1 tests)
+|prop_MultiPreserve -> 0.32]
+[prop_MultiPreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve (generating)
+[✗]  278    1    0  277 / 1000     0.0s test_prop_MultiPreserve
+
+=== Error ======================================================================
+
+Test test_prop_MultiPreserve errored on (0 shrink steps):
+
+\a:Bool,\b:Bool,a \a:Bool,a \a:Bool,true true
+
+exception Invalid_argument("List.nth")
+
+================================================================================
+failure (0 tests failed, 1 tests errored, ran 1 tests)
+|prop_MultiPreserve -> 35.53]
+[prop_MultiPreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve (generating)
+[✗]  140    1    0  139 / 1000     0.0s test_prop_MultiPreserve
+
+=== Error ======================================================================
+
+Test test_prop_MultiPreserve errored on (0 shrink steps):
+
+\a:((Bool->Bool)->Bool),\b:Bool,a \a:(Bool->Bool),false \a:Bool,a \a:(((Bool->Bool)->Bool)->(Bool->Bool)),\b:(Bool->Bool),true \b:Bool,\c:Bool,true false \a:Bool,\b:((Bool->Bool)->Bool),\c:Bool,true \a:(Bool->(Bool->Bool)),\b:Bool,\c:Bool,false \a:(((Bool->(((((((Bool->Bool)->Bool)->((Bool->Bool)->(Bool->Bool)))->(Bool->((Bool->Bool)->Bool)))->(Bool->(Bool->Bool)))->Bool)->Bool))->Bool)->((((Bool->((((Bool->Bool)->((Bool->Bool)->(Bool->Bool)))->Bool)->((Bool->Bool)->Bool)))->Bool)->Bool)->Bool)),\b:Bool,\c:Bool,true \a:((Bool->(((((((Bool->Bool)->Bool)->((Bool->Bool)->(Bool->Bool)))->(Bool->((Bool->Bool)->Bool)))->(Bool->(Bool->Bool)))->Bool)->Bool))->Bool),\b:(((Bool->((((Bool->Bool)->((Bool->Bool)->(Bool->Bool)))->Bool)->((Bool->Bool)->Bool)))->Bool)->Bool),false \a:(((((Bool->(Bool->Bool))->(Bool->((Bool->Bool)->(Bool->(Bool->Bool)))))->((((Bool->(Bool->((Bool->Bool)->Bool)))->Bool)->((Bool->((Bool->Bool)->Bool))->(Bool->((Bool->Bool)->(Bool->Bool)))))->(Bool->Bool)))->Bool)->((Bool->((Bool->((((Bool->Bool)->Bool)->(Bool->Bool))->((Bool->((Bool->Bool)->(Bool->(((Bool->Bool)->(Bool->Bool))->((Bool->Bool)->Bool)))))->Bool)))->Bool))->Bool)),\b:Bool,false \b:(((Bool->Bool)->(Bool->Bool))->((Bool->Bool)->Bool)),false \b:((Bool->Bool)->(Bool->Bool)),\c:(Bool->Bool),false \a:((((Bool->(Bool->Bool))->(Bool->((Bool->Bool)->(Bool->(Bool->Bool)))))->((((Bool->(Bool->((Bool->Bool)->Bool)))->Bool)->((Bool->((Bool->Bool)->Bool))->(Bool->((Bool->Bool)->(Bool->Bool)))))->(Bool->Bool)))->Bool),\b:(Bool->((Bool->((((Bool->Bool)->Bool)->(Bool->Bool))->((Bool->((Bool->Bool)->(Bool->(((Bool->Bool)->(Bool->Bool))->((Bool->Bool)->Bool)))))->Bool)))->Bool)),true \a:((Bool->Bool)->Bool),\b:Bool,a \b:Bool,a true \a:(Bool->Bool),false
+
+exception Invalid_argument("List.nth")
+
+================================================================================
+failure (0 tests failed, 1 tests errored, ran 1 tests)
+|prop_MultiPreserve -> 29.78]
+[prop_MultiPreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve (generating)
+[ ]  851    0    0  851 / 1000     0.1s test_prop_MultiPreserve (collecting)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_MultiPreserve
+================================================================================
+success (ran 1 tests)
+|prop_MultiPreserve -> 112.07]
+[prop_MultiPreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve (generating)
+[✗]  255    1    0  254 / 1000     0.0s test_prop_MultiPreserve
+
+=== Error ======================================================================
+
+Test test_prop_MultiPreserve errored on (0 shrink steps):
+
+\a:(((Bool->((Bool->(((Bool->(Bool->Bool))->Bool)->(Bool->(Bool->(Bool->Bool)))))->Bool))->Bool)->(Bool->Bool)),\b:Bool,a \a:Bool,\b:Bool,\c:((Bool->((Bool->(((Bool->(Bool->Bool))->Bool)->(Bool->(Bool->(Bool->Bool)))))->Bool))->Bool),\d:Bool,true false true
+
+exception Invalid_argument("List.nth")
+
+================================================================================
+failure (0 tests failed, 1 tests errored, ran 1 tests)
+|prop_MultiPreserve -> 26.08]
+[prop_MultiPreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve (generating)
+[✗]   57    1    0   56 / 1000     0.0s test_prop_MultiPreserve
+
+=== Error ======================================================================
+
+Test test_prop_MultiPreserve errored on (0 shrink steps):
+
+\a:Bool,\b:Bool,\c:(Bool->Bool),\d:Bool,b c a false
+
+exception Invalid_argument("List.nth")
+
+================================================================================
+failure (0 tests failed, 1 tests errored, ran 1 tests)
+|prop_MultiPreserve -> 2.34]
+[prop_MultiPreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve (generating)
+[✗]  180    1    0  179 / 1000     0.0s test_prop_MultiPreserve
+
+=== Error ======================================================================
+
+Test test_prop_MultiPreserve errored on (0 shrink steps):
+
+\a:Bool,\b:Bool,a \a:(Bool->(Bool->Bool)),\b:Bool,\c:(Bool->Bool),\d:(Bool->(Bool->Bool)),false c \a:Bool,\b:Bool,\c:Bool,\d:Bool,\e:Bool,false true false \a:(Bool->(Bool->Bool)),false \a:Bool,\b:Bool,false \a:Bool,\b:Bool,true true \a:(Bool->Bool),false \a:Bool,false \a:Bool,true
+
+exception Invalid_argument("List.nth")
+
+================================================================================
+failure (0 tests failed, 1 tests errored, ran 1 tests)
+|prop_MultiPreserve -> 15.83]
+[prop_MultiPreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve (generating)
+[ ]  756    0    0  756 / 1000     0.1s test_prop_MultiPreserve (collecting)
+[✗]  767    1    0  766 / 1000     0.1s test_prop_MultiPreserve
+
+=== Error ======================================================================
+
+Test test_prop_MultiPreserve errored on (0 shrink steps):
+
+\a:((((Bool->Bool)->Bool)->((Bool->Bool)->Bool))->(Bool->Bool)),\b:(Bool->(Bool->Bool)),a \a:Bool,\b:Bool,\c:(((Bool->Bool)->Bool)->((Bool->Bool)->Bool)),\d:Bool,false a \a:(Bool->Bool),true \a:Bool,false
+
+exception Invalid_argument("List.nth")
+
+================================================================================
+failure (0 tests failed, 1 tests errored, ran 1 tests)
+|prop_MultiPreserve -> 102.16]
+[prop_MultiPreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve (generating)
+[✗]  487    1    0  486 / 1000     0.1s test_prop_MultiPreserve
+
+=== Error ======================================================================
+
+Test test_prop_MultiPreserve errored on (0 shrink steps):
+
+\a:(Bool->Bool),\b:Bool,a \a:Bool,true \a:Bool,\b:Bool,false false true
+
+exception Invalid_argument("List.nth")
+
+================================================================================
+failure (0 tests failed, 1 tests errored, ran 1 tests)
+|prop_MultiPreserve -> 56.17]
+[prop_MultiPreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve (generating)
+[✗]  183    1    0  182 / 1000     0.0s test_prop_MultiPreserve
+
+=== Error ======================================================================
+
+Test test_prop_MultiPreserve errored on (0 shrink steps):
+
+\a:(Bool->Bool),\b:(Bool->Bool),a false \a:Bool,\b:(Bool->Bool),\c:Bool,\d:(((Bool->Bool)->Bool)->((Bool->Bool)->Bool)),true false \b:Bool,false \b:((Bool->Bool)->Bool),a
+
+exception Invalid_argument("List.nth")
+
+================================================================================
+failure (0 tests failed, 1 tests errored, ran 1 tests)
+|prop_MultiPreserve -> 12.41]

@@ -1,0 +1,97 @@
+[prop_MultiPreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve (generating)
+[ ]  897    0    0  897 / 1000     0.1s test_prop_MultiPreserve (collecting)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_MultiPreserve
+================================================================================
+success (ran 1 tests)
+|prop_MultiPreserve -> 111.73]
+[prop_MultiPreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve (generating)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_MultiPreserve
+================================================================================
+success (ran 1 tests)
+|prop_MultiPreserve -> 93.88]
+[prop_MultiPreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve (generating)
+[ ]  982    0    0  982 / 1000     0.1s test_prop_MultiPreserve (collecting)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_MultiPreserve
+================================================================================
+success (ran 1 tests)
+|prop_MultiPreserve -> 105.70]
+[prop_MultiPreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve (generating)
+[ ]  924    0    0  924 / 1000     0.1s test_prop_MultiPreserve (collecting)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_MultiPreserve
+================================================================================
+success (ran 1 tests)
+|prop_MultiPreserve -> 105.31]
+[prop_MultiPreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve (generating)
+[✗]  204    0    1  203 / 1000     0.0s test_prop_MultiPreserve
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_MultiPreserve failed (0 shrink steps):
+
+\a:Bool,\b:Bool,\c:((Bool->Bool)->((((Bool->Bool)->Bool)->(Bool->Bool))->((Bool->(Bool->(Bool->Bool)))->Bool))),b a \b:(Bool->Bool),\c:(((Bool->Bool)->Bool)->(Bool->Bool)),\d:(Bool->(Bool->(Bool->Bool))),false
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_MultiPreserve -> 21.79]
+[prop_MultiPreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve (generating)
+[✗]  776    0    1  775 / 1000     0.1s test_prop_MultiPreserve
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_MultiPreserve failed (0 shrink steps):
+
+\a:(Bool->Bool),\b:Bool,\c:Bool,b \b:(Bool->Bool),b \b:Bool,a false
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_MultiPreserve -> 85.95]
+[prop_MultiPreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve (generating)
+[ ]  877    0    0  877 / 1000     0.1s test_prop_MultiPreserve (collecting)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_MultiPreserve
+================================================================================
+success (ran 1 tests)
+|prop_MultiPreserve -> 109.13]
+[prop_MultiPreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve (generating)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_MultiPreserve
+================================================================================
+success (ran 1 tests)
+|prop_MultiPreserve -> 86.70]
+[prop_MultiPreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve (generating)
+[ ]  973    0    0  973 / 1000     0.1s test_prop_MultiPreserve (collecting)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_MultiPreserve
+================================================================================
+success (ran 1 tests)
+|prop_MultiPreserve -> 102.83]
+[prop_MultiPreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_MultiPreserve (generating)
+[✓] 1000    0    0 1000 / 1000     0.1s test_prop_MultiPreserve
+================================================================================
+success (ran 1 tests)
+|prop_MultiPreserve -> 95.21]

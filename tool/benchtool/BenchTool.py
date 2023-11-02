@@ -186,8 +186,9 @@ class BenchTool(ABC):
         else:
             experiment = cfg.file
         file = os.path.join(self.results, f'{experiment}.json')
+        file2 = os.path.join(self.results, f'{experiment}.txt')
 
-        if os.path.isfile(file):
+        if os.path.isfile(file) or os.path.isfile(file2):
             match self._replace_level:
                 case ReplaceLevel.REPLACE:
                     pass

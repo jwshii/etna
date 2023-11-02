@@ -7,7 +7,7 @@ Import MonadNotation.
 
 From STLC Require Import Impl.
 
-Definition mt (e: Expr) : option Typ := 
+Definition mt (e: Expr) : option Typ :=
     getTyp nil e
 .
 
@@ -28,14 +28,14 @@ Definition mtypeCheck (e: option Expr) (t: Typ) : bool :=
 
 
 Definition prop_SinglePreserve (e: Expr) : option bool :=
-  isJust (mt e) -=> 
+  isJust (mt e) -=>
     t' <- (mt e) ;;
     Some (mtypeCheck (pstep e) t')
 .
 
 
 Definition prop_MultiPreserve (e: Expr) : option bool :=
-  isJust (mt e) -=> 
+  isJust (mt e) -=>
     t' <- mt e ;;
     Some (mtypeCheck (multistep 40 pstep e) t')
 .

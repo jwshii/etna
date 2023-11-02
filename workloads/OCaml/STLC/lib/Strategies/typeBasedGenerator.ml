@@ -40,6 +40,7 @@ let rec print_typ t =
   | TBool -> "Bool"
   | TFun (t, t') -> "(" ^ print_typ t ^ "->" ^ print_typ t' ^ ")"
 
+  (* i think this is wrong *)
 let print_expr e =
   let rec _print_expr n e =
     match e with

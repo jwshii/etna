@@ -1,0 +1,140 @@
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[✗]  299    0    1  298 / 1000     0.0s test_prop_SinglePreserve
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_SinglePreserve failed (0 shrink steps):
+
+\a:Bool,\b:Bool,\c:Bool,\d:((Bool->Bool)->Bool),\e:(((Bool->(Bool->(Bool->(Bool->Bool))))->Bool)->Bool),\f:(Bool->Bool),false true \c:(Bool->Bool),\d:(Bool->Bool),true \c:Bool,false \c:((Bool->(Bool->(Bool->(Bool->Bool))))->Bool),c \c:Bool,a \b:Bool,\c:(Bool->((Bool->Bool)->(Bool->(Bool->(Bool->Bool))))),true true \b:Bool,\c:(Bool->Bool),\d:Bool,\e:Bool,\f:Bool,false
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_SinglePreserve -> 24.54]
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[✗]   93    0    1   92 / 1000     0.0s test_prop_SinglePreserve
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_SinglePreserve failed (0 shrink steps):
+
+\a:Bool,\b:Bool,\c:(((Bool->Bool)->((Bool->((Bool->((((Bool->Bool)->(Bool->Bool))->((Bool->Bool)->Bool))->Bool))->(((((Bool->Bool)->(Bool->Bool))->(Bool->(Bool->Bool)))->(Bool->((Bool->Bool)->(Bool->Bool))))->(Bool->Bool))))->Bool))->(((Bool->Bool)->Bool)->Bool)),\d:(((Bool->((Bool->Bool)->(Bool->(Bool->Bool))))->(Bool->Bool))->(Bool->Bool)),\e:Bool,false \b:Bool,true \b:(Bool->Bool),true \b:Bool,\c:((Bool->(Bool->Bool))->((Bool->Bool)->Bool)),\d:((Bool->(Bool->Bool))->((Bool->Bool)->Bool)),true \c:(Bool->(Bool->Bool)),\d:(Bool->Bool),false \c:Bool,\d:(Bool->(Bool->Bool)),\e:(Bool->Bool),true \c:Bool,true true \b:((Bool->Bool)->Bool),\c:Bool,\d:((Bool->Bool)->((Bool->((Bool->((((Bool->Bool)->(Bool->Bool))->((Bool->Bool)->Bool))->Bool))->(((((Bool->Bool)->(Bool->Bool))->(Bool->(Bool->Bool)))->(Bool->((Bool->Bool)->(Bool->Bool))))->(Bool->Bool))))->Bool)),\e:((Bool->Bool)->Bool),false \b:(Bool->Bool),true \b:Bool,\c:((Bool->Bool)->Bool),c \c:(Bool->Bool),true false \a:Bool,a \a:((Bool->(((Bool->((Bool->Bool)->Bool))->(((Bool->Bool)->(Bool->Bool))->Bool))->(Bool->Bool)))->Bool),true \a:(Bool->(((Bool->((Bool->Bool)->Bool))->(((Bool->Bool)->(Bool->Bool))->Bool))->(Bool->Bool))),false \a:Bool,\b:(Bool->(Bool->Bool)),\c:Bool,\d:(((Bool->Bool)->(Bool->Bool))->Bool),\e:Bool,\f:(((Bool->(Bool->Bool))->(Bool->Bool))->((Bool->Bool)->Bool)),\g:Bool,\h:Bool,\i:((Bool->((Bool->Bool)->(Bool->(Bool->Bool))))->(Bool->Bool)),\j:Bool,false \d:((Bool->Bool)->(Bool->Bool)),false c b \c:(((Bool->((((Bool->Bool)->((((Bool->Bool)->Bool)->Bool)->Bool))->Bool)->(Bool->((Bool->(Bool->Bool))->Bool))))->(Bool->Bool))->Bool),\d:((Bool->(Bool->Bool))->(Bool->Bool)),\e:(Bool->Bool),false \c:((Bool->((((Bool->Bool)->((((Bool->Bool)->Bool)->Bool)->Bool))->Bool)->(Bool->((Bool->(Bool->Bool))->Bool))))->(Bool->Bool)),false \c:Bool,true b \b:Bool,\c:Bool,false a \a:(((Bool->Bool)->((((Bool->Bool)->Bool)->(Bool->Bool))->((Bool->(Bool->Bool))->(((Bool->Bool)->((Bool->Bool)->Bool))->(((Bool->Bool)->(Bool->Bool))->(Bool->(Bool->Bool)))))))->Bool),\b:Bool,\c:Bool,false \b:Bool,\c:Bool,\d:Bool,false a \b:Bool,\c:(Bool->Bool),false \b:Bool,true false \b:Bool,true false \a:((Bool->Bool)->((((Bool->Bool)->Bool)->(Bool->Bool))->((Bool->(Bool->Bool))->(((Bool->Bool)->((Bool->Bool)->Bool))->(((Bool->Bool)->(Bool->Bool))->(Bool->(Bool->Bool))))))),\b:Bool,false false \a:(Bool->(Bool->Bool)),false \a:Bool,\b:((Bool->Bool)->Bool),\c:Bool,false \b:(Bool->Bool),b
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_SinglePreserve -> 7.09]
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[✗]  193    0    1  192 / 1000     0.0s test_prop_SinglePreserve
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_SinglePreserve failed (0 shrink steps):
+
+\a:(Bool->Bool),\b:Bool,b true \b:Bool,\c:(Bool->Bool),false b \b:((Bool->Bool)->((Bool->((Bool->((Bool->Bool)->Bool))->(Bool->Bool)))->Bool)),\c:Bool,\d:((Bool->(Bool->Bool))->(Bool->Bool)),false \c:(Bool->Bool),true \c:Bool,true \b:(Bool->Bool),\c:(Bool->((Bool->((Bool->Bool)->Bool))->(Bool->Bool))),false \b:(Bool->(Bool->Bool)),\c:(Bool->(((Bool->Bool)->Bool)->Bool)),\d:((((Bool->Bool)->Bool)->((Bool->Bool)->(Bool->Bool)))->Bool),\e:Bool,true \c:Bool,\d:((Bool->Bool)->Bool),false \c:(((Bool->Bool)->Bool)->((Bool->Bool)->(Bool->Bool))),c false
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_SinglePreserve -> 19.04]
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[✗]  171    0    1  170 / 1000     0.0s test_prop_SinglePreserve
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_SinglePreserve failed (0 shrink steps):
+
+\a:Bool,\b:(Bool->Bool),b \b:((Bool->Bool)->Bool),\c:Bool,false \b:(Bool->Bool),false \a:(((((Bool->(Bool->Bool))->((Bool->Bool)->(Bool->Bool)))->(Bool->Bool))->Bool)->Bool),\b:(Bool->Bool),false \b:Bool,true \a:((((Bool->(Bool->Bool))->((Bool->Bool)->(Bool->Bool)))->(Bool->Bool))->Bool),false
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_SinglePreserve -> 13.06]
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[✗]   49    0    1   48 / 1000     0.0s test_prop_SinglePreserve
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_SinglePreserve failed (0 shrink steps):
+
+\a:Bool,\b:Bool,\c:Bool,\d:Bool,\e:Bool,\f:Bool,\g:(((Bool->Bool)->(Bool->Bool))->Bool),\h:Bool,true \d:Bool,a \d:Bool,\e:Bool,false true false c b true \c:((Bool->Bool)->(Bool->Bool)),\d:(Bool->Bool),false \d:Bool,\e:Bool,\f:((Bool->Bool)->(Bool->Bool)),false false \e:(Bool->Bool),\f:(Bool->Bool),\g:((Bool->Bool)->Bool),\h:Bool,\i:Bool,false \f:Bool,\g:(((((Bool->Bool)->Bool)->Bool)->((Bool->Bool)->(Bool->(Bool->Bool))))->Bool),false \g:((((Bool->Bool)->Bool)->Bool)->((Bool->Bool)->(Bool->(Bool->Bool)))),false \f:(Bool->Bool),false \f:Bool,false \f:((Bool->(Bool->Bool))->(Bool->Bool)),\g:((Bool->Bool)->(Bool->Bool)),true \g:(Bool->Bool),\h:Bool,false \f:(Bool->(Bool->Bool)),\g:Bool,a a \b:Bool,\c:Bool,\d:(Bool->Bool),\e:(Bool->(Bool->(Bool->((Bool->Bool)->Bool)))),\f:(Bool->Bool),true \c:Bool,\d:Bool,false b a a \b:(Bool->(Bool->(Bool->Bool))),a \b:Bool,\c:Bool,\d:Bool,false \b:Bool,\c:Bool,\d:(((((Bool->(((Bool->Bool)->Bool)->(Bool->(Bool->Bool))))->Bool)->Bool)->Bool)->(Bool->(Bool->((Bool->Bool)->Bool)))),true true true \b:(Bool->(Bool->((Bool->Bool)->Bool))),\c:((((Bool->(((Bool->Bool)->Bool)->(Bool->(Bool->Bool))))->Bool)->Bool)->Bool),\d:Bool,\e:Bool,\f:(Bool->Bool),true \b:Bool,\c:Bool,\d:(Bool->Bool),true \b:Bool,\c:Bool,true \b:(Bool->Bool),false \b:Bool,\c:Bool,false \b:Bool,true a false \b:Bool,\c:Bool,\d:Bool,\e:(Bool->Bool),false \b:Bool,false
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_SinglePreserve -> 4.15]
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[✗]   20    0    1   19 / 1000     0.0s test_prop_SinglePreserve
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_SinglePreserve failed (0 shrink steps):
+
+\a:Bool,\b:(Bool->(Bool->Bool)),b \b:Bool,\c:Bool,\d:Bool,true a
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_SinglePreserve -> 0.85]
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[✗]  212    0    1  211 / 1000     0.0s test_prop_SinglePreserve
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_SinglePreserve failed (0 shrink steps):
+
+\a:Bool,\b:Bool,\c:Bool,\d:(Bool->Bool),\e:Bool,true \a:Bool,\b:Bool,\c:(Bool->(((Bool->Bool)->(((Bool->Bool)->Bool)->((Bool->Bool)->(Bool->Bool))))->(Bool->Bool))),false true \b:Bool,\c:(((Bool->Bool)->Bool)->((Bool->Bool)->(Bool->Bool))),\d:Bool,\e:(Bool->Bool),\f:Bool,\g:((Bool->Bool)->(((Bool->Bool)->Bool)->((Bool->Bool)->(Bool->Bool)))),\h:Bool,true \b:Bool,true \b:Bool,false true \b:Bool,\c:((Bool->Bool)->Bool),\d:(Bool->(Bool->Bool)),\e:(Bool->Bool),\f:Bool,false \d:Bool,\e:Bool,false \b:((Bool->Bool)->Bool),\c:Bool,true \b:(Bool->Bool),true false a \b:Bool,true \a:Bool,\b:Bool,false \b:(((((Bool->((Bool->(((Bool->Bool)->(Bool->Bool))->((Bool->Bool)->(Bool->Bool))))->((Bool->(Bool->(Bool->Bool)))->(((Bool->Bool)->(Bool->Bool))->((Bool->Bool)->Bool)))))->(Bool->Bool))->Bool)->(((((Bool->(((Bool->Bool)->Bool)->Bool))->(Bool->((Bool->(Bool->Bool))->((Bool->Bool)->(Bool->Bool)))))->Bool)->Bool)->Bool))->(Bool->((Bool->Bool)->((Bool->((((Bool->(Bool->Bool))->(Bool->(Bool->Bool)))->(Bool->Bool))->Bool))->Bool)))),false \b:(Bool->Bool),\c:((((Bool->((Bool->(((Bool->Bool)->(Bool->Bool))->((Bool->Bool)->(Bool->Bool))))->((Bool->(Bool->(Bool->Bool)))->(((Bool->Bool)->(Bool->Bool))->((Bool->Bool)->Bool)))))->(Bool->Bool))->Bool)->(((((Bool->(((Bool->Bool)->Bool)->Bool))->(Bool->((Bool->(Bool->Bool))->((Bool->Bool)->(Bool->Bool)))))->Bool)->Bool)->Bool)),\d:Bool,\e:(Bool->Bool),\f:(Bool->((((Bool->(Bool->Bool))->(Bool->(Bool->Bool)))->(Bool->Bool))->Bool)),false \b:Bool,\c:Bool,b true true \a:Bool,\b:Bool,\c:Bool,\d:Bool,d true true true \a:Bool,\b:((Bool->(Bool->Bool))->Bool),\c:Bool,\d:Bool,\e:(Bool->Bool),false c \d:Bool,false \b:(Bool->(Bool->Bool)),false true true
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_SinglePreserve -> 30.21]
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[✗]    4    0    1    3 / 1000     0.0s test_prop_SinglePreserve
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_SinglePreserve failed (0 shrink steps):
+
+\a:Bool,\b:Bool,b \b:Bool,false \b:(Bool->((Bool->Bool)->Bool)),false \b:Bool,\c:(Bool->Bool),true
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_SinglePreserve -> 0.12]
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[✗]  113    0    1  112 / 1000     0.0s test_prop_SinglePreserve
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_SinglePreserve failed (0 shrink steps):
+
+\a:Bool,\b:(Bool->Bool),\c:((Bool->(((Bool->Bool)->(Bool->Bool))->Bool))->Bool),\d:Bool,\e:Bool,\f:Bool,\g:((Bool->Bool)->Bool),\h:Bool,\i:(Bool->Bool),true c \d:Bool,\e:Bool,true c \d:Bool,true true c \c:((Bool->(Bool->(Bool->Bool)))->Bool),\d:Bool,\e:(Bool->(((Bool->Bool)->(Bool->Bool))->Bool)),b \c:(Bool->(Bool->(Bool->Bool))),c true \c:Bool,\d:(Bool->Bool),true true \c:((Bool->Bool)->Bool),\d:((Bool->(Bool->Bool))->(Bool->Bool)),false \c:(Bool->Bool),c \c:(Bool->(Bool->Bool)),\d:Bool,\e:((Bool->((Bool->(Bool->Bool))->Bool))->Bool),\f:(Bool->(((Bool->Bool)->((Bool->((Bool->Bool)->((((Bool->Bool)->Bool)->(Bool->Bool))->Bool)))->Bool))->Bool)),false \e:(Bool->((Bool->(Bool->Bool))->Bool)),true \e:Bool,\f:((Bool->Bool)->((Bool->((Bool->Bool)->((((Bool->Bool)->Bool)->(Bool->Bool))->Bool)))->Bool)),true \a:Bool,false false \a:Bool,true \a:Bool,\b:Bool,true true
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_SinglePreserve -> 9.46]
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[✗]   32    0    1   31 / 1000     0.0s test_prop_SinglePreserve
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_SinglePreserve failed (0 shrink steps):
+
+\a:(Bool->Bool),\b:Bool,\c:((Bool->(Bool->Bool))->Bool),\d:Bool,\e:Bool,\f:((Bool->(Bool->(Bool->Bool)))->Bool),\g:Bool,\h:Bool,false false b \d:(Bool->(Bool->(Bool->Bool))),d c \d:Bool,\e:Bool,\f:(Bool->Bool),\g:(Bool->(Bool->Bool)),true b b \d:Bool,\e:Bool,true \d:Bool,false false \d:(Bool->Bool),\e:Bool,\f:(((Bool->Bool)->(Bool->Bool))->Bool),\g:Bool,\h:Bool,false c b \d:((Bool->Bool)->(Bool->Bool)),false b false \b:(Bool->(Bool->Bool)),true
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_SinglePreserve -> 1.05]

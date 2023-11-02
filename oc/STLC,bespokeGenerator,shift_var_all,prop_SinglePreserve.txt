@@ -1,0 +1,167 @@
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[✗]   48    1    0   47 / 1000     0.0s test_prop_SinglePreserve
+
+=== Error ======================================================================
+
+Test test_prop_SinglePreserve errored on (0 shrink steps):
+
+\a:(Bool->Bool),\b:Bool,\c:((Bool->Bool)->Bool),false \b:Bool,false \b:(((Bool->Bool)->Bool)->((Bool->Bool)->(Bool->Bool))),false \b:((Bool->Bool)->Bool),\c:(Bool->Bool),\d:Bool,true \b:((Bool->Bool)->(Bool->Bool)),\c:(Bool->Bool),a true \b:(Bool->Bool),\c:Bool,false
+
+exception Invalid_argument("List.nth")
+
+================================================================================
+failure (0 tests failed, 1 tests errored, ran 1 tests)
+|prop_SinglePreserve -> 4.80]
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[✗]  173    1    0  172 / 1000     0.0s test_prop_SinglePreserve
+
+=== Error ======================================================================
+
+Test test_prop_SinglePreserve errored on (0 shrink steps):
+
+\a:Bool,\b:Bool,a true
+
+exception Invalid_argument("List.nth")
+
+================================================================================
+failure (0 tests failed, 1 tests errored, ran 1 tests)
+|prop_SinglePreserve -> 18.01]
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[✗]  146    1    0  145 / 1000     0.0s test_prop_SinglePreserve
+
+=== Error ======================================================================
+
+Test test_prop_SinglePreserve errored on (0 shrink steps):
+
+\a:Bool,\b:Bool,a false true
+
+exception Invalid_argument("List.nth")
+
+================================================================================
+failure (0 tests failed, 1 tests errored, ran 1 tests)
+|prop_SinglePreserve -> 24.23]
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[✗]  296    1    0  295 / 1000     0.0s test_prop_SinglePreserve
+
+=== Error ======================================================================
+
+Test test_prop_SinglePreserve errored on (0 shrink steps):
+
+\a:(Bool->((Bool->Bool)->Bool)),\b:(Bool->Bool),a \a:Bool,\b:(Bool->Bool),true
+
+exception Invalid_argument("List.nth")
+
+================================================================================
+failure (0 tests failed, 1 tests errored, ran 1 tests)
+|prop_SinglePreserve -> 34.44]
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[✗]   68    1    0   67 / 1000     0.0s test_prop_SinglePreserve
+
+=== Error ======================================================================
+
+Test test_prop_SinglePreserve errored on (0 shrink steps):
+
+\a:Bool,\b:Bool,\c:Bool,true true \a:Bool,\b:Bool,a \a:Bool,false \a:(((Bool->(((Bool->((Bool->Bool)->Bool))->Bool)->Bool))->(Bool->(Bool->((((Bool->((Bool->Bool)->Bool))->(((Bool->Bool)->Bool)->Bool))->Bool)->(Bool->Bool)))))->Bool),\b:Bool,false \a:Bool,\b:((Bool->(Bool->Bool))->Bool),\c:((Bool->(((Bool->((Bool->Bool)->Bool))->Bool)->Bool))->(Bool->(Bool->((((Bool->((Bool->Bool)->Bool))->(((Bool->Bool)->Bool)->Bool))->Bool)->(Bool->Bool))))),false true \a:Bool,\b:(Bool->(Bool->Bool)),false \a:Bool,true false \a:Bool,false \a:Bool,\b:(Bool->((Bool->Bool)->Bool)),true false \a:Bool,\b:(Bool->Bool),true false \a:Bool,false \a:Bool,true \a:(Bool->(Bool->Bool)),\b:Bool,\c:Bool,c \c:((Bool->Bool)->(((Bool->Bool)->Bool)->Bool)),\d:Bool,true \c:(Bool->Bool),\d:((Bool->Bool)->Bool),true true a \c:(Bool->(Bool->Bool)),b \c:Bool,\d:Bool,false \a:Bool,\b:(((((Bool->Bool)->(Bool->(Bool->Bool)))->Bool)->(Bool->Bool))->(Bool->Bool)),\c:Bool,\d:Bool,true true \a:((((Bool->Bool)->(Bool->(Bool->Bool)))->Bool)->(Bool->Bool)),\b:Bool,true false
+
+exception Invalid_argument("List.nth")
+
+================================================================================
+failure (0 tests failed, 1 tests errored, ran 1 tests)
+|prop_SinglePreserve -> 8.16]
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[✗]  229    1    0  228 / 1000     0.0s test_prop_SinglePreserve
+
+=== Error ======================================================================
+
+Test test_prop_SinglePreserve errored on (0 shrink steps):
+
+\a:(Bool->Bool),\b:(Bool->Bool),\c:Bool,\d:((Bool->Bool)->(Bool->Bool)),false true \c:(Bool->Bool),\d:Bool,a \b:Bool,true
+
+exception Invalid_argument("List.nth")
+
+================================================================================
+failure (0 tests failed, 1 tests errored, ran 1 tests)
+|prop_SinglePreserve -> 16.75]
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[✗]  954    1    0  953 / 1000     0.1s test_prop_SinglePreserve
+
+=== Error ======================================================================
+
+Test test_prop_SinglePreserve errored on (0 shrink steps):
+
+\a:Bool,\b:Bool,a true true
+
+exception Invalid_argument("List.nth")
+
+================================================================================
+failure (0 tests failed, 1 tests errored, ran 1 tests)
+|prop_SinglePreserve -> 87.43]
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[✗]  116    0    1  115 / 1000     0.0s test_prop_SinglePreserve
+
+--- Failure --------------------------------------------------------------------
+
+Test test_prop_SinglePreserve failed (0 shrink steps):
+
+\a:((((Bool->Bool)->(Bool->Bool))->Bool)->(Bool->((Bool->Bool)->(Bool->Bool)))),\b:Bool,\c:(((Bool->(Bool->Bool))->Bool)->Bool),b \a:(Bool->(((((Bool->Bool)->(Bool->((Bool->Bool)->Bool)))->Bool)->Bool)->(Bool->(Bool->(((Bool->Bool)->Bool)->(((Bool->Bool)->Bool)->Bool)))))),\b:Bool,\c:Bool,\d:((Bool->(((Bool->Bool)->Bool)->((((Bool->Bool)->Bool)->Bool)->Bool)))->(Bool->Bool)),\e:(Bool->(Bool->(Bool->(Bool->Bool)))),\f:(((Bool->Bool)->(Bool->Bool))->Bool),\g:Bool,\h:(Bool->Bool),\i:Bool,false \a:(Bool->(Bool->(Bool->Bool))),\b:Bool,\c:((((Bool->Bool)->(Bool->((Bool->Bool)->Bool)))->Bool)->Bool),\d:Bool,\e:Bool,\f:((Bool->Bool)->Bool),\g:((Bool->Bool)->Bool),true \a:Bool,\b:Bool,\c:Bool,false \a:((Bool->Bool)->Bool),false \a:(Bool->Bool),true \a:((((Bool->Bool)->(Bool->Bool))->Bool)->(((Bool->Bool)->Bool)->Bool)),\b:Bool,false false \a:Bool,\b:Bool,\c:(((Bool->Bool)->(Bool->Bool))->Bool),\d:((Bool->Bool)->Bool),false false true \a:(Bool->(((Bool->Bool)->Bool)->((((Bool->Bool)->Bool)->Bool)->Bool))),\b:Bool,true \a:(Bool->Bool),\b:Bool,\c:(((((((((Bool->(((Bool->Bool)->Bool)->Bool))->Bool)->(Bool->(((Bool->Bool)->(Bool->Bool))->Bool)))->Bool)->Bool)->Bool)->(Bool->Bool))->Bool)->Bool),\d:Bool,\e:Bool,\f:Bool,\g:Bool,true a true \a:Bool,\b:(Bool->(((Bool->Bool)->(Bool->Bool))->Bool)),true \b:Bool,\c:((Bool->Bool)->(Bool->Bool)),false \a:((((((((Bool->(((Bool->Bool)->Bool)->Bool))->Bool)->(Bool->(((Bool->Bool)->(Bool->Bool))->Bool)))->Bool)->Bool)->Bool)->(Bool->Bool))->Bool),\b:(Bool->((Bool->(Bool->Bool))->(Bool->(((Bool->(((Bool->Bool)->((Bool->Bool)->(Bool->Bool)))->Bool))->Bool)->(Bool->(Bool->((Bool->((Bool->Bool)->Bool))->(Bool->(Bool->Bool))))))))),false \b:Bool,\c:((Bool->Bool)->Bool),\d:Bool,\e:(Bool->(Bool->Bool)),\f:Bool,\g:((Bool->(((Bool->Bool)->((Bool->Bool)->(Bool->Bool)))->Bool))->Bool),\h:Bool,\i:Bool,\j:(Bool->((Bool->Bool)->Bool)),\k:Bool,\l:Bool,false \c:(Bool->Bool),true \b:Bool,\c:(Bool->(Bool->Bool)),false true \b:Bool,\c:Bool,true true \a:((Bool->Bool)->(Bool->(Bool->Bool))),\b:Bool,\c:((Bool->(Bool->Bool))->Bool),false \a:(Bool->Bool),\b:Bool,b \a:Bool,false \a:Bool,false true
+================================================================================
+failure (1 tests failed, 0 tests errored, ran 1 tests)
+|prop_SinglePreserve -> 20.53]
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[✗]  163    1    0  162 / 1000     0.0s test_prop_SinglePreserve
+
+=== Error ======================================================================
+
+Test test_prop_SinglePreserve errored on (0 shrink steps):
+
+\a:Bool,\b:Bool,\c:(((Bool->Bool)->(Bool->Bool))->(Bool->((Bool->((Bool->Bool)->(Bool->Bool)))->(Bool->Bool)))),\d:Bool,false true \a:(((Bool->(Bool->Bool))->((Bool->Bool)->Bool))->Bool),\b:Bool,true \a:((Bool->(Bool->Bool))->((Bool->Bool)->Bool)),false \a:Bool,\b:Bool,\c:((Bool->(((Bool->Bool)->(Bool->(Bool->(((Bool->Bool)->Bool)->((Bool->Bool)->Bool)))))->Bool))->(((Bool->Bool)->((((Bool->Bool)->((Bool->(Bool->Bool))->(Bool->Bool)))->(((Bool->(Bool->Bool))->(Bool->(Bool->Bool)))->(Bool->((Bool->Bool)->Bool))))->Bool))->((Bool->Bool)->((((Bool->(Bool->(Bool->Bool)))->((Bool->(Bool->Bool))->Bool))->Bool)->Bool)))),\d:((Bool->Bool)->Bool),\e:Bool,\f:Bool,true c \b:(Bool->(Bool->((Bool->Bool)->Bool))),\c:((Bool->Bool)->Bool),\d:(Bool->(Bool->(Bool->((Bool->Bool)->(((((Bool->(Bool->Bool))->Bool)->Bool)->(Bool->Bool))->Bool))))),true \b:Bool,\c:Bool,\d:(Bool->Bool),false \b:(Bool->Bool),false \b:Bool,\c:((Bool->Bool)->((Bool->Bool)->Bool)),\d:Bool,\e:Bool,\f:(Bool->Bool),\g:((((Bool->(Bool->Bool))->Bool)->Bool)->(Bool->Bool)),false \c:(Bool->Bool),\d:(Bool->Bool),true \b:(Bool->(((Bool->Bool)->(Bool->(Bool->(((Bool->Bool)->Bool)->((Bool->Bool)->Bool)))))->Bool)),\c:((Bool->Bool)->((((Bool->Bool)->((Bool->(Bool->Bool))->(Bool->Bool)))->(((Bool->(Bool->Bool))->(Bool->(Bool->Bool)))->(Bool->((Bool->Bool)->Bool))))->Bool)),\d:(Bool->Bool),\e:Bool,\f:Bool,\g:(Bool->(Bool->Bool)),\h:(((Bool->(Bool->(Bool->Bool)))->((Bool->(Bool->Bool))->Bool))->Bool),false false \e:(Bool->(Bool->Bool)),true \e:Bool,\f:Bool,false \e:Bool,\f:Bool,false \b:(Bool->Bool),\c:Bool,\d:Bool,\e:Bool,false b c b \d:Bool,false false b \a:(Bool->Bool),\b:(((Bool->(Bool->Bool))->Bool)->(Bool->Bool)),\c:Bool,false \a:Bool,true \a:(Bool->(Bool->Bool)),\b:((Bool->(Bool->Bool))->Bool),\c:Bool,true \a:Bool,\b:Bool,\c:Bool,true \a:Bool,true true \a:Bool,\b:Bool,\c:(Bool->(Bool->(Bool->Bool))),false \c:Bool,\d:Bool,\e:Bool,false \a:Bool,a \a:((((Bool->Bool)->(Bool->Bool))->Bool)->Bool),true \a:(((Bool->Bool)->(Bool->Bool))->Bool),true \a:(Bool->Bool),true \a:Bool,\b:(Bool->Bool),true \b:(Bool->Bool),\c:Bool,true \b:Bool,false \a:(Bool->Bool),\b:(Bool->(Bool->(Bool->Bool))),\c:Bool,\d:Bool,\e:(Bool->Bool),true \d:(Bool->Bool),true c \b:Bool,\c:((Bool->(Bool->Bool))->Bool),\d:Bool,\e:Bool,true \c:((((Bool->Bool)->Bool)->((Bool->Bool)->(Bool->Bool)))->Bool),\d:(Bool->(Bool->Bool)),false \c:(((Bool->Bool)->Bool)->((Bool->Bool)->(Bool->Bool))),false false \a:Bool,\b:Bool,\c:Bool,b false a \a:Bool,true
+
+exception Invalid_argument("List.nth")
+
+================================================================================
+failure (0 tests failed, 1 tests errored, ran 1 tests)
+|prop_SinglePreserve -> 17.25]
+[prop_SinglePreserve|
+generated error fail pass / total     time test name
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve
+[ ]    0    0    0    0 / 1000     0.0s test_prop_SinglePreserve (generating)
+[✗]   88    1    0   87 / 1000     0.0s test_prop_SinglePreserve
+
+=== Error ======================================================================
+
+Test test_prop_SinglePreserve errored on (0 shrink steps):
+
+\a:(Bool->Bool),\b:((Bool->Bool)->Bool),a b \a:Bool,false
+
+exception Invalid_argument("List.nth")
+
+================================================================================
+failure (0 tests failed, 1 tests errored, ran 1 tests)
+|prop_SinglePreserve -> 9.02]
