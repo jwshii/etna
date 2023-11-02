@@ -2,5 +2,5 @@
 
 (library
  (name STLC)
- (modules impl spec)
+ (modules impl spec typeBasedGenerator)
  (libraries qcheck))
