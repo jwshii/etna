@@ -22,7 +22,7 @@ let rec getTyp (c : ctx) (e : expr) : typ option =
 let typeCheck (c : ctx) (e : expr) (t : typ) : bool =
   match getTyp c e with Some t' -> t = t' | None -> false
 
-let shift (d : int) (ex : expr) : expr =
+let shift (d : int) (ex : expr) : expr = let _ = ignore (d, ex) in
   let rec go (c : int) (e : expr) =
     match e with
     | Var n ->
