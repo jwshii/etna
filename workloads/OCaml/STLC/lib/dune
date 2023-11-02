@@ -2,5 +2,5 @@
 
 (library
  (name STLC)
- (modules impl)
+ (modules impl spec)
  (libraries qcheck))
