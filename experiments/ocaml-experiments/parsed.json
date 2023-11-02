@@ -600,6 +600,106 @@
         "time": 6.59
     },
     {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 146,
+        "property": "prop_SinglePreserve",
+        "time": 12.8
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 133,
+        "property": "prop_SinglePreserve",
+        "time": 20.4
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 138,
+        "property": "prop_SinglePreserve",
+        "time": 15.95
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 80,
+        "property": "prop_SinglePreserve",
+        "time": 7.41
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 57,
+        "property": "prop_SinglePreserve",
+        "time": 1.27
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 4,
+        "property": "prop_SinglePreserve",
+        "time": 0.95
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 346,
+        "property": "prop_SinglePreserve",
+        "time": 47.12
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 263,
+        "property": "prop_SinglePreserve",
+        "time": 26.85
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 17,
+        "property": "prop_SinglePreserve",
+        "time": 1.0
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 148,
+        "property": "prop_SinglePreserve",
+        "time": 10.33
+    },
+    {
         "workload": "RBT",
         "discards": 1076,
         "foundbug": false,
@@ -898,6 +998,106 @@
         "passed": 1,
         "property": "prop_InsertModel",
         "time": 0.53
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_all",
+        "passed": 42,
+        "property": "prop_SinglePreserve",
+        "time": 3.49
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_all",
+        "passed": 100,
+        "property": "prop_SinglePreserve",
+        "time": 5.98
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_all",
+        "passed": 52,
+        "property": "prop_SinglePreserve",
+        "time": 4.47
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_all",
+        "passed": 257,
+        "property": "prop_SinglePreserve",
+        "time": 32.99
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_all",
+        "passed": 52,
+        "property": "prop_SinglePreserve",
+        "time": 2.79
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_all",
+        "passed": 300,
+        "property": "prop_SinglePreserve",
+        "time": 38.53
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_all",
+        "passed": 50,
+        "property": "prop_SinglePreserve",
+        "time": 3.59
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_all",
+        "passed": 176,
+        "property": "prop_SinglePreserve",
+        "time": 21.36
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_all",
+        "passed": 5,
+        "property": "prop_SinglePreserve",
+        "time": 0.13
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_all",
+        "passed": 89,
+        "property": "prop_SinglePreserve",
+        "time": 3.35
     },
     {
         "workload": "BST",
@@ -2600,6 +2800,106 @@
         "time": 16.04
     },
     {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 143,
+        "property": "prop_MultiPreserve",
+        "time": 18.16
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 89,
+        "property": "prop_MultiPreserve",
+        "time": 13.13
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 54,
+        "property": "prop_MultiPreserve",
+        "time": 8.64
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 25,
+        "property": "prop_MultiPreserve",
+        "time": 2.06
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 280,
+        "property": "prop_MultiPreserve",
+        "time": 34.73
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 151,
+        "property": "prop_MultiPreserve",
+        "time": 10.5
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 337,
+        "property": "prop_MultiPreserve",
+        "time": 29.34
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 432,
+        "property": "prop_MultiPreserve",
+        "time": 40.47
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 801,
+        "property": "prop_MultiPreserve",
+        "time": 89.36
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 590,
+        "property": "prop_MultiPreserve",
+        "time": 68.5
+    },
+    {
         "workload": "RBT",
         "discards": 0,
         "foundbug": true,
@@ -2698,6 +2998,106 @@
         "passed": 20,
         "property": "prop_InsertInsert",
         "time": 3.67
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_all",
+        "passed": 102,
+        "property": "prop_MultiPreserve",
+        "time": 7.53
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_all",
+        "passed": 61,
+        "property": "prop_MultiPreserve",
+        "time": 4.17
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_all",
+        "passed": 192,
+        "property": "prop_MultiPreserve",
+        "time": 14.55
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_all",
+        "passed": 19,
+        "property": "prop_MultiPreserve",
+        "time": 2.08
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_all",
+        "passed": 218,
+        "property": "prop_MultiPreserve",
+        "time": 26.59
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_all",
+        "passed": 7,
+        "property": "prop_MultiPreserve",
+        "time": 1.3
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_all",
+        "passed": 15,
+        "property": "prop_MultiPreserve",
+        "time": 1.62
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_all",
+        "passed": 137,
+        "property": "prop_MultiPreserve",
+        "time": 14.07
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_all",
+        "passed": 53,
+        "property": "prop_MultiPreserve",
+        "time": 3.75
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_all",
+        "passed": 130,
+        "property": "prop_MultiPreserve",
+        "time": 17.98
     },
     {
         "workload": "BST",
@@ -2900,6 +3300,106 @@
         "time": 1.26
     },
     {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_none",
+        "passed": 51,
+        "property": "prop_MultiPreserve",
+        "time": 4.91
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_none",
+        "passed": 4,
+        "property": "prop_MultiPreserve",
+        "time": 0.28
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_none",
+        "passed": 27,
+        "property": "prop_MultiPreserve",
+        "time": 1.6
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_none",
+        "passed": 155,
+        "property": "prop_MultiPreserve",
+        "time": 11.04
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_none",
+        "passed": 49,
+        "property": "prop_MultiPreserve",
+        "time": 11.81
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_none",
+        "passed": 28,
+        "property": "prop_MultiPreserve",
+        "time": 0.45
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_none",
+        "passed": 96,
+        "property": "prop_MultiPreserve",
+        "time": 8.85
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_none",
+        "passed": 31,
+        "property": "prop_MultiPreserve",
+        "time": 1.16
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_none",
+        "passed": 11,
+        "property": "prop_MultiPreserve",
+        "time": 0.12
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_none",
+        "passed": 2,
+        "property": "prop_MultiPreserve",
+        "time": 0.11
+    },
+    {
         "workload": "RBT",
         "discards": 0,
         "foundbug": false,
@@ -3098,6 +3598,106 @@
         "passed": 143,
         "property": "prop_InsertPost",
         "time": 303.35
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 451,
+        "property": "prop_SinglePreserve",
+        "time": 39.08
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 201,
+        "property": "prop_SinglePreserve",
+        "time": 24.73
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 9,
+        "property": "prop_SinglePreserve",
+        "time": 0.49
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 170,
+        "property": "prop_SinglePreserve",
+        "time": 13.12
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 101,
+        "property": "prop_SinglePreserve",
+        "time": 13.18
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 230,
+        "property": "prop_SinglePreserve",
+        "time": 37.0
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 495,
+        "property": "prop_SinglePreserve",
+        "time": 42.52
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 71,
+        "property": "prop_SinglePreserve",
+        "time": 9.09
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 7,
+        "property": "prop_SinglePreserve",
+        "time": 3.5
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 1,
+        "property": "prop_SinglePreserve",
+        "time": 0.12
     },
     {
         "workload": "BST",
@@ -3900,6 +4500,106 @@
         "time": 0.12
     },
     {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_none",
+        "passed": 103,
+        "property": "prop_SinglePreserve",
+        "time": 11.25
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_none",
+        "passed": 93,
+        "property": "prop_SinglePreserve",
+        "time": 6.46
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_none",
+        "passed": 160,
+        "property": "prop_SinglePreserve",
+        "time": 18.56
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_none",
+        "passed": 51,
+        "property": "prop_SinglePreserve",
+        "time": 4.33
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_none",
+        "passed": 53,
+        "property": "prop_SinglePreserve",
+        "time": 1.11
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_none",
+        "passed": 63,
+        "property": "prop_SinglePreserve",
+        "time": 3.59
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_none",
+        "passed": 22,
+        "property": "prop_SinglePreserve",
+        "time": 1.33
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_none",
+        "passed": 10,
+        "property": "prop_SinglePreserve",
+        "time": 2.46
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_none",
+        "passed": 304,
+        "property": "prop_SinglePreserve",
+        "time": 42.8
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_none",
+        "passed": 35,
+        "property": "prop_SinglePreserve",
+        "time": 5.57
+    },
+    {
         "workload": "BST",
         "discards": 98,
         "foundbug": true,
@@ -4000,6 +4700,106 @@
         "time": 157.86
     },
     {
+        "workload": "STLC",
+        "discards": 1101,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 99,
+        "property": "prop_SinglePreserve",
+        "time": 48101.18
+    },
+    {
+        "workload": "STLC",
+        "discards": 1114,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 86,
+        "property": "prop_SinglePreserve",
+        "time": 39457.7
+    },
+    {
+        "workload": "STLC",
+        "discards": 1102,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 98,
+        "property": "prop_SinglePreserve",
+        "time": 72898.93
+    },
+    {
+        "workload": "STLC",
+        "discards": 1115,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 85,
+        "property": "prop_SinglePreserve",
+        "time": 49662.41
+    },
+    {
+        "workload": "STLC",
+        "discards": 1109,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 91,
+        "property": "prop_SinglePreserve",
+        "time": 56630.07
+    },
+    {
+        "workload": "STLC",
+        "discards": 1115,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 85,
+        "property": "prop_SinglePreserve",
+        "time": 55366.13
+    },
+    {
+        "workload": "STLC",
+        "discards": 1101,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 99,
+        "property": "prop_SinglePreserve",
+        "time": 57310.98
+    },
+    {
+        "workload": "STLC",
+        "discards": 1094,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 106,
+        "property": "prop_SinglePreserve",
+        "time": 48297.44
+    },
+    {
+        "workload": "STLC",
+        "discards": 1114,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 86,
+        "property": "prop_SinglePreserve",
+        "time": 50719.31
+    },
+    {
+        "workload": "STLC",
+        "discards": 1085,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 115,
+        "property": "prop_SinglePreserve",
+        "time": 55356.4
+    },
+    {
         "workload": "RBT",
         "discards": 1051,
         "foundbug": false,
@@ -4098,6 +4898,106 @@
         "passed": 138,
         "property": "prop_DeleteModel",
         "time": 291.41
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_all",
+        "passed": 9,
+        "property": "prop_MultiPreserve",
+        "time": 0.16
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_all",
+        "passed": 537,
+        "property": "prop_MultiPreserve",
+        "time": 64.77
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_all",
+        "passed": 114,
+        "property": "prop_MultiPreserve",
+        "time": 7.5
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_all",
+        "passed": 61,
+        "property": "prop_MultiPreserve",
+        "time": 12.4
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_all",
+        "passed": 100,
+        "property": "prop_MultiPreserve",
+        "time": 5.97
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_all",
+        "passed": 305,
+        "property": "prop_MultiPreserve",
+        "time": 32.34
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_all",
+        "passed": 23,
+        "property": "prop_MultiPreserve",
+        "time": 2.28
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_all",
+        "passed": 34,
+        "property": "prop_MultiPreserve",
+        "time": 6.58
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_all",
+        "passed": 259,
+        "property": "prop_MultiPreserve",
+        "time": 41.13
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_all",
+        "passed": 989,
+        "property": "prop_MultiPreserve",
+        "time": 86.6
     },
     {
         "workload": "RBT",
@@ -5000,6 +5900,206 @@
         "time": 0.15
     },
     {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 146,
+        "property": "prop_MultiPreserve",
+        "time": 17.46
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 108,
+        "property": "prop_MultiPreserve",
+        "time": 11.94
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 457,
+        "property": "prop_MultiPreserve",
+        "time": 56.47
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 196,
+        "property": "prop_MultiPreserve",
+        "time": 23.38
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 142,
+        "property": "prop_MultiPreserve",
+        "time": 14.89
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 308,
+        "property": "prop_MultiPreserve",
+        "time": 31.38
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 94,
+        "property": "prop_MultiPreserve",
+        "time": 12.99
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 53,
+        "property": "prop_MultiPreserve",
+        "time": 8.6
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 9,
+        "property": "prop_MultiPreserve",
+        "time": 0.87
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 261,
+        "property": "prop_MultiPreserve",
+        "time": 30.24
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_none",
+        "passed": 174,
+        "property": "prop_MultiPreserve",
+        "time": 21.3
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_none",
+        "passed": 146,
+        "property": "prop_MultiPreserve",
+        "time": 20.95
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_none",
+        "passed": 352,
+        "property": "prop_MultiPreserve",
+        "time": 38.47
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_none",
+        "passed": 21,
+        "property": "prop_MultiPreserve",
+        "time": 3.47
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_none",
+        "passed": 39,
+        "property": "prop_MultiPreserve",
+        "time": 0.65
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_none",
+        "passed": 265,
+        "property": "prop_MultiPreserve",
+        "time": 19.37
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_none",
+        "passed": 0,
+        "property": "prop_MultiPreserve",
+        "time": 0.16
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_none",
+        "passed": 54,
+        "property": "prop_MultiPreserve",
+        "time": 13.78
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_none",
+        "passed": 208,
+        "property": "prop_MultiPreserve",
+        "time": 27.76
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_none",
+        "passed": 493,
+        "property": "prop_MultiPreserve",
+        "time": 47.85
+    },
+    {
         "workload": "RBT",
         "discards": 0,
         "foundbug": true,
@@ -5098,6 +6198,106 @@
         "passed": 94,
         "property": "prop_InsertPost",
         "time": 7.84
+    },
+    {
+        "workload": "STLC",
+        "discards": 1116,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 84,
+        "property": "prop_MultiPreserve",
+        "time": 57555.54
+    },
+    {
+        "workload": "STLC",
+        "discards": 1115,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 85,
+        "property": "prop_MultiPreserve",
+        "time": 50165.87
+    },
+    {
+        "workload": "STLC",
+        "discards": 1139,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 61,
+        "property": "prop_MultiPreserve",
+        "time": 58589.32
+    },
+    {
+        "workload": "STLC",
+        "discards": 1092,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 108,
+        "property": "prop_MultiPreserve",
+        "time": 52613.17
+    },
+    {
+        "workload": "STLC",
+        "discards": 1104,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 96,
+        "property": "prop_MultiPreserve",
+        "time": 59057.33
+    },
+    {
+        "workload": "STLC",
+        "discards": 1101,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 99,
+        "property": "prop_MultiPreserve",
+        "time": 41068.09
+    },
+    {
+        "workload": "STLC",
+        "discards": 1112,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 88,
+        "property": "prop_MultiPreserve",
+        "time": 46173.94
+    },
+    {
+        "workload": "STLC",
+        "discards": 1100,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 100,
+        "property": "prop_MultiPreserve",
+        "time": 58796.57
+    },
+    {
+        "workload": "STLC",
+        "discards": 1111,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 89,
+        "property": "prop_MultiPreserve",
+        "time": 73292.67
+    },
+    {
+        "workload": "STLC",
+        "discards": 1115,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 85,
+        "property": "prop_MultiPreserve",
+        "time": 34742.9
     },
     {
         "workload": "RBT",
@@ -5600,6 +6800,106 @@
         "time": 4.92
     },
     {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 1000,
+        "property": "prop_MultiPreserve",
+        "time": 111.73
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 1000,
+        "property": "prop_MultiPreserve",
+        "time": 93.88
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 1000,
+        "property": "prop_MultiPreserve",
+        "time": 105.7
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 1000,
+        "property": "prop_MultiPreserve",
+        "time": 105.31
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 203,
+        "property": "prop_MultiPreserve",
+        "time": 21.79
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 775,
+        "property": "prop_MultiPreserve",
+        "time": 85.95
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 1000,
+        "property": "prop_MultiPreserve",
+        "time": 109.13
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 1000,
+        "property": "prop_MultiPreserve",
+        "time": 86.7
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 1000,
+        "property": "prop_MultiPreserve",
+        "time": 102.83
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 1000,
+        "property": "prop_MultiPreserve",
+        "time": 95.21
+    },
+    {
         "workload": "RBT",
         "discards": 0,
         "foundbug": true,
@@ -5998,6 +7298,106 @@
         "passed": 3,
         "property": "prop_UnionDeleteInsert",
         "time": 0.16
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_all",
+        "passed": 47,
+        "property": "prop_SinglePreserve",
+        "time": 4.8
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_all",
+        "passed": 172,
+        "property": "prop_SinglePreserve",
+        "time": 18.01
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_all",
+        "passed": 145,
+        "property": "prop_SinglePreserve",
+        "time": 24.23
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_all",
+        "passed": 295,
+        "property": "prop_SinglePreserve",
+        "time": 34.44
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_all",
+        "passed": 67,
+        "property": "prop_SinglePreserve",
+        "time": 8.16
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_all",
+        "passed": 228,
+        "property": "prop_SinglePreserve",
+        "time": 16.75
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_all",
+        "passed": 953,
+        "property": "prop_SinglePreserve",
+        "time": 87.43
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_all",
+        "passed": 115,
+        "property": "prop_SinglePreserve",
+        "time": 20.53
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_all",
+        "passed": 162,
+        "property": "prop_SinglePreserve",
+        "time": 17.25
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_all",
+        "passed": 87,
+        "property": "prop_SinglePreserve",
+        "time": 9.02
     },
     {
         "workload": "RBT",
@@ -6900,6 +8300,106 @@
         "time": 3.63
     },
     {
+        "workload": "STLC",
+        "discards": 1105,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_all",
+        "passed": 95,
+        "property": "prop_SinglePreserve",
+        "time": 56682.24
+    },
+    {
+        "workload": "STLC",
+        "discards": 1109,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_all",
+        "passed": 91,
+        "property": "prop_SinglePreserve",
+        "time": 56329.51
+    },
+    {
+        "workload": "STLC",
+        "discards": 1108,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_all",
+        "passed": 92,
+        "property": "prop_SinglePreserve",
+        "time": 51225.99
+    },
+    {
+        "workload": "STLC",
+        "discards": 1116,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_all",
+        "passed": 84,
+        "property": "prop_SinglePreserve",
+        "time": 45371.45
+    },
+    {
+        "workload": "STLC",
+        "discards": 1089,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_all",
+        "passed": 111,
+        "property": "prop_SinglePreserve",
+        "time": 56028.08
+    },
+    {
+        "workload": "STLC",
+        "discards": 1103,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_all",
+        "passed": 97,
+        "property": "prop_SinglePreserve",
+        "time": 50416.95
+    },
+    {
+        "workload": "STLC",
+        "discards": 1118,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_all",
+        "passed": 82,
+        "property": "prop_SinglePreserve",
+        "time": 42498.71
+    },
+    {
+        "workload": "STLC",
+        "discards": 1115,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_all",
+        "passed": 85,
+        "property": "prop_SinglePreserve",
+        "time": 50825.54
+    },
+    {
+        "workload": "STLC",
+        "discards": 1109,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_all",
+        "passed": 91,
+        "property": "prop_SinglePreserve",
+        "time": 60801.37
+    },
+    {
+        "workload": "STLC",
+        "discards": 1106,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_all",
+        "passed": 94,
+        "property": "prop_SinglePreserve",
+        "time": 50279.47
+    },
+    {
         "workload": "BST",
         "discards": 0,
         "foundbug": true,
@@ -7300,6 +8800,106 @@
         "time": 234.87
     },
     {
+        "workload": "STLC",
+        "discards": 1103,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 97,
+        "property": "prop_MultiPreserve",
+        "time": 52754.25
+    },
+    {
+        "workload": "STLC",
+        "discards": 1103,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 97,
+        "property": "prop_MultiPreserve",
+        "time": 42684.04
+    },
+    {
+        "workload": "STLC",
+        "discards": 1112,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 88,
+        "property": "prop_MultiPreserve",
+        "time": 46659.81
+    },
+    {
+        "workload": "STLC",
+        "discards": 1109,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 91,
+        "property": "prop_MultiPreserve",
+        "time": 39392.69
+    },
+    {
+        "workload": "STLC",
+        "discards": 1109,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 91,
+        "property": "prop_MultiPreserve",
+        "time": 44168.0
+    },
+    {
+        "workload": "STLC",
+        "discards": 1103,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 97,
+        "property": "prop_MultiPreserve",
+        "time": 44241.67
+    },
+    {
+        "workload": "STLC",
+        "discards": 1100,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 100,
+        "property": "prop_MultiPreserve",
+        "time": 52462.27
+    },
+    {
+        "workload": "STLC",
+        "discards": 1117,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 83,
+        "property": "prop_MultiPreserve",
+        "time": 59832.01
+    },
+    {
+        "workload": "STLC",
+        "discards": 1103,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 97,
+        "property": "prop_MultiPreserve",
+        "time": 49178.48
+    },
+    {
+        "workload": "STLC",
+        "discards": 1106,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 94,
+        "property": "prop_MultiPreserve",
+        "time": 53153.33
+    },
+    {
         "workload": "RBT",
         "discards": 0,
         "foundbug": true,
@@ -7598,6 +9198,106 @@
         "passed": 2,
         "property": "prop_InsertPost",
         "time": 0.24
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 1000,
+        "property": "prop_MultiPreserve",
+        "time": 131.4
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 1000,
+        "property": "prop_MultiPreserve",
+        "time": 91.2
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 1000,
+        "property": "prop_MultiPreserve",
+        "time": 107.8
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 1000,
+        "property": "prop_MultiPreserve",
+        "time": 92.58
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 1000,
+        "property": "prop_MultiPreserve",
+        "time": 105.99
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 1000,
+        "property": "prop_MultiPreserve",
+        "time": 93.76
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 1000,
+        "property": "prop_MultiPreserve",
+        "time": 136.24
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 1000,
+        "property": "prop_MultiPreserve",
+        "time": 101.91
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 1000,
+        "property": "prop_MultiPreserve",
+        "time": 110.65
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 1000,
+        "property": "prop_MultiPreserve",
+        "time": 118.39
     },
     {
         "workload": "RBT",
@@ -8198,6 +9898,106 @@
         "passed": 6,
         "property": "prop_DeleteValid",
         "time": 14.51
+    },
+    {
+        "workload": "STLC",
+        "discards": 47,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_none",
+        "passed": 2,
+        "property": "prop_MultiPreserve",
+        "time": 1153.44
+    },
+    {
+        "workload": "STLC",
+        "discards": 1104,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_none",
+        "passed": 96,
+        "property": "prop_MultiPreserve",
+        "time": 54288.67
+    },
+    {
+        "workload": "STLC",
+        "discards": 1102,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_none",
+        "passed": 98,
+        "property": "prop_MultiPreserve",
+        "time": 43509.42
+    },
+    {
+        "workload": "STLC",
+        "discards": 1112,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_none",
+        "passed": 88,
+        "property": "prop_MultiPreserve",
+        "time": 40610.32
+    },
+    {
+        "workload": "STLC",
+        "discards": 1106,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_none",
+        "passed": 94,
+        "property": "prop_MultiPreserve",
+        "time": 59748.41
+    },
+    {
+        "workload": "STLC",
+        "discards": 1110,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_none",
+        "passed": 90,
+        "property": "prop_MultiPreserve",
+        "time": 63877.35
+    },
+    {
+        "workload": "STLC",
+        "discards": 1094,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_none",
+        "passed": 106,
+        "property": "prop_MultiPreserve",
+        "time": 37231.88
+    },
+    {
+        "workload": "STLC",
+        "discards": 1100,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_none",
+        "passed": 100,
+        "property": "prop_MultiPreserve",
+        "time": 40067.96
+    },
+    {
+        "workload": "STLC",
+        "discards": 1102,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_none",
+        "passed": 98,
+        "property": "prop_MultiPreserve",
+        "time": 45676.02
+    },
+    {
+        "workload": "STLC",
+        "discards": 1106,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_none",
+        "passed": 94,
+        "property": "prop_MultiPreserve",
+        "time": 57542.66
     },
     {
         "workload": "BST",
@@ -8900,6 +10700,106 @@
         "time": 0.18
     },
     {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 1000,
+        "property": "prop_SinglePreserve",
+        "time": 86.87
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 1000,
+        "property": "prop_SinglePreserve",
+        "time": 91.91
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 1000,
+        "property": "prop_SinglePreserve",
+        "time": 90.79
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 1000,
+        "property": "prop_SinglePreserve",
+        "time": 121.18
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 716,
+        "property": "prop_SinglePreserve",
+        "time": 77.78
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 1000,
+        "property": "prop_SinglePreserve",
+        "time": 121.54
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 1000,
+        "property": "prop_SinglePreserve",
+        "time": 108.45
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 1000,
+        "property": "prop_SinglePreserve",
+        "time": 88.08
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 1000,
+        "property": "prop_SinglePreserve",
+        "time": 121.5
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 1000,
+        "property": "prop_SinglePreserve",
+        "time": 94.59
+    },
+    {
         "workload": "BST",
         "discards": 0,
         "foundbug": true,
@@ -8998,6 +10898,106 @@
         "passed": 40,
         "property": "prop_InsertPost",
         "time": 3.82
+    },
+    {
+        "workload": "STLC",
+        "discards": 1092,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_none",
+        "passed": 108,
+        "property": "prop_SinglePreserve",
+        "time": 47259.23
+    },
+    {
+        "workload": "STLC",
+        "discards": 1104,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_none",
+        "passed": 96,
+        "property": "prop_SinglePreserve",
+        "time": 54235.52
+    },
+    {
+        "workload": "STLC",
+        "discards": 1112,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_none",
+        "passed": 88,
+        "property": "prop_SinglePreserve",
+        "time": 46545.64
+    },
+    {
+        "workload": "STLC",
+        "discards": 934,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_none",
+        "passed": 82,
+        "property": "prop_SinglePreserve",
+        "time": 45183.95
+    },
+    {
+        "workload": "STLC",
+        "discards": 196,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_none",
+        "passed": 21,
+        "property": "prop_SinglePreserve",
+        "time": 6779.1
+    },
+    {
+        "workload": "STLC",
+        "discards": 1095,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_none",
+        "passed": 105,
+        "property": "prop_SinglePreserve",
+        "time": 41777.48
+    },
+    {
+        "workload": "STLC",
+        "discards": 1103,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_none",
+        "passed": 97,
+        "property": "prop_SinglePreserve",
+        "time": 49893.2
+    },
+    {
+        "workload": "STLC",
+        "discards": 1122,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_none",
+        "passed": 78,
+        "property": "prop_SinglePreserve",
+        "time": 41937.32
+    },
+    {
+        "workload": "STLC",
+        "discards": 1122,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_none",
+        "passed": 78,
+        "property": "prop_SinglePreserve",
+        "time": 50634.22
+    },
+    {
+        "workload": "STLC",
+        "discards": 1112,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_none",
+        "passed": 88,
+        "property": "prop_SinglePreserve",
+        "time": 46326.72
     },
     {
         "workload": "BST",
@@ -9798,6 +11798,206 @@
         "passed": 322,
         "property": "prop_DeleteUnion",
         "time": 201.97
+    },
+    {
+        "workload": "STLC",
+        "discards": 1096,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_none",
+        "passed": 104,
+        "property": "prop_MultiPreserve",
+        "time": 44848.86
+    },
+    {
+        "workload": "STLC",
+        "discards": 1112,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_none",
+        "passed": 88,
+        "property": "prop_MultiPreserve",
+        "time": 49510.93
+    },
+    {
+        "workload": "STLC",
+        "discards": 1099,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_none",
+        "passed": 101,
+        "property": "prop_MultiPreserve",
+        "time": 50451.61
+    },
+    {
+        "workload": "STLC",
+        "discards": 1092,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_none",
+        "passed": 108,
+        "property": "prop_MultiPreserve",
+        "time": 39216.99
+    },
+    {
+        "workload": "STLC",
+        "discards": 1111,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_none",
+        "passed": 89,
+        "property": "prop_MultiPreserve",
+        "time": 61122.49
+    },
+    {
+        "workload": "STLC",
+        "discards": 1093,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_none",
+        "passed": 107,
+        "property": "prop_MultiPreserve",
+        "time": 46232.27
+    },
+    {
+        "workload": "STLC",
+        "discards": 1105,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_none",
+        "passed": 95,
+        "property": "prop_MultiPreserve",
+        "time": 51347.81
+    },
+    {
+        "workload": "STLC",
+        "discards": 1092,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_none",
+        "passed": 108,
+        "property": "prop_MultiPreserve",
+        "time": 44866.96
+    },
+    {
+        "workload": "STLC",
+        "discards": 1104,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_none",
+        "passed": 96,
+        "property": "prop_MultiPreserve",
+        "time": 51511.17
+    },
+    {
+        "workload": "STLC",
+        "discards": 1119,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_none",
+        "passed": 81,
+        "property": "prop_MultiPreserve",
+        "time": 47988.92
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 135,
+        "property": "prop_SinglePreserve",
+        "time": 18.54
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 14,
+        "property": "prop_SinglePreserve",
+        "time": 0.64
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 49,
+        "property": "prop_SinglePreserve",
+        "time": 3.28
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 81,
+        "property": "prop_SinglePreserve",
+        "time": 2.42
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 25,
+        "property": "prop_SinglePreserve",
+        "time": 1.62
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 135,
+        "property": "prop_SinglePreserve",
+        "time": 11.86
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 220,
+        "property": "prop_SinglePreserve",
+        "time": 27.59
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 147,
+        "property": "prop_SinglePreserve",
+        "time": 14.25
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 16,
+        "property": "prop_SinglePreserve",
+        "time": 1.37
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 31,
+        "property": "prop_SinglePreserve",
+        "time": 2.92
     },
     {
         "workload": "BST",
@@ -10898,6 +13098,106 @@
         "passed": 0,
         "property": "prop_InsertModel",
         "time": 0.1
+    },
+    {
+        "workload": "STLC",
+        "discards": 1109,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_all",
+        "passed": 91,
+        "property": "prop_SinglePreserve",
+        "time": 60375.93
+    },
+    {
+        "workload": "STLC",
+        "discards": 1127,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_all",
+        "passed": 73,
+        "property": "prop_SinglePreserve",
+        "time": 45138.92
+    },
+    {
+        "workload": "STLC",
+        "discards": 1089,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_all",
+        "passed": 111,
+        "property": "prop_SinglePreserve",
+        "time": 46020.0
+    },
+    {
+        "workload": "STLC",
+        "discards": 1109,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_all",
+        "passed": 91,
+        "property": "prop_SinglePreserve",
+        "time": 42718.29
+    },
+    {
+        "workload": "STLC",
+        "discards": 1118,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_all",
+        "passed": 82,
+        "property": "prop_SinglePreserve",
+        "time": 60699.22
+    },
+    {
+        "workload": "STLC",
+        "discards": 1095,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_all",
+        "passed": 105,
+        "property": "prop_SinglePreserve",
+        "time": 53749.5
+    },
+    {
+        "workload": "STLC",
+        "discards": 1103,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_all",
+        "passed": 97,
+        "property": "prop_SinglePreserve",
+        "time": 48878.86
+    },
+    {
+        "workload": "STLC",
+        "discards": 1111,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_all",
+        "passed": 89,
+        "property": "prop_SinglePreserve",
+        "time": 67036.52
+    },
+    {
+        "workload": "STLC",
+        "discards": 1102,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_all",
+        "passed": 98,
+        "property": "prop_SinglePreserve",
+        "time": 39871.15
+    },
+    {
+        "workload": "STLC",
+        "discards": 1101,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_all",
+        "passed": 99,
+        "property": "prop_SinglePreserve",
+        "time": 49126.91
     },
     {
         "workload": "RBT",
@@ -13800,6 +16100,106 @@
         "time": 216.8
     },
     {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_none",
+        "passed": 87,
+        "property": "prop_SinglePreserve",
+        "time": 4.93
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_none",
+        "passed": 27,
+        "property": "prop_SinglePreserve",
+        "time": 1.16
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_none",
+        "passed": 70,
+        "property": "prop_SinglePreserve",
+        "time": 7.67
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_none",
+        "passed": 12,
+        "property": "prop_SinglePreserve",
+        "time": 1.06
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_none",
+        "passed": 61,
+        "property": "prop_SinglePreserve",
+        "time": 1.25
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_none",
+        "passed": 14,
+        "property": "prop_SinglePreserve",
+        "time": 1.46
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_none",
+        "passed": 35,
+        "property": "prop_SinglePreserve",
+        "time": 7.1
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_none",
+        "passed": 23,
+        "property": "prop_SinglePreserve",
+        "time": 2.65
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_none",
+        "passed": 13,
+        "property": "prop_SinglePreserve",
+        "time": 0.93
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_var_none",
+        "passed": 30,
+        "property": "prop_SinglePreserve",
+        "time": 5.46
+    },
+    {
         "workload": "BST",
         "discards": 263,
         "foundbug": true,
@@ -14400,6 +16800,106 @@
         "time": 18.07
     },
     {
+        "workload": "STLC",
+        "discards": 1115,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 85,
+        "property": "prop_SinglePreserve",
+        "time": 53766.2
+    },
+    {
+        "workload": "STLC",
+        "discards": 1117,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 83,
+        "property": "prop_SinglePreserve",
+        "time": 70348.98
+    },
+    {
+        "workload": "STLC",
+        "discards": 1109,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 91,
+        "property": "prop_SinglePreserve",
+        "time": 52708.8
+    },
+    {
+        "workload": "STLC",
+        "discards": 1109,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 91,
+        "property": "prop_SinglePreserve",
+        "time": 84593.74
+    },
+    {
+        "workload": "STLC",
+        "discards": 1101,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 99,
+        "property": "prop_SinglePreserve",
+        "time": 42137.21
+    },
+    {
+        "workload": "STLC",
+        "discards": 1115,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 85,
+        "property": "prop_SinglePreserve",
+        "time": 74999.29
+    },
+    {
+        "workload": "STLC",
+        "discards": 1103,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 97,
+        "property": "prop_SinglePreserve",
+        "time": 46156.29
+    },
+    {
+        "workload": "STLC",
+        "discards": 1111,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 89,
+        "property": "prop_SinglePreserve",
+        "time": 47935.74
+    },
+    {
+        "workload": "STLC",
+        "discards": 1097,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 103,
+        "property": "prop_SinglePreserve",
+        "time": 48813.73
+    },
+    {
+        "workload": "STLC",
+        "discards": 1103,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 97,
+        "property": "prop_SinglePreserve",
+        "time": 51807.93
+    },
+    {
         "workload": "RBT",
         "discards": 0,
         "foundbug": true,
@@ -14498,6 +16998,106 @@
         "passed": 12,
         "property": "prop_DeleteInsert",
         "time": 2.06
+    },
+    {
+        "workload": "STLC",
+        "discards": 1096,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 104,
+        "property": "prop_SinglePreserve",
+        "time": 63271.76
+    },
+    {
+        "workload": "STLC",
+        "discards": 1108,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 92,
+        "property": "prop_SinglePreserve",
+        "time": 46990.06
+    },
+    {
+        "workload": "STLC",
+        "discards": 1101,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 99,
+        "property": "prop_SinglePreserve",
+        "time": 39932.57
+    },
+    {
+        "workload": "STLC",
+        "discards": 1111,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 89,
+        "property": "prop_SinglePreserve",
+        "time": 51723.76
+    },
+    {
+        "workload": "STLC",
+        "discards": 1112,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 88,
+        "property": "prop_SinglePreserve",
+        "time": 55327.09
+    },
+    {
+        "workload": "STLC",
+        "discards": 1096,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 104,
+        "property": "prop_SinglePreserve",
+        "time": 63122.8
+    },
+    {
+        "workload": "STLC",
+        "discards": 1103,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 97,
+        "property": "prop_SinglePreserve",
+        "time": 59978.06
+    },
+    {
+        "workload": "STLC",
+        "discards": 1110,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 90,
+        "property": "prop_SinglePreserve",
+        "time": 60589.58
+    },
+    {
+        "workload": "STLC",
+        "discards": 1118,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 82,
+        "property": "prop_SinglePreserve",
+        "time": 57215.0
+    },
+    {
+        "workload": "STLC",
+        "discards": 1096,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 104,
+        "property": "prop_SinglePreserve",
+        "time": 52556.58
     },
     {
         "workload": "BST",
@@ -16000,6 +18600,106 @@
         "time": 1.26
     },
     {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 9,
+        "property": "prop_MultiPreserve",
+        "time": 0.32
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 277,
+        "property": "prop_MultiPreserve",
+        "time": 35.53
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 139,
+        "property": "prop_MultiPreserve",
+        "time": 29.78
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 1000,
+        "property": "prop_MultiPreserve",
+        "time": 112.07
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 254,
+        "property": "prop_MultiPreserve",
+        "time": 26.08
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 56,
+        "property": "prop_MultiPreserve",
+        "time": 2.34
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 179,
+        "property": "prop_MultiPreserve",
+        "time": 15.83
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 766,
+        "property": "prop_MultiPreserve",
+        "time": 102.16
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 486,
+        "property": "prop_MultiPreserve",
+        "time": 56.17
+    },
+    {
+        "workload": "STLC",
+        "discards": 1,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "shift_abs_no_incr",
+        "passed": 182,
+        "property": "prop_MultiPreserve",
+        "time": 12.41
+    },
+    {
         "workload": "RBT",
         "discards": 10,
         "foundbug": true,
@@ -16200,6 +18900,106 @@
         "time": 10.84
     },
     {
+        "workload": "STLC",
+        "discards": 1116,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 84,
+        "property": "prop_MultiPreserve",
+        "time": 39923.37
+    },
+    {
+        "workload": "STLC",
+        "discards": 1097,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 103,
+        "property": "prop_MultiPreserve",
+        "time": 46498.31
+    },
+    {
+        "workload": "STLC",
+        "discards": 1110,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 90,
+        "property": "prop_MultiPreserve",
+        "time": 54836.7
+    },
+    {
+        "workload": "STLC",
+        "discards": 1112,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 88,
+        "property": "prop_MultiPreserve",
+        "time": 43579.3
+    },
+    {
+        "workload": "STLC",
+        "discards": 1117,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 83,
+        "property": "prop_MultiPreserve",
+        "time": 44361.6
+    },
+    {
+        "workload": "STLC",
+        "discards": 1106,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 94,
+        "property": "prop_MultiPreserve",
+        "time": 45626.17
+    },
+    {
+        "workload": "STLC",
+        "discards": 1108,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 92,
+        "property": "prop_MultiPreserve",
+        "time": 53543.71
+    },
+    {
+        "workload": "STLC",
+        "discards": 1090,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 110,
+        "property": "prop_MultiPreserve",
+        "time": 34421.59
+    },
+    {
+        "workload": "STLC",
+        "discards": 1109,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 91,
+        "property": "prop_MultiPreserve",
+        "time": 50596.74
+    },
+    {
+        "workload": "STLC",
+        "discards": 1121,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 79,
+        "property": "prop_MultiPreserve",
+        "time": 51059.21
+    },
+    {
         "workload": "BST",
         "discards": 0,
         "foundbug": true,
@@ -16398,6 +19198,106 @@
         "passed": 0,
         "property": "prop_InsertInsert",
         "time": 1.7
+    },
+    {
+        "workload": "STLC",
+        "discards": 1097,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 103,
+        "property": "prop_SinglePreserve",
+        "time": 53023.47
+    },
+    {
+        "workload": "STLC",
+        "discards": 1095,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 105,
+        "property": "prop_SinglePreserve",
+        "time": 40801.5
+    },
+    {
+        "workload": "STLC",
+        "discards": 1114,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 86,
+        "property": "prop_SinglePreserve",
+        "time": 54508.55
+    },
+    {
+        "workload": "STLC",
+        "discards": 1108,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 92,
+        "property": "prop_SinglePreserve",
+        "time": 48122.89
+    },
+    {
+        "workload": "STLC",
+        "discards": 1104,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 96,
+        "property": "prop_SinglePreserve",
+        "time": 47472.02
+    },
+    {
+        "workload": "STLC",
+        "discards": 1119,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 81,
+        "property": "prop_SinglePreserve",
+        "time": 58050.61
+    },
+    {
+        "workload": "STLC",
+        "discards": 1102,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 98,
+        "property": "prop_SinglePreserve",
+        "time": 34503.34
+    },
+    {
+        "workload": "STLC",
+        "discards": 1117,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 83,
+        "property": "prop_SinglePreserve",
+        "time": 52729.68
+    },
+    {
+        "workload": "STLC",
+        "discards": 1113,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 87,
+        "property": "prop_SinglePreserve",
+        "time": 39380.71
+    },
+    {
+        "workload": "STLC",
+        "discards": 1099,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_incr",
+        "passed": 101,
+        "property": "prop_SinglePreserve",
+        "time": 49380.44
     },
     {
         "workload": "RBT",
@@ -17500,6 +20400,106 @@
         "time": 0.1
     },
     {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 298,
+        "property": "prop_SinglePreserve",
+        "time": 24.54
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 92,
+        "property": "prop_SinglePreserve",
+        "time": 7.09
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 192,
+        "property": "prop_SinglePreserve",
+        "time": 19.04
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 170,
+        "property": "prop_SinglePreserve",
+        "time": 13.06
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 48,
+        "property": "prop_SinglePreserve",
+        "time": 4.15
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 19,
+        "property": "prop_SinglePreserve",
+        "time": 0.85
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 211,
+        "property": "prop_SinglePreserve",
+        "time": 30.21
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 3,
+        "property": "prop_SinglePreserve",
+        "time": 0.12
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 112,
+        "property": "prop_SinglePreserve",
+        "time": 9.46
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 31,
+        "property": "prop_SinglePreserve",
+        "time": 1.05
+    },
+    {
         "workload": "RBT",
         "discards": 0,
         "foundbug": true,
@@ -17600,6 +20600,106 @@
         "time": 2.81
     },
     {
+        "workload": "STLC",
+        "discards": 1109,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 91,
+        "property": "prop_MultiPreserve",
+        "time": 44299.52
+    },
+    {
+        "workload": "STLC",
+        "discards": 1111,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 89,
+        "property": "prop_MultiPreserve",
+        "time": 58100.46
+    },
+    {
+        "workload": "STLC",
+        "discards": 1110,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 90,
+        "property": "prop_MultiPreserve",
+        "time": 49608.45
+    },
+    {
+        "workload": "STLC",
+        "discards": 1126,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 74,
+        "property": "prop_MultiPreserve",
+        "time": 54847.4
+    },
+    {
+        "workload": "STLC",
+        "discards": 1107,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 93,
+        "property": "prop_MultiPreserve",
+        "time": 54713.32
+    },
+    {
+        "workload": "STLC",
+        "discards": 1109,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 91,
+        "property": "prop_MultiPreserve",
+        "time": 56142.81
+    },
+    {
+        "workload": "STLC",
+        "discards": 1127,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 73,
+        "property": "prop_MultiPreserve",
+        "time": 59013.59
+    },
+    {
+        "workload": "STLC",
+        "discards": 1115,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 85,
+        "property": "prop_MultiPreserve",
+        "time": 44504.69
+    },
+    {
+        "workload": "STLC",
+        "discards": 1109,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 91,
+        "property": "prop_MultiPreserve",
+        "time": 66664.78
+    },
+    {
+        "workload": "STLC",
+        "discards": 1106,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift_back",
+        "passed": 94,
+        "property": "prop_MultiPreserve",
+        "time": 52490.91
+    },
+    {
         "workload": "RBT",
         "discards": 250,
         "foundbug": true,
@@ -17698,6 +20798,106 @@
         "passed": 26,
         "property": "prop_DeleteInsert",
         "time": 77.19
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 1000,
+        "property": "prop_SinglePreserve",
+        "time": 113.14
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 931,
+        "property": "prop_SinglePreserve",
+        "time": 89.12
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 1000,
+        "property": "prop_SinglePreserve",
+        "time": 101.87
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 1000,
+        "property": "prop_SinglePreserve",
+        "time": 107.59
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 1000,
+        "property": "prop_SinglePreserve",
+        "time": 113.46
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 1000,
+        "property": "prop_SinglePreserve",
+        "time": 113.35
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 1000,
+        "property": "prop_SinglePreserve",
+        "time": 139.27
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 402,
+        "property": "prop_SinglePreserve",
+        "time": 56.48
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 1000,
+        "property": "prop_SinglePreserve",
+        "time": 111.81
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": false,
+        "strategy": "bespokeGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 1000,
+        "property": "prop_SinglePreserve",
+        "time": 98.37
     },
     {
         "workload": "BST",
@@ -17898,6 +21098,106 @@
         "passed": 1,
         "property": "prop_DeleteInsert",
         "time": 0.16
+    },
+    {
+        "workload": "STLC",
+        "discards": 1088,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_all",
+        "passed": 112,
+        "property": "prop_MultiPreserve",
+        "time": 61676.17
+    },
+    {
+        "workload": "STLC",
+        "discards": 1080,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_all",
+        "passed": 120,
+        "property": "prop_MultiPreserve",
+        "time": 57628.44
+    },
+    {
+        "workload": "STLC",
+        "discards": 1104,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_all",
+        "passed": 96,
+        "property": "prop_MultiPreserve",
+        "time": 37621.51
+    },
+    {
+        "workload": "STLC",
+        "discards": 1111,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_all",
+        "passed": 89,
+        "property": "prop_MultiPreserve",
+        "time": 65963.4
+    },
+    {
+        "workload": "STLC",
+        "discards": 1104,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_all",
+        "passed": 96,
+        "property": "prop_MultiPreserve",
+        "time": 35779.86
+    },
+    {
+        "workload": "STLC",
+        "discards": 1115,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_all",
+        "passed": 85,
+        "property": "prop_MultiPreserve",
+        "time": 52944.54
+    },
+    {
+        "workload": "STLC",
+        "discards": 1116,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_all",
+        "passed": 84,
+        "property": "prop_MultiPreserve",
+        "time": 46326.8
+    },
+    {
+        "workload": "STLC",
+        "discards": 1108,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_all",
+        "passed": 92,
+        "property": "prop_MultiPreserve",
+        "time": 50406.1
+    },
+    {
+        "workload": "STLC",
+        "discards": 1113,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_all",
+        "passed": 87,
+        "property": "prop_MultiPreserve",
+        "time": 45875.42
+    },
+    {
+        "workload": "STLC",
+        "discards": 1103,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_all",
+        "passed": 97,
+        "property": "prop_MultiPreserve",
+        "time": 53347.74
     },
     {
         "workload": "BST",
@@ -18198,6 +21498,106 @@
         "passed": 1,
         "property": "prop_InsertModel",
         "time": 11.72
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 12,
+        "property": "prop_MultiPreserve",
+        "time": 1.1
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 181,
+        "property": "prop_MultiPreserve",
+        "time": 19.56
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 0,
+        "property": "prop_MultiPreserve",
+        "time": 0.11
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 6,
+        "property": "prop_MultiPreserve",
+        "time": 0.27
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 348,
+        "property": "prop_MultiPreserve",
+        "time": 33.4
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 31,
+        "property": "prop_MultiPreserve",
+        "time": 1.4
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 28,
+        "property": "prop_MultiPreserve",
+        "time": 3.81
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 210,
+        "property": "prop_MultiPreserve",
+        "time": 35.55
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 152,
+        "property": "prop_MultiPreserve",
+        "time": 15.25
+    },
+    {
+        "workload": "STLC",
+        "discards": 0,
+        "foundbug": true,
+        "strategy": "bespokeGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 62,
+        "property": "prop_MultiPreserve",
+        "time": 8.46
     },
     {
         "workload": "RBT",
@@ -18600,6 +22000,106 @@
         "time": 1.33
     },
     {
+        "workload": "STLC",
+        "discards": 1085,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 98,
+        "property": "prop_SinglePreserve",
+        "time": 57832.32
+    },
+    {
+        "workload": "STLC",
+        "discards": 1112,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 88,
+        "property": "prop_SinglePreserve",
+        "time": 38618.01
+    },
+    {
+        "workload": "STLC",
+        "discards": 1100,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 100,
+        "property": "prop_SinglePreserve",
+        "time": 60790.58
+    },
+    {
+        "workload": "STLC",
+        "discards": 1090,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 110,
+        "property": "prop_SinglePreserve",
+        "time": 43528.9
+    },
+    {
+        "workload": "STLC",
+        "discards": 1100,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 100,
+        "property": "prop_SinglePreserve",
+        "time": 71884.82
+    },
+    {
+        "workload": "STLC",
+        "discards": 1105,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 95,
+        "property": "prop_SinglePreserve",
+        "time": 50245.92
+    },
+    {
+        "workload": "STLC",
+        "discards": 1103,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 97,
+        "property": "prop_SinglePreserve",
+        "time": 58389.65
+    },
+    {
+        "workload": "STLC",
+        "discards": 1116,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 84,
+        "property": "prop_SinglePreserve",
+        "time": 63591.14
+    },
+    {
+        "workload": "STLC",
+        "discards": 1121,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 79,
+        "property": "prop_SinglePreserve",
+        "time": 53791.64
+    },
+    {
+        "workload": "STLC",
+        "discards": 1115,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "substTop_no_shift",
+        "passed": 85,
+        "property": "prop_SinglePreserve",
+        "time": 50435.67
+    },
+    {
         "workload": "RBT",
         "discards": 9,
         "foundbug": true,
@@ -18798,6 +22298,106 @@
         "passed": 0,
         "property": "prop_UnionDeleteInsert",
         "time": 0.17
+    },
+    {
+        "workload": "STLC",
+        "discards": 1111,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 89,
+        "property": "prop_MultiPreserve",
+        "time": 41757.19
+    },
+    {
+        "workload": "STLC",
+        "discards": 1105,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 95,
+        "property": "prop_MultiPreserve",
+        "time": 60636.94
+    },
+    {
+        "workload": "STLC",
+        "discards": 1110,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 90,
+        "property": "prop_MultiPreserve",
+        "time": 57365.67
+    },
+    {
+        "workload": "STLC",
+        "discards": 1110,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 90,
+        "property": "prop_MultiPreserve",
+        "time": 43272.25
+    },
+    {
+        "workload": "STLC",
+        "discards": 1118,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 82,
+        "property": "prop_MultiPreserve",
+        "time": 46153.59
+    },
+    {
+        "workload": "STLC",
+        "discards": 1094,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 106,
+        "property": "prop_MultiPreserve",
+        "time": 64478.73
+    },
+    {
+        "workload": "STLC",
+        "discards": 1112,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 88,
+        "property": "prop_MultiPreserve",
+        "time": 46095.64
+    },
+    {
+        "workload": "STLC",
+        "discards": 1113,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 87,
+        "property": "prop_MultiPreserve",
+        "time": 42428.43
+    },
+    {
+        "workload": "STLC",
+        "discards": 1102,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 98,
+        "property": "prop_MultiPreserve",
+        "time": 52919.1
+    },
+    {
+        "workload": "STLC",
+        "discards": 1108,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "shift_var_leq",
+        "passed": 92,
+        "property": "prop_MultiPreserve",
+        "time": 45227.32
     },
     {
         "workload": "RBT",
@@ -20400,6 +24000,106 @@
         "time": 0.2
     },
     {
+        "workload": "STLC",
+        "discards": 1113,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_none",
+        "passed": 87,
+        "property": "prop_SinglePreserve",
+        "time": 45536.16
+    },
+    {
+        "workload": "STLC",
+        "discards": 1097,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_none",
+        "passed": 103,
+        "property": "prop_SinglePreserve",
+        "time": 55941.79
+    },
+    {
+        "workload": "STLC",
+        "discards": 1113,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_none",
+        "passed": 87,
+        "property": "prop_SinglePreserve",
+        "time": 67850.41
+    },
+    {
+        "workload": "STLC",
+        "discards": 1105,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_none",
+        "passed": 95,
+        "property": "prop_SinglePreserve",
+        "time": 43023.46
+    },
+    {
+        "workload": "STLC",
+        "discards": 1126,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_none",
+        "passed": 74,
+        "property": "prop_SinglePreserve",
+        "time": 40295.77
+    },
+    {
+        "workload": "STLC",
+        "discards": 1119,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_none",
+        "passed": 81,
+        "property": "prop_SinglePreserve",
+        "time": 50250.86
+    },
+    {
+        "workload": "STLC",
+        "discards": 1097,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_none",
+        "passed": 103,
+        "property": "prop_SinglePreserve",
+        "time": 53641.16
+    },
+    {
+        "workload": "STLC",
+        "discards": 1123,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_none",
+        "passed": 77,
+        "property": "prop_SinglePreserve",
+        "time": 63901.69
+    },
+    {
+        "workload": "STLC",
+        "discards": 60,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_none",
+        "passed": 8,
+        "property": "prop_SinglePreserve",
+        "time": 1888.19
+    },
+    {
+        "workload": "STLC",
+        "discards": 1111,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_none",
+        "passed": 89,
+        "property": "prop_SinglePreserve",
+        "time": 27337.79
+    },
+    {
         "workload": "BST",
         "discards": 0,
         "foundbug": true,
@@ -21600,6 +25300,206 @@
         "time": 6.65
     },
     {
+        "workload": "STLC",
+        "discards": 1115,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 85,
+        "property": "prop_SinglePreserve",
+        "time": 53465.86
+    },
+    {
+        "workload": "STLC",
+        "discards": 1105,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 95,
+        "property": "prop_SinglePreserve",
+        "time": 55853.99
+    },
+    {
+        "workload": "STLC",
+        "discards": 1094,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 106,
+        "property": "prop_SinglePreserve",
+        "time": 56172.52
+    },
+    {
+        "workload": "STLC",
+        "discards": 1119,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 81,
+        "property": "prop_SinglePreserve",
+        "time": 34047.37
+    },
+    {
+        "workload": "STLC",
+        "discards": 1102,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 98,
+        "property": "prop_SinglePreserve",
+        "time": 48239.85
+    },
+    {
+        "workload": "STLC",
+        "discards": 1107,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 93,
+        "property": "prop_SinglePreserve",
+        "time": 58105.66
+    },
+    {
+        "workload": "STLC",
+        "discards": 1092,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 108,
+        "property": "prop_SinglePreserve",
+        "time": 43129.81
+    },
+    {
+        "workload": "STLC",
+        "discards": 1113,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 87,
+        "property": "prop_SinglePreserve",
+        "time": 56015.98
+    },
+    {
+        "workload": "STLC",
+        "discards": 1107,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 93,
+        "property": "prop_SinglePreserve",
+        "time": 53678.67
+    },
+    {
+        "workload": "STLC",
+        "discards": 1120,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 80,
+        "property": "prop_SinglePreserve",
+        "time": 49713.6
+    },
+    {
+        "workload": "STLC",
+        "discards": 1109,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 91,
+        "property": "prop_MultiPreserve",
+        "time": 57725.34
+    },
+    {
+        "workload": "STLC",
+        "discards": 1095,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 105,
+        "property": "prop_MultiPreserve",
+        "time": 41594.52
+    },
+    {
+        "workload": "STLC",
+        "discards": 1106,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 94,
+        "property": "prop_MultiPreserve",
+        "time": 42159.46
+    },
+    {
+        "workload": "STLC",
+        "discards": 1089,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 111,
+        "property": "prop_MultiPreserve",
+        "time": 46266.62
+    },
+    {
+        "workload": "STLC",
+        "discards": 1107,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 93,
+        "property": "prop_MultiPreserve",
+        "time": 40993.01
+    },
+    {
+        "workload": "STLC",
+        "discards": 1105,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 95,
+        "property": "prop_MultiPreserve",
+        "time": 59756.2
+    },
+    {
+        "workload": "STLC",
+        "discards": 1108,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 92,
+        "property": "prop_MultiPreserve",
+        "time": 57785.62
+    },
+    {
+        "workload": "STLC",
+        "discards": 1102,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 98,
+        "property": "prop_MultiPreserve",
+        "time": 54659.46
+    },
+    {
+        "workload": "STLC",
+        "discards": 1108,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 92,
+        "property": "prop_MultiPreserve",
+        "time": 59372.23
+    },
+    {
+        "workload": "STLC",
+        "discards": 1094,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_abs_no_shift",
+        "passed": 106,
+        "property": "prop_MultiPreserve",
+        "time": 41908.99
+    },
+    {
         "workload": "BST",
         "discards": 0,
         "foundbug": true,
@@ -21998,6 +25898,106 @@
         "passed": 7,
         "property": "prop_InsertValid",
         "time": 2.51
+    },
+    {
+        "workload": "STLC",
+        "discards": 1112,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_all",
+        "passed": 88,
+        "property": "prop_MultiPreserve",
+        "time": 60949.03
+    },
+    {
+        "workload": "STLC",
+        "discards": 1093,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_all",
+        "passed": 107,
+        "property": "prop_MultiPreserve",
+        "time": 59956.43
+    },
+    {
+        "workload": "STLC",
+        "discards": 1112,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_all",
+        "passed": 88,
+        "property": "prop_MultiPreserve",
+        "time": 47640.52
+    },
+    {
+        "workload": "STLC",
+        "discards": 1101,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_all",
+        "passed": 99,
+        "property": "prop_MultiPreserve",
+        "time": 42648.32
+    },
+    {
+        "workload": "STLC",
+        "discards": 1087,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_all",
+        "passed": 113,
+        "property": "prop_MultiPreserve",
+        "time": 55741.61
+    },
+    {
+        "workload": "STLC",
+        "discards": 552,
+        "foundbug": true,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_all",
+        "passed": 41,
+        "property": "prop_MultiPreserve",
+        "time": 27252.21
+    },
+    {
+        "workload": "STLC",
+        "discards": 1099,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_all",
+        "passed": 101,
+        "property": "prop_MultiPreserve",
+        "time": 42159.59
+    },
+    {
+        "workload": "STLC",
+        "discards": 1092,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_all",
+        "passed": 108,
+        "property": "prop_MultiPreserve",
+        "time": 43881.57
+    },
+    {
+        "workload": "STLC",
+        "discards": 1098,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_all",
+        "passed": 102,
+        "property": "prop_MultiPreserve",
+        "time": 53148.97
+    },
+    {
+        "workload": "STLC",
+        "discards": 1112,
+        "foundbug": false,
+        "strategy": "typeBasedGenerator",
+        "mutant": "subst_var_all",
+        "passed": 88,
+        "property": "prop_MultiPreserve",
+        "time": 78558.55
     },
     {
         "workload": "BST",
