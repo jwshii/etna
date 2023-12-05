@@ -39,3 +39,5 @@ bin/
 tui
 
 data/**
+old_data/
+figures/
