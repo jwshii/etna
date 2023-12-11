@@ -2,7 +2,7 @@
 
 module Spec where
 
-import Data.Char (isAlphaNum, isLower, isSpace, isUpper)
+import Data.Char (isAlphaNum, isLower, isSpace, isUpper, isDigit)
 import Data.List (isInfixOf)
 import Etna.Lib
 import GHC.Unicode (isPrint)
@@ -41,14 +41,14 @@ reserved =
   ]
 
 -- preconditions
-doesNotContainEscapeChar :: String -> Bool
-doesNotContainEscapeChar s = not ("\"" `isInfixOf` s) && foldr (\x acc -> (isPrint x || isSpace x) && acc) True s
+doesNotContainQuotes :: String -> Bool
+doesNotContainQuotes s = not ("\"" `isInfixOf` s) && foldr (\x acc -> (isPrint x || isSpace x) && acc) True s
 
 doesNotContainReservedWords :: String -> Bool
 doesNotContainReservedWords s = not $ foldr (\x acc -> x `isInfixOf` s || acc) False Spec.reserved
 
 containsOnlyAlphaNumeralsOrUnderscore :: String -> Bool
-containsOnlyAlphaNumeralsOrUnderscore = foldr (\x acc -> (isAlphaNum x || x == '_') && acc) True
+containsOnlyAlphaNumeralsOrUnderscore = foldr (\x acc -> (isLower x || isUpper x || isDigit x || x == '_') && acc) True
 
 isNotEmpty :: String -> Bool
 isNotEmpty s = s /= ""
@@ -58,7 +58,10 @@ startWithLowerUpperOrUnderscore (x : _) = isUpper x || isLower x || x == '_'
 
 -- recursively apply the preconditions
 nameIsParsable :: VarName -> Bool
-nameIsParsable (VarName n) = doesNotContainReservedWords n && isNotEmpty n && startWithLowerUpperOrUnderscore n && containsOnlyAlphaNumeralsOrUnderscore n
+nameIsParsable (VarName n) = isNotEmpty n 
+                              && startWithLowerUpperOrUnderscore n 
+                              && containsOnlyAlphaNumeralsOrUnderscore n
+                              && doesNotContainReservedWords n
 
 blockIsParsable :: Block -> Bool
 blockIsParsable (Block ss) = foldr (\s acc -> statementIsParsable s && acc) True ss
@@ -90,7 +93,7 @@ expressionIsParsable (TableConst xs) =
 expressionIsParsable (Val v) = valueIsParsable v
 
 valueIsParsable :: Value -> Bool
-valueIsParsable (StringVal s) = doesNotContainEscapeChar s
+valueIsParsable (StringVal s) = doesNotContainQuotes s
 valueIsParsable _ = True
 
 -- properties
