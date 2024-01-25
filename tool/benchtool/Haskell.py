@@ -26,7 +26,7 @@ class Haskell(BenchTool):
 
     def _build(self, workload_path: str):
         with self._change_dir(workload_path):
-            self._shell_command(['make', 'build'])
+            self._shell_command(['stack', 'build'])
 
     def _run_trial(self, workload_path: str, params: TrialArgs):
 
