@@ -8,12 +8,9 @@ import subprocess
 import ctypes
 import platform
 
-IMPL_DIR = 'Src'
 IMPL_SPEC_DIR = 'Src'
 STRATEGIES_DIR = 'Strategies'
 RUNNERS_DIR = 'Runners'
-SPEC_PATH = 'Src/Spec.v'
-
 
 class Coq(BenchTool):
 
@@ -28,18 +25,7 @@ class Coq(BenchTool):
                    path='workloads/Coq',
                    ignore='common',
                    strategies=STRATEGIES_DIR,
-                   impl_path=IMPL_DIR,
-                   spec_path=SPEC_PATH,
-                   impl_spec_path=IMPL_SPEC_DIR)), results, log_level, replace_level)
-
-    def all_properties(self, workload: Entry) -> set[str]:
-        spec = os.path.join(workload.path, SPEC_PATH)
-        with open(spec) as f:
-            contents = f.read()
-            regex = re.compile(r'prop_[^\s]*')
-            matches = regex.findall(contents)
-            return list(dict.fromkeys(matches))
-
+                   impl_spec_path=IMPL_SPEC_DIR), results, log_level, replace_level)
     def _build(self, workload_path: str):
         strategies = self._get_generator_names(workload_path)
         strategy_build_commands = map(lambda strategy: self._get_strategy_build_command(strategy),
