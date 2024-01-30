@@ -148,7 +148,8 @@ def stacked_barchart_times(
             ))
 
     if image_path:
-        fig.write_image(f'{image_path}/{case}.png',
+        suffix = 'time' if limit_type == 'time' else 'inputs'
+        fig.write_image(f'{image_path}/{case}_{suffix}.png',
                         width=1600,
                         height=900,
                         scale=1,

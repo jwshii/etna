@@ -1,8 +1,14 @@
 -Q . BST
 Src/Impl.v
 Src/Spec.v
-Strategies/PropLangGenerator.v
+Src/PropLang.v
+Strategies/PropLangFuzzer.v
 Strategies/BespokeGenerator.v
 Strategies/TypeBasedGenerator.v
 Strategies/SpecificationBasedGenerator.v
-Runners/PropLangGenerator_test_runner.v
+Strategies/TypeBasedFuzzer.v
+Runners/TypeBasedGenerator_test_runner.v
+Runners/BespokeGenerator_test_runner.v
+Runners/SpecificationBasedGenerator_test_runner.v
+Runners/TypeBasedFuzzer_test_runner.v
+Runners/PropLangFuzzer_test_runner.v

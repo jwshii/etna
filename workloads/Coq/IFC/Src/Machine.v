@@ -1,8 +1,7 @@
 Require Import ZArith.
-
+From QuickChick Require Import QuickChick.
+Require Import Utils. Import DoNotation. Import MonadNotation.
 From mathcomp Require Import ssreflect ssrbool eqtype seq.
-
-Require Import Utils. Import DoNotation. 
 Require Import Labels.
 Import LabelEqType.
 
@@ -476,7 +475,7 @@ Definition store (m : memory) (p : Pointer) (a:Atom)
 Definition msize (m:memory) (p:Pointer) : option nat :=
   let (fp,i) := p in
   match get_memframe m fp with
-    | Some (Fr _ data) => Some (length data)
+    | Some (Fr _ data) => Some (size data)
     | _ => None
   end.
 
