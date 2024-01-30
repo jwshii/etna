@@ -63,10 +63,18 @@ Fixpoint inputTypesMaybe {C : Ctx} {F : Type}
   | Predicate _ _ _ => ∅
   end.
 
-
 Notation "'⦗' c '⦘'" := (@inputTypes _ _ c).
 Notation "'⟬' c '⟭'" := (@inputTypesMaybe _ _ c).
 
+Fixpoint noneTypes {C : Ctx} {F : Type}
+         (cprop : CProp C F) : ⟦⟬cprop⟭⟧ :=
+  match cprop with
+  | ForAll A C _ _ _ _ _ _ cprop' =>
+      (None, noneTypes cprop')
+  | ForAllMaybe A C _ _ _ _ _ _ cprop' =>
+      (None, noneTypes cprop')
+  | Predicate _ _ _ => tt
+  end.
 
 Definition typeHead {C : Ctx} {F : Type}
          (cprop : CProp C F) : Type :=
@@ -94,14 +102,67 @@ Definition example :=
 
 Inductive RunResult {C: Ctx} {F: Type} (cprop : CProp C F) :=
 | Normal : ⟦⦗cprop⦘⟧ -> option bool -> F -> RunResult cprop
-| Discard : ⟦⟬cprop⟭⟧ -> F -> RunResult cprop
+| Discard : ⟦⟬cprop⟭⟧ -> RunResult cprop
 .
 Arguments Normal {C} {F} {cprop}.
 Arguments Discard {C} {F} {cprop}.
 
 Fixpoint genAndRun {C : Ctx} {F : Type}
          (cprop : CProp C F)
-  : ⟦C⟧ -> G (RunResult cprop) :=
+  : ⟦C⟧ -> G (RunResult cprop).
+  destruct cprop as [? ? ? ? gen mut shr pri cprop'
+                    |? ? ? ? gen mut shr pri cprop'
+                    |? ? prop].
+  - intros env.
+    refine (bindGen (gen env) (fun a => _)).
+    refine (bindGen (@genAndRun (A · C) F cprop' (a, env)) (fun res => _)).
+    destruct res as [env' truth feedback | env' feedback].
+    + refine (ret (Normal _ truth feedback)).
+      simpl in *.
+      refine (a, _).
+      refine env'.
+    + refine (ret (Discard _)).
+      simpl in *.
+      refine (Some a, env').
+  - intros env.
+    refine (bindGen (gen env) (fun a => _)).
+    refine (match a with Some a => _ | None => _ end).
+    * refine (bindGen (@genAndRun (A · C) F cprop' (a, env)) (fun res => _)).
+      destruct res as [env' truth feedback | env' feedback].
+      + refine (ret (Normal _ truth feedback)).
+        simpl in *.
+        refine (a, _).
+        refine env'.
+      + refine (ret (Discard _)).
+        simpl in *.
+        refine (Some a, env').
+    * refine (ret (Discard _)).
+      simpl in *.
+      refine (None, _).
+      refine (noneTypes cprop').
+  - intros env.
+    destruct (prop env).
+    refine (ret (Normal _ o f)).
+    simpl in *.
+    refine tt.
+Defined.
+(*
+  match cprop with
+  | ForAll _ _ _ _ gen mut shr pri cprop' =>
+      fun env =>
+        bindGen (gen env) (fun a =>
+        bindGen (@genAndRun _ _ cprop' (a,env)) (fun res =>
+        match res with
+        | Normal env' truth feedback => _
+        | Discard env' feedback => _
+        end))
+  | ForAllMaybe _ _ _ _ gen mut shr pri cprop' =>
+      fun env => _
+  | Predicate C F prop =>
+      fun env => ret (Some (tt, prop env))
+  end
+.*)
+(*
   match cprop with
   | ForAll _ _ _ _ gen mut shr pri cprop' =>
       fun env =>
@@ -115,7 +176,7 @@ Fixpoint genAndRun {C : Ctx} {F : Type}
         end
   | Predicate C F prop =>
       fun env => ret (Some (tt, prop env))
-  end.
+  end.*)
 
 Fixpoint justGen {C : Ctx} {F : Type}
          (cprop : CProp C F)
