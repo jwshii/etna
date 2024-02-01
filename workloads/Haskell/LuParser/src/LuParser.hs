@@ -155,6 +155,7 @@ reserved =
   ]
 {-!! reserved_1 -}
 {-!
+-- deleted else if
 reserved =
   [ "and",
     "break",
@@ -181,10 +182,12 @@ reserved =
 -}
 {-!! reserved_2 -}
 {-!
+-- deleted true/false and boolean operators
 reserved =
   [ "break",
     "do",
     "else",
+    "elseif",
     "end",
     "for",
     "function",
@@ -202,15 +205,23 @@ reserved =
 -}
 {-!! reserved_3 -}
 {-!
+-- deleted loop-related keywords
 reserved =
   [ "and",
-    "break",
-    "do",
     "else",
-    "end",
+    "elseif",
     "false",
+    "function",
+    "goto",
+    "if",
+    "in",
+    "local",
+    "nil",
+    "not",
+    "or",
     "return",
-    "true"
+    "then",
+    "true",
   ]
 -}
 
