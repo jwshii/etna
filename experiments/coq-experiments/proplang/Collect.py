@@ -10,7 +10,7 @@ def collect(results: str):
     tool = Coq(results=results, replace_level=ReplaceLevel.REPLACE, log_level=LogLevel.DEBUG)
 
     for workload in tool.all_workloads():
-        if workload.name not in ['BSTProplang']:
+        if workload.name not in ['STLCProplang']:
             continue
 
         tool._preprocess(workload)
@@ -23,18 +23,21 @@ def collect(results: str):
             run_trial = None
 
             for strategy in tool.all_strategies(workload):
-                if strategy.name not in [
-                        'BespokeFuzzer',
-                ]:
-                    continue
+                # if strategy.name not in [
+                #         'SpecificationBasedGenerator',
+                # ]:
+                #     continue
 
                 for property in tool.all_properties(workload):
-                    if workload.name.endswith('Proplang'):
+                    if workload.name.startswith('STLC'):
+                        property = 'test_' + property + '_runner'
+                        pass
+                    elif workload.name.endswith('Proplang'):
                         property = 'test_' + property + '_runner'
                         if property[10:-7] not in tasks[workload.name[:3]][variant.name]:
                             print(f'Skipping {workload.name},{strategy.name},{variant.name},{property}')
                             continue
-                    if workload.name == 'BST':
+                    elif workload.name == 'BST':
                         property = 'test_' + property
                         if property[10:] not in tasks["BST"][variant.name]:
                             print(f'Skipping {workload.name},{strategy.name},{variant.name},{property}')
