@@ -6,11 +6,11 @@ import argparse
 import os
 
 from benchtool.Coq import Coq
-from benchtool.Types import TrialConfig, ReplaceLevel
+from benchtool.Types import TrialConfig, ReplaceLevel, LogLevel
 
 
 def collect(results: str):
-    tool = Coq(results=results, replace_level=ReplaceLevel.SKIP)
+    tool = Coq(results=results, replace_level=ReplaceLevel.SKIP, log_level=LogLevel.DEBUG)
 
     for workload in tool.all_workloads():
         if workload.name != 'IFC':

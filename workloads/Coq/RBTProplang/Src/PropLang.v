@@ -33,13 +33,6 @@ Inductive CProp : Ctx -> Type -> Type :=
       (shrinker  : ⟦C⟧ -> A -> list A)
       (printer   : ⟦C⟧ -> A -> string),
       CProp (A · C) F -> CProp C F
-| ForAllMaybe : forall A C F
-      (name: string)
-      (generator : ⟦C⟧ -> G (option A))
-      (mutator   : ⟦C⟧ -> nat -> A -> G (option A))
-      (shrinker  : ⟦C⟧ -> A -> list A)
-      (printer   : ⟦C⟧ -> A -> string),
-      CProp (A · C) F -> CProp C F
   | Predicate : forall C F,
       (⟦C⟧ -> option bool * F) -> CProp C F.
 
@@ -48,39 +41,15 @@ Fixpoint inputTypes {C : Ctx} {F : Type}
   match cprop with
   | ForAll A C _ _ _ _ _ _ cprop' =>
       A · (inputTypes cprop')
-  | ForAllMaybe A C _ _ _ _ _ _ cprop' =>
-      A · (inputTypes cprop')
-  | Predicate _ _ _ => ∅
-  end.
-
-Fixpoint inputTypesMaybe {C : Ctx} {F : Type}
-         (cprop : CProp C F) : Ctx :=
-  match cprop with
-  | ForAll A C _ _ _ _ _ _ cprop' =>
-      (option A) · (inputTypesMaybe cprop')
-  | ForAllMaybe A C _ _ _ _ _ _ cprop' =>
-      (option A) · (inputTypesMaybe cprop')
   | Predicate _ _ _ => ∅
   end.
 
 Notation "'⦗' c '⦘'" := (@inputTypes _ _ c).
-Notation "'⟬' c '⟭'" := (@inputTypesMaybe _ _ c).
-
-Fixpoint noneTypes {C : Ctx} {F : Type}
-         (cprop : CProp C F) : ⟦⟬cprop⟭⟧ :=
-  match cprop with
-  | ForAll A C _ _ _ _ _ _ cprop' =>
-      (None, noneTypes cprop')
-  | ForAllMaybe A C _ _ _ _ _ _ cprop' =>
-      (None, noneTypes cprop')
-  | Predicate _ _ _ => tt
-  end.
 
 Definition typeHead {C : Ctx} {F : Type}
          (cprop : CProp C F) : Type :=
   match cprop with
   | ForAll A C _ _ _ _ _ _ cprop' => A
-  | ForAllMaybe A C _ _ _ _ _ _ cprop' => A
   | Predicate _ _ _ => unit
   end.
 
@@ -100,203 +69,76 @@ Definition example :=
   @Predicate (nat · (nat · ∅)) unit
              (fun '(y, (x, tt)) => (test x y, tt)))).
 
-Inductive RunResult {C: Ctx} {F: Type} (cprop : CProp C F) :=
-| Normal : ⟦⦗cprop⦘⟧ -> option bool -> F -> RunResult cprop
-| Discard : ⟦⟬cprop⟭⟧ -> RunResult cprop
-.
-Arguments Normal {C} {F} {cprop}.
-Arguments Discard {C} {F} {cprop}.
-
 Fixpoint genAndRun {C : Ctx} {F : Type}
          (cprop : CProp C F)
-  : ⟦C⟧ -> G (RunResult cprop).
-  destruct cprop as [? ? ? ? gen mut shr pri cprop'
-                    |? ? ? ? gen mut shr pri cprop'
-                    |? ? prop].
-  - intros env.
-    refine (bindGen (gen env) (fun a => _)).
-    refine (bindGen (@genAndRun (A · C) F cprop' (a, env)) (fun res => _)).
-    destruct res as [env' truth feedback | env' feedback].
-    + refine (ret (Normal _ truth feedback)).
-      simpl in *.
-      refine (a, _).
-      refine env'.
-    + refine (ret (Discard _)).
-      simpl in *.
-      refine (Some a, env').
-  - intros env.
-    refine (bindGen (gen env) (fun a => _)).
-    refine (match a with Some a => _ | None => _ end).
-    * refine (bindGen (@genAndRun (A · C) F cprop' (a, env)) (fun res => _)).
-      destruct res as [env' truth feedback | env' feedback].
-      + refine (ret (Normal _ truth feedback)).
-        simpl in *.
-        refine (a, _).
-        refine env'.
-      + refine (ret (Discard _)).
-        simpl in *.
-        refine (Some a, env').
-    * refine (ret (Discard _)).
-      simpl in *.
-      refine (None, _).
-      refine (noneTypes cprop').
-  - intros env.
-    destruct (prop env).
-    refine (ret (Normal _ o f)).
-    simpl in *.
-    refine tt.
-Defined.
-(*
-  match cprop with
-  | ForAll _ _ _ _ gen mut shr pri cprop' =>
-      fun env =>
-        bindGen (gen env) (fun a =>
-        bindGen (@genAndRun _ _ cprop' (a,env)) (fun res =>
-        match res with
-        | Normal env' truth feedback => _
-        | Discard env' feedback => _
-        end))
-  | ForAllMaybe _ _ _ _ gen mut shr pri cprop' =>
-      fun env => _
-  | Predicate C F prop =>
-      fun env => ret (Some (tt, prop env))
-  end
-.*)
-(*
+  : ⟦C⟧ -> G (option (⟦⦗cprop⦘⟧ * (option bool * F))) :=
   match cprop with
   | ForAll _ _ _ _ gen mut shr pri cprop' =>
       fun env =>
         a <- gen env;;
         res <- genAndRun cprop' (a,env);;
         match res with
-        | Normal env' truth feedback =>
-            ret (Normal (a,env') truth feedback)
-        | Discard env' feedback =>
-            ret (Discard (Some a, env') feedback)
+        | Some (env', (truth, feedback)) =>
+            ret (Some ((a,env'), (truth, feedback)))
+        | None =>
+            ret None
         end
   | Predicate C F prop =>
       fun env => ret (Some (tt, prop env))
-  end.*)
+  end.
 
 Fixpoint justGen {C : Ctx} {F : Type}
          (cprop : CProp C F)
-  : ⟦C⟧ -> G (⟦⟬cprop⟭⟧) :=
+  : ⟦C⟧ -> G (⟦⦗cprop⦘⟧) :=
   match cprop with
   | ForAll _ _ _ _ gen mut shr pri cprop' =>
       fun env =>
         a <- gen env;;
         env <- justGen cprop' (a,env);;
-        ret (Some a,env)
-  | ForAllMaybe _ _ _ _ gen mut shr pri cprop' =>
-      fun env =>
-        a <- gen env;;
-        match a with
-        | Some a => env <- justGen cprop' (a,env);;
-                    ret (Some a,env)
-        | None => ret (None, noneTypes cprop')
-        end
-  
+        ret (a,env)
   | Predicate C F prop =>
       fun env => ret tt
   end.
 
 Fixpoint mutAll {C : Ctx} {F : Type}
          (cprop : CProp C F) (t: nat)
-  : ⟦C⟧ -> ⟦⦗cprop⦘⟧ -> (G (⟦⟬cprop⟭⟧)).
-  Proof.
-  destruct cprop as [? ? ? ? gen mut shr pri cprop'
-                    |? ? ? ? gen mut shr pri cprop'
-                    |? ? prop].
-  - intros env (x,xs).
-    simpl in *.
-    refine(bindGen (mut env t x) (fun x' => _)).
-    refine(bindGen (@mutAll (A · C) F cprop' t (x', env) xs) (fun xs' => _)).
-    refine (ret (Some x', xs')).
-  - intros env (x,xs).
-    simpl in *.
-    refine(bindGen (mut env t x) (fun x' => _)).
-    refine(match x' with Some x' => _ | None => _ end).
-    * refine(bindGen (@mutAll (A · C) F cprop' t (x', env) xs) (fun xs' => _)).
-      refine (ret (Some x', xs')).
-    * refine (ret (None, noneTypes _)).
-  - intros env _.
-    refine (ret tt).
-Defined.  
+  : ⟦C⟧ -> ⟦⦗cprop⦘⟧ -> (G (⟦⦗cprop⦘⟧)) :=
+  match cprop with
+  | ForAll A C F name gen mut shr pri cprop' =>
+      fun env '(x,xs) =>
+        x' <- mut env t x;;
+        xs' <- mutAll cprop' t (x', env) xs;;
+        ret (x', xs')
+  | Predicate C F prop =>
+      fun _ _ => ret tt
+  end.
 
 Fixpoint mutSome {C : Ctx} {F : Type}
   (cprop : CProp C F) (t: nat)
-: ⟦C⟧ -> ⟦⦗cprop⦘⟧ -> (G (⟦⟬cprop⟭⟧)).
-Proof.
-  destruct cprop as [? ? ? ? gen mut shr pri cprop'
-                    |? ? ? ? gen mut shr pri cprop'
-                    |? ? prop].
-
-  - intros env (x,xs).
-    simpl in *.
-    refine(bindGen (choose(0,1)) (fun mut_oracle => _)).
-    refine(bindGen (mut env t x) (fun x' => _)).
-    refine(bindGen (@mutSome (A · C) F cprop' t (x', env) xs) (fun xs' => _)).
-    refine(match mut_oracle with 0 => ret (Some x', xs') | _ => ret (Some x, xs') end).
-  - intros env (x,xs).
-    simpl in *.
-    refine(bindGen (mut env t x) (fun x' => _)).
-    refine(match x' with Some x' => _ | None => _ end).
-    * refine(bindGen (@mutSome (A · C) F cprop' t (x', env) xs) (fun xs' => _)).
-      refine (ret (Some x', xs')).
-    * refine (ret (None, noneTypes _)).
-  - intros env _.
-    refine (ret tt).
-Defined.
-
+: ⟦C⟧ -> ⟦⦗cprop⦘⟧ -> (G (⟦⦗cprop⦘⟧)) :=
+  match cprop with
+  | ForAll A C F name gen mut shr pri cprop' =>
+    fun env '(x,xs) =>
+    mut_oracle <- choose (0, 1);;
+    x' <- mut env t x;;
+    xs' <- mutSome cprop' t (x', env) xs;;
+    match mut_oracle with
+    | 0 => ret (x', xs')
+    | _ => ret (x, xs')
+    end
+  | Predicate C F prop =>
+  fun _ _ => ret tt
+end.
 
 Fixpoint print {C : Ctx} {F} (cprop : CProp C F)
-  : ⟦C⟧ -> ⟦⦗ cprop ⦘⟧ -> list (string * string).
-Proof.
-  destruct cprop as [? ? ? ? gen mut shr pri cprop'
-                    |? ? ? ? gen mut shr pri cprop'
-                    |? ? prop].
-  - intros env (a,inps').
-    refine ((name, pri env a) :: (print (A · C) F cprop' (a, env) inps')).
-  - intros env (a,inps').
-    refine ((name, pri env a) :: (print (A · C) F cprop' (a, env) inps')).
-  - intros env _.
-    refine nil.
-Defined. 
-
-Definition pri_opt {A} (pri: A -> string) (a: option A) : string :=
-  match a with
-  | Some a => "Some (" ++ pri a ++ ")"
-  | None => "None"
+  : ⟦C⟧ -> ⟦⦗ cprop ⦘⟧ -> list (string * string) :=
+  match cprop with
+  | ForAll A C F name gen mut shr pr cprop' =>
+      fun env '(a,inps') =>
+        (name, pr env a) :: (print cprop' (a, env) inps')
+  | Predicate C F prop =>
+      fun _ _ => nil
   end.
-
-Fixpoint ctx_opt (C: Ctx) : Type :=
-  match C with
-  | ∅ => unit
-  | T·C => option T * ctx_opt C
-  end.
-
-Fixpoint print_opt {C : Ctx} {F} (cprop : CProp C F)
-  : ⟦C⟧ -> ⟦⟬ cprop ⟭⟧ -> list (string * string).
-Proof.
-  destruct cprop as [? ? ? ? gen mut shr pri cprop'
-                    |? ? ? ? gen mut shr pri cprop'
-                    |? ? prop].
-  - intros env (a,inps'). 
-    refine ((name, pri_opt (pri env) a) :: _).
-    refine (match a with
-            | Some a => print_opt (A · C) F cprop' (a, env) inps'
-            | None => nil
-            end).
-  - intros env (a,inps').
-    refine ((name, pri_opt (pri env) a) :: _).
-    refine (match a with
-            | Some a => print_opt (A · C) F cprop' (a, env) inps'
-            | None => nil
-            end).
-  - intros env _.
-    refine nil.
-Defined. 
-
 
 Fixpoint showElemList (l: list (string * string)) : string :=
   match l with
@@ -501,10 +343,6 @@ Proof.
     apply IHcprop.
     + exact (a, cenv).
     + exact fenv'.
-  - destruct fenv as [a fenv'] eqn:H.
-    apply IHcprop.
-    + exact (a, cenv).
-    + exact fenv'.
   - exact (p cenv).
 Defined.
 
@@ -534,22 +372,6 @@ Proof.
         -- exact (Some (a0, fenv')).     
       * (* Test discarded - recurse down the list. *)
         apply IHl.
-  - destruct fenv as [a fenv']. 
-  (* Recurse through the list of shrinks *)
-  induction (shrinker cenv a).
-  (* No more shrinks - try the next element of the property *)
-  + destruct (shrinkOnTheFly _ _ cprop (a,cenv) fenv') eqn:M.
-    * exact (Some (a, i)).
-    * exact None.
-  (* More shrinks - run the property on the shrunk possibility. *)
-  + destruct (runAndTest cprop (a0,cenv) fenv') eqn:T. destruct o.
-    * destruct b.
-      (* Test succeeded - recurse down the list. *)
-      -- apply IHl.
-      (* Test failed - end with current result. *)
-      -- exact (Some (a0, fenv')).     
-    * (* Test discarded - recurse down the list. *)
-      apply IHl.
   - exact None.
 Defined.
 
@@ -572,51 +394,29 @@ Definition generator (cprop: CProp ∅ Z) (directive: @Directive ⟦⦗cprop⦘�
   end.
 
 
-Definition pullValues {C: Ctx} {F: Type} (cprop: CProp C F) (opt_values: ⟦⟬cprop⟭⟧) : option ⟦⦗cprop⦘⟧.
-Proof.
-  induction cprop; simpl in *.
-  - destruct opt_values as [a opt_values'].
-    apply IHcprop in opt_values'.
-    refine(
-      match a, opt_values' with
-      | Some a, Some values' => Some (a, values')
-      | _, _ => None
-      end).
-  - destruct opt_values as [a opt_values'].
-    apply IHcprop in opt_values'.
-    refine(
-      match a, opt_values' with
-      | Some a, Some values' => Some (a, values')
-      | _, _ => None
-      end).
-  - exact (Some tt).
-Defined.
-
-Fixpoint runLoop (fuel : nat) (cprop : CProp ∅ Z): G (list (string * string)) :=
-  match fuel with
-  | O => ret []
-  | S fuel' => 
-  opt_seed <- justGen cprop tt;;
-  match pullValues cprop opt_seed with
-    | None => runLoop fuel' cprop
-    | Some seed =>
-      let res := runAndTest cprop tt seed in
-      let '(truth, feedback) := res in
-        match truth with
-        | Some false =>
-          (* Fails *)
-          let shrinkingResult := shrinkLoop 10 cprop seed in
-          let printingResult := print cprop tt shrinkingResult in
-          ret (("tests to failure", show (200000%nat - fuel)%nat) :: printingResult)
-        | Some true =>
-          (* Passes *)
-          runLoop fuel' cprop
-        | None => 
-          (* Discard *)
-          runLoop fuel' cprop
-        end
-      end
-  end.
+Fixpoint runLoop (fuel : nat)
+  (cprop : CProp ∅ Z)
+: G (list (string * string)) :=
+match fuel with
+| O => ret []
+| S fuel' => 
+seed <- justGen cprop tt;;
+let res := runAndTest cprop tt seed in
+let '(truth, feedback) := res in
+  match truth with
+  | Some false =>
+    (* Fails *)
+    let shrinkingResult := shrinkLoop 10 cprop seed in
+    let printingResult := print cprop tt shrinkingResult in
+    ret (("tests to failure", show (200000%nat - fuel)%nat) :: printingResult)
+  | Some true =>
+    (* Passes *)
+    runLoop fuel' cprop
+  | None => 
+    (* Discard *)
+    runLoop fuel' cprop
+  end
+end.
 
 Record Result := {
  discards: nat;
@@ -632,7 +432,7 @@ Definition mkResult
   (counterexample: list (string * string))
   : Result := {| discards := discards; foundbug := foundbug; passed := passed; counterexample := counterexample |}.
 
-Instance showResult : Show Result :=
+#[global] Instance showResult : Show Result :=
   {| show r := """discards"": " ++ show (discards r) ++
                ", ""foundbug"": " ++ show (foundbug r) ++
                ", ""passed"": " ++ show (passed r) ++
@@ -660,35 +460,31 @@ Definition targetLoop
         | O => ret (mkResult discards false passed [])
         | S fuel' => 
             let directive := sample seeds in
-            opt_seed <- generator cprop directive;;
-            match pullValues cprop opt_seed with
-            | None => targetLoop' fuel' passed (discards + 1)%nat cprop seeds poolType utility
-            | Some seed =>
-              let res := runAndTest cprop tt seed in
-              let '(truth, feedback) := res in
-              match truth with
-              | Some false =>
-                  (* Fails *)
-                  let shrinkingResult := shrinkLoop 10 cprop seed in
-                  let printingResult := print cprop tt shrinkingResult in
-                  ret (mkResult discards true passed printingResult)
-              | Some true =>
-                  (* Passes *)
-                  match useful seeds feedback with
-                  | true =>
-                      let seeds' := invest (seed, feedback) seeds in
-                      targetLoop' fuel' (passed + 1)%nat discards cprop seeds' poolType utility
-                  | false =>
-                      let seeds' := match directive with
-                                    | Generate => seeds
-                                    | Mutate source _ => revise seeds (input source) (seed, feedback)
-                                    end in
-                      targetLoop' fuel' (passed + 1)%nat discards cprop seeds' poolType utility
-                  end
-              | None => 
-                  (* Discard *)
-                  targetLoop' fuel' passed (discards + 1)%nat cprop seeds poolType utility
-              end
+            seed <- generator cprop directive;;
+            let res := runAndTest cprop tt seed in
+            let '(truth, feedback) := res in
+            match truth with
+            | Some false =>
+                (* Fails *)
+                let shrinkingResult := shrinkLoop 10 cprop seed in
+                let printingResult := print cprop tt shrinkingResult in
+                ret (mkResult discards true passed printingResult)
+            | Some true =>
+                (* Passes *)
+                match useful seeds feedback with
+                | true =>
+                    let seeds' := invest (seed, feedback) seeds in
+                    targetLoop' fuel' (passed + 1)%nat discards cprop seeds' poolType utility
+                | false =>
+                    let seeds' := match directive with
+                                  | Generate => seeds
+                                  | Mutate source _ => revise seeds (input source) (seed, feedback)
+                                  end in
+                    targetLoop' fuel' (passed + 1)%nat discards cprop seeds' poolType utility
+                end
+            | None => 
+                (* Discard *)
+                targetLoop' fuel' passed (discards + 1)%nat cprop seeds poolType utility
             end
         end in
         targetLoop' fuel 0%nat 0%nat cprop seeds poolType utility.
@@ -735,9 +531,6 @@ Fixpoint toMonad {C : Ctx} {F: Type} (cprop: CProp C F) : ⟦C⟧ -> Checker :=
   | ForAll A C F name gen mut shr pri cprop' =>
     fun env =>
       forAllShrinkShow (gen env) (shr env) (pri env) (fun a => toMonad cprop' (a, env))
-  | ForAllMaybe A C F name gen mut shr pri cprop' =>
-    fun env =>
-      forAllShrinkShowMaybe (gen env) (shr env) (pri env) (fun a => toMonad cprop' (a, env))
   | Predicate C F prop =>
     fun env => 
       forAll (returnGen tt) (fun _ => match prop env with
@@ -775,46 +568,36 @@ Fixpoint targetLoopLogged (fuel : nat)
   | O => ret (rev log)
   | S fuel' => 
       let directive := sample seeds in
-      opt_seed <- generator cprop directive;;
-      match pullValues cprop opt_seed with
-      | None => 
-      let printedSeed := showElemList (print_opt cprop tt opt_seed) in
+      seed <- generator cprop directive;;
+      let res := runAndTest cprop tt seed in
+      let '(truth, feedback) := res in
+      let printedSeed := showElemList (print cprop tt seed) in
+      
       let printedSource := match directive with 
-                          | Generate => "None"
-                          | Mutate seed _ => printSeed cprop seed
+                           | Generate => "None"
+                           | Mutate seed _ => printSeed cprop seed
+                           end in
+      let log := ("source: [" ++ printedSource ++ "], seed: [" ++ printedSeed ++ ", feedback: " ++ show feedback ++ "], truth: " ++ show truth ++ ", fuel: " ++ show fuel ++ ", directive:" ++ show directive) :: log in
+      match truth with
+      | Some false =>
+          (* Fails *)
+          ret (rev log)
+      | Some true =>
+          (* Passes *)
+          match useful seeds feedback with
+          | true =>
+              let seeds' := invest (seed, feedback) seeds in
+              targetLoopLogged fuel' cprop seeds' poolType utility log
+          | false =>
+              let seeds' := match directive with
+                          | Generate => seeds
+                          | Mutate source _ => revise seeds (input source) (seed, feedback)
                           end in
-      let log := ("source: [" ++ printedSource ++ "], seed: [" ++ printedSeed ++ ", fuel: " ++ show fuel ++ ", directive:" ++ show directive) :: log in
-        targetLoopLogged fuel' cprop seeds poolType utility log
-      | Some seed =>
-        let res := runAndTest cprop tt seed in
-        let '(truth, feedback) := res in
-        let printedSeed := showElemList (print cprop tt seed) in
-        let printedSource := match directive with 
-                            | Generate => "None"
-                            | Mutate seed _ => printSeed cprop seed
-                            end in
-        let log := ("source: [" ++ printedSource ++ "], seed: [" ++ printedSeed ++ ", feedback: " ++ show feedback ++ "], truth: " ++ show truth ++ ", fuel: " ++ show fuel ++ ", directive:" ++ show directive) :: log in
-        match truth with
-        | Some false =>
-            (* Fails *)
-            ret (rev log)
-        | Some true =>
-            (* Passes *)
-            match useful seeds feedback with
-            | true =>
-                let seeds' := invest (seed, feedback) seeds in
-                targetLoopLogged fuel' cprop seeds' poolType utility log
-            | false =>
-                let seeds' := match directive with
-                            | Generate => seeds
-                            | Mutate source _ => revise seeds (input source) (seed, feedback)
-                            end in
-                targetLoopLogged fuel' cprop seeds' poolType utility log
-            end
-        | None => 
-            (* Discard *)
-            targetLoopLogged fuel' cprop seeds poolType utility log
-        end
+              targetLoopLogged fuel' cprop seeds' poolType utility log
+          end
+      | None => 
+          (* Discard *)
+          targetLoopLogged fuel' cprop seeds poolType utility log
       end
   end.
 
@@ -842,34 +625,8 @@ Definition qctest_test_prop_InsertValid := (fun _ : unit => print_extracted_coq_
 
 Extraction "bench.ml" qctest_test_prop_InsertValid.
 
-
-
-
-Definition arb_opt : G (option nat) :=
-  choose (0, 1) >>= fun n => match n with
-                            | 0 => ret None
-                            | _ => choose (0, 1000)%nat >>= fun n => ret (Some n)
-                            end.
-
-Definition mut_opt (n: option nat) (t: nat) : G (option nat) :=
-  match n with
-  | Some n => choose (0, 1) >>= fun m => match m with
-                                        | 0 => ret (Some (n - t)%nat)
-                                        | _ => ret (Some (n + t)%nat)
-                                        end
-  | None => ret None
-  end.
-
-Definition example5 :=
-  @ForAllMaybe _ ∅ _ "x" (fun tt => arb_opt) (fun tt n => mut_opt None) (fun tt n => shrink n) (fun tt n => show n) (
-  @ForAll _ (nat · ∅) _ "y" (fun '(x, tt) => gen x) (fun tt n => mut n) (fun tt n => shrink n) (fun tt n => show n) (
-  @Predicate (nat · (nat · ∅)) Z
-              (fun '(y, (x, tt)) => (test2 x y, (2000 - Z.of_nat(x - y) - Z.of_nat(y - x)))))).
-    
 (* Sample1 (targetLoop 1000 example3 (mkPool tt) StaticSingletonPool HillClimbingUtility). *)
-(* Sample1 (targetLoopLogged 1000 example5 (mkPool tt) StaticSingletonPool HillClimbingUtility nil). *)
 
-
-(* Sample1 (targetLoop 1000 example3 (mkPool tt) StaticSingletonPool HillClimbingUtility). *)
-(* Sample1 (targetLoop 1000 example3 (mkPool tt) DynamicMonotonicSingletonPool HillClimbingUtility). *)
-(* Sample1 (targetLoop 1000 example3 (mkPool tt) DynamicResettingSingletonPool HillClimbingUtility). *)
+(* Sample1 (targetLoop 1000 example3 (mkPool tt) StaticSingletonPool HillClimbingUtility).
+Sample1 (targetLoop 1000 example3 (mkPool tt) DynamicMonotonicSingletonPool HillClimbingUtility).
+Sample1 (targetLoop 1000 example3 (mkPool tt) DynamicResettingSingletonPool HillClimbingUtility). *)

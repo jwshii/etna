@@ -15,8 +15,9 @@ def analyze(results: str, images: str):
         times = partial(stacked_barchart_times, case=workload, df=df)
         times(
             strategies=[
-                'PropLangGenerator',
-                'BespokeGenerator'
+                'BespokeGenerator',
+                'TypeBasedGenerator',
+                'TypeBasedFuzzer',
             ],
             colors=['#000000', '#900D0D', '#DC5F00', '#243763'],
             limits=[0.001, 0.01, 0.1, 1],
@@ -24,19 +25,7 @@ def analyze(results: str, images: str):
             image_path=images,
             show=False,
         )
-        times = partial(stacked_barchart_times, case=workload, df=df)
-        times(
-            strategies=[
-                'PropLangGenerator',
-                'BespokeGenerator'
-            ],
-            colors=['#000000', '#900D0D', '#DC5F00', '#243763'],
-            limits=[10, 100, 1000, 10000],
-            limit_type='inputs',
-            image_path=images,
-            show=False,
 
-        )
 
 
 if __name__ == "__main__":

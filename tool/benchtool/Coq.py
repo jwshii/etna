@@ -55,6 +55,7 @@ class Coq(BenchTool):
             lambda fuzzer: self._get_fuzzer_build_command(fuzzer), fuzzers
         )
         with self._change_dir(workload_path):
+            print(f"{os.getcwd()}")
             self._shell_command(["coq_makefile", "-f", "_CoqProject", "-o", "Makefile"])
             self._shell_command(["make", "clean"])
             self._shell_command(["make"])
@@ -86,7 +87,7 @@ class Coq(BenchTool):
 
     def _run_trial_fuzzer(self, workload_path: str, params: TrialArgs):
         with self._change_dir(workload_path):
-            cmd = ["./main_exec", f"./qc_exec {params.property}"]
+            cmd = ["./main_exec", f"./{params.strategy}_exec {params.property}"]
             results = []
             self._log(
                 f"Running {params.workload},{params.strategy},{params.mutant},{params.property}",
@@ -128,19 +129,19 @@ class Coq(BenchTool):
                         result = stdout_data[start + 2 : end]
                         self._log(f"{params.strategy} Result: {result}", LogLevel.INFO)
                         json_result = json.loads(result)
-                        trial_result["foundbug"] = json_result["result"] in [
+                        trial_result["foundbug"] = json_result["foundbug"] if "foundbug" in json_result else json_result["result"] in [
                             "failed",
                             "expected_failure",
                         ]
                         trial_result["discards"] = json_result["discards"]
-                        trial_result["passed"] = json_result["tests"]
+                        trial_result["passed"] = json_result["passed"] if "passed" in json_result else json_result["tests"]
                         trial_result["time"] = (
                             float(json_result["time"][:-2]) * 0.001
                         )  # ms as string to seconds as float conversion
 
                 except subprocess.TimeoutExpired as e:
                     print(f"Process Timed Out {process.pid}")
-                    os.system(f"pkill qc_exec")
+                    os.system(f"pkill {params.strategy}_exec")
                     print(f"Process Output: {e}")
                     shm_id = int(
                         e.stdout.decode("utf-8").split("|?SHM ID: ")[1].split("?|")[0]
@@ -217,9 +218,12 @@ class Coq(BenchTool):
                     result = stdout_data[start + 2 : end]
                     self._log(f"{params.strategy} Result: {result}", LogLevel.INFO)
                     json_result = json.loads(result)
-                    trial_result["foundbug"] = json_result["foundbug"]
+                    trial_result["foundbug"] = json_result["foundbug"] if "foundbug" in json_result else json_result["result"] in [
+                        "failed",
+                        "expected_failure",
+                    ]
                     trial_result["discards"] = json_result["discards"]
-                    trial_result["passed"] = json_result["passed"]
+                    trial_result["passed"] = json_result["passed"] if "passed" in json_result else json_result["tests"]
                     trial_result["time"] = (
                         float(json_result["time"][:-2]) * 0.001
                     )  # ms as string to seconds as float conversion
@@ -242,6 +246,7 @@ class Coq(BenchTool):
     def _generate_extended_version_of_fuzzer(self, fuzzer: str):
         fuzzer_path = f"./{fuzzer}_test_runner.ml"
         extended_fuzzer_path = f"./{fuzzer}_test_runner_ext.ml"
+        mli_path = f"{fuzzer}_test_runner_ext.mli"
         stub_path = f"{os.environ['OPAM_SWITCH_PREFIX']}/lib/coq/user-contrib/QuickChick/Stub.ml"
         f = open(extended_fuzzer_path, "w+")
         with open(stub_path, "r") as stub:
@@ -249,6 +254,19 @@ class Coq(BenchTool):
             f.write("\n\n(* -----(Stub Ends)----- *)\n\n")
         with open(fuzzer_path, "r") as fuzzer_file:
             f.write(fuzzer_file.read())
+
+        # Generate mli and cmi files
+        with open(f"{mli_path}", "w") as f:
+            f.write("(* Empty file *)")
+        
+        self._shell_command(
+            [
+                "ocamlc",
+                "-c",
+                f"{mli_path}",
+            ]
+        )
+
         f.close()
 
     def _get_executable_strategy_names(self, workload_path):
@@ -266,7 +284,7 @@ class Coq(BenchTool):
     def _get_fuzzer_build_command(self, fuzzer: str) -> str:
         qc_path = os.environ["OPAM_SWITCH_PREFIX"] + "/lib/coq/user-contrib/QuickChick"
         fuzzer_build_command = (
-            f"ocamlfind ocamlopt -ccopt -Wno-error=implicit-function-declaration -afl-instrument -linkpkg -package unix -package str -package coq-core.plugins.extraction -thread -rectypes -w a -o ./qc_exec ./{fuzzer}_test_runner_ext.ml {qc_path}/SHM.c",
+            f"ocamlfind ocamlopt -ccopt -Wno-error=implicit-function-declaration -afl-instrument -linkpkg -package unix -package str -package coq-core.plugins.extraction -thread -rectypes -w a -o ./{fuzzer}_exec ./{fuzzer}_test_runner_ext.ml {qc_path}/SHM.c",
             f"ocamlfind ocamlopt -ccopt -Wno-error=implicit-function-declaration -linkpkg -package unix -package str -rectypes -w a -I . -o main_exec {qc_path}/Main.ml {qc_path}/SHM.c",
             f"{qc_path}/cmdprefix.pl {fuzzer}_test_runner_ext.ml",
             f"{qc_path}/cmdsuffix.pl {fuzzer}_test_runner_ext.ml",
@@ -305,6 +323,12 @@ class Coq(BenchTool):
 
     def _parse_tests_fc(self, s: str) -> tuple[list, str]:
         return self._parse_tests("FuzzChick", s)
+
+    def _parse_tests_pl(self, s: str) -> tuple[list, str]:
+        return self._parse_tests("QuickProp", s)
+
+    def _parse_tests_all(self, s: str) -> tuple[list, str]:
+        return self._parse_tests_qc(s) + self._parse_tests_fc(s) + self._parse_tests_pl(s)
 
     def _parse_tests(self, vernacular: str, s: str) -> tuple[list, str]:
         def compile(s: str) -> re.Pattern:
@@ -404,6 +428,40 @@ let () =
             main_function_string,
         )
 
+    def _generate_test_file(
+        self, runners_path: str, strategy_name: str, tests: list[str], workload: Entry, isPropLang: bool, isFuzzer: bool
+    ):
+        
+        if isFuzzer:
+            main_function_string = """
+let () =
+  Printf.printf ""Entering main of qc_exec\\n""; flush stdout;
+  setup_shm_aux ();
+  Sys.argv.(1) |> qctest_map ; flush stdout;
+"""
+        else:
+            main_function_string = """
+let () =
+Sys.argv.(1) |> qctest_map
+"""
+
+        if isPropLang:
+            test_string_template = 'Definition qctest_<test-name> := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (sample1 <test-name>))) ++ "}|]")).\n'
+        elif isFuzzer:
+            test_string_template = 'Definition qctest_<test-name> := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime (fun tt => (<test-name>_fuzzer tt))) ++ "}|]")).\n'
+        else:
+            test_string_template = 'Definition qctest_<test-name> := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (quickCheckWith (updMaxDiscard (updMaxSuccess (updAnalysis stdArgs true) num_tests) num_tests) <test-name>))) ++ "}|]")).\n'
+        
+        self._generate_test_file_parametrized(
+            runners_path,
+            strategy_name,
+            tests,
+            workload,
+            test_string_template,
+            main_function_string,
+        )
+
+
     def _generate_test_file_fc(
         self, runners_path: str, fuzzer_name: str, tests: list[str], workload: Entry
     ):
@@ -433,29 +491,19 @@ let () =
         # Empty Runner Directory
         self._shell_command(["rm", f"{runners_path}*"])
         # Generate and Add Runners for each strategy
-        for strategy in generators:
+        for strategy in generators + fuzzers:
             with open(
                 os.path.join(strategies_path, f"{strategy}.v"), "r"
             ) as strategy_file:
                 content = strategy_file.read()
-                tests_qc = self._parse_tests_qc(content)
-                tests_pl = self._parse_tests_fc(content)
-                if len(tests_qc) > 0:
-                    self._generate_test_file_qc(
-                        runners_path, strategy, tests_qc, workload
-                    )
-                if len(tests_pl) > 0:
-                    self._generate_test_file_pl(
-                        runners_path, strategy, tests_pl, workload
-                    )
-        # Generate and Add Runners for each fuzzer
-        for fuzzer in fuzzers:
-            with open(
-                os.path.join(strategies_path, f"{fuzzer}.v"), "r"
-            ) as strategy_file:
-                content = strategy_file.read()
-                tests = self._parse_tests_fc(content)
-                self._generate_test_file_fc(runners_path, fuzzer, tests, workload)
+                isPropLang = workload.name.endswith("Proplang")
+                isFuzzer = strategy in fuzzers
+                tests = self._parse_tests_all(content)
+
+                self._generate_test_file(
+                    runners_path, strategy, tests, workload, isPropLang, isFuzzer
+                )
+
         # Add runners to the _CoqProject file
         with open(f"{workload.path}/_CoqProject", "r") as coq_project_file_reader:
             coq_project_file_contents = coq_project_file_reader.read().splitlines()

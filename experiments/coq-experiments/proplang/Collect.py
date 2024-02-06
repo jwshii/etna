@@ -7,10 +7,10 @@ from benchtool.Types import TrialConfig, ReplaceLevel, LogLevel
 from benchtool.Tasks import tasks
 
 def collect(results: str):
-    tool = Coq(results=results, replace_level=ReplaceLevel.SKIP, log_level=LogLevel.DEBUG)
+    tool = Coq(results=results, replace_level=ReplaceLevel.REPLACE, log_level=LogLevel.DEBUG)
 
     for workload in tool.all_workloads():
-        if workload.name not in ['BST']:
+        if workload.name not in ['BSTProplang']:
             continue
 
         tool._preprocess(workload)
@@ -24,18 +24,22 @@ def collect(results: str):
 
             for strategy in tool.all_strategies(workload):
                 if strategy.name not in [
-                        'PropLangFuzzer',
-                        'BespokeGenerator',
+                        'BespokeFuzzer',
                 ]:
                     continue
 
                 for property in tool.all_properties(workload):
-                    property = 'test_' + property
-                    if workload.name != 'BST':
-                        if property[10:] not in tasks[workload.name][variant.name]:
+                    if workload.name.endswith('Proplang'):
+                        property = 'test_' + property + '_runner'
+                        if property[10:-7] not in tasks[workload.name[:3]][variant.name]:
                             print(f'Skipping {workload.name},{strategy.name},{variant.name},{property}')
                             continue
-
+                    if workload.name == 'BST':
+                        property = 'test_' + property
+                        if property[10:] not in tasks["BST"][variant.name]:
+                            print(f'Skipping {workload.name},{strategy.name},{variant.name},{property}')
+                            continue
+                    
                     # Don't compile tasks that are already completed.
                     finished = set(os.listdir(results))
                     file = f'{workload.name},{strategy.name},{variant.name},{property}'

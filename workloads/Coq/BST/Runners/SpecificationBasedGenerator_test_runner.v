@@ -34,7 +34,7 @@ fun test_name ->
   test ()
 
 let () =
-  Sys.argv.(1) |> qctest_map
+Sys.argv.(1) |> qctest_map
 
 ".
 
