@@ -23,7 +23,7 @@ Proof. dec_eq. Defined.
     
 
 Axiom number_of_trials : nat.
-Extract Constant number_of_trials => "20000".
+Extract Constant number_of_trials => "max_int".
 
 
 (* --------------------- Tests --------------------- *)

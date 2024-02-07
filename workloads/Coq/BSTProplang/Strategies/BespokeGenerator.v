@@ -56,7 +56,7 @@ Local Open Scope Z.
 Proof. dec_eq. Defined.
 
 Axiom number_of_trials : nat.
-Extract Constant number_of_trials => "20000".
+Extract Constant number_of_trials => "max_int".
 
 Definition test_prop_InsertValid   :=
 	@ForAll _ ∅ _ "t" (fun tt => bespoke) (fun tt n => (fun n => bespoke)) (fun tt n => shrink n) (fun tt n => show n) (
