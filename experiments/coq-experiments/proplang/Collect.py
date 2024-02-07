@@ -10,8 +10,8 @@ def collect(results: str):
     tool = Coq(results=results, replace_level=ReplaceLevel.REPLACE, log_level=LogLevel.DEBUG)
 
     for workload in tool.all_workloads():
-        if workload.name not in ['STLCProplang']:
-            continue
+        # if workload.name not in ['STLCProplang']:
+        #     continue
 
         tool._preprocess(workload)
 

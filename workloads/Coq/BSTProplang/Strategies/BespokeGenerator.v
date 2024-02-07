@@ -65,7 +65,7 @@ Definition test_prop_InsertValid   :=
 	@Predicate (nat · (nat · (Tree · ∅))) Z
 	(fun '(v, (k, (t, tt))) => (prop_InsertValid t k v, 0%Z))))).
 
-Definition test_prop_InsertValid_runner := (targetLoop number_of_trials test_prop_InsertValid (DynamicResettingSingletonPool.(mkPool) tt) DynamicResettingSingletonPool HillClimbingUtility).
+Definition test_prop_InsertValid_runner := (targetLoop number_of_trials test_prop_InsertValid (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
 
 (*! QuickProp test_prop_InsertValid_runner. *)
 
@@ -75,7 +75,7 @@ Definition test_prop_DeleteValid   :=
 	@Predicate (nat · (Tree · ∅)) Z
 	(fun '(k, (t, tt)) => (prop_DeleteValid t k, 0%Z)))).
 
-Definition test_prop_DeleteValid_runner := (targetLoop number_of_trials test_prop_DeleteValid (DynamicResettingSingletonPool.(mkPool) tt) DynamicResettingSingletonPool HillClimbingUtility).
+Definition test_prop_DeleteValid_runner := (targetLoop number_of_trials test_prop_DeleteValid (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_DeleteValid_runner. *)
 
 Definition test_prop_UnionValid    :=
@@ -84,7 +84,7 @@ Definition test_prop_UnionValid    :=
 	@Predicate (Tree · (Tree · ∅)) Z
 	(fun '(t2, (t1, tt)) => (prop_UnionValid t1 t2, 0%Z)))).
 
-Definition test_prop_UnionValid_runner := (targetLoop number_of_trials test_prop_UnionValid (DynamicResettingSingletonPool.(mkPool) tt) DynamicResettingSingletonPool HillClimbingUtility).
+Definition test_prop_UnionValid_runner := (targetLoop number_of_trials test_prop_UnionValid (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_UnionValid_runner. *)
 
 Definition test_prop_InsertPost    :=
@@ -95,7 +95,7 @@ Definition test_prop_InsertPost    :=
 	@Predicate (nat · (nat · (nat · (Tree · ∅)))) Z
 	(fun '(v, (k', (k, (t, tt)))) => (prop_InsertPost t k k' v, 0%Z)))))).
 
-Definition test_prop_InsertPost_runner := (targetLoop number_of_trials test_prop_InsertPost (DynamicResettingSingletonPool.(mkPool) tt) DynamicResettingSingletonPool HillClimbingUtility).
+Definition test_prop_InsertPost_runner := (targetLoop number_of_trials test_prop_InsertPost (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_InsertPost_runner. *)
 
 Definition test_prop_DeletePost    :=
@@ -105,7 +105,7 @@ Definition test_prop_DeletePost    :=
 	@Predicate (nat · (nat · (Tree · ∅))) Z
 	(fun '(k', (k, (t, tt))) => (prop_DeletePost t k k', 0%Z))))).
 
-Definition test_prop_DeletePost_runner := (targetLoop number_of_trials test_prop_DeletePost (DynamicResettingSingletonPool.(mkPool) tt) DynamicResettingSingletonPool HillClimbingUtility).
+Definition test_prop_DeletePost_runner := (targetLoop number_of_trials test_prop_DeletePost (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_DeletePost_runner. *)
 
 Definition test_prop_UnionPost   :=
@@ -115,7 +115,7 @@ Definition test_prop_UnionPost   :=
 	@Predicate (nat · (Tree · (Tree · ∅))) Z
 	(fun '(k, (t', (t, tt))) => (prop_UnionPost t t' k, 0%Z))))).
 
-Definition test_prop_UnionPost_runner := (targetLoop number_of_trials test_prop_UnionPost (DynamicResettingSingletonPool.(mkPool) tt) DynamicResettingSingletonPool HillClimbingUtility).
+Definition test_prop_UnionPost_runner := (targetLoop number_of_trials test_prop_UnionPost (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_UnionPost_runner. *)
 
 Definition test_prop_InsertModel   :=
@@ -125,7 +125,7 @@ Definition test_prop_InsertModel   :=
 	@Predicate (nat · (nat · (Tree · ∅))) Z
 	(fun '(v, (k, (t, tt))) => (prop_InsertModel t k v, 0%Z))))).
 
-Definition test_prop_InsertModel_runner := (targetLoop number_of_trials test_prop_InsertModel (DynamicResettingSingletonPool.(mkPool) tt) DynamicResettingSingletonPool HillClimbingUtility).
+Definition test_prop_InsertModel_runner := (targetLoop number_of_trials test_prop_InsertModel (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_InsertModel_runner. *)
 
 Definition test_prop_DeleteModel   :=
@@ -134,7 +134,7 @@ Definition test_prop_DeleteModel   :=
 	@Predicate (nat · (Tree · ∅)) Z
 	(fun '(k, (t, tt)) => (prop_DeleteModel t k, 0%Z)))).
 
-Definition test_prop_DeleteModel_runner := (targetLoop number_of_trials test_prop_DeleteModel (DynamicResettingSingletonPool.(mkPool) tt) DynamicResettingSingletonPool HillClimbingUtility).
+Definition test_prop_DeleteModel_runner := (targetLoop number_of_trials test_prop_DeleteModel (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_DeleteModel_runner. *)
 
 Definition test_prop_UnionModel    :=
@@ -143,7 +143,7 @@ Definition test_prop_UnionModel    :=
 	@Predicate (Tree · (Tree · ∅)) Z
 	(fun '(t', (t, tt)) => (prop_UnionModel t t', 0%Z)))).
 
-Definition test_prop_UnionModel_runner := (targetLoop number_of_trials test_prop_UnionModel (DynamicResettingSingletonPool.(mkPool) tt) DynamicResettingSingletonPool HillClimbingUtility).
+Definition test_prop_UnionModel_runner := (targetLoop number_of_trials test_prop_UnionModel (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_UnionModel_runner. *)
 
 Definition test_prop_InsertInsert    :=
@@ -155,7 +155,7 @@ Definition test_prop_InsertInsert    :=
 	@Predicate (nat · (nat · (nat · (nat · (Tree · ∅))))) Z
 	(fun '(v', (v, (k', (k, (t, tt))))) => (prop_InsertInsert t k k' v v', 0%Z))))))).
 
-Definition test_prop_InsertInsert_runner := (targetLoop number_of_trials test_prop_InsertInsert (DynamicResettingSingletonPool.(mkPool) tt) DynamicResettingSingletonPool HillClimbingUtility).
+Definition test_prop_InsertInsert_runner := (targetLoop number_of_trials test_prop_InsertInsert (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_InsertInsert_runner. *)
 
 Definition test_prop_InsertDelete    :=
@@ -166,7 +166,7 @@ Definition test_prop_InsertDelete    :=
 	@Predicate (nat · (nat · (nat · (Tree · ∅)))) Z
 	(fun '(v, (k', (k, (t, tt)))) => (prop_InsertDelete t k k' v, 0%Z)))))).
 
-Definition test_prop_InsertDelete_runner := (targetLoop number_of_trials test_prop_InsertDelete (DynamicResettingSingletonPool.(mkPool) tt) DynamicResettingSingletonPool HillClimbingUtility).
+Definition test_prop_InsertDelete_runner := (targetLoop number_of_trials test_prop_InsertDelete (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_InsertDelete_runner. *)
 
 Definition test_prop_InsertUnion   :=
@@ -177,7 +177,7 @@ Definition test_prop_InsertUnion   :=
 	@Predicate (nat · (nat · (Tree · (Tree · ∅)))) Z
 	(fun '(v, (k, (t', (t, tt)))) => (prop_InsertUnion t t' k v, 0%Z)))))).
 
-Definition test_prop_InsertUnion_runner := (targetLoop number_of_trials test_prop_InsertUnion (DynamicResettingSingletonPool.(mkPool) tt) DynamicResettingSingletonPool HillClimbingUtility).
+Definition test_prop_InsertUnion_runner := (targetLoop number_of_trials test_prop_InsertUnion (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_InsertUnion_runner. *)
 
 Definition test_prop_DeleteInsert    :=
@@ -188,7 +188,7 @@ Definition test_prop_DeleteInsert    :=
 	@Predicate (nat · (nat · (nat · (Tree · ∅)))) Z
 	(fun '(v', (k', (k, (t, tt)))) => (prop_DeleteInsert t k k' v', 0%Z)))))).
 
-Definition test_prop_DeleteInsert_runner := (targetLoop number_of_trials test_prop_DeleteInsert (DynamicResettingSingletonPool.(mkPool) tt) DynamicResettingSingletonPool HillClimbingUtility).
+Definition test_prop_DeleteInsert_runner := (targetLoop number_of_trials test_prop_DeleteInsert (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_DeleteInsert_runner. *)
 
 Definition test_prop_DeleteDelete    :=
@@ -198,7 +198,7 @@ Definition test_prop_DeleteDelete    :=
 	@Predicate (nat · (nat · (Tree · ∅))) Z
 	(fun '(k', (k, (t, tt))) => ((prop_DeleteDelete t k k', 0%Z)))))).
 
-Definition test_prop_DeleteDelete_runner := (targetLoop number_of_trials test_prop_DeleteDelete (DynamicResettingSingletonPool.(mkPool) tt) DynamicResettingSingletonPool HillClimbingUtility).
+Definition test_prop_DeleteDelete_runner := (targetLoop number_of_trials test_prop_DeleteDelete (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_DeleteDelete_runner. *)
 
 Definition test_prop_DeleteUnion   :=
@@ -208,7 +208,7 @@ Definition test_prop_DeleteUnion   :=
 	@Predicate (nat · (Tree · (Tree · ∅))) Z
 	(fun '(k, (t', (t, tt))) => (prop_DeleteUnion t t' k, 0%Z))))).
 
-Definition test_prop_DeleteUnion_runner := (targetLoop number_of_trials test_prop_DeleteUnion (DynamicResettingSingletonPool.(mkPool) tt) DynamicResettingSingletonPool HillClimbingUtility).
+Definition test_prop_DeleteUnion_runner := (targetLoop number_of_trials test_prop_DeleteUnion (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_DeleteUnion_runner. *)
 
 Definition test_prop_UnionDeleteInsert   :=
@@ -219,7 +219,7 @@ Definition test_prop_UnionDeleteInsert   :=
 	@Predicate (nat · (nat · (Tree · (Tree · ∅)))) Z
 	(fun '(v, (k, (t', (t, tt)))) => ((prop_UnionDeleteInsert t t' k v, 0%Z))))))).
 
-Definition test_prop_UnionDeleteInsert_runner := (targetLoop number_of_trials test_prop_UnionDeleteInsert (DynamicResettingSingletonPool.(mkPool) tt) DynamicResettingSingletonPool HillClimbingUtility).
+Definition test_prop_UnionDeleteInsert_runner := (targetLoop number_of_trials test_prop_UnionDeleteInsert (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_UnionDeleteInsert_runner. *)
 
 Definition test_prop_UnionUnionIdem    :=
@@ -227,7 +227,7 @@ Definition test_prop_UnionUnionIdem    :=
 	@Predicate (Tree · ∅) Z
 	(fun '(t, tt) => (prop_UnionUnionIdem t, 0%Z))).
 
-Definition test_prop_UnionUnionIdem_runner := (targetLoop number_of_trials test_prop_UnionUnionIdem (DynamicResettingSingletonPool.(mkPool) tt) DynamicResettingSingletonPool HillClimbingUtility).
+Definition test_prop_UnionUnionIdem_runner := (targetLoop number_of_trials test_prop_UnionUnionIdem (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_UnionUnionIdem_runner. *)
 
 Definition test_prop_UnionUnionAssoc   :=
@@ -237,5 +237,5 @@ Definition test_prop_UnionUnionAssoc   :=
 	@Predicate (Tree · (Tree · (Tree · ∅))) Z
 	(fun '(t3, (t2, (t1, tt))) => (prop_UnionUnionAssoc t1 t2 t3, 0%Z))))).
 
-Definition test_prop_UnionUnionAssoc_runner := (targetLoop number_of_trials test_prop_UnionUnionAssoc (DynamicResettingSingletonPool.(mkPool) tt) DynamicResettingSingletonPool HillClimbingUtility).
+Definition test_prop_UnionUnionAssoc_runner := (targetLoop number_of_trials test_prop_UnionUnionAssoc (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_UnionUnionAssoc_runner. *)

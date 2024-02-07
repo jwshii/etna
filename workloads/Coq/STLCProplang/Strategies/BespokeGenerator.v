@@ -115,7 +115,7 @@ Definition test_prop_SinglePreserve   :=
 	@Predicate (Expr · ∅) Z
 	(fun '(e, tt) => (prop_SinglePreserve e, 0%Z))).
 
-Definition test_prop_SinglePreserve_runner := (targetLoop number_of_trials test_prop_SinglePreserve (DynamicResettingSingletonPool.(mkPool) tt) DynamicResettingSingletonPool HillClimbingUtility).
+Definition test_prop_SinglePreserve_runner := (targetLoop number_of_trials test_prop_SinglePreserve (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
 
 (*! QuickProp test_prop_SinglePreserve_runner. *)
   
@@ -125,7 +125,7 @@ Definition test_prop_MultiPreserve   :=
 	@Predicate (Expr · ∅) Z
 	(fun '(e, tt) => (prop_MultiPreserve e, 0%Z))).
 
-Definition test_prop_MultiPreserve_runner := (targetLoop number_of_trials test_prop_MultiPreserve (DynamicResettingSingletonPool.(mkPool) tt) DynamicResettingSingletonPool HillClimbingUtility).
+Definition test_prop_MultiPreserve_runner := (targetLoop number_of_trials test_prop_MultiPreserve (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
 
 (*! QuickProp test_prop_MultiPreserve_runner. *)
 

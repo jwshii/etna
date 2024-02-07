@@ -643,8 +643,8 @@ Definition targetLoop
   (fuel : nat) 
   (cprop : CProp ∅ Z)
   {Pool : Type}
+  {poolType: @SeedPool (⟦⦗cprop⦘⟧) Z Pool}
   (seeds : Pool)
-  (poolType: @SeedPool (⟦⦗cprop⦘⟧) Z Pool)
   (utility: Utility) : G Result :=
 
   let fix targetLoop' 
@@ -671,7 +671,7 @@ Definition targetLoop
                   (* Fails *)
                   let shrinkingResult := shrinkLoop 10 cprop seed in
                   let printingResult := print cprop tt shrinkingResult in
-                  ret (mkResult discards true passed printingResult)
+                  ret (mkResult discards true (passed + 1) printingResult)
               | Some true =>
                   (* Passes *)
                   match useful seeds feedback with
@@ -866,7 +866,7 @@ Definition example5 :=
   @Predicate (nat · (nat · ∅)) Z
               (fun '(y, (x, tt)) => (test2 x y, (2000 - Z.of_nat(x - y) - Z.of_nat(y - x)))))).
     
-(* Sample1 (targetLoop 1000 example3 (mkPool tt) StaticSingletonPool HillClimbingUtility). *)
+(* Sample1 (targetLoop 1000 example3 (StaticSingletonPool.(mkPool) tt)  HillClimbingUtility). *)
 (* Sample1 (targetLoopLogged 1000 example5 (mkPool tt) StaticSingletonPool HillClimbingUtility nil). *)
 
 
