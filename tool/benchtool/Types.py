@@ -27,10 +27,8 @@ class Config:
 
     strategies: FilePath
     ''' Relative path to directory containing strategies. '''
-    impl_path: FilePath
-    ''' Relative path to file containing base and mutant implementations. '''
-    spec_path: FilePath
-    ''' Relative path to file containing properties. '''
+    impl_spec_path: FilePath
+    ''' Relative path to directory containing base and mutant implementations and properties. '''
 
 
 class Node:

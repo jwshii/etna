@@ -1,5 +1,6 @@
 import argparse
 import os
+import re
 from re import I
 import shutil as sh
 import subprocess
@@ -33,6 +34,7 @@ class BenchTool(ABC):
         self._log_level = log_level
         self._replace_level = replace_level
         self.__temp = tempfile.mkdtemp()
+        self.__original = {}
 
         try:
             os.mkdir(results)
@@ -79,6 +81,7 @@ class BenchTool(ABC):
         if no_base and variant.name == 'base':
             return lambda _: None
 
+        # Change directory to temp.
         with self._change_dir(self.__temp):
             self._log(f'Applying variant {variant}', LogLevel.DEBUG)
             self.__apply_variant_in_impl(workload, variant)
@@ -110,9 +113,35 @@ class BenchTool(ABC):
 
         return [get_base(e) for e in entries]
 
-    @abstractmethod
     def all_properties(self, workload: Entry) -> list[Entry]:
-        pass
+        '''
+        Scans all the files in the `config.impl_spec_path` folder for all the properties.
+
+        :return: A list of unique properties extracted.
+        '''
+        spec = os.path.join(workload.path, self._config.impl_spec_path)
+
+        paths = list(map(
+            lambda filename: os.path.join(spec, filename),
+            (list(filter(
+                # TODO: is this necessary since listdir is not recursive?
+                lambda filename: filename.endswith(self._config.ext)
+                and "Runners/" not in filename
+                and "Methods/" not in filename,
+                os.listdir(spec)
+            )))
+        ))
+
+        props = []
+
+        for path in paths:
+            with open(path) as f:
+                contents = f.read()
+                regex = re.compile(r'prop_[^\s]*')
+                matches = regex.findall(contents)
+                props.extend(list(dict.fromkeys(matches)))
+
+        return props
 
     @abstractmethod
     def _build(self, workload_path: str):
@@ -161,6 +190,10 @@ class BenchTool(ABC):
         '''
         Helper for applying variant.
         '''
+        # Save base implementation.
+        if variant.filename not in self.__original:
+            with open(variant.filename, 'r') as f:
+                self.__original[variant.filename] = f.read()
 
         # Overwrite `config.impl` file with current variant.
         with open(variant.filename, 'w') as f:
@@ -210,6 +243,11 @@ class BenchTool(ABC):
                           timeout=cfg.timeout,
                           label=strategy_label,
                           short_circuit=cfg.short_circuit))
+
+            # Restore the file to base implemetation.
+            if self.__variant.filename in self.__original:
+                with open(self.__variant.filename, 'w') as f:
+                    f.write(self.__original[self.__variant.filename])
 
     @abstractmethod
     def _preprocess(self, workload: Entry) -> None:
