@@ -22,7 +22,7 @@
         [else (T l key v r)]
       )
     
-      #|!! insert_1 |#
+      #|! insert_1 |#
       #|!
         (T (E) k v (E))
       |#
