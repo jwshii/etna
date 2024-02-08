@@ -1,7 +1,6 @@
 #lang racket
 
 (require "./impl.rkt")
-(require quickcheck)
 
 (define (keys t)
   (match t
@@ -45,7 +44,6 @@
     ]
   )
 )
-
 
 #| -- Validity Properties. |#
 
@@ -198,7 +196,6 @@
   (assumes (is-BST t) (treeEq (delete k1 (insert k2 v t))
                               (if (= k1 k2) (delete k1 t) (insert k2 v (delete k1 t)))
                       )
-          
   )
 )
 
@@ -240,10 +237,3 @@
 #| ----------- |#
 
 #| -- Size Properties |#
-
-
-
-
-
-
-
