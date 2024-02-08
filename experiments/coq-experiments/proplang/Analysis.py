@@ -11,21 +11,38 @@ def analyze(results: str, images: str):
         os.makedirs(images)
 
     # Generate task bucket charts used in Figure 3.
-    for workload in ['BST']:
+    for workload in ['BSTProplang']:
         times = partial(stacked_barchart_times, case=workload, df=df)
         times(
             strategies=[
-                'BespokeGenerator',
-                'TypeBasedGenerator',
-                'TypeBasedFuzzer',
+                'BespokeFuzzer',
+                'TypeBasedGenerator', 
+                'TypeBasedFuzzer', 
+                'SpecificationBasedGenerator',
+                'BespokeGenerator'
             ],
-            colors=['#000000', '#900D0D', '#DC5F00', '#243763'],
-            limits=[0.001, 0.01, 0.1, 1],
+            colors=['#000000', '#900D0D', '#DC5F00', '#243763', '#FFD700'],
+            limits=[0.1, 1, 10, 60],
             limit_type='time',
             image_path=images,
             show=False,
         )
 
+    for workload in ['RBTProplang', 'STLCProplang']:
+        times = partial(stacked_barchart_times, case=workload, df=df)
+        times(
+            strategies=[
+                'TypeBasedGenerator', 
+                'TypeBasedFuzzer', 
+                'SpecificationBasedGenerator',
+                'BespokeGenerator'
+            ],
+            colors=['#000000', '#900D0D', '#DC5F00', '#243763', '#FFD700'],
+            limits=[0.1, 1, 10, 60],
+            limit_type='time',
+            image_path=images,
+            show=False,
+        )
 
 
 if __name__ == "__main__":

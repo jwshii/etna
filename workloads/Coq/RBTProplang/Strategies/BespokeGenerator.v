@@ -79,7 +79,7 @@ Definition test_prop_InsertValid   :=
 	@Predicate (Z · (Z · (Tree · ∅))) Z
 	(fun '(v, (k, (t, tt))) => (prop_InsertValid t k v, 0))))).
 
-Definition test_prop_InsertValid_runner := (targetLoop number_of_trials test_prop_InsertValid (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_InsertValid_runner := (runLoop number_of_trials test_prop_InsertValid).
 
 (*! QuickProp test_prop_InsertValid_runner. *)
 
@@ -89,7 +89,7 @@ Definition test_prop_DeleteValid   :=
 	@Predicate (Z · (Tree · ∅)) Z
 	(fun '(k, (t, tt)) => (prop_DeleteValid t k, 0)))).
 
-Definition test_prop_DeleteValid_runner := (targetLoop number_of_trials test_prop_DeleteValid (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_DeleteValid_runner := (runLoop number_of_trials test_prop_DeleteValid).
 
 (*! QuickProp test_prop_DeleteValid_runner. *)
 
@@ -101,7 +101,7 @@ Definition test_prop_InsertPost    :=
 	@Predicate (Z · (Z · (Z · (Tree · ∅)))) Z
 	(fun '(v, (k', (k, (t, tt)))) => (prop_InsertPost t k k' v, 0%Z)))))).
 
-Definition test_prop_InsertPost_runner := (targetLoop number_of_trials test_prop_InsertPost (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_InsertPost_runner := (runLoop number_of_trials test_prop_InsertPost).
 (*! QuickProp test_prop_InsertPost_runner. *)
 
 Definition test_prop_DeletePost    :=
@@ -111,7 +111,7 @@ Definition test_prop_DeletePost    :=
 	@Predicate (Z · (Z · (Tree · ∅))) Z
 	(fun '(k', (k, (t, tt))) => (prop_DeletePost t k k', 0%Z))))).
 
-Definition test_prop_DeletePost_runner := (targetLoop number_of_trials test_prop_DeletePost (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_DeletePost_runner := (runLoop number_of_trials test_prop_DeletePost).
 (*! QuickProp test_prop_DeletePost_runner. *)
 
 Definition test_prop_InsertModel    :=
@@ -122,7 +122,7 @@ Definition test_prop_InsertModel    :=
 	(fun '(v, (k, (t, tt))) => (prop_InsertModel t k v, 0%Z))))).
 
     
-Definition test_prop_InsertModel_runner := (targetLoop number_of_trials test_prop_InsertModel (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_InsertModel_runner := (runLoop number_of_trials test_prop_InsertModel).
 (*! QuickProp test_prop_InsertModel_runner. *)
 
 Definition test_prop_DeleteModel    :=
@@ -132,7 +132,7 @@ Definition test_prop_DeleteModel    :=
 	(fun '(k, (t, tt)) => (prop_DeleteModel t k, 0%Z)))).
 
     
-Definition test_prop_DeleteModel_runner := (targetLoop number_of_trials test_prop_DeleteModel (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_DeleteModel_runner := (runLoop number_of_trials test_prop_DeleteModel).
 (*! QuickProp test_prop_DeleteModel_runner. *)
 
 Definition test_prop_InsertInsert    :=
@@ -144,7 +144,7 @@ Definition test_prop_InsertInsert    :=
 	@Predicate (Z · (Z · (Z · (Z · (Tree · ∅))))) Z
 	(fun '(v', (v, (k', (k, (t, tt))))) => (prop_InsertInsert t k k' v v', 0%Z))))))).
 
-Definition test_prop_InsertInsert_runner := (targetLoop number_of_trials test_prop_InsertInsert (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_InsertInsert_runner := (runLoop number_of_trials test_prop_InsertInsert).
 (*! QuickProp test_prop_InsertInsert_runner. *)
 
 Definition test_prop_InsertDelete    :=
@@ -155,7 +155,7 @@ Definition test_prop_InsertDelete    :=
 	@Predicate (Z · (Z · (Z · (Tree · ∅)))) Z
 	(fun '(v, (k', (k, (t, tt)))) => (prop_InsertDelete t k k' v, 0%Z)))))).
 
-Definition test_prop_InsertDelete_runner := (targetLoop number_of_trials test_prop_InsertDelete (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_InsertDelete_runner := (runLoop number_of_trials test_prop_InsertDelete).
 (*! QuickProp test_prop_InsertDelete_runner. *)
 
 
@@ -167,7 +167,7 @@ Definition test_prop_DeleteInsert    :=
 	@Predicate (Z · (Z · (Z · (Tree · ∅)))) Z
 	(fun '(v', (k', (k, (t, tt)))) => (prop_DeleteInsert t k k' v', 0%Z)))))).
 
-Definition test_prop_DeleteInsert_runner := (targetLoop number_of_trials test_prop_DeleteInsert (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_DeleteInsert_runner := (runLoop number_of_trials test_prop_DeleteInsert).
 (*! QuickProp test_prop_DeleteInsert_runner. *)
 
 Definition test_prop_DeleteDelete    :=
@@ -177,5 +177,5 @@ Definition test_prop_DeleteDelete    :=
 	@Predicate (Z · (Z · (Tree · ∅))) Z
 	(fun '(k', (k, (t, tt))) => ((prop_DeleteDelete t k k', 0%Z)))))).
 
-Definition test_prop_DeleteDelete_runner := (targetLoop number_of_trials test_prop_DeleteDelete (DynamicResettingSingletonPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_DeleteDelete_runner := (runLoop number_of_trials test_prop_DeleteDelete).
 (*! QuickProp test_prop_DeleteDelete_runner. *)

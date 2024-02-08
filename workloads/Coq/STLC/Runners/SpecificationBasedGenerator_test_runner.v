@@ -17,9 +17,9 @@ fun test_name ->
   let test = List.assoc test_name test_map in
   test ()
 
-
 let () =
-  Sys.argv.(1) |> qctest_map
+Sys.argv.(1) |> qctest_map
+
 ".
 
 Extraction "SpecificationBasedGenerator_test_runner.ml" qctest_test_prop_SinglePreserve qctest_test_prop_MultiPreserve qctest_map.

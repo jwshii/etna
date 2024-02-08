@@ -432,6 +432,67 @@ Record SingletonPool {A F: Type} := {
                  end
 |}.
 
+Module QueuePool.
+  Local Open Scope list_scope.
+  Definition t {A F: Type} := list (@Seed A F).
+
+  Definition mkQueuePool {A F: Type} : unit -> @t A F :=
+    fun _ => nil.
+
+  Definition is_empty {A F: Type} (q: @t A F) : bool :=
+    match q with
+    | [] => true
+    | _ => false
+    end.
+
+  Definition push_front {A F: Type} (seed: @Seed A F) (q: @t A F) : @t A F :=
+    q ++ [seed].
+  
+  Definition push_back {A F: Type} (seed: @Seed A F) (q: @t A F) : @t A F :=
+    seed :: q.
+
+  Definition pop_back {A F: Type} (q: @t A F) : option (@Seed A F * @t A F) :=
+    match q with
+    | [] => None
+    | h :: t => Some (h, t)
+    end.
+
+  Definition pop_front {A F: Type} (q: @t A F) : option (@Seed A F * @t A F) :=
+    match rev q with
+    | [] => None
+    | h :: t => Some (h, rev t)
+    end.
+
+End QueuePool.
+
+Import QueuePool.
+
+
+#[global] Instance QueueSeedPool {A F: Type} `{Dec_Eq A} `{Scalar F} : @SeedPool A F (@QueuePool.t A F) :=
+{| mkPool _ := QueuePool.mkQueuePool tt;
+  invest seed pool := match seed with 
+                      | (a, f) => QueuePool.push_front (mkSeed a f 1) pool
+                      end ;
+  revise pool a _ :=  match QueuePool.pop_front pool with
+                      | None => pool
+                      | Some (h, t) => 
+                        let a' := input h in
+                        if (a = a')? then 
+                          let f := feedback h in
+                          let n := energy h in
+                          if (n =? 0) then t
+                          else QueuePool.push_front (mkSeed a f (n - 1)) t
+                        else pool
+                      end ;
+  sample pool := match pool with
+                 | [] => Generate
+                 | h :: t => if (energy h =? 0) 
+                              then Generate
+                              else Mutate h (energy h - 1)
+                 end ;
+  best pool := None;
+|}.
+
 
 #[global] Instance HillClimbingUtility {A F Pool} `{SeedPool A F Pool} `{Scalar F} 
 : Utility := 
@@ -592,31 +653,6 @@ Proof.
   - exact (Some tt).
 Defined.
 
-Fixpoint runLoop (fuel : nat) (cprop : CProp ∅ Z): G (list (string * string)) :=
-  match fuel with
-  | O => ret []
-  | S fuel' => 
-  opt_seed <- justGen cprop tt;;
-  match pullValues cprop opt_seed with
-    | None => runLoop fuel' cprop
-    | Some seed =>
-      let res := runAndTest cprop tt seed in
-      let '(truth, feedback) := res in
-        match truth with
-        | Some false =>
-          (* Fails *)
-          let shrinkingResult := shrinkLoop 10 cprop seed in
-          let printingResult := print cprop tt shrinkingResult in
-          ret (("tests to failure", show (200000%nat - fuel)%nat) :: printingResult)
-        | Some true =>
-          (* Passes *)
-          runLoop fuel' cprop
-        | None => 
-          (* Discard *)
-          runLoop fuel' cprop
-        end
-      end
-  end.
 
 Record Result := {
  discards: nat;
@@ -632,12 +668,47 @@ Definition mkResult
   (counterexample: list (string * string))
   : Result := {| discards := discards; foundbug := foundbug; passed := passed; counterexample := counterexample |}.
 
-Instance showResult : Show Result :=
+#[global] Instance showResult : Show Result :=
   {| show r := """discards"": " ++ show (discards r) ++
                ", ""foundbug"": " ++ show (foundbug r) ++
                ", ""passed"": " ++ show (passed r) ++
                ", ""counterexample"": """ ++  showElemList (counterexample r) ++ """"
   |}.
+
+Definition runLoop (fuel : nat) (cprop : CProp ∅ Z): G Result :=  
+  let fix runLoop'
+    (fuel : nat) 
+    (cprop : CProp ∅ Z) 
+    (passed : nat)
+    (discards: nat)
+    : G Result :=
+    match fuel with
+    | O => ret (mkResult discards false passed [])
+    | S fuel' => 
+    opt_seed <- justGen cprop tt;;
+    match pullValues cprop opt_seed with
+      | None => runLoop' fuel' cprop passed (discards + 1)%nat
+      | Some seed =>
+        let res := runAndTest cprop tt seed in
+        let '(truth, feedback) := res in
+          match truth with
+          | Some false =>
+            (* Fails *)
+            let shrinkingResult := shrinkLoop 10 cprop seed in
+            let printingResult := print cprop tt shrinkingResult in
+            ret (mkResult discards true (passed + 1) printingResult)
+          | Some true =>
+            (* Passes *)
+            runLoop' fuel' cprop (passed + 1)%nat discards
+          | None => 
+            (* Discard *)
+            runLoop' fuel' cprop passed (discards + 1)%nat
+          end
+        end
+    end in
+    runLoop' fuel cprop 0%nat 0%nat
+    .
+
 
 Definition targetLoop
   (fuel : nat) 
@@ -867,6 +938,7 @@ Definition example5 :=
               (fun '(y, (x, tt)) => (test2 x y, (2000 - Z.of_nat(x - y) - Z.of_nat(y - x)))))).
     
 (* Sample1 (targetLoop 1000 example3 (StaticSingletonPool.(mkPool) tt)  HillClimbingUtility). *)
+(* Sample1 (runLoop 1000 example3). *)
 (* Sample1 (targetLoopLogged 1000 example5 (mkPool tt) StaticSingletonPool HillClimbingUtility nil). *)
 
 
