@@ -2,6 +2,7 @@
 Src/Impl.v
 Src/Spec.v
 Src/PropLang.v
+Src/Pool.v
 Strategies/BespokeGenerator.v
 Strategies/BespokeFuzzer.v
 Strategies/TypeBasedGenerator.v

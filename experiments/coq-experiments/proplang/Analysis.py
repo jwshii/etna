@@ -15,34 +15,34 @@ def analyze(results: str, images: str):
         times = partial(stacked_barchart_times, case=workload, df=df)
         times(
             strategies=[
-                'BespokeFuzzer',
-                'TypeBasedGenerator', 
+                # 'BespokeFuzzer',
+                # 'TypeBasedGenerator', 
                 'TypeBasedFuzzer', 
-                'SpecificationBasedGenerator',
-                'BespokeGenerator'
+                # 'SpecificationBasedGenerator',
+                # 'BespokeGenerator'
             ],
             colors=['#000000', '#900D0D', '#DC5F00', '#243763', '#FFD700'],
-            limits=[0.1, 1, 10, 60],
+            limits=[0.001, 0.01, 0.1, 1],
             limit_type='time',
             image_path=images,
             show=False,
         )
 
-    for workload in ['RBTProplang', 'STLCProplang']:
-        times = partial(stacked_barchart_times, case=workload, df=df)
-        times(
-            strategies=[
-                'TypeBasedGenerator', 
-                'TypeBasedFuzzer', 
-                'SpecificationBasedGenerator',
-                'BespokeGenerator'
-            ],
-            colors=['#000000', '#900D0D', '#DC5F00', '#243763', '#FFD700'],
-            limits=[0.1, 1, 10, 60],
-            limit_type='time',
-            image_path=images,
-            show=False,
-        )
+    # for workload in ['RBTProplang', 'STLCProplang']:
+    #     times = partial(stacked_barchart_times, case=workload, df=df)
+    #     times(
+    #         strategies=[
+    #             'TypeBasedGenerator', 
+    #             'TypeBasedFuzzer', 
+    #             'SpecificationBasedGenerator',
+    #             'BespokeGenerator'
+    #         ],
+    #         colors=['#000000', '#900D0D', '#DC5F00', '#243763', '#FFD700'],
+    #         limits=[0.1, 1, 10, 60],
+    #         limit_type='time',
+    #         image_path=images,
+    #         show=False,
+    #     )
 
 
 if __name__ == "__main__":
