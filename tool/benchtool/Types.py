@@ -2,11 +2,9 @@ from __future__ import annotations
 
 import dataclasses
 import json
-import os
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from enum import IntEnum
-
 
 FilePath = str
 
@@ -108,25 +106,6 @@ class Modified(Variant):
 
     def append_mutant(self, path: str, ms: Mutants) -> list[Variant]:
         return [self.append_base(path, ms.base)]
-
-@dataclass
-class Variable:
-    '''
-    A variable with several possible values.
-    '''
-    name: str
-    folder: str
-    recursive: bool
-    files: list[str]
-    variants: list[str]
-    current : int = 0
-
-    def next(self) -> Variable:
-        if self.current == len(self.variants) - 1:
-            return None
-        
-        self.current += 1
-        return self
 
 
 @dataclass
