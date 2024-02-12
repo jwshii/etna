@@ -1,4 +1,7 @@
 import argparse
+import glob
+import itertools
+import json
 import os
 from re import I
 import shutil as sh
@@ -11,7 +14,7 @@ from typing import Callable, Optional
 from numpy import var
 
 from benchtool.Mutant import Parser
-from benchtool.Types import (Config, Entry, LogLevel, ReplaceLevel, TrialArgs, TrialConfig, Variant)
+from benchtool.Types import (Config, Entry, LogLevel, ReplaceLevel, TrialArgs, TrialConfig, Variant, Variable)
 from benchtool.Util import ChangeDir, print_log, scandir_filter, recursive_scandir_filter
 
 
@@ -88,6 +91,79 @@ class BenchTool(ABC):
 
         self.__variant = variant
 
+        return self.__trial
+
+    def all_variables(self, workload: Entry) -> list[Variable]:
+        """
+        Assumes that all variables are in `variables.json` file.
+
+        :return: List of variables in `workload`.
+        """
+
+        variables_path = os.path.join(workload.path, "variables.json")
+
+        if not os.path.isfile(variables_path):
+            return []
+
+        with open(variables_path, "r") as f:
+            variables = json.load(f)
+            print(variables)
+            variables = list(
+                map(
+                    lambda x: Variable(
+                        name=x["name"],
+                        folder=x["folder"],
+                        recursive=x["recursive"],
+                        files=x["files"],
+                        variants=x["variants"],
+                    ),
+                    variables,
+                )
+            )
+
+        return variables
+    
+    def all_variable_mixtures(self, variables: list[Variable]) -> list[list[tuple[Variable, int]]]:
+        """
+        Given a list of variables, returns all possible combinations of their variants.
+        """
+        if len(variables) == 0:
+            return []
+        if len(variables) == 1:
+            return [[(variables[0], i)] for i in range(len(variables[0].variants))]
+        else:
+            singulars = [self.all_variable_mixtures([variables[i]]) for i in range(len(variables))]
+            mixtures = itertools.product(*singulars)
+            return list(mixtures)
+
+    def update_variable(
+        self, workload: Entry, variable: Variable, version: int
+    ) -> Callable[[TrialConfig], None]:
+        """
+        Overwrites `config.impl` file for `workload` with contents
+        of the provided `variant`.
+
+        :return: A function that can be used to run a trial.
+        """
+
+        old = variable.variants[variable.current]
+        new = variable.variants[version]
+
+        with self._change_dir(os.path.join(self.__temp , workload.path , variable.folder)):
+            self._log(f"Updating variable {variable.name}", LogLevel.DEBUG)
+            for pattern in variable.files:
+                files = glob.glob(pattern, recursive=variable.recursive)
+                for file in files:
+                    with open(file, "r") as f:
+                        data = f.read()
+                        data = data.replace(old, new)
+                    with open(file, "w") as f:
+                        f.write(data)
+
+            self._log(
+                f"Switched Variable({variable.name}) from {old} to {new}", LogLevel.INFO
+            )
+        variable.current = version
         return self.__trial
 
     def all_strategies(self, workload: Entry) -> list[Entry]:

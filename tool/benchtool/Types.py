@@ -109,6 +109,24 @@ class Modified(Variant):
 
 
 @dataclass
+class Variable:
+    '''
+    A variable with several possible values.
+    '''
+    name: str
+    folder: str
+    recursive: bool
+    files: list[str]
+    variants: list[str]
+    current : int = 0
+
+    def next(self) -> Variable:
+        if self.current == len(self.variants) - 1:
+            return None
+        
+        self.current += 1
+        return self
+@dataclass
 class Entry:
     '''
     A simpler version of `os.DirEntry` that stores
