@@ -156,7 +156,16 @@ class BenchTool(ABC):
                 for file in files:
                     with open(file, "r") as f:
                         data = f.read()
-                        data = data.replace(old, new)
+                        if data.count(old) == 0:
+                            self._log(
+                                f"Variable({variable.name}) {old} not found in {file}",
+                                LogLevel.ERROR,
+                            )
+                            raise Exception(
+                                f"Variable({variable.name}) {old} not found in {file}"
+                            )
+                        else:
+                            data = data.replace(old, new)
                     with open(file, "w") as f:
                         f.write(data)
 

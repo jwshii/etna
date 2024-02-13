@@ -55,11 +55,11 @@ Fixpoint mutate_bst_ (t : Tree) (lo hi: nat) : G Tree :=
 	(4, l' <- mutate_bst_ l lo (k - 1);; ret (T l' k v r));
 	(4, r' <- mutate_bst_ r (k + 1) hi;; ret (T l k v r'));
     (2, 
-		let s := length (toList l) in
+		let s := size l in
 		l' <- gen_bst s lo (k - 1);;
 		ret (T l' k v r));
 	(2, 
-		let s := length (toList r) in
+		let s := size r in
 		r' <- gen_bst s (k + 1) hi;;
 		ret (T l k v r'));
 	(1, v' <- arbitrary;;

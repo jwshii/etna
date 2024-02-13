@@ -10,7 +10,7 @@ def collect(results: str):
     tool = Coq(results=results, replace_level=ReplaceLevel.REPLACE, log_level=LogLevel.DEBUG)
 
     for workload in tool.all_workloads():
-        if workload.name not in ['BSTProplang']:
+        if not workload.name.endswith('Proplang'):
             continue
 
         tool._preprocess(workload)
@@ -23,7 +23,7 @@ def collect(results: str):
             for variable, version  in mixture:
                 print(f"Applying Variable {variable}::{version}")
                 tool.update_variable(workload, variable, version)
-        
+
             for variant in tool.all_variants(workload):
 
                 if variant.name == 'base':
@@ -32,9 +32,7 @@ def collect(results: str):
                 run_trial = None
 
                 for strategy in tool.all_strategies(workload):
-                    if strategy.name not in [
-                            'BespokeFuzzer',
-                    ]:
+                    if not strategy.name.endswith('Fuzzer'):
                         continue
 
                     for property in tool.all_properties(workload):
