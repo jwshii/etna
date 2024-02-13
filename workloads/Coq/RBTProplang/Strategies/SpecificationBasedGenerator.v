@@ -10,7 +10,8 @@ Import MonadNotation.
 From Coq Require Import List.
 Import ListNotations.
 
-From RBTProplang Require Import Impl Spec PropLang.
+From RBTProplang Require Import Impl Spec.
+From PropLang Require Import PropLang.
 
 Local Open Scope prop_scope.
 Open Scope Z_scope.

@@ -5,7 +5,8 @@ From ExtLib Require Import Monad.
 From ExtLib.Data.Monads Require Import OptionMonad.
 Import MonadNotation.
 
-From STLCProplang Require Import PropLang Impl Spec.
+From PropLang Require Import PropLang.
+From STLCProplang Require Import Impl Spec.
 Local Open Scope prop_scope.
 
 

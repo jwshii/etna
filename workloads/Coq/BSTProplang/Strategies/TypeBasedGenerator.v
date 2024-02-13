@@ -8,7 +8,7 @@ Import MonadNotation.
 
 From BSTProplang Require Import Impl.
 From BSTProplang Require Import Spec.
-From BSTProplang Require Import PropLang.
+From PropLang Require Import PropLang.
 
 Local Open Scope nat.
 Local Open Scope prop_scope.

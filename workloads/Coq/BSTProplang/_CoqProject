@@ -1,7 +1,8 @@
 -Q . BSTProplang
+-R ../Lib PropLang
 Src/Impl.v
 Src/Spec.v
-Src/PropLang.v
+../Lib/PropLang.v
 Strategies/BespokeGenerator.v
 Strategies/BespokeFuzzer.v
 Strategies/TypeBasedGenerator.v
