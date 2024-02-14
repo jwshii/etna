@@ -27,7 +27,7 @@ class Coq(BenchTool):
                 end="*)",
                 ext=".v",
                 path="workloads/Coq",
-                ignore="common",
+                ignore="Lib",
                 strategies=STRATEGIES_DIR,
                 impl_path=IMPL_DIR,
                 spec_path=SPEC_PATH,
@@ -46,6 +46,15 @@ class Coq(BenchTool):
             return list(dict.fromkeys(matches))
 
     def _build(self, workload_path: str):
+        # First build common
+        common = self.common()
+        self._log(f"Building common: {common.name}", LogLevel.INFO)
+        with self._change_dir(common.path):
+            self._shell_command(["coq_makefile", "-f", "_CoqProject", "-o", "Makefile"])
+            self._shell_command(["make"])
+            self._shell_command(["make", "install"])
+        self._log(f"Built common: {common.name}", LogLevel.DEBUG)
+
         strategies = self._get_generator_names(workload_path)
         strategy_build_commands = map(
             lambda strategy: self._get_strategy_build_command(strategy), strategies
@@ -55,7 +64,6 @@ class Coq(BenchTool):
             lambda fuzzer: self._get_fuzzer_build_command(fuzzer), fuzzers
         )
         with self._change_dir(workload_path):
-            print(f"{os.getcwd()}")
             self._shell_command(["coq_makefile", "-f", "_CoqProject", "-o", "Makefile"])
             self._shell_command(["make", "clean"])
             self._shell_command(["make"])

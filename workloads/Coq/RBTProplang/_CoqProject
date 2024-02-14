@@ -1,8 +1,6 @@
 -Q . RBTProplang
--R ../Lib PropLang
 Src/Impl.v
 Src/Spec.v
-../Lib/PropLang.v
 Strategies/BespokeGenerator.v
 Strategies/TypeBasedGenerator.v
 Strategies/TypeBasedFuzzer.v

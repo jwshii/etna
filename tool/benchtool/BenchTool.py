@@ -151,8 +151,17 @@ class BenchTool(ABC):
 
         with self._change_dir(os.path.join(self.__temp , workload.path , variable.folder)):
             self._log(f"Updating variable {variable.name}", LogLevel.DEBUG)
+            
             for pattern in variable.files:
                 files = glob.glob(pattern, recursive=variable.recursive)
+                if len(files) == 0:
+                    self._log(
+                        f"No files found for pattern {pattern}",
+                        LogLevel.ERROR,
+                    )
+                    raise Exception(
+                        f"No files found for pattern {pattern}",
+                    )
                 for file in files:
                     with open(file, "r") as f:
                         data = f.read()
@@ -172,6 +181,7 @@ class BenchTool(ABC):
             self._log(
                 f"Switched Variable({variable.name}) from {old} to {new}", LogLevel.INFO
             )
+
         variable.current = version
         return self.__trial
 
@@ -302,3 +312,10 @@ class BenchTool(ABC):
         Takes a workload and does the required preprocessing.
         '''
         pass
+
+    def common(self) -> Entry:
+        '''
+        Returns the common library entry.
+        '''
+        return Entry(self._config.ignore, os.path.join(self.__temp, self._config.path, self._config.ignore))
+        

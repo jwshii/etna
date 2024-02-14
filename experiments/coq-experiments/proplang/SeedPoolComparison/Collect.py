@@ -1,6 +1,5 @@
-import argparse
-import json
 import os
+import pathlib
 
 from benchtool.Coq import Coq
 from benchtool.Types import TrialConfig, ReplaceLevel, LogLevel
@@ -15,7 +14,7 @@ def collect(results: str):
 
         tool._preprocess(workload)
 
-        variables = tool.all_variables(workload)
+        variables = list(filter(lambda v: v.name == "SeedPool", tool.all_variables(workload)))
         mixtures = tool.all_variable_mixtures(variables)
 
         for mixture in mixtures:
@@ -70,4 +69,6 @@ def collect(results: str):
 
 
 if __name__ == '__main__':
-    collect('results')
+    
+    filepath = pathlib.Path(__file__).resolve().parent
+    collect(pathlib.Path(filepath, 'results'))

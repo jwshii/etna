@@ -13,18 +13,18 @@ def collect(results: str):
     variables = list(filter(lambda v: v.name == "Energy-v1", tool.all_variables(common)))
     mixtures = tool.all_variable_mixtures(variables)
 
-    for workload in tool.all_workloads():
-        if not workload.name.endswith('Proplang'):
-            continue
+    for mixture in mixtures:
+        print("Mixture")
+        for variable, version  in mixture:
+            print(f"Applying Variable {variable}::{version}")
+            tool.update_variable(common, variable, version)
 
-        tool._preprocess(workload)
+        for workload in tool.all_workloads():
+            if not workload.name.endswith('Proplang'):
+                continue
 
+            tool._preprocess(workload)
 
-        for mixture in mixtures:
-            print("Mixture")
-            for variable, version  in mixture:
-                print(f"Applying Variable {variable}::{version}")
-                tool.update_variable(common, variable, version)
 
             for variant in tool.all_variants(workload):
 
@@ -65,8 +65,8 @@ def collect(results: str):
                                             strategy=strategy.name,
                                             property=property,
                                             file=file,
-                                            trials=10,
-                                            timeout=60,
+                                            trials=30,
+                                            timeout=10,
                                             short_circuit=True)
                         run_trial(cfg)
 

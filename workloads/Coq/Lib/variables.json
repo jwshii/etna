@@ -1,0 +1,32 @@
+[
+    {
+        "name": "Energy-v1",
+        "folder": ".",
+        "recursive": false,
+        "files": [
+            "PropLang.v"
+        ],
+        "variants": [
+            "LeftistHeap.insert (mkSeed a f 1) pool",
+            "LeftistHeap.insert (mkSeed a f 10) pool",
+            "LeftistHeap.insert (mkSeed a f 100) pool",
+            "LeftistHeap.insert (mkSeed a f 1000) pool"
+        ]
+    },
+    {
+        "name": "Energy-v2",
+        "folder": ".",
+        "recursive": false,
+        "files": [
+            "PropLang.v"
+        ],
+        "variants": [
+            "LeftistHeap.insert (mkSeed a f 1) pool",
+            "LeftistHeap.insert (mkSeed a f 10) pool",
+            "LeftistHeap.insert (mkSeed a f 100) pool",
+            "LeftistHeap.insert (mkSeed a f 1000) pool",
+            "LeftistHeap.insert (mkSeed a f 10000) pool",
+            "LeftistHeap.insert (mkSeed a f 100000) pool"
+        ]
+    }
+]

@@ -65,6 +65,8 @@ def stacked_barchart_times(
         '1': '10',
         '2': '100',
         '3': '1000',
+        '4': '10000',
+        '5': '100000',
     }
 
     df['version'] = df['version'].apply(lambda x: vmap[x])
@@ -204,7 +206,7 @@ def analyze(results: str, images: str):
                 'BespokeFuzzer'
             ],
             # colors=['#000000', '#900D0D', '#DC5F00', '#243763', '#FFD700'],
-            limits=[0.1, 1, 10, 60],
+            limits=[0.001, 0.01, 0.1, 1, 5],
             limit_type='time',
             image_path=images,
             show=False,
@@ -217,7 +219,7 @@ def analyze(results: str, images: str):
                 'TypeBasedFuzzer',
             ],
             colors=['#000000', '#900D0D', '#DC5F00', '#243763', '#FFD700'],
-            limits=[0.1, 1, 10, 60],
+            limits=[0.001, 0.01, 0.1, 1, 5],
             limit_type='time',
             image_path=images,
             show=False,
