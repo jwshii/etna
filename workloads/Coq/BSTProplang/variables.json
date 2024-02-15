@@ -13,5 +13,18 @@
             "(DynamicResettingSingletonPool.(mkPool) tt)",
             "(QueueSeedPool.(mkPool) tt)"
         ]
+    },
+    {
+        "name": "PropLangVersion",
+        "folder": "Strategies",
+        "recursive": false,
+        "files": [
+            "Bespoke*.v",
+            "TypeBased*.v"
+        ],
+        "variants": [
+            "From PropLang Require Import PropLang.",
+            "From PropLang Require Import MiniPropLang."
+        ]
     }
 ]

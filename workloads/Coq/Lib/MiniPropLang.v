@@ -874,10 +874,10 @@ Extraction "bench.ml" qctest_bench_qc qctest_bench_prl qctest_bench_transformed.
 (* Sample1 (targetLoopLogged 1000 example3 (mkPool tt) StaticSingletonPool HillClimbingUtility nil). *)
 (* Sample1 (targetLoopLogged 1000 example3 (mkPool tt) DynamicResettingSingletonPool HillClimbingUtility nil). *)
 (* Sample1 (targetLoopLogged 1000 example3 (mkPool tt) DynamicMonotonicSingletonPool HillClimbingUtility nil). *)
-Definition test_prop_UnionUnionAssoc_runner := (targetLoopLogged 1000 example4 (mkPool tt) DynamicResettingSingletonPool HillClimbingUtility nil).
+(* Definition test_prop_UnionUnionAssoc_runner := (targetLoopLogged 1000 example4 (mkPool tt) DynamicResettingSingletonPool HillClimbingUtility nil).
 Definition qctest_test_prop_InsertValid := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (sample1 test_prop_UnionUnionAssoc_runner))) ++ "}|]")).
 
-Extraction "bench.ml" qctest_test_prop_InsertValid.
+Extraction "bench.ml" qctest_test_prop_InsertValid. *)
 
 
 

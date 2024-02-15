@@ -42,8 +42,12 @@ Inductive CProp : Ctx -> Type -> Type :=
       (shrinker  : ⟦C⟧ -> A -> list A)
       (printer   : ⟦C⟧ -> A -> string),
       CProp (A · C) F -> CProp C F
-  | Predicate : forall C F,
-      (⟦C⟧ -> option bool * F) -> CProp C F.
+| Implies : forall C F
+      (name: string)
+      (prop : ⟦C⟧ -> bool),
+      CProp C F -> CProp C F 
+| Check : forall C F,
+      (⟦C⟧ -> bool * F) -> CProp C F.
 
 Fixpoint inputTypes {C : Ctx} {F : Type}
          (cprop : CProp C F) : Ctx :=
@@ -52,7 +56,8 @@ Fixpoint inputTypes {C : Ctx} {F : Type}
       A · (inputTypes cprop')
   | ForAllMaybe A C _ _ _ _ _ _ cprop' =>
       A · (inputTypes cprop')
-  | Predicate _ _ _ => ∅
+  | Implies _ _ _ _ cprop' => (inputTypes cprop')
+  | Check _ _ _ => ∅
   end.
 
 Fixpoint inputTypesMaybe {C : Ctx} {F : Type}
@@ -62,7 +67,8 @@ Fixpoint inputTypesMaybe {C : Ctx} {F : Type}
       (option A) · (inputTypesMaybe cprop')
   | ForAllMaybe A C _ _ _ _ _ _ cprop' =>
       (option A) · (inputTypesMaybe cprop')
-  | Predicate _ _ _ => ∅
+  | Implies _ _ _ _ cprop' => (inputTypesMaybe cprop')
+  | Check _ _ _ => ∅
   end.
 
 Notation "'⦗' c '⦘'" := (@inputTypes _ _ c).
@@ -75,7 +81,8 @@ Fixpoint noneTypes {C : Ctx} {F : Type}
       (None, noneTypes cprop')
   | ForAllMaybe A C _ _ _ _ _ _ cprop' =>
       (None, noneTypes cprop')
-  | Predicate _ _ _ => tt
+  | Implies _ _ _ _ cprop' => noneTypes cprop'
+  | Check _ _ _ => tt
   end.
 
 Definition typeHead {C : Ctx} {F : Type}
@@ -83,7 +90,8 @@ Definition typeHead {C : Ctx} {F : Type}
   match cprop with
   | ForAll A C _ _ _ _ _ _ cprop' => A
   | ForAllMaybe A C _ _ _ _ _ _ cprop' => A
-  | Predicate _ _ _ => unit
+  | Implies _ _ _ _ cprop' => unit
+  | Check _ _ _ => unit
   end.
 
 
@@ -91,19 +99,18 @@ Definition arb : G nat := choose (0,10).
 Definition gen (n : nat) : G nat := choose (0, n).
 Definition mut (k n : nat) : G nat :=
   choose (n - k, n + k).
-Definition test (x y : nat) : option bool :=
-  Some (Nat.ltb y x).
+Definition test (x y : nat) : bool := Nat.ltb y x.
 
 Local Open Scope string.
 
 Definition example :=
   @ForAll _ ∅ _ "x" (fun tt => arb) (fun tt n => mut n) (fun tt n => shrink n) (fun tt n => show n) (
   @ForAll _ (nat · ∅) _ "y" (fun '(x, tt) => gen x) (fun tt n => mut n) (fun tt n => shrink n) (fun tt n => show n) (
-  @Predicate (nat · (nat · ∅)) unit
+  @Check (nat · (nat · ∅)) unit
              (fun '(y, (x, tt)) => (test x y, tt)))).
 
 Inductive RunResult {C: Ctx} {F: Type} (cprop : CProp C F) :=
-| Normal : ⟦⦗cprop⦘⟧ -> option bool -> F -> RunResult cprop
+| Normal : ⟦⦗cprop⦘⟧ -> bool -> F -> RunResult cprop
 | Discard : ⟦⟬cprop⟭⟧ -> RunResult cprop
 .
 Arguments Normal {C} {F} {cprop}.
@@ -114,6 +121,7 @@ Fixpoint genAndRun {C : Ctx} {F : Type}
   : ⟦C⟧ -> G (RunResult cprop).
   destruct cprop as [? ? ? ? gen mut shr pri cprop'
                     |? ? ? ? gen mut shr pri cprop'
+                    |? ? name prop cprop'
                     |? ? prop].
   - intros env.
     refine (bindGen (gen env) (fun a => _)).
@@ -144,7 +152,20 @@ Fixpoint genAndRun {C : Ctx} {F : Type}
       refine (noneTypes cprop').
   - intros env.
     destruct (prop env).
-    refine (ret (Normal _ o f)).
+    * refine (bindGen (@genAndRun C F cprop' env) (fun res => _)).
+      destruct res as [env' truth feedback | env' feedback].
+      + refine (ret (Normal _ truth feedback)).
+        simpl in *.
+        refine env'.
+      + refine (ret (Discard _)).
+        simpl in *.
+        refine env'.
+    * refine (ret (Discard _)).
+      simpl in *.
+      refine (noneTypes cprop').
+  - intros env.
+    destruct (prop env).
+    refine (ret (Normal _ b f)).
     simpl in *.
     refine tt.
 Defined.
@@ -197,8 +218,9 @@ Fixpoint justGen {C : Ctx} {F : Type}
                     ret (Some a,env)
         | None => ret (None, noneTypes cprop')
         end
-  
-  | Predicate C F prop =>
+  | Implies _ _ _ _ cprop' =>
+      fun env => justGen cprop' env
+  | Check C F prop =>
       fun env => ret tt
   end.
 
@@ -208,6 +230,7 @@ Fixpoint mutAll {C : Ctx} {F : Type}
   Proof.
   destruct cprop as [? ? ? ? gen mut shr pri cprop'
                     |? ? ? ? gen mut shr pri cprop'
+                    | ? ? name prop cprop'
                     |? ? prop].
   - intros env (x,xs).
     simpl in *.
@@ -221,6 +244,10 @@ Fixpoint mutAll {C : Ctx} {F : Type}
     * refine(bindGen (@mutAll (A · C) F cprop' t (x', env) xs) (fun xs' => _)).
       refine (ret (Some x', xs')).
     * refine (ret (None, noneTypes _)).
+  - intros env xs.
+    simpl in *.
+    refine(bindGen (@mutAll C F cprop' t env xs) (fun xs' => _)).
+    refine (ret xs').
   - intros env _.
     refine (ret tt).
 Defined.  
@@ -231,6 +258,7 @@ Fixpoint mutSome {C : Ctx} {F : Type}
 Proof.
   destruct cprop as [? ? ? ? gen mut shr pri cprop'
                     |? ? ? ? gen mut shr pri cprop'
+                    |? ? name prop cprop'
                     |? ? prop].
 
   - intros env (x,xs).
@@ -246,6 +274,10 @@ Proof.
     * refine(bindGen (@mutSome (A · C) F cprop' t (x', env) xs) (fun xs' => _)).
       refine (ret (Some x', xs')).
     * refine (ret (None, noneTypes _)).
+  - intros env xs.
+    simpl in *.
+    refine(bindGen (@mutSome C F cprop' t env xs) (fun xs' => _)).
+    refine (ret xs').
   - intros env _.
     refine (ret tt).
 Defined.
@@ -256,11 +288,14 @@ Fixpoint print {C : Ctx} {F} (cprop : CProp C F)
 Proof.
   destruct cprop as [? ? ? ? gen mut shr pri cprop'
                     |? ? ? ? gen mut shr pri cprop'
+                    |? ? name prop cprop'
                     |? ? prop].
   - intros env (a,inps').
     refine ((name, pri env a) :: (print (A · C) F cprop' (a, env) inps')).
   - intros env (a,inps').
     refine ((name, pri env a) :: (print (A · C) F cprop' (a, env) inps')).
+  - intros env inps'.
+    refine (print C F cprop' env inps').
   - intros env _.
     refine nil.
 Defined. 
@@ -282,6 +317,7 @@ Fixpoint print_opt {C : Ctx} {F} (cprop : CProp C F)
 Proof.
   destruct cprop as [? ? ? ? gen mut shr pri cprop'
                     |? ? ? ? gen mut shr pri cprop'
+                    |? ? name prop cprop'
                     |? ? prop].
   - intros env (a,inps'). 
     refine ((name, pri_opt (pri env) a) :: _).
@@ -295,6 +331,8 @@ Proof.
             | Some a => print_opt (A · C) F cprop' (a, env) inps'
             | None => nil
             end).
+  - intros env inps'.
+    refine (print_opt C F cprop' env inps').
   - intros env _.
     refine nil.
 Defined. 
@@ -701,7 +739,7 @@ Fixpoint runAndTest {C:Ctx} {F : Type} (cprop : CProp C F)
          (cenv : ⟦C⟧)
          (fenv :  ⟦⦗cprop⦘⟧)
          {struct cprop}
-  : option bool * F.
+  : option (bool * F).
 Proof.
   induction cprop; simpl in *.
   - destruct fenv as [a fenv'] eqn:H.
@@ -712,7 +750,12 @@ Proof.
     apply IHcprop.
     + exact (a, cenv).
     + exact fenv'.
-  - exact (p cenv).
+  - destruct (prop cenv) eqn:E.
+    + apply IHcprop.
+      * exact cenv.
+      * exact fenv.
+    + exact None.
+  - exact (Some (p cenv)).
 Defined.
 
 
@@ -733,7 +776,7 @@ Proof.
       * exact (Some (a, i)).
       * exact None.
     (* More shrinks - run the property on the shrunk possibility. *)
-    + destruct (runAndTest cprop (a0,cenv) fenv') eqn:T. destruct o.
+    + destruct (runAndTest cprop (a0,cenv) fenv') eqn:T.  destruct p.
       * destruct b.
         (* Test succeeded - recurse down the list. *)
         -- apply IHl.
@@ -749,7 +792,7 @@ Proof.
     * exact (Some (a, i)).
     * exact None.
   (* More shrinks - run the property on the shrunk possibility. *)
-  + destruct (runAndTest cprop (a0,cenv) fenv') eqn:T. destruct o.
+  + destruct (runAndTest cprop (a0,cenv) fenv') eqn:T. destruct p.
     * destruct b.
       (* Test succeeded - recurse down the list. *)
       -- apply IHl.
@@ -757,6 +800,13 @@ Proof.
       -- exact (Some (a0, fenv')).     
     * (* Test discarded - recurse down the list. *)
       apply IHl.
+  -  destruct (runAndTest cprop cenv fenv) eqn:T. destruct p.
+    * destruct b.
+      -- apply IHcprop.
+        ++ exact cenv.
+        ++ exact fenv.
+      -- exact None.
+    * exact None.
   - exact None.
 Defined.
 
@@ -796,6 +846,12 @@ Proof.
       | Some a, Some values' => Some (a, values')
       | _, _ => None
       end).
+  - apply IHcprop in opt_values.
+    refine(
+      match opt_values with
+      | Some values => Some values
+      | _ => None
+      end). 
   - exact (Some tt).
 Defined.
 
@@ -836,21 +892,23 @@ Definition runLoop (fuel : nat) (cprop : CProp ∅ Z): G Result :=
       | None => runLoop' fuel' cprop passed (discards + 1)%nat
       | Some seed =>
         let res := runAndTest cprop tt seed in
-        let '(truth, feedback) := res in
+        match res with
+        | Some((truth, feedback)) =>
           match truth with
-          | Some false =>
+          | false =>
             (* Fails *)
             let shrinkingResult := shrinkLoop 10 cprop seed in
             let printingResult := print cprop tt shrinkingResult in
             ret (mkResult discards true (passed + 1) printingResult)
-          | Some true =>
+          | true =>
             (* Passes *)
             runLoop' fuel' cprop (passed + 1)%nat discards
-          | None => 
-            (* Discard *)
-            runLoop' fuel' cprop passed (discards + 1)%nat
           end
+        | None => 
+          (* Discard *)
+          runLoop' fuel' cprop passed (discards + 1)%nat
         end
+      end
     end in
     runLoop' fuel cprop 0%nat 0%nat
     .
@@ -882,14 +940,15 @@ Definition targetLoop
             | None => targetLoop' fuel' passed (discards + 1)%nat cprop seeds poolType utility
             | Some seed =>
               let res := runAndTest cprop tt seed in
-              let '(truth, feedback) := res in
+              match res with
+              | Some(truth, feedback) =>
               match truth with
-              | Some false =>
+              | false =>
                   (* Fails *)
                   let shrinkingResult := shrinkLoop 10 cprop seed in
                   let printingResult := print cprop tt shrinkingResult in
                   ret (mkResult discards true (passed + 1) printingResult)
-              | Some true =>
+              | true =>
                   (* Passes *)
                   match useful seeds feedback with
                   | true =>
@@ -902,6 +961,7 @@ Definition targetLoop
                                     end in
                       targetLoop' fuel' (passed + 1)%nat discards cprop seeds' poolType utility
                   end
+              end
               | None => 
                   (* Discard *)
                   targetLoop' fuel' passed (discards + 1)%nat cprop seeds poolType utility
@@ -910,20 +970,20 @@ Definition targetLoop
         end in
         targetLoop' fuel 0%nat 0%nat cprop seeds poolType utility.
 
-Definition test2 (x y : nat) : option bool :=
-  Some (negb (Nat.eqb y  x)).
+Definition test2 (x y : nat) : bool :=
+  (negb (Nat.eqb y  x)).
 
 
 Definition example2 :=
   @ForAll _ ∅ _ "x" (fun tt => arb) (fun tt n => mut n) (fun tt n => shrink n) (fun tt n => show n) (
   @ForAll _ (nat · ∅) _ "y" (fun '(x, tt) => gen x) (fun tt n => mut n) (fun tt n => shrink n) (fun tt n => show n) (
-  @Predicate (nat · (nat · ∅)) Z
+  @Check (nat · (nat · ∅)) Z
               (fun '(y, (x, tt)) => (test2 x y, 0)))).
 
 Definition example3 :=
   @ForAll _ ∅ _ "x" (fun tt => arb) (fun tt n => mut n) (fun tt n => shrink n) (fun tt n => show n) (
   @ForAll _ (nat · ∅) _ "y" (fun '(x, tt) => gen x) (fun tt n => mut n) (fun tt n => shrink n) (fun tt n => show n) (
-  @Predicate (nat · (nat · ∅)) Z
+  @Check (nat · (nat · ∅)) Z
               (fun '(y, (x, tt)) => (test2 x y, (2000 - Z.of_nat(x - y) - Z.of_nat(y - x)))))).
     
 Definition example3' :=
@@ -931,13 +991,14 @@ Definition example3' :=
   forAll (gen x) (fun (y: nat)  =>
   test2 x y)).
 
+  Axiom withInstrumentation' : (unit -> bool) -> (bool * (bool * nat)).
 
 Definition example4 :=
   @ForAll _ ∅ _ "x" (fun tt => arb) (fun tt n => mut n) (fun tt n => shrink n) (fun tt n => show n) (
   @ForAll _ (nat · ∅) _ "y" (fun '(x, tt) => gen x) (fun tt n => mut n) (fun tt n => shrink n) (fun tt n => show n) (
-  @Predicate (nat · (nat · ∅)) Z
+  @Check (nat · (nat · ∅)) Z
             (fun '(y, (x, tt)) => 
-              let '(res, feedback) := withInstrumentation (fun _ => test2 x y) in
+              let '(res, feedback) := withInstrumentation' (fun _ => test2 x y) in
               (res, Z.of_nat(snd feedback)))
             )).
             
@@ -1054,10 +1115,10 @@ Extraction "bench.ml" qctest_bench_qc qctest_bench_prl qctest_bench_transformed.
 (* Sample1 (targetLoopLogged 1000 example3 (mkPool tt) StaticSingletonPool HillClimbingUtility nil). *)
 (* Sample1 (targetLoopLogged 1000 example3 (mkPool tt) DynamicResettingSingletonPool HillClimbingUtility nil). *)
 (* Sample1 (targetLoopLogged 1000 example3 (mkPool tt) DynamicMonotonicSingletonPool HillClimbingUtility nil). *)
-Definition test_prop_UnionUnionAssoc_runner := (targetLoopLogged 1000 example4 (mkPool tt) DynamicResettingSingletonPool HillClimbingUtility nil).
+(* Definition test_prop_UnionUnionAssoc_runner := (targetLoopLogged 1000 example4 (mkPool tt) DynamicResettingSingletonPool HillClimbingUtility nil).
 Definition qctest_test_prop_InsertValid := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (sample1 test_prop_UnionUnionAssoc_runner))) ++ "}|]")).
 
-Extraction "bench.ml" qctest_test_prop_InsertValid.
+Extraction "bench.ml" qctest_test_prop_InsertValid. *)
 
 
 

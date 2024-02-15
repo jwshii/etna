@@ -61,10 +61,8 @@ def stacked_barchart_times(
         strategies = df.strategy.unique()
 
     vmap = {
-        '0': '1',
-        '1': '10',
-        '2': '100',
-        '3': '1000',
+        '0': 'PropLang',
+        '1': 'MiniPropLang',
     }
 
     df['version'] = df['version'].apply(lambda x: vmap[x])
@@ -204,8 +202,23 @@ def analyze(results: str, images: str):
                 'BespokeFuzzer'
             ],
             # colors=['#000000', '#900D0D', '#DC5F00', '#243763', '#FFD700'],
-            limits=[0.1, 1, 10, 60],
+            limits=[0.001, 0.01, 0.1, 1],
             limit_type='time',
+            image_path=images,
+            show=False,
+        )
+
+
+    for workload in ['BSTProplang']:
+        times = partial(stacked_barchart_times, case=workload, df=df)
+        times(
+            strategies=[
+                'TypeBasedFuzzer',
+                'BespokeFuzzer'
+            ],
+            # colors=['#000000', '#900D0D', '#DC5F00', '#243763', '#FFD700'],
+            limits=[3, 10, 100, 1000],
+            limit_type='inputs',
             image_path=images,
             show=False,
         )

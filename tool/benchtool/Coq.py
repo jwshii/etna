@@ -46,7 +46,13 @@ class Coq(BenchTool):
             return list(dict.fromkeys(matches))
 
     def _build(self, workload_path: str):
-        # First build common
+        coq_path = os.path.join(os.getcwd(), "workloads", "Coq")
+        print(f"Building {coq_path}")
+        # Cleanup, delete all o, cmi, cmo, cmx, vo, vos, vok, glob, ml, mli, native, out, conf, aux
+        for extension in ["o", "cmi", "cmo", "cmx", "vo", "vos", "vok", "glob", "ml", "mli", "native", "out", "conf", "aux"]:
+            self._shell_command(["find", coq_path, "-type", "f", "-name", f"*.{extension}", "-delete"])
+
+        # Build common
         common = self.common()
         self._log(f"Building common: {common.name}", LogLevel.INFO)
         with self._change_dir(common.path):
@@ -137,12 +143,21 @@ class Coq(BenchTool):
                         result = stdout_data[start + 2 : end]
                         self._log(f"{params.strategy} Result: {result}", LogLevel.INFO)
                         json_result = json.loads(result)
-                        trial_result["foundbug"] = json_result["foundbug"] if "foundbug" in json_result else json_result["result"] in [
-                            "failed",
-                            "expected_failure",
-                        ]
+                        trial_result["foundbug"] = (
+                            json_result["foundbug"]
+                            if "foundbug" in json_result
+                            else json_result["result"]
+                            in [
+                                "failed",
+                                "expected_failure",
+                            ]
+                        )
                         trial_result["discards"] = json_result["discards"]
-                        trial_result["passed"] = json_result["passed"] if "passed" in json_result else json_result["tests"]
+                        trial_result["passed"] = (
+                            json_result["passed"]
+                            if "passed" in json_result
+                            else json_result["tests"]
+                        )
                         trial_result["time"] = (
                             float(json_result["time"][:-2]) * 0.001
                         )  # ms as string to seconds as float conversion
@@ -226,12 +241,21 @@ class Coq(BenchTool):
                     result = stdout_data[start + 2 : end]
                     self._log(f"{params.strategy} Result: {result}", LogLevel.INFO)
                     json_result = json.loads(result)
-                    trial_result["foundbug"] = json_result["foundbug"] if "foundbug" in json_result else json_result["result"] in [
-                        "failed",
-                        "expected_failure",
-                    ]
+                    trial_result["foundbug"] = (
+                        json_result["foundbug"]
+                        if "foundbug" in json_result
+                        else json_result["result"]
+                        in [
+                            "failed",
+                            "expected_failure",
+                        ]
+                    )
                     trial_result["discards"] = json_result["discards"]
-                    trial_result["passed"] = json_result["passed"] if "passed" in json_result else json_result["tests"]
+                    trial_result["passed"] = (
+                        json_result["passed"]
+                        if "passed" in json_result
+                        else json_result["tests"]
+                    )
                     trial_result["time"] = (
                         float(json_result["time"][:-2]) * 0.001
                     )  # ms as string to seconds as float conversion
@@ -266,7 +290,7 @@ class Coq(BenchTool):
         # Generate mli and cmi files
         with open(f"{mli_path}", "w") as f:
             f.write("(* Empty file *)")
-        
+
         self._shell_command(
             [
                 "ocamlc",
@@ -336,7 +360,9 @@ class Coq(BenchTool):
         return self._parse_tests("QuickProp", s)
 
     def _parse_tests_all(self, s: str) -> tuple[list, str]:
-        return self._parse_tests_qc(s) + self._parse_tests_fc(s) + self._parse_tests_pl(s)
+        return (
+            self._parse_tests_qc(s) + self._parse_tests_fc(s) + self._parse_tests_pl(s)
+        )
 
     def _parse_tests(self, vernacular: str, s: str) -> tuple[list, str]:
         def compile(s: str) -> re.Pattern:
@@ -408,7 +434,7 @@ let () =
   Sys.argv.(1) |> qctest_map
 """
         test_string_template = 'Definition qctest_<test-name> := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (quickCheckWith (updMaxDiscard (updMaxSuccess (updAnalysis stdArgs true) num_tests) num_tests) <test-name>))) ++ "}|]")).\n'
-        
+
         self._generate_test_file_parametrized(
             runners_path,
             strategy_name,
@@ -426,7 +452,7 @@ let () =
   Sys.argv.(1) |> qctest_map
 """
         test_string_template = 'Definition qctest_<test-name> := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (sample1 <test-name>))) ++ "}|]")).\n'
-        
+
         self._generate_test_file_parametrized(
             runners_path,
             strategy_name,
@@ -437,9 +463,14 @@ let () =
         )
 
     def _generate_test_file(
-        self, runners_path: str, strategy_name: str, tests: list[str], workload: Entry, isPropLang: bool, isFuzzer: bool
+        self,
+        runners_path: str,
+        strategy_name: str,
+        tests: list[str],
+        workload: Entry,
+        isPropLang: bool,
+        isFuzzer: bool,
     ):
-        
         if isFuzzer:
             main_function_string = """
 let () =
@@ -459,7 +490,7 @@ Sys.argv.(1) |> qctest_map
             test_string_template = 'Definition qctest_<test-name> := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime (fun tt => (<test-name>_fuzzer tt))) ++ "}|]")).\n'
         else:
             test_string_template = 'Definition qctest_<test-name> := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (quickCheckWith (updMaxDiscard (updMaxSuccess (updAnalysis stdArgs true) num_tests) num_tests) <test-name>))) ++ "}|]")).\n'
-        
+
         self._generate_test_file_parametrized(
             runners_path,
             strategy_name,
@@ -468,7 +499,6 @@ Sys.argv.(1) |> qctest_map
             test_string_template,
             main_function_string,
         )
-
 
     def _generate_test_file_fc(
         self, runners_path: str, fuzzer_name: str, tests: list[str], workload: Entry
