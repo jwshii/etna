@@ -2,14 +2,11 @@
 
 (provide (all-defined-out))
 
-(struct E())
+(require data/maybe)
 
-(struct T(left k v right))
+(struct E() #:transparent)
 
-(struct Some (value))
-(struct None())
-
-(define fuel 100000)
+(struct T(left k v right) #:transparent)
 
 (define (insert k v t)
   (match t
@@ -90,10 +87,10 @@
 )
 
 (define (below k tree)
-  (match (list k tree)
-    [(list * (E)) (E)]
-    [(list k (T left key val right))
-     (if (<= key k)
+  (match (cons k tree)
+    [(cons * (E)) (E)]
+    [(cons k (T left key val right))
+     (if (<= k key)
        (below k left)
        (T left key val (below k right))
      )
@@ -113,15 +110,13 @@
   )
 )
 
-(define (union-helper l r f)
-  (match f
-    [0 (E)]
-    [* (match (list l r)
-         [(list (E) *) r]
-         [(list * (E)) l]
+
+(define (union l r)
+  (match (cons l r)
+         [(cons (E) *) r]
+         [(cons * (E)) l]
          #|! |#
-         [(list (T l1 k v r1) t)
-          (T (union-helper l1 (below k t) (- f 1)) k v (union-helper r1 (above k t) (- f 1)))
+         [(cons (T l k v r) t) (T (union l (below k t)) k v (union r (above k t)))
          ]
          #|!! union_6 |#
          #|!
@@ -152,23 +147,17 @@
            )
          ]
          |#
-      )
-    ]
-  )
-)
-
-(define (union l r)
-  (union-helper l r fuel)
+    )   
 )
 
 (define (find k t)
   (match (list k t)
-    [(list k (E)) #f]
+    [(list * (E)) (nothing)]
     [(list k (T l key val r))
       (cond
         [(< k key) (find k l)]
         [(> k key) (find k r)]
-        [else (Some val)]
+        [else (just val)]
       )
     ]
   )
