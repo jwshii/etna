@@ -396,6 +396,9 @@ Class Scalar (A : Type) :=
 #[global] Instance ScalarZ : Scalar Z :=
   {| scale := fun x => x |}.
 
+  #[global] Instance ScalarNat : Scalar nat :=
+  {| scale := fun x => Z.of_nat x |}.
+
 
 (* Class Scheduler {A F Pool: Type} `{SeedPool A F Pool} := {
   invest  : (A * F) -> Pool -> Pool;
@@ -762,7 +765,7 @@ Fixpoint instrumentedRunAndTest {C:Ctx} (cprop : CProp C)
          (cenv : ⟦C⟧)
          (fenv :  ⟦⦗cprop⦘⟧)
          {struct cprop}
-  : option (bool * nat).
+  : option (bool * Z).
 Proof.
   induction cprop; simpl in *.
   - destruct fenv as [a fenv'] eqn:H.
@@ -781,7 +784,7 @@ Proof.
   - refine (Some _).
     refine (
       let '(res, (useful, energy)) := withInstrumentation' (fun _ => (b cenv)) in
-      (res, energy)
+      (res, Z.of_nat energy)
     ).
 Defined.
 
@@ -995,61 +998,57 @@ Definition targetLoop
 
 
 
-Definition fuzzLoop
-  (fuel : nat) 
-  (cprop : CProp ∅)
-  {Pool : Type}
-  {poolType: @SeedPool (⟦⦗cprop⦘⟧) nat Pool}
-  (seeds : Pool)
-  (utility: Utility) : G Result.
-Proof.
-  refine(
 
-  let fix fuzzLoop' 
-          (fuel : nat) 
-          (passed : nat)
-          (discards: nat)
-          {Pool : Type}
-          (seeds : Pool)
-          (poolType: @SeedPool (⟦⦗cprop⦘⟧) nat Pool)
-          (utility: Utility) : G Result :=
-        match fuel with
-        | O => ret (mkResult discards false passed [])
-        | S fuel' => 
-            let directive := sample seeds in
-            opt_seed <- generator cprop directive;;
-            match pullValues cprop opt_seed with
-            | None => fuzzLoop' fuel' passed (discards + 1)%nat seeds poolType utility
-            | Some seed =>
-              match instrumentedRunAndTest cprop tt seed with
-              | Some (b, feedback) =>
-                match b with
-                | false =>
-                  (* Fails *)
-                  let shrinkingResult := shrinkLoop 10 cprop seed in
-                  let printingResult := print cprop tt shrinkingResult in
-                  ret (mkResult discards true (passed + 1) printingResult)
+Definition fuzzLoop
+(fuel : nat) 
+(cprop : CProp ∅)
+{Pool : Type}
+{poolType: @SeedPool (⟦⦗cprop⦘⟧) Z Pool}
+(seeds : Pool)
+(utility: Utility) : G Result :=
+let fix fuzzLoop' 
+        (fuel : nat) 
+        (passed : nat)
+        (discards: nat)
+        {Pool : Type}
+        (seeds : Pool)
+        (poolType: @SeedPool (⟦⦗cprop⦘⟧) Z Pool)
+        (utility: Utility) : G Result :=
+      match fuel with
+      | O => ret (mkResult discards false passed [])
+      | S fuel' => 
+          let directive := sample seeds in
+          opt_seed <- generator cprop directive;;
+          match pullValues cprop opt_seed with
+          | None => fuzzLoop' fuel' passed (discards + 1)%nat seeds poolType utility
+          | Some seed =>
+            let res := instrumentedRunAndTest cprop tt seed in
+            match res with
+            | Some (false, _) =>
+                (* Fails *)
+                let shrinkingResult := shrinkLoop 10 cprop seed in
+                let printingResult := print cprop tt shrinkingResult in
+                ret (mkResult discards true (passed + 1) printingResult)
+            | Some (true, feedback) =>
+                (* Passes *)
+                match useful seeds feedback with
                 | true =>
-                  (* Passes *)
-                  match useful seeds feedback with
-                  | true =>
-                      let seeds' := invest (seed, feedback) seeds in
-                      fuzzLoop' fuel' (passed + 1)%nat discards seeds' poolType utility
-                  | false =>
-                      let seeds' := match directive with
-                                    | Generate => seeds
-                                    | Mutate source _ => revise seeds (input source) (seed, feedback)
-                                    end in
-                      fuzzLoop' fuel' (passed + 1)%nat discards seeds' poolType utility
-                  end
+                    let seeds' := invest (seed, feedback) seeds in
+                    fuzzLoop' fuel' (passed + 1)%nat discards seeds' poolType utility
+                | false =>
+                    let seeds' := match directive with
+                                  | Generate => seeds
+                                  | Mutate source _ => revise seeds (input source) (seed, feedback)
+                                  end in
+                    fuzzLoop' fuel' (passed + 1)%nat discards seeds' poolType utility
                 end
-              | None => 
-                  (* Discard *)
-                  fuzzLoop' fuel' passed (discards + 1)%nat seeds poolType utility
-              end
+            | None => 
+                (* Discard *)
+                fuzzLoop' fuel' passed (discards + 1)%nat seeds poolType utility
             end
-        end in
-        fuzzLoop' fuel 0%nat 0%nat seeds poolType utility).
+          end
+      end in
+      fuzzLoop' fuel 0%nat 0%nat seeds poolType utility.
 
 Definition test2 (x y : nat) : bool :=
   (negb (Nat.eqb y  x)).
@@ -1071,8 +1070,8 @@ Definition example3 :=
   (fun '(y, (x, tt)) => (2000 - Z.of_nat(x - y) - Z.of_nat(y - x))).
               
 
-Sample1 (targetLoop 1000 example3 fb (StaticSingletonPool.(mkPool) tt)  HillClimbingUtility).
-
+(* Sample1 (targetLoop 1000 example3 fb (StaticSingletonPool.(mkPool) tt)  HillClimbingUtility). *)
+(* Sample1 (fuzzLoop 1000 example3 (StaticSingletonPool.(mkPool) tt)  HillClimbingUtility). *)
 
 Definition example3' :=
   forAll arb (fun (x: nat)  =>
@@ -1096,24 +1095,27 @@ Definition example3' :=
 
 (* Check example3. *)
 (* Check toMonad example3 (3, (2, tt)). *)
-(* Fixpoint toMonad {C : Ctx} (cprop: CProp C) : ⟦C⟧ -> Checker :=
+
+Print Checker.
+Print QProp.
+
+Fixpoint toMonad (C : Ctx) (cprop: CProp C) : ⟦C⟧ -> Checker :=
   match cprop with
   | ForAll A C name gen mut shr pri cprop' =>
     fun env =>
-      forAllShrinkShow (gen env) (shr env) (pri env) (fun a => toMonad cprop' (a, env))
+    forAllShrinkShow (gen env) (shr env) (pri env) (fun a => toMonad (A · C) cprop' (a, env))
   | ForAllMaybe A C name gen mut shr pri cprop' =>
     fun env =>
-      forAllShrinkShowMaybe (gen env) (shr env) (pri env) (fun a => toMonad cprop' (a, env))
+    forAllShrinkShowMaybe (gen env) (shr env) (pri env) (fun a => toMonad (A · C) cprop' (a, env))
   | Implies C name prop cprop' =>
     fun env =>
-      forAll (returnGen tt) (fun _ => implies (prop env) (toMonad cprop' env))
+    if prop env then toMonad C cprop' env
+    else checker None
   | Check C prop =>
     fun env => 
-      forAll (returnGen tt) (fun _ => match prop env with
-                                      | true => returnGen true
-                                      | _ => returnGen false
-                                      end)
-  end. *)
+    checker (prop env)
+  end.
+
 
 (* Definition example3'' := toMonad example3. *)
 
