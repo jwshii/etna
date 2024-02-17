@@ -21,21 +21,30 @@ Extract Constant number_of_trials => "max_int".
 
 (* --------------------- Tests --------------------- *)
 
-Definition test_prop_SinglePreserve   :=
-  @ForAllMaybe _ ∅ _ "e" (fun tt => arbitrary) (fun tt n => (fun n => arbitrary)) (fun tt n => shrink n) (fun tt n => show n) (
-  @Predicate (Expr · ∅) Z
-  (fun '(e, tt) => (prop_SinglePreserve e, 0%Z))).
+Definition prop_SinglePreserve   :=
+	ForAllMaybe "e" (fun tt => arbitrary) (fun tt e => arbitrary) (fun tt => shrink) (fun tt => show) (
+  Implies (Expr · ∅) "isJust (mt e)" (fun '(e, tt) => isJust (mt e)) (
+	Check (Expr · ∅)
+	(fun '(e, tt) => 
+    match (mt e) with
+    | None => false
+    | Some t' => mtypeCheck (pstep e) t'
+    end
+  ))).
 
-Definition test_prop_SinglePreserve_runner := (runLoop number_of_trials test_prop_SinglePreserve).
+Definition test_prop_SinglePreserve := (runLoop number_of_trials prop_SinglePreserve).
+(*! QuickProp test_prop_SinglePreserve. *)
 
-(*! QuickProp test_prop_SinglePreserve_runner. *)
-  
+Definition prop_MultiPreserve   :=
+	ForAllMaybe "e" (fun tt => arbitrary) (fun tt e => arbitrary) (fun tt => shrink) (fun tt => show) (
+  Implies (Expr · ∅) "isJust (mt e)" (fun '(e, tt) => isJust (mt e)) (
+	Check (Expr · ∅)
+	(fun '(e, tt) => 
+    match (mt e) with
+    | None => false
+    | Some t' => mtypeCheck (multistep 40 pstep e) t'
+    end
+  ))).
 
-Definition test_prop_MultiPreserve   :=
-  @ForAllMaybe _ ∅ _ "e" (fun tt => arbitrary) (fun tt n => (fun n => arbitrary)) (fun tt n => shrink n) (fun tt n => show n) (
-  @Predicate (Expr · ∅) Z
-  (fun '(e, tt) => (prop_MultiPreserve e, 0%Z))).
-
-Definition test_prop_MultiPreserve_runner := (runLoop number_of_trials test_prop_MultiPreserve).
-
-(*! QuickProp test_prop_MultiPreserve_runner. *)
+Definition test_prop_MultiPreserve := (runLoop number_of_trials prop_MultiPreserve).
+(*! QuickProp test_prop_MultiPreserve. *)

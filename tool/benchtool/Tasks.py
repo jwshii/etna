@@ -126,4 +126,18 @@ redblack = {
     ],
 }
 
-tasks = {'BST': bst, 'RBT': {**bst, **redblack}}
+stlc = {
+    'base': ["SinglePreserve", "MultiPreserve"],
+    'shift_var_none': ["SinglePreserve", "MultiPreserve"],
+    'shift_var_all': ["SinglePreserve", "MultiPreserve"],
+    'shift_var_leq': ["SinglePreserve", "MultiPreserve"],
+    'shift_abs_no_incr': ["SinglePreserve", "MultiPreserve"],
+    'subst_var_all': ["SinglePreserve", "MultiPreserve"],
+    'subst_var_none': ["SinglePreserve", "MultiPreserve"],
+    'subst_abs_no_shift': ["SinglePreserve", "MultiPreserve"],
+    'subst_abs_no_incr': ["SinglePreserve", "MultiPreserve"],
+    'substTop_no_shift': ["SinglePreserve", "MultiPreserve"],
+    'substTop_no_shift_back': ["SinglePreserve", "MultiPreserve"],
+} 
+
+tasks = {'BST': bst, 'RBT': {**bst, **redblack}, 'STLC': stlc}

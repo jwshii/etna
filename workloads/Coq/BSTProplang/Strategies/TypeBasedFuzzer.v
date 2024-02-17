@@ -13,14 +13,6 @@ From PropLang Require Import PropLang.
 Local Open Scope nat.
 Local Open Scope prop_scope.
 
-#[local] Instance shrinkTree : Shrink Tree :=
-{|
-  shrink t := match t with
-              | E => []
-              | T l k v r => [l; r]
-              end
-|}.
-
 #[local] Instance FuzzyNat : Fuzzy nat :=
   {| fuzz n := choose (n - 5, n + 5) |}.
 
@@ -35,199 +27,223 @@ Derive (Arbitrary, Show, Sized, Fuzzy) for Tree.
     ret (ma,mb))
 |}.
 
-
-Local Open Scope Z.
-
 #[local] Instance dec_eq_tree : Dec_Eq Tree.
 Proof. dec_eq. Defined.
-
 
 Axiom number_of_trials : nat.
 Extract Constant number_of_trials => "max_int".
 
-Definition withInstrumentation' fn :=
-	let '(res, feedback) := withInstrumentation fn in
-	(res, Z.of_nat(snd feedback)).
+Definition prop_InsertValid   :=
+	ForAll "t" (fun tt => arbitrary) (fun tt t => fuzz t) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
+	ForAll "k" (fun tt => arbitrary) (fun tt k => arbitrary) (fun tt => shrink) (fun tt => show) (
+	ForAll "v" (fun tt => arbitrary) (fun tt v => arbitrary) (fun tt => shrink) (fun tt => show) (
+	Check (nat · (nat · (Tree · ∅)))
+	(fun '(v, (k, (t, tt))) => (isBST (insert k v t))))))).
+
+Definition test_prop_InsertValid := (fuzzLoop number_of_trials prop_InsertValid (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+(*! QuickProp test_prop_InsertValid. *)
+
+Definition prop_DeleteValid   :=
+	ForAll "t" (fun tt => arbitrary) (fun tt t => fuzz t) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
+	ForAll "k" (fun tt => arbitrary) (fun tt n => arbitrary) (fun tt => shrink) (fun tt => show) (
+	Check (nat · (Tree · ∅))
+	(fun '(k, (t, tt)) => (isBST (delete k t)))))).
+
+Definition test_prop_DeleteValid := (fuzzLoop number_of_trials prop_DeleteValid (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+(*! QuickProp test_prop_DeleteValid. *)
+
+Definition prop_UnionValid :=
+	ForAll "t1" (fun tt => arbitrary) (fun tt t => fuzz t) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) "isBST t1" (fun '(t1, tt) => isBST t1) (
+	ForAll "t2" (fun tt => arbitrary) (fun tt t2 => fuzz t2) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · _) "isBST t2" (fun '(t2, _) => isBST t2) (
+	Check (Tree · (Tree · ∅))
+	(fun '(t2, (t1, tt)) => (isBST (union t1 t2))))))).
+
+Definition test_prop_UnionValid := (fuzzLoop number_of_trials prop_UnionValid (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+(*! QuickProp test_prop_UnionValid. *)
+
+Definition prop_InsertPost :=
+	ForAll "t" (fun tt => arbitrary) (fun tt t => fuzz t) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
+	ForAll "k" (fun tt => arbitrary) (fun tt k => arbitrary) (fun tt => shrink) (fun tt => show) (
+	ForAll "k'" (fun tt => arbitrary) (fun tt k' => arbitrary) (fun tt => shrink) (fun tt => show) (
+	ForAll "v" (fun tt => arbitrary) (fun tt v => arbitrary) (fun tt => shrink) (fun tt => show) (
+	Check (nat · (nat · (nat · (Tree · ∅))))
+	(fun '(v, (k', (k, (t, tt)))) => ((find k' (insert k v t) = if k =? k' then Some v else find k' t)?))))))).
+
+Definition test_prop_InsertPost := (fuzzLoop number_of_trials prop_InsertPost (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+(*! QuickProp test_prop_InsertPost. *)
 
 
-Definition test_prop_InsertValid   :=
-	@ForAll _ ∅ _ "t" (fun tt => arbitrary) (fun tt n => fuzz) (fun tt n => shrink n) (fun tt n => show n) (
-	@ForAll _ (Tree · ∅) _ "k" (fun '(t, tt) => arbitrary) (fun '(t, tt) n => fuzz) (fun '(t, tt) n => shrink n) (fun '(t, tt) n => show n) (
-	@ForAll _ (nat · (Tree · ∅)) _ "v" (fun '(k, (t, tt)) => arbitrary) (fun '(k, (t, tt)) n => fuzz) (fun '(k, (t, tt)) n => shrink n) (fun '(k, (t, tt)) n => show n) (
-	@Predicate (nat · (nat · (Tree · ∅))) Z
-	(fun '(v, (k, (t, tt))) => withInstrumentation' (fun _ => prop_InsertValid t k v))))).
+Definition prop_DeletePost :=
+	ForAll "t" (fun tt => arbitrary) (fun tt t => fuzz t) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
+	ForAll "k" (fun tt => arbitrary) (fun tt t => arbitrary) (fun tt => shrink) (fun tt => show) (
+	ForAll "k'" (fun tt => arbitrary) (fun tt n => arbitrary) (fun tt => shrink) (fun tt => show) (
+	Check (nat · (nat · (Tree · ∅)))
+	(fun '(k', (k, (t, tt))) => ((find k' (delete k t) = if k =? k' then None else find k' t)?)))))).
 
-Definition test_prop_InsertValid_runner := (targetLoop number_of_trials test_prop_InsertValid (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_DeletePost := (fuzzLoop number_of_trials prop_DeletePost (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+(*! QuickProp test_prop_DeletePost. *)
 
-(*! QuickProp test_prop_InsertValid_runner. *)
+Definition prop_UnionPost :=
+	ForAll "t" (fun tt => arbitrary) (fun tt t => fuzz t) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
+	ForAll "t'" (fun tt => arbitrary) (fun tt t' => fuzz t') (fun tt => shrink) (fun tt => show) (
+	ForAll "k" (fun tt => arbitrary) (fun tt k => arbitrary) (fun tt => shrink) (fun tt => show) (
+	Check (nat · (Tree · (Tree · ∅)))
+	(fun '(k, (t', (t, tt))) => (let lhs := find k (union t t') in
+									match (find k t) with
+									| Some rhs => (lhs = (Some rhs))?
+									| None => match (find k t') with
+											| Some rhs => (lhs = (Some rhs))?
+											| None => (lhs = None)?
+											end
+									end)))))).
 
-Definition test_prop_DeleteValid   :=
-	@ForAll _ ∅ _ "t" (fun tt => arbitrary) (fun tt n => fuzz) (fun tt n => shrink n) (fun tt n => show n) (
-	@ForAll _ (Tree · ∅) _ "k" (fun '(t, tt) => arbitrary) (fun '(t, tt) n => fuzz) (fun '(t, tt) n => shrink n) (fun '(t, tt) n => show n) (
-	@Predicate (nat · (Tree · ∅)) Z
-	(fun '(k, (t, tt)) => withInstrumentation' (fun _ => prop_DeleteValid t k)))).
+Definition test_prop_UnionPost := (fuzzLoop number_of_trials prop_UnionPost (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+(*! QuickProp test_prop_UnionPost. *)
 
-Definition test_prop_DeleteValid_runner := (targetLoop number_of_trials test_prop_DeleteValid (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
-(*! QuickProp test_prop_DeleteValid_runner. *)
+Definition prop_InsertModel :=
+	ForAll "t" (fun tt => arbitrary) (fun tt t => fuzz t) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
+	ForAll "k" (fun tt => arbitrary) (fun tt t => arbitrary) (fun tt => shrink) (fun tt => show) (
+	ForAll "v" (fun tt => arbitrary) (fun tt n => arbitrary) (fun tt => shrink) (fun tt => show) (
+	Check (nat · (nat · (Tree · ∅)))
+	(fun '(v, (k, (t, tt))) => ((toList (insert k v t) = L_insert (k, v) (deleteKey k (toList t)))?)))))).
 
-Definition test_prop_UnionValid    :=
-	@ForAll _ ∅ _ "t1" (fun tt => arbitrary) (fun tt n => fuzz) (fun tt n => shrink n) (fun tt n => show n) (
-	@ForAll _ (Tree · ∅) _ "t2" (fun '(t1, tt) => arbitrary) (fun '(t1, tt) n => fuzz) (fun '(t1, tt) n => shrink n) (fun '(t1, tt) n => show n) (
-	@Predicate (Tree · (Tree · ∅)) Z
-	(fun '(t2, (t1, tt)) => withInstrumentation' (fun _ => prop_UnionValid t1 t2)))).
+Definition test_prop_InsertModel := (fuzzLoop number_of_trials prop_InsertModel (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+(*! QuickProp test_prop_InsertModel. *)
 
-Definition test_prop_UnionValid_runner := (targetLoop number_of_trials test_prop_UnionValid (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
-(*! QuickProp test_prop_UnionValid_runner. *)
+Definition prop_DeleteModel :=
+	ForAll "t" (fun tt => arbitrary) (fun tt t => fuzz t) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
+	ForAll "k" (fun tt => arbitrary) (fun tt t => arbitrary) (fun tt => shrink) (fun tt => show) (
+	Check (nat · (Tree · ∅))
+	(fun '(k, (t, tt)) => ((toList (delete k t) = deleteKey k (toList t))?))))).
 
-Definition test_prop_InsertPost    :=
-	@ForAll _ ∅ _ "t" (fun tt => arbitrary) (fun tt n => fuzz) (fun tt n => shrink n) (fun tt n => show n) (
-	@ForAll _ (Tree · ∅) _ "k" (fun '(t, tt) => arbitrary) (fun '(t, tt) n => fuzz) (fun '(t, tt) n => shrink n) (fun '(t, tt) n => show n) (
-	@ForAll _ (nat · (Tree · ∅)) _ "k'" (fun '(k, (t, tt)) => arbitrary) (fun '(k, (t, tt)) n => fuzz) (fun '(k, (t, tt)) n => shrink n) (fun '(k, (t, tt)) n => show n) (
-	@ForAll _ (nat · (nat · (Tree · ∅))) _ "v" (fun '(k', (k, (t, tt))) => arbitrary) (fun '(k', (k, (t, tt))) n => fuzz) (fun '(k', (k, (t, tt))) n => shrink n) (fun '(k', (k, (t, tt))) n => show n) (
-	@Predicate (nat · (nat · (nat · (Tree · ∅)))) Z
-	(fun '(v, (k', (k, (t, tt)))) => withInstrumentation' (fun _ => prop_InsertPost t k k' v)))))).
+Definition test_prop_DeleteModel := (fuzzLoop number_of_trials prop_DeleteModel (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+(*! QuickProp test_prop_DeleteModel. *)
 
-Definition test_prop_InsertPost_runner := (targetLoop number_of_trials test_prop_InsertPost (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
-(*! QuickProp test_prop_InsertPost_runner. *)
+Definition prop_UnionModel :=
+	ForAll "t" (fun tt => arbitrary) (fun tt t => fuzz t) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
+	ForAll "t'" (fun tt => arbitrary) (fun tt t' => fuzz t') (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · _) "isBST t'" (fun '(t', _) => isBST t') (
+	Check (Tree · (Tree · ∅))
+	(fun '(t', (t, tt)) => ((toList (union t t') = L_sort (L_unionBy (fun x y => x) (toList t) (toList t')))?)))))).
 
-Definition test_prop_DeletePost    :=
-	@ForAll _ ∅ _ "t" (fun tt => arbitrary) (fun tt n => fuzz) (fun tt n => shrink n) (fun tt n => show n) (
-	@ForAll _ (Tree · ∅) _ "k" (fun '(t, tt) => arbitrary) (fun '(t, tt) n => fuzz) (fun '(t, tt) n => shrink n) (fun '(t, tt) n => show n) (
-	@ForAll _ (nat · (Tree · ∅)) _ "k'" (fun '(k, (t, tt)) => arbitrary) (fun '(k, (t, tt)) n => fuzz) (fun '(k, (t, tt)) n => shrink n) (fun '(k, (t, tt)) n => show n) (
-	@Predicate (nat · (nat · (Tree · ∅))) Z
-	(fun '(k', (k, (t, tt))) => withInstrumentation' (fun _ => prop_DeletePost t k k'))))).
+Definition test_prop_UnionModel := (fuzzLoop number_of_trials prop_UnionModel (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+(*! QuickProp test_prop_UnionModel. *)
 
-Definition test_prop_DeletePost_runner := (targetLoop number_of_trials test_prop_DeletePost (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
-(*! QuickProp test_prop_DeletePost_runner. *)
+Definition prop_InsertInsert :=
+	ForAll "t" (fun tt => arbitrary) (fun tt t => fuzz t) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
+	ForAll "k" (fun tt => arbitrary) (fun tt t => arbitrary) (fun tt => shrink) (fun tt => show) (
+	ForAll "k'" (fun tt => arbitrary) (fun tt n => arbitrary) (fun tt => shrink) (fun tt => show) (
+	ForAll "v" (fun tt => arbitrary) (fun tt v => arbitrary) (fun tt => shrink) (fun tt => show) (
+	ForAll "v'" (fun tt => arbitrary) (fun tt v' => arbitrary) (fun tt => shrink) (fun tt => show) (
+	Check (nat · (nat · (nat · (nat · (Tree · ∅)))))
+	(fun '(v', (v, (k', (k, (t, tt))))) => (insert k v (insert k' v' t) =|= if k =? k' then insert k v t else insert k' v' (insert k v t))))))))).
 
-Definition test_prop_UnionPost   :=
-	@ForAll _ ∅ _ "t" (fun tt => arbitrary) (fun tt n => fuzz) (fun tt n => shrink n) (fun tt n => show n) (
-	@ForAll _ (Tree · ∅) _ "t'" (fun '(t, tt) => arbitrary) (fun '(t, tt) n => fuzz) (fun '(t, tt) n => shrink n) (fun '(t, tt) n => show n) (
-	@ForAll _ (Tree · (Tree · ∅)) _ "k" (fun '(t', (t, tt)) => arbitrary) (fun '(t', (t, tt)) n => fuzz) (fun '(t', (t, tt)) n => shrink n) (fun '(t', (t, tt)) n => show n) (
-	@Predicate (nat · (Tree · (Tree · ∅))) Z
-	(fun '(k, (t', (t, tt))) => withInstrumentation' (fun _ => prop_UnionPost t t' k))))).
+Definition test_prop_InsertInsert := (fuzzLoop number_of_trials prop_InsertInsert (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+(*! QuickProp test_prop_InsertInsert. *)
 
-Definition test_prop_UnionPost_runner := (targetLoop number_of_trials test_prop_UnionPost (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
-(*! QuickProp test_prop_UnionPost_runner. *)
+Definition prop_InsertDelete :=
+	ForAll "t" (fun tt => arbitrary) (fun tt t => fuzz t) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
+	ForAll "k" (fun tt => arbitrary) (fun tt k => arbitrary) (fun tt => shrink) (fun tt => show) (
+	ForAll "k'" (fun tt => arbitrary) (fun tt k' => arbitrary) (fun tt => shrink) (fun tt => show) (
+	ForAll "v" (fun tt => arbitrary) (fun tt v => arbitrary) (fun tt => shrink) (fun tt => show) (
+	Check (nat · (nat · (nat · (Tree · ∅))))
+	(fun '(v, (k', (k, (t, tt)))) => ((insert k v (delete k' t) =|= if k =? k' then insert k v t else delete k' (insert k v t))))))))).
 
-Definition test_prop_InsertModel   :=
-	@ForAll _ ∅ _ "t" (fun tt => arbitrary) (fun tt n => fuzz) (fun tt n => shrink n) (fun tt n => show n) (
-	@ForAll _ (Tree · ∅) _ "k" (fun '(t, tt) => arbitrary) (fun '(t, tt) n => fuzz) (fun '(t, tt) n => shrink n) (fun '(t, tt) n => show n) (
-	@ForAll _ (nat · (Tree · ∅)) _ "v" (fun '(k, (t, tt)) => arbitrary) (fun '(k, (t, tt)) n => fuzz) (fun '(k, (t, tt)) n => shrink n) (fun '(k, (t, tt)) n => show n) (
-	@Predicate (nat · (nat · (Tree · ∅))) Z
-	(fun '(v, (k, (t, tt))) => withInstrumentation' (fun _ => prop_InsertModel t k v))))).
+Definition test_prop_InsertDelete := (fuzzLoop number_of_trials prop_InsertDelete (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+(*! QuickProp test_prop_InsertDelete. *)
 
-Definition test_prop_InsertModel_runner := (targetLoop number_of_trials test_prop_InsertModel (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
-(*! QuickProp test_prop_InsertModel_runner. *)
+Definition prop_InsertUnion :=
+	ForAll "t" (fun tt => arbitrary) (fun tt t => fuzz t) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
+	ForAll "t'" (fun tt => arbitrary) (fun tt t' => fuzz t') (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · _) "isBST t'" (fun '(t', _) => isBST t') (
+	ForAll "k" (fun tt => arbitrary) (fun tt k => arbitrary) (fun tt => shrink) (fun tt => show) (
+	ForAll "v" (fun tt => arbitrary) (fun tt v => arbitrary) (fun tt => shrink) (fun tt => show) (
+	Check (nat · (nat · (Tree · (Tree · ∅))))
+	(fun '(v, (k, (t', (t, tt)))) => (insert k v (union t t') =|= union (insert k v t) t')))))))).
 
-Definition test_prop_DeleteModel   :=
-	@ForAll _ ∅ _ "t" (fun tt => arbitrary) (fun tt n => fuzz) (fun tt n => shrink n) (fun tt n => show n) (
-	@ForAll _ (Tree · ∅) _ "k" (fun '(t, tt) => arbitrary) (fun '(t, tt) n => fuzz) (fun '(t, tt) n => shrink n) (fun '(t, tt) n => show n) (
-	@Predicate (nat · (Tree · ∅)) Z
-	(fun '(k, (t, tt)) => withInstrumentation' (fun _ => prop_DeleteModel t k)))).
+Definition test_prop_InsertUnion := (fuzzLoop number_of_trials prop_InsertUnion (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+(*! QuickProp test_prop_InsertUnion. *)
 
-Definition test_prop_DeleteModel_runner := (targetLoop number_of_trials test_prop_DeleteModel (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
-(*! QuickProp test_prop_DeleteModel_runner. *)
+Definition prop_DeleteInsert :=
+	ForAll "t" (fun tt => arbitrary) (fun tt t => fuzz t) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
+	ForAll "k" (fun tt => arbitrary) (fun tt t => arbitrary) (fun tt => shrink) (fun tt => show) (
+	ForAll "k'" (fun tt => arbitrary) (fun tt n => arbitrary) (fun tt => shrink) (fun tt => show) (
+	ForAll "v'" (fun tt => arbitrary) (fun tt v => arbitrary) (fun tt => shrink) (fun tt => show) (
+	Check (nat · (nat · (nat · (Tree · ∅))))
+	(fun '(v', (k', (k, (t, tt)))) => (delete k (insert k' v' t) =|= if k =? k' then delete k t else insert k' v' (delete k t)))))))).
 
-Definition test_prop_UnionModel    :=
-	@ForAll _ ∅ _ "t" (fun tt => arbitrary) (fun tt n => fuzz) (fun tt n => shrink n) (fun tt n => show n) (
-	@ForAll _ (Tree · ∅) _ "t'" (fun '(t, tt) => arbitrary) (fun '(t, tt) n => fuzz) (fun '(t, tt) n => shrink n) (fun '(t, tt) n => show n) (
-	@Predicate (Tree · (Tree · ∅)) Z
-	(fun '(t', (t, tt)) => withInstrumentation' (fun _ => prop_UnionModel t t')))).
+Definition test_prop_DeleteInsert := (fuzzLoop number_of_trials prop_DeleteInsert (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+(*! QuickProp test_prop_DeleteInsert. *)
 
-Definition test_prop_UnionModel_runner := (targetLoop number_of_trials test_prop_UnionModel (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
-(*! QuickProp test_prop_UnionModel_runner. *)
+Definition prop_DeleteDelete :=
+	ForAll "t" (fun tt => arbitrary) (fun tt t => fuzz t) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
+	ForAll "k" (fun tt => arbitrary) (fun tt t => arbitrary) (fun tt => shrink) (fun tt => show) (
+	ForAll "k'" (fun tt => arbitrary) (fun tt n => arbitrary) (fun tt => shrink) (fun tt => show) (
+	Check (nat · (nat · (Tree · ∅)))
+	(fun '(k', (k, (t, tt))) => ((delete k (delete k' t) =|= delete k' (delete k t)))))))).
 
-Definition test_prop_InsertInsert    :=
-	@ForAll _ ∅ _ "t" (fun tt => arbitrary) (fun tt n => fuzz) (fun tt n => shrink n) (fun tt n => show n) (
-	@ForAll _ (Tree · ∅) _ "k" (fun '(t, tt) => arbitrary) (fun '(t, tt) n => fuzz) (fun '(t, tt) n => shrink n) (fun '(t, tt) n => show n) (
-	@ForAll _ (nat · (Tree · ∅)) _ "k'" (fun '(k, (t, tt)) => arbitrary) (fun '(k, (t, tt)) n => fuzz) (fun '(k, (t, tt)) n => shrink n) (fun '(k, (t, tt)) n => show n) (
-	@ForAll _ (nat · (nat · (Tree · ∅))) _ "v" (fun '(k', (k, (t, tt))) => arbitrary) (fun '(k', (k, (t, tt))) n => fuzz) (fun '(k', (k, (t, tt))) n => shrink n) (fun '(k', (k, (t, tt))) n => show n) (
-	@ForAll _ (nat · (nat · (nat · (Tree · ∅)))) _ "v'" (fun '(v, (k', (k, (t, tt)))) => arbitrary) (fun '(v, (k', (k, (t, tt)))) n => fuzz) (fun '(v, (k', (k, (t, tt)))) n => shrink n) (fun '(v, (k', (k, (t, tt)))) n => show n) (
-	@Predicate (nat · (nat · (nat · (nat · (Tree · ∅))))) Z
-	(fun '(v', (v, (k', (k, (t, tt))))) => withInstrumentation' (fun _ => prop_InsertInsert t k k' v v'))))))).
+Definition test_prop_DeleteDelete := (fuzzLoop number_of_trials prop_DeleteDelete (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+(*! QuickProp test_prop_DeleteDelete. *)
 
-Definition test_prop_InsertInsert_runner := (targetLoop number_of_trials test_prop_InsertInsert (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
-(*! QuickProp test_prop_InsertInsert_runner. *)
+Definition prop_DeleteUnion :=
+	ForAll "t" (fun tt => arbitrary) (fun tt t => fuzz t) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
+	ForAll "t'" (fun tt => arbitrary) (fun tt t' => fuzz t') (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · _) "isBST t'" (fun '(t', _) => isBST t') (
+	ForAll "k" (fun tt => arbitrary) (fun tt k => arbitrary) (fun tt => shrink) (fun tt => show) (
+	Check (nat · (Tree · (Tree · ∅)))
+	(fun '(k, (t', (t, tt))) => (delete k (union t t') =|= union (delete k t) (delete k t')))))))).
 
-Definition test_prop_InsertDelete    :=
-	@ForAll _ ∅ _ "t" (fun tt => arbitrary) (fun tt n => fuzz) (fun tt n => shrink n) (fun tt n => show n) (
-	@ForAll _ (Tree · ∅) _ "k" (fun '(t, tt) => arbitrary) (fun '(t, tt) n => fuzz) (fun '(t, tt) n => shrink n) (fun '(t, tt) n => show n) (
-	@ForAll _ (nat · (Tree · ∅)) _ "k'" (fun '(k, (t, tt)) => arbitrary) (fun '(k, (t, tt)) n => fuzz) (fun '(k, (t, tt)) n => shrink n) (fun '(k, (t, tt)) n => show n) (
-	@ForAll _ (nat · (nat · (Tree · ∅))) _ "v" (fun '(k', (k, (t, tt))) => arbitrary) (fun '(k', (k, (t, tt))) n => fuzz) (fun '(k', (k, (t, tt))) n => shrink n) (fun '(k', (k, (t, tt))) n => show n) (
-	@Predicate (nat · (nat · (nat · (Tree · ∅)))) Z
-	(fun '(v, (k', (k, (t, tt)))) => withInstrumentation' (fun _ => prop_InsertDelete t k k' v)))))).
+Definition test_prop_DeleteUnion := (fuzzLoop number_of_trials prop_DeleteUnion (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+(*! QuickProp test_prop_DeleteUnion. *)
 
-Definition test_prop_InsertDelete_runner := (targetLoop number_of_trials test_prop_InsertDelete (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
-(*! QuickProp test_prop_InsertDelete_runner. *)
+Definition prop_UnionDeleteInsert :=
+	ForAll "t " (fun tt => arbitrary) (fun tt t => fuzz t) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
+	ForAll "t'" (fun tt => arbitrary) (fun tt t' => fuzz t') (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · _) "isBST t'" (fun '(t', _) => isBST t') (
+	ForAll "k" (fun tt => arbitrary) (fun tt k => arbitrary) (fun tt => shrink) (fun tt => show) (
+	ForAll "v" (fun tt => arbitrary) (fun tt v => arbitrary) (fun tt => shrink) (fun tt => show) (
+	Check (nat · (nat · (Tree · (Tree · ∅))))
+	(fun '(v, (k, (t', (t, tt)))) => ((union (delete k t) (insert k v t') =|= insert k v (union t t')))))))))).
 
-Definition test_prop_InsertUnion   :=
-	@ForAll _ ∅ _ "t" (fun tt => arbitrary) (fun tt n => fuzz) (fun tt n => shrink n) (fun tt n => show n) (
-	@ForAll _ (Tree · ∅) _ "t'" (fun '(t, tt) => arbitrary) (fun '(t, tt) n => fuzz) (fun '(t, tt) n => shrink n) (fun '(t, tt) n => show n) (
-	@ForAll _ (Tree · (Tree · ∅)) _ "k" (fun '(t', (t, tt)) => arbitrary) (fun '(t', (t, tt)) n => fuzz) (fun '(t', (t, tt)) n => shrink n) (fun '(t', (t, tt)) n => show n) (
-	@ForAll _ (nat · (Tree · (Tree · ∅))) _ "v" (fun '(k, (t', (t, tt))) => arbitrary) (fun '(k, (t', (t, tt))) n => fuzz) (fun '(k, (t', (t, tt))) n => shrink n) (fun '(k, (t', (t, tt))) n => show n) (
-	@Predicate (nat · (nat · (Tree · (Tree · ∅)))) Z
-	(fun '(v, (k, (t', (t, tt)))) => withInstrumentation' (fun _ => prop_InsertUnion t t' k v)))))).
+Definition test_prop_UnionDeleteInsert := (fuzzLoop number_of_trials prop_UnionDeleteInsert (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+(*! QuickProp test_prop_UnionDeleteInsert. *)
 
-Definition test_prop_InsertUnion_runner := (targetLoop number_of_trials test_prop_InsertUnion (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
-(*! QuickProp test_prop_InsertUnion_runner. *)
+Definition prop_UnionUnionIdem :=
+	ForAll "t" (fun tt => arbitrary) (fun tt t => fuzz t) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
+	Check (Tree · ∅)
+	(fun '(t, tt) => (union t t =|= t)))).
 
-Definition test_prop_DeleteInsert    :=
-	@ForAll _ ∅ _ "t" (fun tt => arbitrary) (fun tt n => fuzz) (fun tt n => shrink n) (fun tt n => show n) (
-	@ForAll _ (Tree · ∅) _ "k" (fun '(t, tt) => arbitrary) (fun '(t, tt) n => fuzz) (fun '(t, tt) n => shrink n) (fun '(t, tt) n => show n) (
-	@ForAll _ (nat · (Tree · ∅)) _ "k'" (fun '(k, (t, tt)) => arbitrary) (fun '(k, (t, tt)) n => fuzz) (fun '(k, (t, tt)) n => shrink n) (fun '(k, (t, tt)) n => show n) (
-	@ForAll _ (nat · (nat · (Tree · ∅))) _ "v'" (fun '(k', (k, (t, tt))) => arbitrary) (fun '(k', (k, (t, tt))) n => fuzz) (fun '(k', (k, (t, tt))) n => shrink n) (fun '(k', (k, (t, tt))) n => show n) (
-	@Predicate (nat · (nat · (nat · (Tree · ∅)))) Z
-	(fun '(v', (k', (k, (t, tt)))) => withInstrumentation' (fun _ => prop_DeleteInsert t k k' v')))))).
+Definition test_prop_UnionUnionIdem := (fuzzLoop number_of_trials prop_UnionUnionIdem (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+(*! QuickProp test_prop_UnionUnionIdem. *)
 
-Definition test_prop_DeleteInsert_runner := (targetLoop number_of_trials test_prop_DeleteInsert (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
-(*! QuickProp test_prop_DeleteInsert_runner. *)
+Definition prop_UnionUnionAssoc :=
+	ForAll "t1" (fun tt => arbitrary) (fun tt t1 => fuzz t1) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) "isBST t1" (fun '(t1, tt) => isBST t1) (
+	ForAll "t2" (fun tt => arbitrary) (fun tt t2 => fuzz t2) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · _) "isBST t2" (fun '(t2, _) => isBST t2) (
+	ForAll "t3" (fun tt => arbitrary) (fun tt t3 => fuzz t3) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · _) "isBST t3" (fun '(t3, _) => isBST t3) (
+	Check (Tree · (Tree · (Tree · ∅)))
+	(fun '(t3, (t2, (t1, tt))) => (union (union t1 t2) t3 =|= union t1 (union t2 t3))))))))).
 
-Definition test_prop_DeleteDelete    :=
-	@ForAll _ ∅ _ "t" (fun tt => arbitrary) (fun tt n => fuzz) (fun tt n => shrink n) (fun tt n => show n) (
-	@ForAll _ (Tree · ∅) _ "k" (fun '(t, tt) => arbitrary) (fun '(t, tt) n => fuzz) (fun '(t, tt) n => shrink n) (fun '(t, tt) n => show n) (
-	@ForAll _ (nat · (Tree · ∅)) _ "k'" (fun '(k, (t, tt)) => arbitrary) (fun '(k, (t, tt)) n => fuzz) (fun '(k, (t, tt)) n => shrink n) (fun '(k, (t, tt)) n => show n) (
-	@Predicate (nat · (nat · (Tree · ∅))) Z
-	(fun '(k', (k, (t, tt))) => (withInstrumentation' (fun _ => prop_DeleteDelete t k k')))))).
+Definition test_prop_UnionUnionAssoc := (fuzzLoop number_of_trials prop_UnionUnionAssoc (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+(*! QuickProp test_prop_UnionUnionAssoc. *)
 
-Definition test_prop_DeleteDelete_runner := (targetLoop number_of_trials test_prop_DeleteDelete (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
-(*! QuickProp test_prop_DeleteDelete_runner. *)
-
-Definition test_prop_DeleteUnion   :=
-	@ForAll _ ∅ _ "t" (fun tt => arbitrary) (fun tt n => fuzz) (fun tt n => shrink n) (fun tt n => show n) (
-	@ForAll _ (Tree · ∅) _ "t'" (fun '(t, tt) => arbitrary) (fun '(t, tt) n => fuzz) (fun '(t, tt) n => shrink n) (fun '(t, tt) n => show n) (
-	@ForAll _ (Tree · (Tree · ∅)) _ "k" (fun '(t', (t, tt)) => arbitrary) (fun '(t', (t, tt)) n => fuzz) (fun '(t', (t, tt)) n => shrink n) (fun '(t', (t, tt)) n => show n) (
-	@Predicate (nat · (Tree · (Tree · ∅))) Z
-	(fun '(k, (t', (t, tt))) => withInstrumentation' (fun _ => prop_DeleteUnion t t' k))))).
-
-Definition test_prop_DeleteUnion_runner := (targetLoop number_of_trials test_prop_DeleteUnion (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
-(*! QuickProp test_prop_DeleteUnion_runner. *)
-
-Definition test_prop_UnionDeleteInsert   :=
-	@ForAll _ ∅ _ "t " (fun tt => arbitrary) (fun tt n => fuzz) (fun tt n => shrink n) (fun tt n => show n) (
-	@ForAll _ (Tree · ∅) _ "t'" (fun '(t , tt) => arbitrary) (fun '(t , tt) n => fuzz) (fun '(t , tt) n => shrink n) (fun '(t , tt) n => show n) (
-	@ForAll _ (Tree · (Tree · ∅)) _ "k" (fun '(t', (t , tt)) => arbitrary) (fun '(t', (t , tt)) n => fuzz) (fun '(t', (t , tt)) n => shrink n) (fun '(t', (t , tt)) n => show n) (
-	@ForAll _ (nat · (Tree · (Tree · ∅))) _ "v" (fun '(k, (t', (t , tt))) => arbitrary) (fun '(k, (t', (t , tt))) n => fuzz) (fun '(k, (t', (t , tt))) n => shrink n) (fun '(k, (t', (t , tt))) n => show n) (
-	@Predicate (nat · (nat · (Tree · (Tree · ∅)))) Z
-	(fun '(v, (k, (t', (t, tt)))) => (withInstrumentation' (fun _ => prop_UnionDeleteInsert t t' k v))))))).
-
-Definition test_prop_UnionDeleteInsert_runner := (targetLoop number_of_trials test_prop_UnionDeleteInsert (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
-(*! QuickProp test_prop_UnionDeleteInsert_runner. *)
-
-Definition test_prop_UnionUnionIdem    :=
-	@ForAll _ ∅ _ "t" (fun tt => arbitrary) (fun tt n => fuzz) (fun tt n => shrink n) (fun tt n => show n) (
-	@Predicate (Tree · ∅) Z
-	(fun '(t, tt) => withInstrumentation' (fun _ => prop_UnionUnionIdem t))).
-
-Definition test_prop_UnionUnionIdem_runner := (targetLoop number_of_trials test_prop_UnionUnionIdem (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
-(*! QuickProp test_prop_UnionUnionIdem_runner. *)
-
-Definition test_prop_UnionUnionAssoc   :=
-	@ForAll _ ∅ _ "t1" (fun tt => arbitrary) (fun tt n => fuzz) (fun tt n => shrink n) (fun tt n => show n) (
-	@ForAll _ (Tree · ∅) _ "t2" (fun '(t1, tt) => arbitrary) (fun '(t1, tt) n => fuzz) (fun '(t1, tt) n => shrink n) (fun '(t1, tt) n => show n) (
-	@ForAll _ (Tree · (Tree · ∅)) _ "t3" (fun '(t2, (t1, tt)) => arbitrary) (fun '(t2, (t1, tt)) n => fuzz) (fun '(t2, (t1, tt)) n => shrink n) (fun '(t2, (t1, tt)) n => show n) (
-	@Predicate (Tree · (Tree · (Tree · ∅))) Z
-	(fun '(t3, (t2, (t1, tt))) => withInstrumentation' (fun _ => prop_UnionUnionAssoc t1 t2 t3))))).
-
-Definition test_prop_UnionUnionAssoc_runner := (targetLoop number_of_trials test_prop_UnionUnionAssoc (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
-(*! QuickProp test_prop_UnionUnionAssoc_runner. *)

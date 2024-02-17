@@ -5,9 +5,9 @@ Strategies/BespokeGenerator.v
 Strategies/TypeBasedGenerator.v
 Strategies/SpecificationBasedGenerator.v
 Strategies/TypeBasedFuzzer.v
+Strategies/NewGenerator.v
 Runners/TypeBasedGenerator_test_runner.v
 Runners/NewGenerator_test_runner.v
-Runners/PropLangGenerator_test_runner.v
 Runners/BespokeGenerator_test_runner.v
 Runners/SpecificationBasedGenerator_test_runner.v
 Runners/TypeBasedFuzzer_test_runner.v

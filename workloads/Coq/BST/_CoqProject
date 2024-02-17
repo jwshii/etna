@@ -1,7 +1,6 @@
 -Q . BST
 Src/Impl.v
 Src/Spec.v
-Src/PropLang.v
 Strategies/BespokeGenerator.v
 Strategies/TypeBasedGenerator.v
 Strategies/SpecificationBasedGenerator.v

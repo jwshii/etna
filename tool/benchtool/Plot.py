@@ -93,7 +93,7 @@ def stacked_barchart_times(
         xaxis=go.layout.XAxis(showticklabels=False,),
         yaxis=go.layout.YAxis(
             title='',
-            showticklabels=False,
+            showticklabels=True,
         ),
         font_size=60,
         font={'family': 'Helvetica'},
