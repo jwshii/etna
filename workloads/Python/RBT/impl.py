@@ -4,23 +4,23 @@ from dataclasses import dataclass
 from typing import Tuple
 
 
-@dataclass
-class Color:
-    _is_red: bool
-
-    @staticmethod
-    def red() -> Color:
-        return Color(True)
-
-    @staticmethod
-    def black() -> Color:
-        return Color(False)
-
-    def is_red(self) -> bool:
-        return self._is_red
+class Color(ABC):
 
     def is_black(self) -> bool:
-        return not self._is_red
+        return isinstance(self, Black)
+
+    def is_red(self) -> bool:
+        return isinstance(self, Red)
+
+
+@dataclass
+class Red(Color):
+    pass
+
+
+@dataclass
+class Black(Color):
+    pass
 
 
 class Tree(ABC):
@@ -110,18 +110,18 @@ def insert(k: int, v: int, t: Tree) -> Tree:
         if isinstance(t, E):
             return t
         elif isinstance(t, T):
-            return T(Color.black(), t.l, t.k, t.v, t.r)
+            return T(Black(), t.l, t.k, t.v, t.r)
         else:
             raise Exception("impossible")
 
     def ins(t: Tree) -> Tree:
         if isinstance(t, E):
             #etna_base miscolor_insert
-            return T(Color.red(), E(), k, v, E())
+            return T(Red(), E(), k, v, E())
 
 
 #etna_mutant miscolor_insert
-#            return T(Color.black(), E(), k, v, E())
+#            return T(Black(), E(), k, v, E())
 #etna_mutant_end miscolor_insert
         elif isinstance(t, T):
             if k < t.k:
@@ -135,21 +135,15 @@ def insert(k: int, v: int, t: Tree) -> Tree:
     return blacken(ins(t))
 
 
-def balance(c: Color, l: Tree, k: int, v: int, r: Tree) -> Tree:
-    if c.is_black() and isinstance(l, T) and isinstance(
-            l.l, T) and l.c.is_red() and l.l.c.is_red():
-        return T(Color.red(), T(Color.black(), l.l.l, l.l.k, l.l.v, l.l.r),
-                 l.k, l.v, T(Color.black(), l.r, k, v, r))
-    elif c.is_black() and isinstance(l, T) and isinstance(
-            l.r, T) and l.c.is_red() and l.r.c.is_red():
-        return T(Color.red(), T(Color.black(), l.l, l.k, l.v, l.r.l), l.r.k,
-                 l.r.v, T(Color.black(), l.r.r, k, v, r))
-    elif c.is_black() and isinstance(r, T) and isinstance(
-            r.l, T) and r.c.is_red() and r.l.c.is_red():
-        return T(Color.red(), T(Color.black(), l, k, v, r.l.l), r.l.k, r.l.v,
-                 T(Color.black(), r.l.r, r.k, r.v, r.r))
-    elif c.is_black() and isinstance(r, T) and isinstance(
-            r.r, T) and r.c.is_red() and r.r.c.is_red():
-        return T(Color.red(), T(Color.black(), l, k, v, r.l), r.k, r.v,
-                 T(Color.black(), r.r.r, r.r.k, r.r.v, r.r.r))
-    return T(c, l, k, v, r)
+def balance(col: Color, l: Tree, k: int, v: int, r: Tree) -> Tree:
+    match (col, l, k, v, r):
+        case (Black(), T(Red(), T(Red(), a, x, xv, b), y, yv, c), z, zv, d):
+            return T(Red(), T(Black(), a, x, xv, b), y, yv, T(Black(), c, z, zv, d))
+        case (Black(), T(Red(), a, x, xv, T(Red(), b, y, yv, c)), z, zv, d):
+            return T(Red(), T(Black(), a, x, xv, b), y, yv, T(Black(), c, z, zv, d))
+        case (Black(), a, x, xv, T(Red(), T(Red(), b, y, yv, c), z, zv, d)):
+            return T(Red(), T(Black(), a, x, xv, b), y, yv, T(Black(), c, z, zv, d))
+        case (Black(), a, x, xv, T(Red(), b, y, yv, T(Red(), c, z, zv, d))):
+            return T(Red(), T(Black(), a, x, xv, b), y, yv, T(Black(), c, z, zv, d))
+        case (_, _, _, _, _):
+            return T(col, l, k, v, r)

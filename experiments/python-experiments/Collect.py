@@ -13,9 +13,9 @@ def collect(results: str):
             continue
 
         for variant in tool.all_variants(workload):
-            if variant.name == 'base':
-                # Don't run on base (non-buggy) implementation.
-                continue
+            # if variant.name == 'base':
+            #     # Don't run on base (non-buggy) implementation.
+            #     continue
 
             for strategy in tool.all_strategies(workload):
                 for property in tool.all_properties(workload):

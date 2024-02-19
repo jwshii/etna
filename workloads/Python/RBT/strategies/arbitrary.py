@@ -3,7 +3,7 @@ import sys
 
 sys.path.append("..")
 import spec
-from impl import Tree, E, T, Color
+from impl import Tree, E, T, Red, Black
 
 
 @st.composite
@@ -13,7 +13,7 @@ def trees(draw, max_depth=3):
     else:
         if not draw(st.integers(min_value=0, max_value=max_depth)):
             return E()
-        return T(Color.red() if draw(st.booleans()) else Color.black(),
+        return T(Red() if draw(st.booleans()) else Black(),
                  draw(trees(max_depth - 1)), draw(st.integers()),
                  draw(st.integers()), draw(trees(max_depth - 1)))
 
