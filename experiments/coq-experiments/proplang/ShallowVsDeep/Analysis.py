@@ -28,7 +28,7 @@ def analyze(results: str, images: str):
             show=False,
         )
 
-    for workload in ['RBTProplang', 'STLCProplang', 'STLC', 'RBT']:
+    for workload in ['RBTProplang', 'STLCProplang', 'STLC', 'RBT', 'BST']:
         times = partial(stacked_barchart_times, case=workload, df=df)
         times(
             strategies=[
@@ -47,7 +47,7 @@ def analyze(results: str, images: str):
 
     # Calculate the mean throughput for each workload and strategy
     df = df.groupby(['workload', 'strategy']).mean().reset_index()
-    print(df)
+    df.to_csv(f'{images}/mean.csv')
 
 
 if __name__ == "__main__":

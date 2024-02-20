@@ -148,6 +148,7 @@ class TrialArgs:
     label: str
     timeout: float | None = None
     short_circuit: bool = False
+    seeds: list[int] | None = None
 
     def to_json(self) -> str:
         return json.dumps(dataclasses.asdict(self))
@@ -163,6 +164,7 @@ class TrialConfig:
     label: str | None = None  # if not provided, use same as strategy
     timeout: float | None = None  # in seconds
     short_circuit: bool = False
+    seeds: list[int] | None = None  # if not provided, don't provide a seed to the runner
 
 
 class LogLevel(IntEnum):

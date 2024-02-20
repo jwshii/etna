@@ -45,12 +45,28 @@ class Coq(BenchTool):
             matches = regex.findall(contents)
             return list(dict.fromkeys(matches))
 
+
+    def all_strategies(self, workload: Entry) -> list[Entry]:
+        '''
+        Assumes that all files in the `config.strategy` folder of `workload`
+        that end in `config.ext` are strategies.
+
+        :return: List of strategies in `workload`.
+        '''
+
+        strategies = self._get_all_strategy_names(workload.path)
+
+        def mk_entry(s: str) -> Entry:
+            return Entry(s, os.path.join(workload.path, self._config.strategies, s))
+
+        return [mk_entry(s) for s in strategies]
+
     def _build(self, workload_path: str):
         coq_path = os.path.join(os.getcwd(), "workloads", "Coq")
         print(f"Building {coq_path}")
         # Cleanup, delete all o, cmi, cmo, cmx, vo, vos, vok, glob, ml, mli, native, out, conf, aux
-        for extension in ["o", "cmi", "cmo", "cmx", "vo", "vos", "vok", "glob", "ml", "mli", "native", "out", "conf", "aux"]:
-            self._shell_command(["find", coq_path, "-type", "f", "-name", f"*.{extension}", "-delete"])
+        for extension in [".o", ".cmi", ".cmo", ".cmx", ".vo", ".vos", ".vok", ".glob", ".ml", ".mli", ".native", ".out", ".conf", ".aux", "_exec"]:
+            self._shell_command(["find", coq_path, "-type", "f", "-name", f"*{extension}", "-delete"])
 
         # Build common
         common = self.common()
@@ -62,10 +78,12 @@ class Coq(BenchTool):
         self._log(f"Built common: {common.name}", LogLevel.DEBUG)
 
         strategies = self._get_generator_names(workload_path)
+        print(f"Strategies: {strategies}")
         strategy_build_commands = map(
             lambda strategy: self._get_strategy_build_command(strategy), strategies
         )
         fuzzers = self._get_fuzzer_names(workload_path)
+        print(f"Fuzzers: {fuzzers}")
         fuzzer_build_commands = map(
             lambda fuzzer: self._get_fuzzer_build_command(fuzzer), fuzzers
         )
@@ -101,13 +119,16 @@ class Coq(BenchTool):
 
     def _run_trial_fuzzer(self, workload_path: str, params: TrialArgs):
         with self._change_dir(workload_path):
-            cmd = ["./main_exec", f"./{params.strategy}_exec {params.property}"]
             results = []
             self._log(
                 f"Running {params.workload},{params.strategy},{params.mutant},{params.property}",
                 LogLevel.INFO,
             )
-            for _ in range(params.trials):
+            for i in range(params.trials):
+                if params.seeds:
+                    cmd = ["./main_exec", f"./{params.strategy}_exec {params.property} {params.seeds[i]}"]
+                else:
+                    cmd = ["./main_exec", f"./{params.strategy}_exec {params.property}"]
                 try:
                     trial_result = {
                         "workload": params.workload,
@@ -118,6 +139,7 @@ class Coq(BenchTool):
                         "passed": None,
                         "property": params.property,
                         "time": None,
+                        "counterexample": None,
                     }
                     process = subprocess.Popen(
                         cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
@@ -209,14 +231,16 @@ class Coq(BenchTool):
 
     def _run_trial_strategy(self, workload_path: str, params: TrialArgs):
         with self._change_dir(workload_path):
-            print(f"{os.getcwd()}")
-            cmd = [f"./{params.strategy}_test_runner.native", params.property]
             results = []
             self._log(
                 f"Running {params.workload},{params.strategy},{params.mutant},{params.property}",
                 LogLevel.INFO,
             )
-            for _ in range(params.trials):
+            for i in range(params.trials):
+                if params.seeds:
+                    cmd = [f"./{params.strategy}_test_runner.native", params.property, str(params.seeds[i])]
+                else:
+                    cmd = [f"./{params.strategy}_test_runner.native", params.property]
                 trial_result = {
                     "workload": params.workload,
                     "discards": None,
@@ -226,6 +250,7 @@ class Coq(BenchTool):
                     "passed": None,
                     "property": params.property,
                     "time": None,
+                    "counterexample": None,
                 }
                 try:
                     process = subprocess.Popen(
@@ -259,6 +284,7 @@ class Coq(BenchTool):
                     trial_result["time"] = (
                         float(json_result["time"][:-2]) * 0.001
                     )  # ms as string to seconds as float conversion
+                    trial_result["counterexample"] = json_result.get("counterexample")
 
                 except subprocess.TimeoutExpired:
                     process.kill()
@@ -301,14 +327,6 @@ class Coq(BenchTool):
 
         f.close()
 
-    def _get_executable_strategy_names(self, workload_path):
-        strategies_path = f"{workload_path}/{STRATEGIES_DIR}"
-        strategies = self._get_strategy_names(strategies_path)
-        executables = list(
-            map(lambda strategy: f"{strategy}_test_runner.native", strategies)
-        )
-        return executables
-
     def _get_strategy_build_command(self, strategy: str) -> str:
         self._log(f"Building strategy: {strategy}", LogLevel.INFO)
         return f"ocamlfind ocamlopt -linkpkg -package zarith -package unix -rectypes {strategy}_test_runner.mli {strategy}_test_runner.ml -o {strategy}_test_runner.native"
@@ -325,30 +343,30 @@ class Coq(BenchTool):
         return fuzzer_build_command
 
     def _get_fuzzer_names(self, workload_path):
-        fuzzers = list(
+        return list(
             filter(
                 lambda f: f.endswith("Fuzzer"),
-                self._get_all_strategy_names(f"{workload_path}/{STRATEGIES_DIR}"),
+                self._get_all_strategy_names(workload_path),
             )
         )
-        return fuzzers
 
     def _get_generator_names(self, workload_path):
-        generators = list(
+         return list(
             filter(
                 lambda f: f.endswith("Generator"),
-                self._get_all_strategy_names(f"{workload_path}/{STRATEGIES_DIR}"),
+                self._get_all_strategy_names(workload_path),
             )
         )
-        return generators
 
-    def _get_all_strategy_names(self, strategies_path) -> list[str]:
-        strategies = []
-        for strategy in os.listdir(strategies_path):
-            f = os.path.join(strategies_path, strategy)
-            if os.path.isfile(f) and f.endswith(".v"):
-                strategies.append(strategy[:-2])
-        return strategies
+    def _get_all_strategy_names(self, workload_path) -> list[str]:
+        with open(f"{workload_path}/_CoqProject", "r") as coq_project_file:
+            coq_project_file_contents = coq_project_file.read().splitlines()
+            generators = []
+            for line in coq_project_file_contents:
+                if line.startswith(STRATEGIES_DIR):
+                    generators.append(line.split("/")[-1][:-2])
+    
+        return generators
 
     def _parse_tests_qc(self, s: str) -> tuple[list, str]:
         return self._parse_tests("QuickChick", s)
@@ -523,19 +541,30 @@ let () =
         # Relevant Paths
         strategies_path = f"{workload.path}/{STRATEGIES_DIR}/"
         runners_path = f"{workload.path}/{RUNNERS_DIR}/"
-        # Generate runner files
-        generators = self._get_generator_names(workload.path)
-        fuzzers = self._get_fuzzer_names(workload.path)
-        # Empty Runner Directory
+
+        # Read _CoqProject file
+        with open(f"{workload.path}/_CoqProject", "r") as coq_project_file_reader:
+            coq_project_file_contents = coq_project_file_reader.read().splitlines()
+            strategies = []
+            # Get all strategies
+            for line in coq_project_file_contents:
+                if line.startswith(STRATEGIES_DIR):
+                    strategies.append(line.split("/")[-1][:-2])
+
+        # Generate runner directory if it does not exist
+        if not os.path.exists(runners_path):
+            os.makedirs(runners_path)
+        # Empty Runner Directory        
         self._shell_command(["rm", f"{runners_path}*"])
+        
         # Generate and Add Runners for each strategy
-        for strategy in generators + fuzzers:
+        for strategy in strategies:
             with open(
                 os.path.join(strategies_path, f"{strategy}.v"), "r"
             ) as strategy_file:
                 content = strategy_file.read()
                 isPropLang = workload.name.endswith("Proplang")
-                isFuzzer = strategy in fuzzers
+                isFuzzer = strategy.endswith("Fuzzer")
                 tests = self._parse_tests_all(content)
 
                 self._generate_test_file(
@@ -543,9 +572,7 @@ let () =
                 )
 
         # Add runners to the _CoqProject file
-        with open(f"{workload.path}/_CoqProject", "r") as coq_project_file_reader:
-            coq_project_file_contents = coq_project_file_reader.read().splitlines()
-
+        # Remove runners from the _CoqProject file
         with open(f"{workload.path}/_CoqProject", "w") as coq_project_file_writer:
             for coq_project_file_line in coq_project_file_contents:
                 if (
@@ -553,8 +580,7 @@ let () =
                     and coq_project_file_line != ""
                 ):
                     coq_project_file_writer.write(coq_project_file_line + "\n")
-
-            for strategy in generators + fuzzers:
+            for strategy in strategies:
                 coq_project_file_writer.write(
                     f"{RUNNERS_DIR}/{strategy}_test_runner.v\n"
                 )

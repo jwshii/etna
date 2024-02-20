@@ -6,15 +6,14 @@ Require Import List ZArith.
 Import ListNotations.
 Import MonadNotation.
 
-From BSTProplang Require Import Impl.
-From BSTProplang Require Import Spec.
 From PropLang Require Import PropLang.
+From BSTProplang Require Import Spec.
+From BSTProplang Require Import Impl.
 
 Local Open Scope nat.
 Local Open Scope prop_scope.
 
-
-Fixpoint insert_correct (k : nat) (v: nat) (t : Tree) :=
+Definition insert_correct (k : nat) (v: nat) (t : Tree) :=
   match t with
   | E => T E k v E
   | T l k' v' r =>       
@@ -23,22 +22,23 @@ Fixpoint insert_correct (k : nat) (v: nat) (t : Tree) :=
     else T l k' v r
   end.
 
+Fixpoint gen_kvs (s : nat) (lo hi: nat) : G (list (nat * nat)) :=
+	match s with
+	| O => ret []
+	| S s' => 
+		if lo <? hi then
+			bindGen (choose(lo, hi)%nat) (fun k =>
+			bindGen arbitrary (fun v =>
+			bindGen (gen_kvs s' lo hi) (fun kvs =>
+			ret ((k, v) :: kvs))))
+		else ret []
+	end.
 
-Fixpoint gen_bst (s : nat) (lo hi : nat) : G Tree :=
-	let fix gen_bst (s : nat) (lo hi : nat) (t: Tree) : G Tree :=
-		match s with
-		| O => ret t
-		| S s' => 
-			if (lo <? hi) then	
-				k <- choose (lo, hi);;
-				v <- arbitrary;;
-				let t' := insert_correct k v t in
-				gen_bst s' lo hi t'
-			else
-				ret t
-		end
-	in
-	gen_bst s lo hi E.
+Definition gen_bst (s : nat) (lo hi: nat) : G Tree :=
+	bindGen (choose(0, s)%nat) (fun sz =>
+	bindGen (gen_kvs sz lo hi) (fun kvs =>
+	ret (fold_right (fun '(k, v) t => insert_correct k v t) E kvs))).
+
 	
 Fixpoint mutate_bst_ (t : Tree) (lo hi: nat) : G Tree :=
   match t with
@@ -60,18 +60,10 @@ Fixpoint mutate_bst_ (t : Tree) (lo hi: nat) : G Tree :=
 		]
   end.
 
-#[local] Instance shrinkTree : Shrink Tree :=
-{|
-	shrink t := 
-		match t with
-		| E => []
-		| T l k v r => [l; r]
-		end
-|}.
+Definition bespoke := gen_bst 6 0 40.
+Definition mutate_bst := (fun t => mutate_bst_ t 0 40).
 
-Definition bespoke := gen_bst 4 0 40.
-
-Derive (Show) for Tree.
+Derive (Shrink, Show) for Tree.
 
 Local Open Scope nat.
 
@@ -81,9 +73,10 @@ Proof. dec_eq. Defined.
 Axiom number_of_trials : nat.
 Extract Constant number_of_trials => "max_int".
 
+
 Definition prop_InsertValid   :=
-	ForAll "t" (fun tt => bespoke) (fun tt t => bespoke) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
+	ForAll "t" (fun tt => bespoke) (fun tt => mutate_bst) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) (fun '(t, tt) => isBST t) (
 	ForAll "k" (fun tt => arbitrary) (fun tt k => arbitrary) (fun tt => shrink) (fun tt => show) (
 	ForAll "v" (fun tt => arbitrary) (fun tt v => arbitrary) (fun tt => shrink) (fun tt => show) (
 	Check (nat · (nat · (Tree · ∅)))
@@ -93,8 +86,8 @@ Definition test_prop_InsertValid := (fuzzLoop number_of_trials prop_InsertValid 
 (*! QuickProp test_prop_InsertValid. *)
 
 Definition prop_DeleteValid   :=
-	ForAll "t" (fun tt => bespoke) (fun tt t => bespoke) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
+	ForAll "t" (fun tt => bespoke) (fun tt => mutate_bst) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) (fun '(t, tt) => isBST t) (
 	ForAll "k" (fun tt => arbitrary) (fun tt n => arbitrary) (fun tt => shrink) (fun tt => show) (
 	Check (nat · (Tree · ∅))
 	(fun '(k, (t, tt)) => (isBST (delete k t)))))).
@@ -103,10 +96,10 @@ Definition test_prop_DeleteValid := (fuzzLoop number_of_trials prop_DeleteValid 
 (*! QuickProp test_prop_DeleteValid. *)
 
 Definition prop_UnionValid :=
-	ForAll "t1" (fun tt => bespoke) (fun tt t => bespoke) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isBST t1" (fun '(t1, tt) => isBST t1) (
-	ForAll "t2" (fun tt => bespoke) (fun tt n => bespoke) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · _) "isBST t2" (fun '(t2, _) => isBST t2) (
+	ForAll "t1" (fun tt => bespoke) (fun tt => mutate_bst) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) (fun '(t1, tt) => isBST t1) (
+	ForAll "t2" (fun tt => bespoke) (fun tt => mutate_bst) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · _) (fun '(t2, _) => isBST t2) (
 	Check (Tree · (Tree · ∅))
 	(fun '(t2, (t1, tt)) => (isBST (union t1 t2))))))).
 
@@ -114,8 +107,8 @@ Definition test_prop_UnionValid := (fuzzLoop number_of_trials prop_UnionValid (H
 (*! QuickProp test_prop_UnionValid. *)
 
 Definition prop_InsertPost :=
-	ForAll "t" (fun tt => bespoke) (fun tt t => bespoke) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
+	ForAll "t" (fun tt => bespoke) (fun tt => mutate_bst) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) (fun '(t, tt) => isBST t) (
 	ForAll "k" (fun tt => arbitrary) (fun tt k => arbitrary) (fun tt => shrink) (fun tt => show) (
 	ForAll "k'" (fun tt => arbitrary) (fun tt k' => arbitrary) (fun tt => shrink) (fun tt => show) (
 	ForAll "v" (fun tt => arbitrary) (fun tt v => arbitrary) (fun tt => shrink) (fun tt => show) (
@@ -127,10 +120,10 @@ Definition test_prop_InsertPost := (fuzzLoop number_of_trials prop_InsertPost (H
 
 
 Definition prop_DeletePost :=
-	ForAll "t" (fun tt => bespoke) (fun tt t => bespoke) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
-	ForAll "k" (fun tt => arbitrary) (fun tt t => arbitrary) (fun tt => shrink) (fun tt => show) (
-	ForAll "k'" (fun tt => arbitrary) (fun tt n => arbitrary) (fun tt => shrink) (fun tt => show) (
+	ForAll "t" (fun tt => bespoke) (fun tt => mutate_bst) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) (fun '(t, tt) => isBST t) (
+	ForAll "k" (fun tt => arbitrary) (fun tt k => arbitrary) (fun tt => shrink) (fun tt => show) (
+	ForAll "k'" (fun tt => arbitrary) (fun tt k' => arbitrary) (fun tt => shrink) (fun tt => show) (
 	Check (nat · (nat · (Tree · ∅)))
 	(fun '(k', (k, (t, tt))) => ((find k' (delete k t) = if k =? k' then None else find k' t)?)))))).
 
@@ -138,9 +131,9 @@ Definition test_prop_DeletePost := (fuzzLoop number_of_trials prop_DeletePost (H
 (*! QuickProp test_prop_DeletePost. *)
 
 Definition prop_UnionPost :=
-	ForAll "t" (fun tt => bespoke) (fun tt t => bespoke) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
-	ForAll "t'" (fun tt => bespoke) (fun tt t' => bespoke) (fun tt => shrink) (fun tt => show) (
+	ForAll "t" (fun tt => bespoke) (fun tt => mutate_bst) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) (fun '(t, tt) => isBST t) (
+	ForAll "t'" (fun tt => bespoke) (fun tt => mutate_bst) (fun tt => shrink) (fun tt => show) (
 	ForAll "k" (fun tt => arbitrary) (fun tt k => arbitrary) (fun tt => shrink) (fun tt => show) (
 	Check (nat · (Tree · (Tree · ∅)))
 	(fun '(k, (t', (t, tt))) => (let lhs := find k (union t t') in
@@ -156,10 +149,10 @@ Definition test_prop_UnionPost := (fuzzLoop number_of_trials prop_UnionPost (Hea
 (*! QuickProp test_prop_UnionPost. *)
 
 Definition prop_InsertModel :=
-	ForAll "t" (fun tt => bespoke) (fun tt t => bespoke) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
-	ForAll "k" (fun tt => arbitrary) (fun tt t => arbitrary) (fun tt => shrink) (fun tt => show) (
-	ForAll "v" (fun tt => arbitrary) (fun tt n => arbitrary) (fun tt => shrink) (fun tt => show) (
+	ForAll "t" (fun tt => bespoke) (fun tt => mutate_bst) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) (fun '(t, tt) => isBST t) (
+	ForAll "k" (fun tt => arbitrary) (fun tt k => arbitrary) (fun tt => shrink) (fun tt => show) (
+	ForAll "v" (fun tt => arbitrary) (fun tt v => arbitrary) (fun tt => shrink) (fun tt => show) (
 	Check (nat · (nat · (Tree · ∅)))
 	(fun '(v, (k, (t, tt))) => ((toList (insert k v t) = L_insert (k, v) (deleteKey k (toList t)))?)))))).
 
@@ -167,8 +160,8 @@ Definition test_prop_InsertModel := (fuzzLoop number_of_trials prop_InsertModel 
 (*! QuickProp test_prop_InsertModel. *)
 
 Definition prop_DeleteModel :=
-	ForAll "t" (fun tt => bespoke) (fun tt t => bespoke) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
+	ForAll "t" (fun tt => bespoke) (fun tt => mutate_bst) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) (fun '(t, tt) => isBST t) (
 	ForAll "k" (fun tt => arbitrary) (fun tt t => arbitrary) (fun tt => shrink) (fun tt => show) (
 	Check (nat · (Tree · ∅))
 	(fun '(k, (t, tt)) => ((toList (delete k t) = deleteKey k (toList t))?))))).
@@ -177,10 +170,10 @@ Definition test_prop_DeleteModel := (fuzzLoop number_of_trials prop_DeleteModel 
 (*! QuickProp test_prop_DeleteModel. *)
 
 Definition prop_UnionModel :=
-	ForAll "t" (fun tt => bespoke) (fun tt t => bespoke) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
-	ForAll "t'" (fun tt => bespoke) (fun tt t' => bespoke) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · _) "isBST t'" (fun '(t', _) => isBST t') (
+	ForAll "t" (fun tt => bespoke) (fun tt => mutate_bst) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) (fun '(t, tt) => isBST t) (
+	ForAll "t'" (fun tt => bespoke) (fun tt => mutate_bst) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · _) (fun '(t', _) => isBST t') (
 	Check (Tree · (Tree · ∅))
 	(fun '(t', (t, tt)) => ((toList (union t t') = L_sort (L_unionBy (fun x y => x) (toList t) (toList t')))?)))))).
 
@@ -188,8 +181,8 @@ Definition test_prop_UnionModel := (fuzzLoop number_of_trials prop_UnionModel (H
 (*! QuickProp test_prop_UnionModel. *)
 
 Definition prop_InsertInsert :=
-	ForAll "t" (fun tt => bespoke) (fun tt t => bespoke) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
+	ForAll "t" (fun tt => bespoke) (fun tt => mutate_bst) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) (fun '(t, tt) => isBST t) (
 	ForAll "k" (fun tt => arbitrary) (fun tt t => arbitrary) (fun tt => shrink) (fun tt => show) (
 	ForAll "k'" (fun tt => arbitrary) (fun tt n => arbitrary) (fun tt => shrink) (fun tt => show) (
 	ForAll "v" (fun tt => arbitrary) (fun tt v => arbitrary) (fun tt => shrink) (fun tt => show) (
@@ -201,8 +194,8 @@ Definition test_prop_InsertInsert := (fuzzLoop number_of_trials prop_InsertInser
 (*! QuickProp test_prop_InsertInsert. *)
 
 Definition prop_InsertDelete :=
-	ForAll "t" (fun tt => bespoke) (fun tt t => bespoke) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
+	ForAll "t" (fun tt => bespoke) (fun tt => mutate_bst) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) (fun '(t, tt) => isBST t) (
 	ForAll "k" (fun tt => arbitrary) (fun tt k => arbitrary) (fun tt => shrink) (fun tt => show) (
 	ForAll "k'" (fun tt => arbitrary) (fun tt k' => arbitrary) (fun tt => shrink) (fun tt => show) (
 	ForAll "v" (fun tt => arbitrary) (fun tt v => arbitrary) (fun tt => shrink) (fun tt => show) (
@@ -213,10 +206,10 @@ Definition test_prop_InsertDelete := (fuzzLoop number_of_trials prop_InsertDelet
 (*! QuickProp test_prop_InsertDelete. *)
 
 Definition prop_InsertUnion :=
-	ForAll "t" (fun tt => bespoke) (fun tt t => bespoke) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
-	ForAll "t'" (fun tt => bespoke) (fun tt t' => bespoke) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · _) "isBST t'" (fun '(t', _) => isBST t') (
+	ForAll "t" (fun tt => bespoke) (fun tt => mutate_bst) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) (fun '(t, tt) => isBST t) (
+	ForAll "t'" (fun tt => bespoke) (fun tt => mutate_bst) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · _) (fun '(t', _) => isBST t') (
 	ForAll "k" (fun tt => arbitrary) (fun tt k => arbitrary) (fun tt => shrink) (fun tt => show) (
 	ForAll "v" (fun tt => arbitrary) (fun tt v => arbitrary) (fun tt => shrink) (fun tt => show) (
 	Check (nat · (nat · (Tree · (Tree · ∅))))
@@ -226,10 +219,10 @@ Definition test_prop_InsertUnion := (fuzzLoop number_of_trials prop_InsertUnion 
 (*! QuickProp test_prop_InsertUnion. *)
 
 Definition prop_DeleteInsert :=
-	ForAll "t" (fun tt => bespoke) (fun tt t => bespoke) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
-	ForAll "k" (fun tt => arbitrary) (fun tt t => arbitrary) (fun tt => shrink) (fun tt => show) (
-	ForAll "k'" (fun tt => arbitrary) (fun tt n => arbitrary) (fun tt => shrink) (fun tt => show) (
+	ForAll "t" (fun tt => bespoke) (fun tt => mutate_bst) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) (fun '(t, tt) => isBST t) (
+	ForAll "k" (fun tt => arbitrary) (fun tt k => arbitrary) (fun tt => shrink) (fun tt => show) (
+	ForAll "k'" (fun tt => arbitrary) (fun tt k' => arbitrary) (fun tt => shrink) (fun tt => show) (
 	ForAll "v'" (fun tt => arbitrary) (fun tt v => arbitrary) (fun tt => shrink) (fun tt => show) (
 	Check (nat · (nat · (nat · (Tree · ∅))))
 	(fun '(v', (k', (k, (t, tt)))) => (delete k (insert k' v' t) =|= if k =? k' then delete k t else insert k' v' (delete k t)))))))).
@@ -238,10 +231,10 @@ Definition test_prop_DeleteInsert := (fuzzLoop number_of_trials prop_DeleteInser
 (*! QuickProp test_prop_DeleteInsert. *)
 
 Definition prop_DeleteDelete :=
-	ForAll "t" (fun tt => bespoke) (fun tt t => bespoke) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
-	ForAll "k" (fun tt => arbitrary) (fun tt t => arbitrary) (fun tt => shrink) (fun tt => show) (
-	ForAll "k'" (fun tt => arbitrary) (fun tt n => arbitrary) (fun tt => shrink) (fun tt => show) (
+	ForAll "t" (fun tt => bespoke) (fun tt => mutate_bst) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) (fun '(t, tt) => isBST t) (
+	ForAll "k" (fun tt => arbitrary) (fun tt k => arbitrary) (fun tt => shrink) (fun tt => show) (
+	ForAll "k'" (fun tt => arbitrary) (fun tt k' => arbitrary) (fun tt => shrink) (fun tt => show) (
 	Check (nat · (nat · (Tree · ∅)))
 	(fun '(k', (k, (t, tt))) => ((delete k (delete k' t) =|= delete k' (delete k t)))))))).
 
@@ -249,10 +242,10 @@ Definition test_prop_DeleteDelete := (fuzzLoop number_of_trials prop_DeleteDelet
 (*! QuickProp test_prop_DeleteDelete. *)
 
 Definition prop_DeleteUnion :=
-	ForAll "t" (fun tt => bespoke) (fun tt t => bespoke) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
-	ForAll "t'" (fun tt => bespoke) (fun tt t' => bespoke) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · _) "isBST t'" (fun '(t', _) => isBST t') (
+	ForAll "t" (fun tt => bespoke) (fun tt => mutate_bst) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) (fun '(t, tt) => isBST t) (
+	ForAll "t'" (fun tt => bespoke) (fun tt => mutate_bst) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · _) (fun '(t', _) => isBST t') (
 	ForAll "k" (fun tt => arbitrary) (fun tt k => arbitrary) (fun tt => shrink) (fun tt => show) (
 	Check (nat · (Tree · (Tree · ∅)))
 	(fun '(k, (t', (t, tt))) => (delete k (union t t') =|= union (delete k t) (delete k t')))))))).
@@ -261,10 +254,10 @@ Definition test_prop_DeleteUnion := (fuzzLoop number_of_trials prop_DeleteUnion 
 (*! QuickProp test_prop_DeleteUnion. *)
 
 Definition prop_UnionDeleteInsert :=
-	ForAll "t " (fun tt => bespoke) (fun tt t => bespoke) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
-	ForAll "t'" (fun tt => bespoke) (fun tt t' => bespoke) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · _) "isBST t'" (fun '(t', _) => isBST t') (
+	ForAll "t " (fun tt => bespoke) (fun tt => mutate_bst) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) (fun '(t, tt) => isBST t) (
+	ForAll "t'" (fun tt => bespoke) (fun tt => mutate_bst) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · _) (fun '(t', _) => isBST t') (
 	ForAll "k" (fun tt => arbitrary) (fun tt k => arbitrary) (fun tt => shrink) (fun tt => show) (
 	ForAll "v" (fun tt => arbitrary) (fun tt v => arbitrary) (fun tt => shrink) (fun tt => show) (
 	Check (nat · (nat · (Tree · (Tree · ∅))))
@@ -274,8 +267,8 @@ Definition test_prop_UnionDeleteInsert := (fuzzLoop number_of_trials prop_UnionD
 (*! QuickProp test_prop_UnionDeleteInsert. *)
 
 Definition prop_UnionUnionIdem :=
-	ForAll "t" (fun tt => bespoke) (fun tt t => bespoke) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isBST t" (fun '(t, tt) => isBST t) (
+	ForAll "t" (fun tt => bespoke) (fun tt => mutate_bst) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) (fun '(t, tt) => isBST t) (
 	Check (Tree · ∅)
 	(fun '(t, tt) => (union t t =|= t)))).
 
@@ -283,12 +276,12 @@ Definition test_prop_UnionUnionIdem := (fuzzLoop number_of_trials prop_UnionUnio
 (*! QuickProp test_prop_UnionUnionIdem. *)
 
 Definition prop_UnionUnionAssoc :=
-	ForAll "t1" (fun tt => bespoke) (fun tt t1 => bespoke) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isBST t1" (fun '(t1, tt) => isBST t1) (
-	ForAll "t2" (fun tt => bespoke) (fun tt t2 => bespoke) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · _) "isBST t2" (fun '(t2, _) => isBST t2) (
-	ForAll "t3" (fun tt => bespoke) (fun tt t3 => bespoke) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · _) "isBST t3" (fun '(t3, _) => isBST t3) (
+	ForAll "t1" (fun tt => bespoke) (fun tt => mutate_bst) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · ∅) (fun '(t1, tt) => isBST t1) (
+	ForAll "t2" (fun tt => bespoke) (fun tt => mutate_bst) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · _) (fun '(t2, _) => isBST t2) (
+	ForAll "t3" (fun tt => bespoke) (fun tt => mutate_bst) (fun tt => shrink) (fun tt => show) (
+	Implies (Tree · _) (fun '(t3, _) => isBST t3) (
 	Check (Tree · (Tree · (Tree · ∅)))
 	(fun '(t3, (t2, (t1, tt))) => (union (union t1 t2) t3 =|= union t1 (union t2 t3))))))))).
 

@@ -57,7 +57,7 @@ Definition test_prop_InsertPost    :=
   prop_InsertPost t k k' v))))
 .
 
-QuickChick test_prop_InsertPost.
+(*! QuickChick test_prop_InsertPost. *)
 
 Definition test_prop_DeletePost    :=
   forAll bespoke (fun (t: Tree)  =>

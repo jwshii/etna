@@ -66,7 +66,7 @@ Extract Constant number_of_trials => "max_int".
 
 Definition prop_InsertValid :=
 	ForAllMaybe "t" (fun tt => gRbt) (fun tt t => gRbt) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isRBT t" (fun '(t, tt) => isRBT t) (
+	Implies (Tree · ∅) (fun '(t, tt) => isRBT t) (
 	ForAll "k" (fun tt => arbitrary) (fun tt k => arbitrary) (fun tt => shrink) (fun tt => show) (
 	ForAll "v" (fun tt => arbitrary) (fun tt v => arbitrary) (fun tt => shrink) (fun tt => show) (
 	Check (Z · (Z · (Tree · ∅)))
@@ -77,7 +77,7 @@ Definition test_prop_InsertValid := (runLoop number_of_trials prop_InsertValid).
 
 Definition prop_DeleteValid :=
 	ForAllMaybe "t" (fun tt => gRbt) (fun tt t => gRbt) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isRBT t" (fun '(t, tt) => isRBT t) (
+	Implies (Tree · ∅) (fun '(t, tt) => isRBT t) (
 	ForAll "k" (fun tt => arbitrary) (fun tt n => arbitrary) (fun tt => shrink) (fun tt => show) (
 	Check (Z · (Tree · ∅))
 	(fun '(k, (t, tt)) => (match delete k t with
@@ -90,7 +90,7 @@ Definition test_prop_DeleteValid := (runLoop number_of_trials prop_DeleteValid).
 
 Definition prop_InsertPost :=
 	ForAllMaybe "t" (fun tt => gRbt) (fun tt t => gRbt) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isRBT t" (fun '(t, tt) => isRBT t) (
+	Implies (Tree · ∅) (fun '(t, tt) => isRBT t) (
 	ForAll "k" (fun tt => arbitrary) (fun tt k => arbitrary) (fun tt => shrink) (fun tt => show) (
 	ForAll "k'" (fun tt => arbitrary) (fun tt k' => arbitrary) (fun tt => shrink) (fun tt => show) (
 	ForAll "v" (fun tt => arbitrary) (fun tt v => arbitrary) (fun tt => shrink) (fun tt => show) (
@@ -104,7 +104,7 @@ Definition test_prop_InsertPost := (runLoop number_of_trials prop_InsertPost).
 
 Definition prop_DeletePost :=
 	ForAllMaybe "t" (fun tt => gRbt) (fun tt t => gRbt) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isRBT t" (fun '(t, tt) => isRBT t) (
+	Implies (Tree · ∅) (fun '(t, tt) => isRBT t) (
 	ForAll "k" (fun tt => arbitrary) (fun tt t => arbitrary) (fun tt => shrink) (fun tt => show) (
 	ForAll "k'" (fun tt => arbitrary) (fun tt n => arbitrary) (fun tt => shrink) (fun tt => show) (
 	Check (Z · (Z · (Tree · ∅)))
@@ -117,7 +117,7 @@ Definition test_prop_DeletePost := (runLoop number_of_trials prop_DeletePost).
 
 Definition prop_InsertModel :=
 	ForAllMaybe "t" (fun tt => gRbt) (fun tt t => gRbt) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isRBT t" (fun '(t, tt) => isRBT t) (
+	Implies (Tree · ∅) (fun '(t, tt) => isRBT t) (
 	ForAll "k" (fun tt => arbitrary) (fun tt t => arbitrary) (fun tt => shrink) (fun tt => show) (
 	ForAll "v" (fun tt => arbitrary) (fun tt n => arbitrary) (fun tt => shrink) (fun tt => show) (
 	Check (Z · (Z · (Tree · ∅)))
@@ -128,7 +128,7 @@ Definition test_prop_InsertModel := (runLoop number_of_trials prop_InsertModel).
 
 Definition prop_DeleteModel :=
 	ForAllMaybe "t" (fun tt => gRbt) (fun tt t => gRbt) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isRBT t" (fun '(t, tt) => isRBT t) (
+	Implies (Tree · ∅) (fun '(t, tt) => isRBT t) (
 	ForAll "k" (fun tt => arbitrary) (fun tt t => arbitrary) (fun tt => shrink) (fun tt => show) (
 	Check (Z · (Tree · ∅))
 	(fun '(k, (t, tt)) => ( match delete k t with
@@ -141,7 +141,7 @@ Definition test_prop_DeleteModel := (runLoop number_of_trials prop_DeleteModel).
 
 Definition prop_InsertInsert :=
 	ForAllMaybe "t" (fun tt => gRbt) (fun tt t => gRbt) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isRBT t" (fun '(t, tt) => isRBT t) (
+	Implies (Tree · ∅) (fun '(t, tt) => isRBT t) (
 	ForAll "k" (fun tt => arbitrary) (fun tt t => arbitrary) (fun tt => shrink) (fun tt => show) (
 	ForAll "k'" (fun tt => arbitrary) (fun tt n => arbitrary) (fun tt => shrink) (fun tt => show) (
 	ForAll "v" (fun tt => arbitrary) (fun tt v => arbitrary) (fun tt => shrink) (fun tt => show) (
@@ -156,7 +156,7 @@ Definition test_prop_InsertInsert := (runLoop number_of_trials prop_InsertInsert
 
 Definition prop_InsertDelete :=
 	ForAllMaybe "t" (fun tt => gRbt) (fun tt t => gRbt) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isRBT t" (fun '(t, tt) => isRBT t) (
+	Implies (Tree · ∅) (fun '(t, tt) => isRBT t) (
 	ForAll "k" (fun tt => arbitrary) (fun tt k => arbitrary) (fun tt => shrink) (fun tt => show) (
 	ForAll "k'" (fun tt => arbitrary) (fun tt k' => arbitrary) (fun tt => shrink) (fun tt => show) (
 	ForAll "v" (fun tt => arbitrary) (fun tt v => arbitrary) (fun tt => shrink) (fun tt => show) (
@@ -177,7 +177,7 @@ Definition test_prop_InsertDelete := (runLoop number_of_trials prop_InsertDelete
 
 Definition prop_DeleteInsert :=
 	ForAllMaybe "t" (fun tt => gRbt) (fun tt t => gRbt) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isRBT t" (fun '(t, tt) => isRBT t) (
+	Implies (Tree · ∅) (fun '(t, tt) => isRBT t) (
 	ForAll "k" (fun tt => arbitrary) (fun tt t => arbitrary) (fun tt => shrink) (fun tt => show) (
 	ForAll "k'" (fun tt => arbitrary) (fun tt n => arbitrary) (fun tt => shrink) (fun tt => show) (
 	ForAll "v'" (fun tt => arbitrary) (fun tt v => arbitrary) (fun tt => shrink) (fun tt => show) (
@@ -200,7 +200,7 @@ Definition test_prop_DeleteInsert := (runLoop number_of_trials prop_DeleteInsert
 
 Definition prop_DeleteDelete :=
 	ForAllMaybe "t" (fun tt => gRbt) (fun tt t => gRbt) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) "isRBT t" (fun '(t, tt) => isRBT t) (
+	Implies (Tree · ∅) (fun '(t, tt) => isRBT t) (
 	ForAll "k" (fun tt => arbitrary) (fun tt t => arbitrary) (fun tt => shrink) (fun tt => show) (
 	ForAll "k'" (fun tt => arbitrary) (fun tt n => arbitrary) (fun tt => shrink) (fun tt => show) (
 	Check (Z · (Z · (Tree · ∅)))
