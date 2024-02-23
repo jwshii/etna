@@ -263,6 +263,7 @@ class Coq(BenchTool):
 
                     start = stdout_data.find("[|")
                     end = stdout_data.find("|]")
+                    print(f"Result: {stdout_data}")
                     result = stdout_data[start + 2 : end]
                     self._log(f"{params.strategy} Result: {result}", LogLevel.INFO)
                     json_result = json.loads(result)
@@ -329,7 +330,7 @@ class Coq(BenchTool):
 
     def _get_strategy_build_command(self, strategy: str) -> str:
         self._log(f"Building strategy: {strategy}", LogLevel.INFO)
-        return f"ocamlfind ocamlopt -linkpkg -package zarith -package unix -rectypes {strategy}_test_runner.mli {strategy}_test_runner.ml -o {strategy}_test_runner.native"
+        return f"ocamlfind ocamlopt -linkpkg -package zarith -package unix -package domainslib -thread -rectypes {strategy}_test_runner.mli {strategy}_test_runner.ml -o {strategy}_test_runner.native"
 
     def _get_fuzzer_build_command(self, fuzzer: str) -> str:
         qc_path = os.environ["OPAM_SWITCH_PREFIX"] + "/lib/coq/user-contrib/QuickChick"

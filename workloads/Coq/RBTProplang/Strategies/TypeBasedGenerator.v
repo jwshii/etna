@@ -64,8 +64,8 @@ Definition prop_InsertPost :=
 	ForAll "v" (fun tt => arbitrary) (fun tt v => arbitrary) (fun tt => shrink) (fun tt => show) (
 	Check (Z · (Z · (Z · (Tree · ∅))))
 	(fun '(v, (k', (k, (t, tt)))) => (let v' := find k' (insert k v t) in
-										if k =? k' then v' ==? Some v 
-										else v' ==? find k' t))))))).
+										if k =? k' then (v' = Some v)?
+										else (v' = find k' t)?))))))).
 
 Definition test_prop_InsertPost := (runLoop number_of_trials prop_InsertPost).
 (*! QuickProp test_prop_InsertPost. *)
@@ -76,8 +76,11 @@ Definition prop_DeletePost :=
 	ForAll "k" (fun tt => arbitrary) (fun tt t => arbitrary) (fun tt => shrink) (fun tt => show) (
 	ForAll "k'" (fun tt => arbitrary) (fun tt n => arbitrary) (fun tt => shrink) (fun tt => show) (
 	Check (Z · (Z · (Tree · ∅)))
-	(fun '(k', (k, (t, tt))) => (t' <- delete k t ;;
-								 find k' t' ==? if k =? k' then None else find k' t)))))).
+	(fun '(k', (k, (t, tt))) => (match delete k t with
+								| None => false
+								| Some t' =>
+								(find k' t' = if k =? k' then None else find k' t)?
+								end)))))).
 
 Definition test_prop_DeletePost := (runLoop number_of_trials prop_DeletePost).
 (*! QuickProp test_prop_DeletePost. *)
@@ -115,8 +118,9 @@ Definition prop_InsertInsert :=
 	ForAll "v" (fun tt => arbitrary) (fun tt v => arbitrary) (fun tt => shrink) (fun tt => show) (
 	ForAll "v'" (fun tt => arbitrary) (fun tt v' => arbitrary) (fun tt => shrink) (fun tt => show) (
 	Check (Z · (Z · (Z · (Z · (Tree · ∅)))))
-	(fun '(v', (v, (k', (k, (t, tt))))) => ((toList (insert k v (insert k' v' t))
-    ==? toList(if k =? k' then insert k v t else insert k' v' (insert k v t))))))))))).
+	(fun '(v', (v, (k', (k, (t, tt))))) => (
+		(toList (insert k v (insert k' v' t)) = toList(if k =? k' then insert k v t else insert k' v' (insert k v t)))?
+	)))))))).
 
 Definition test_prop_InsertInsert := (runLoop number_of_trials prop_InsertInsert).
 (*! QuickProp test_prop_InsertInsert. *)
@@ -133,11 +137,11 @@ Definition prop_InsertDelete :=
 		match (delete k' t) with
 		| None => false
 		| Some t' =>
-			match delete k' (insert k v t) with
-			| None => false
-			| Some t'' =>
-				toList(insert k v t') ==? toList(if k =? k' then insert k v t else t'')
-			end
+		match delete k' (insert k v t) with
+		| None => false
+		| Some t'' =>
+			(toList(insert k v t') = toList(if k =? k' then insert k v t else t''))?
+		end
 		end))))))).
 
 Definition test_prop_InsertDelete := (runLoop number_of_trials prop_InsertDelete).
@@ -154,12 +158,12 @@ Definition prop_DeleteInsert :=
 		match delete k (insert k' v' t) with
 		| None => false
 		| Some t' =>
-		  match delete k t with
-		  | None => false
-		  | Some t'' =>
+		match delete k t with
+		| None => false
+		| Some t'' =>
 			let t''' := insert k' v' t'' in
-			toList t' ==? toList (if k =? k' then t'' else t''')
-		  end
+			(toList t' = toList (if k =? k' then t'' else t'''))?
+		end
 		end
 	))))))).
 
@@ -176,19 +180,19 @@ Definition prop_DeleteDelete :=
 		match delete k' t with
 		| None => false
 		| Some t' =>
-		  match delete k t' with
-		  | None => false
-		  | Some t'' =>
-			match delete k t with
+			match delete k t' with
 			| None => false
-			| Some t1' =>
-			  match delete k' t1' with
-			  | None => false
-			  | Some t1'' =>
-				toList t'' ==? toList t1''
-			  end
+			| Some t'' =>
+				match delete k t with
+				| None => false
+				| Some t1' =>
+					match delete k' t1' with
+					| None => false
+					| Some t1'' =>
+						(toList t'' = toList t1'')?
+					end
+				end
 			end
-		  end
 		end
 	)))))).
 

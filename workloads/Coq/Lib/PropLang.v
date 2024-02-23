@@ -970,6 +970,48 @@ Definition runLoop (fuel : nat) (cprop : CProp ∅): G Result :=
 
 
 
+Axiom assert_false: forall {A: Type}, (unit -> A).
+Extract Constant assert_false => "(fun _ -> assert false)
+
+open Domainslib".
+
+
+Axiom num_domains : nat.
+Extract Constant num_domains => "Domain.recommended_domain_count () - 1".
+
+Axiom TaskPool: Type.
+Extract Constant TaskPool => "Domainslib.Task.pool".
+
+Axiom pool : TaskPool.
+Extract Constant pool => "Task.setup_pool ~num_domains ~name:""pool"" ()".
+
+Axiom task_parallel_find : forall {A: Type}, TaskPool -> nat -> nat -> nat -> (nat -> option A) -> option A.
+Extract Constant task_parallel_find => "
+  (fun pool chunk_size start finish body ->
+    Task.parallel_find pool ~chunk_size:chunk_size ~start:start ~finish:finish ~body:body)
+".
+
+Axiom task_run : forall {A: Type}, TaskPool -> (unit -> A) -> A.
+Extract Constant task_run => "Task.run".
+
+Axiom task_teardown_pool : TaskPool -> unit.
+Extract Constant task_teardown_pool => "Task.teardown_pool".
+
+Definition parLoop (fuel: nat) (cprop: CProp ∅) : G Result :=
+  let parLoop' := (fun pool => 
+    task_parallel_find pool 1%nat 0%nat num_domains (fun _ => 
+      Some (runLoop fuel cprop)
+    )
+  ) in
+  let res := task_run pool (fun _ => 
+    match parLoop' pool with
+    | None => assert_false tt
+    | Some res => res
+    end
+  ) in
+  let _ := task_teardown_pool pool in
+  res.
+
 Definition targetLoop
   (fuel : nat) 
   (cprop : CProp ∅)

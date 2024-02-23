@@ -14,7 +14,7 @@ def collect(results: str):
 
         tool._preprocess(workload)
 
-        variables = list(filter(lambda v: v.name == "PropLangVersion", tool.all_variables(workload)))
+        variables = list(filter(lambda v: v.name == "CheckParallel", tool.all_variables(workload)))
         mixtures = tool.all_variable_mixtures(variables)
 
         for mixture in mixtures:
@@ -31,7 +31,7 @@ def collect(results: str):
                 run_trial = None
 
                 for strategy in tool.all_strategies(workload):
-                    if not strategy.name.endswith('Fuzzer'):
+                    if not strategy.name.endswith('Generator'):
                         continue
 
                     for property in tool.all_properties(workload):

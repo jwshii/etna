@@ -61,8 +61,8 @@ def stacked_barchart_times(
         strategies = df.strategy.unique()
 
     vmap = {
-        '0': 'PropLang',
-        '1': 'MiniPropLang',
+        '0': 'Sequential',
+        '1': 'Parallel',
     }
 
     df['version'] = df['version'].apply(lambda x: vmap[x])
@@ -194,28 +194,15 @@ def analyze(results: str, images: str):
     if not os.path.exists(images):
         os.makedirs(images)
 
-    for workload in ['BSTProplang']:
+    for workload in ['BSTProplang', 'RBTProplang']:
         times = partial(stacked_barchart_times, case=workload, df=df)
         times(
             strategies=[
-                'TypeBasedFuzzer',
-                'BespokeFuzzer'
+                'TypeBasedGenerator',
+                'BespokeGenerator',
+                'SpecificationBasedGenerator',
             ],
             # colors=['#000000', '#900D0D', '#DC5F00', '#243763', '#FFD700'],
-            limits=[0.1, 1, 10, 60],
-            limit_type='time',
-            image_path=images,
-            show=False,
-        )
-
-
-    for workload in ['RBTProplang']:
-        times = partial(stacked_barchart_times, case=workload, df=df)
-        times(
-            strategies=[
-                'TypeBasedFuzzer',
-            ],
-            colors=['#000000', '#900D0D', '#DC5F00', '#243763', '#FFD700'],
             limits=[0.1, 1, 10, 60],
             limit_type='time',
             image_path=images,

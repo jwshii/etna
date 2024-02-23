@@ -16,6 +16,7 @@ Local Open Scope prop_scope.
 #[local] Instance FuzzyNat : Fuzzy nat :=
   {| fuzz n := choose (n - 5, n + 5) |}.
 
+  
 Derive (Arbitrary, Show, Sized, Fuzzy) for Tree.
 
 #[local] Instance dec_eq_tree : Dec_Eq Tree.
@@ -48,7 +49,7 @@ Definition test_prop_DeleteValid := (fuzzLoop number_of_trials prop_DeleteValid 
 Definition prop_UnionValid :=
 	ForAll "t1" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
 	Implies (Tree · ∅) (fun '(t1, tt) => isBST t1) (
-	ForAll "t2" (fun tt => arbitrary) (fun tt t2 => fuzz t2) (fun tt => shrink) (fun tt => show) (
+	ForAll "t2" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
 	Implies (Tree · _) (fun '(t2, _) => isBST t2) (
 	Check (Tree · (Tree · ∅))
 	(fun '(t2, (t1, tt)) => (isBST (union t1 t2))))))).

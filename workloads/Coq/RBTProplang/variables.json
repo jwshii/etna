@@ -26,5 +26,17 @@
             "From PropLang Require Import PropLang.",
             "From PropLang Require Import MiniPropLang."
         ]
+    },
+    {
+        "name": "CheckParallel",
+        "folder": "Strategies",
+        "recursive": false,
+        "files": [
+            "*Generator.v"
+        ],
+        "variants": [
+            "runLoop",
+            "parLoop"
+        ]
     }
 ]
