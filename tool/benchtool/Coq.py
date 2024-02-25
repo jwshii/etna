@@ -330,7 +330,7 @@ class Coq(BenchTool):
 
     def _get_strategy_build_command(self, strategy: str) -> str:
         self._log(f"Building strategy: {strategy}", LogLevel.INFO)
-        return f"ocamlfind ocamlopt -linkpkg -package zarith -package unix -package domainslib -thread -rectypes {strategy}_test_runner.mli {strategy}_test_runner.ml -o {strategy}_test_runner.native"
+        return f"ocamlfind ocamlopt -linkpkg -package zarith -package unix -package eio_main -thread -rectypes {strategy}_test_runner.mli {strategy}_test_runner.ml -o {strategy}_test_runner.native"
 
     def _get_fuzzer_build_command(self, fuzzer: str) -> str:
         qc_path = os.environ["OPAM_SWITCH_PREFIX"] + "/lib/coq/user-contrib/QuickChick"
@@ -407,7 +407,7 @@ class Coq(BenchTool):
         workload_name = workload.name
         file_name = f"{strategy_name}_test_runner.v"
         strategy_import = f"From {workload_name} Require Import {strategy_name}.\n"
-        library_import = "From QuickChick Require Import QuickChick.\n"
+        library_import = "From QuickChick Require Import QuickChick.\nFrom PropLang Require Import PropLang.\n"
         set_warnings = 'Set Warnings "-extraction-opaque-accessed,-extraction".\n'
         size_axiom = 'Axiom num_tests : nat. Extract Constant num_tests => "max_int".\n'
         test_map = f"""
@@ -427,7 +427,7 @@ fun test_name ->
 
 """
         extraction_string_template = (
-            f'Extraction "{strategy_name}_test_runner.ml" <test-names> qctest_map.\n'
+            f'Extraction "{strategy_name}_test_runner.ml" sample1 runLoop <test-names> qctest_map.\n'
         )
 
         with open(os.path.join(runners_path, file_name), "w") as runner_file:

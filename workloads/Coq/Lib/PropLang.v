@@ -968,49 +968,34 @@ Definition runLoop (fuel : nat) (cprop : CProp ∅): G Result :=
     runLoop' fuel cprop 0%nat 0%nat
     .
 
+(* Axiom parLoop : forall (fuel : nat) (cprop : CProp ∅), unit -> Result.
+Extract Constant parLoop => "
+      (fun fuel cprop tt ->
+      Miou.run  ~domains:4  @@ fun () ->
+      let prms = List.init 4 (fun _ -> Miou.call (fun _ -> sample1 (runLoop fuel cprop))) in
+      match Miou.await_first prms with
+      | Ok value -> value
+      | Error exn -> raise exn)
+". *)
 
+Axiom parLoop : forall (fuel : nat) (cprop : CProp ∅), unit -> Result.
+Extract Constant parLoop => "
+  (fun fuel cprop tt ->
+    let par =
+      (fun new_domain f ->
+      let mailbox = Eio.Stream.create 1 in
+      let fiber _ () = Eio.Stream.add mailbox (f ()) in
+      let domain _ () =
+        new_domain (fun () -> fiber |> List.init 1 |> Eio.Fiber.any)
+      in
+      domain |> List.init 4 |> Eio.Fiber.any;
+      Eio.Stream.take mailbox) in
+    Eio_main.run @@ fun env ->
+    let dmgr = Eio.Stdenv.domain_mgr env in
+    let res = par (Eio.Domain_manager.run dmgr) (fun _ -> sample1 (runLoop fuel cprop)) in
+    res)
+    ".
 
-Axiom assert_false: forall {A: Type}, (unit -> A).
-Extract Constant assert_false => "(fun _ -> assert false)
-
-open Domainslib".
-
-
-Axiom num_domains : nat.
-Extract Constant num_domains => "Domain.recommended_domain_count () - 1".
-
-Axiom TaskPool: Type.
-Extract Constant TaskPool => "Domainslib.Task.pool".
-
-Axiom pool : TaskPool.
-Extract Constant pool => "Task.setup_pool ~num_domains ~name:""pool"" ()".
-
-Axiom task_parallel_find : forall {A: Type}, TaskPool -> nat -> nat -> nat -> (nat -> option A) -> option A.
-Extract Constant task_parallel_find => "
-  (fun pool chunk_size start finish body ->
-    Task.parallel_find pool ~chunk_size:chunk_size ~start:start ~finish:finish ~body:body)
-".
-
-Axiom task_run : forall {A: Type}, TaskPool -> (unit -> A) -> A.
-Extract Constant task_run => "Task.run".
-
-Axiom task_teardown_pool : TaskPool -> unit.
-Extract Constant task_teardown_pool => "Task.teardown_pool".
-
-Definition parLoop (fuel: nat) (cprop: CProp ∅) : G Result :=
-  let parLoop' := (fun pool => 
-    task_parallel_find pool 1%nat 0%nat num_domains (fun _ => 
-      Some (runLoop fuel cprop)
-    )
-  ) in
-  let res := task_run pool (fun _ => 
-    match parLoop' pool with
-    | None => assert_false tt
-    | Some res => res
-    end
-  ) in
-  let _ := task_teardown_pool pool in
-  res.
 
 Definition targetLoop
   (fuel : nat) 

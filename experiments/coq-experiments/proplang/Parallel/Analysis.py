@@ -194,7 +194,7 @@ def analyze(results: str, images: str):
     if not os.path.exists(images):
         os.makedirs(images)
 
-    for workload in ['BSTProplang', 'RBTProplang']:
+    for workload in ['STLCProplang', 'RBTProplang', 'BSTProplang']:
         times = partial(stacked_barchart_times, case=workload, df=df)
         times(
             strategies=[

@@ -61,7 +61,7 @@ Definition prop_InsertValid   :=
 	Check (nat · (nat · (Tree · ∅)))
 	(fun '(v, (k, (t, tt))) => (isBST (insert k v t))))))).
 
-Definition test_prop_InsertValid := (parLoop number_of_trials prop_InsertValid).
+Definition test_prop_InsertValid := (runLoop number_of_trials prop_InsertValid).
 
 (*! QuickProp test_prop_InsertValid. *)
 

@@ -1,5 +1,6 @@
 From RBTProplang Require Import TypeBasedFuzzer.
 From QuickChick Require Import QuickChick.
+From PropLang Require Import PropLang.
 Set Warnings "-extraction-opaque-accessed,-extraction".
 Axiom num_tests : nat. Extract Constant num_tests => "max_int".
 Definition qctest_test_prop_InsertValid := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (sample1 test_prop_InsertValid))) ++ "}|]")).
@@ -32,4 +33,4 @@ let () =
 
 ".
 
-Extraction "TypeBasedFuzzer_test_runner.ml" qctest_test_prop_InsertValid qctest_test_prop_DeleteValid qctest_test_prop_InsertPost qctest_test_prop_DeletePost qctest_test_prop_InsertModel qctest_test_prop_DeleteModel qctest_test_prop_InsertInsert qctest_test_prop_InsertDelete qctest_test_prop_DeleteInsert qctest_test_prop_DeleteDelete qctest_map.
+Extraction "TypeBasedFuzzer_test_runner.ml" sample1 runLoop qctest_test_prop_InsertValid qctest_test_prop_DeleteValid qctest_test_prop_InsertPost qctest_test_prop_DeletePost qctest_test_prop_InsertModel qctest_test_prop_DeleteModel qctest_test_prop_InsertInsert qctest_test_prop_InsertDelete qctest_test_prop_DeleteInsert qctest_test_prop_DeleteDelete qctest_map.

@@ -29,7 +29,7 @@ Extract Constant number_of_trials => "max_int".
 (* --------------------- Tests --------------------- *)
 
 Definition prop_SinglePreserve   :=
-	ForAllMaybe "e" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
+	ForAll "e" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
   Implies (Expr · ∅) (fun '(e, tt) => isJust (mt e)) (
 	Check (Expr · ∅)
 	(fun '(e, tt) => 
@@ -43,7 +43,7 @@ Definition test_prop_SinglePreserve := (fuzzLoop number_of_trials prop_SinglePre
 (*! QuickProp test_prop_SinglePreserve. *)
 
 Definition prop_MultiPreserve   :=
-	ForAllMaybe "e" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
+	ForAll "e" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
   Implies (Expr · ∅) (fun '(e, tt) => isJust (mt e)) (
 	Check (Expr · ∅)
 	(fun '(e, tt) => 

@@ -44,6 +44,9 @@ class BenchTool(ABC):
 
         sh.copytree(self._config.path, os.path.join(self.__temp, self._config.path))
 
+    def temp(self) -> str:
+        return self.__temp
+    
     def set_log_level(self, log_level: LogLevel):
         ''' Sets log level.'''
         self._log_level = log_level
@@ -107,7 +110,6 @@ class BenchTool(ABC):
 
         with open(variables_path, "r") as f:
             variables = json.load(f)
-            print(variables)
             variables = list(
                 map(
                     lambda x: Variable(
