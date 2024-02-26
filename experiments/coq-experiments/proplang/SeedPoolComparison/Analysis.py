@@ -1,4 +1,4 @@
-import argparse
+import pathlib
 from benchtool.Analysis import *
 from benchtool.Plot import *
 from functools import partial
@@ -224,11 +224,8 @@ def analyze(results: str, images: str):
         )
 
 if __name__ == "__main__":
-    p = argparse.ArgumentParser()
-    p.add_argument('--data', help='path to folder for JSON data')
-    p.add_argument('--figures', help='path to folder for figures')
-    args = p.parse_args()
+    filepath = pathlib.Path(__file__).resolve().parent
 
-    results_path = f'{os.getcwd()}/{args.data}'
-    images_path = f'{os.getcwd()}/{args.figures}'
+    results_path = f'{filepath}/results'
+    images_path = f'{filepath}/figures'
     analyze(results_path, images_path)

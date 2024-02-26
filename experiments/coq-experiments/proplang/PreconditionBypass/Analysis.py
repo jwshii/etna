@@ -23,6 +23,8 @@ def analyze(results: str, images: str):
             image_path=images,
             show=False,
         )
+
+    df = df[df['foundbug']]
     df['throughput'] = (df['inputs'] + df['discards']) / df['time']
 
     # Calculate the mean throughput for each workload and strategy
