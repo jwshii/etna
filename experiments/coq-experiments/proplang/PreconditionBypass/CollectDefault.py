@@ -5,10 +5,11 @@ from benchtool.Coq import Coq
 from benchtool.Types import TrialConfig, ReplaceLevel, LogLevel, Entry
 from benchtool.Tasks import tasks
 
+
 def collect(results: str):
     tool = Coq(results=results, replace_level=ReplaceLevel.REPLACE, log_level=LogLevel.DEBUG)
     for workload in tool.all_workloads():
-        if workload.name not in ['BSTProplang', 'RBTProplang', 'STLCProplang', 'BST', 'RBT', 'STLC']:
+        if workload.name not in ['BSTProplang', 'RBTProplang', 'STLCProplang']:
             continue
 
         tool._preprocess(workload)
@@ -22,16 +23,16 @@ def collect(results: str):
 
             for strategy in tool.all_strategies(workload):
                 for property in tool.all_properties(workload):
-
                     property = 'test_' + property
-                    workloadname = workload.name if not workload.name.endswith('Proplang') else workload.name[:-8]
+                    workloadname = workload.name[:-8]
+
                     if property[10:] not in tasks[workloadname][variant.name]:
                         print(f'Skipping {workload.name},{strategy.name},{variant.name},{property}')
                         continue
                     
                     # Don't compile tasks that are already completed.
                     finished = set(os.listdir(results))
-                    file = f'{workload.name},{strategy.name},{variant.name},{property}'
+                    file = f'{workload.name},{strategy.name},{variant.name},{property},deeper'
                     if f'{file}.json' in finished:
                         continue
 
@@ -42,8 +43,8 @@ def collect(results: str):
                                         strategy=strategy.name,
                                         property=property,
                                         file=file,
-                                        trials=30,
-                                        timeout=10,
+                                        trials=10,
+                                        timeout=60,
                                         short_circuit=True)
                     run_trial(cfg)
 

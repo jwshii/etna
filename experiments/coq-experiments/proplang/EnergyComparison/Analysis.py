@@ -223,8 +223,8 @@ def analyze(results: str, images: str):
             show=False,
         )
 
+    df = df[df['foundbug']]
     df['throughput'] = (df['inputs'] + df['discards']) / df['time']
-
     # Calculate the mean throughput for each workload and strategy
     df = df.groupby(['workload', 'strategy', 'version']).mean().reset_index()
     df.to_csv(f'{images}/mean.csv')

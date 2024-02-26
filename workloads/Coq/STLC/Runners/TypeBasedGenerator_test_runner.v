@@ -1,5 +1,6 @@
 From STLC Require Import TypeBasedGenerator.
 From QuickChick Require Import QuickChick.
+From PropLang Require Import PropLang.
 Set Warnings "-extraction-opaque-accessed,-extraction".
 Axiom num_tests : nat. Extract Constant num_tests => "max_int".
 Definition qctest_test_prop_SinglePreserve := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (quickCheckWith (updMaxDiscard (updMaxSuccess (updAnalysis stdArgs true) num_tests) num_tests) test_prop_SinglePreserve))) ++ "}|]")).
@@ -22,4 +23,4 @@ Sys.argv.(1) |> qctest_map
 
 ".
 
-Extraction "TypeBasedGenerator_test_runner.ml" qctest_test_prop_SinglePreserve qctest_test_prop_MultiPreserve qctest_map.
+Extraction "TypeBasedGenerator_test_runner.ml" sample1 runLoop qctest_test_prop_SinglePreserve qctest_test_prop_MultiPreserve qctest_map.

@@ -1,5 +1,6 @@
 From STLC Require Import TypeBasedFuzzer.
 From QuickChick Require Import QuickChick.
+From PropLang Require Import PropLang.
 Set Warnings "-extraction-opaque-accessed,-extraction".
 Axiom num_tests : nat. Extract Constant num_tests => "max_int".
 Definition qctest_test_prop_SinglePreserve := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime (fun tt => (test_prop_SinglePreserve_fuzzer tt))) ++ "}|]")).
@@ -24,4 +25,4 @@ let () =
 
 ".
 
-Extraction "TypeBasedFuzzer_test_runner.ml" qctest_test_prop_SinglePreserve qctest_test_prop_MultiPreserve qctest_map.
+Extraction "TypeBasedFuzzer_test_runner.ml" sample1 runLoop qctest_test_prop_SinglePreserve qctest_test_prop_MultiPreserve qctest_map.

@@ -35,19 +35,12 @@ def collect(results: str):
                         continue
 
                     for property in tool.all_properties(workload):
-                        if workload.name.startswith('STLC'):
-                            property = 'test_' + property + '_runner'
-                            pass
-                        elif workload.name.endswith('Proplang'):
-                            property = 'test_' + property + '_runner'
-                            if property[10:-7] not in tasks[workload.name[:3]][variant.name]:
-                                print(f'Skipping {workload.name},{strategy.name},{variant.name},{property}')
-                                continue
-                        elif workload.name == 'BST':
-                            property = 'test_' + property
-                            if property[10:] not in tasks["BST"][variant.name]:
-                                print(f'Skipping {workload.name},{strategy.name},{variant.name},{property}')
-                                continue
+                        property = 'test_' + property
+                        workloadname = workload.name if not workload.name.endswith('Proplang') else workload.name[:-8]
+                        if property[10:] not in tasks[workloadname][variant.name]:
+                            print(f'Skipping {workload.name},{strategy.name},{variant.name},{property}')
+                            continue
+                    
                         
                         # Don't compile tasks that are already completed.
                         finished = set(os.listdir(results))

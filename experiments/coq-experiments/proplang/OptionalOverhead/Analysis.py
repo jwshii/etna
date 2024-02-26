@@ -197,10 +197,6 @@ def analyze(results: str, images: str):
     for workload in ['BSTProplang']:
         times = partial(stacked_barchart_times, case=workload, df=df)
         times(
-            strategies=[
-                'TypeBasedFuzzer',
-                'BespokeFuzzer'
-            ],
             # colors=['#000000', '#900D0D', '#DC5F00', '#243763', '#FFD700'],
             limits=[0.1, 1, 10, 60],
             limit_type='time',
@@ -213,7 +209,10 @@ def analyze(results: str, images: str):
         times = partial(stacked_barchart_times, case=workload, df=df)
         times(
             strategies=[
+                'BespokeGenerator',
+                'TypeBasedGenerator',
                 'TypeBasedFuzzer',
+                'SpecificationBasedGenerator',
             ],
             colors=['#000000', '#900D0D', '#DC5F00', '#243763', '#FFD700'],
             limits=[0.1, 1, 10, 60],

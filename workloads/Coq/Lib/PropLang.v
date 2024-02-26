@@ -182,6 +182,58 @@ Proof.
 Defined.
 
 
+
+Fixpoint genAndRunBypassPreconditions {C : Ctx}
+         (cprop : CProp C)
+  : ⟦C⟧ -> G (RunResult cprop).
+Proof.
+  destruct cprop as [? ? ? gen mut shr pri cprop'
+                    |? ? ? gen mut shr pri cprop'
+                    |? prop cprop'
+                    |? prop].
+  - intros env.
+    refine (bindGen (gen env) (fun a => _)).
+    refine (bindGen (@genAndRun (A · C) cprop' (a, env)) (fun res => _)).
+    destruct res as [env' truth | env' discard_type].
+    + refine (ret (Normal _ truth)).
+      simpl in *.
+      refine (a, _).
+      refine env'.
+    + refine (ret (Discard _ discard_type)).
+      simpl in *.
+      refine (Some a, env').
+  - intros env.
+    refine (bindGen (gen env) (fun a => _)).
+    refine (match a with Some a => _ | None => _ end).
+    * refine (bindGen (@genAndRun (A · C) cprop' (a, env)) (fun res => _)).
+      destruct res as [env' truth | env' discard_type].
+      + refine (ret (Normal _ truth)).
+        simpl in *.
+        refine (a, _).
+        refine env'.
+      + refine (ret (Discard _ discard_type)).
+        simpl in *.
+        refine (Some a, env').
+    * refine (ret (Discard _ GenerationFailure)).
+      simpl in *.
+      refine (None, _).
+      refine (noneTypes cprop').
+  - intros env.
+    refine (bindGen (@genAndRun C cprop' env) (fun res => _)).
+    destruct res as [env' truth | env' discard_type].
+    + refine (ret (Normal _ truth)).
+      simpl in *.
+      refine env'.
+    + refine (ret (Discard _ discard_type)).
+      simpl in *.
+      refine env'.
+  - intros env.
+    refine (ret (Normal _ (prop env))).
+    refine tt.
+Defined.
+
+
+
 Fixpoint justGen {C : Ctx}
          (cprop : CProp C)
   : ⟦C⟧ -> G (⟦⟬cprop⟭⟧) :=
@@ -951,6 +1003,35 @@ Definition runLoop (fuel : nat) (cprop : CProp ∅): G Result :=
     | O => ret (mkResult discards false passed [])
     | S fuel' => 
         res <- genAndRun cprop tt;;
+        match res with
+        | Normal seed false =>
+            (* Fails *)
+            let shrinkingResult := shrinkLoop 10 cprop seed in
+            let printingResult := print cprop tt shrinkingResult in
+            ret (mkResult discards true (passed + 1) printingResult)
+        | Normal _ true =>
+            (* Passes *)
+            runLoop' fuel' cprop (passed + 1)%nat discards
+        | Discard _ _ => 
+          (* Discard *)
+          runLoop' fuel' cprop passed (discards + 1)%nat
+        end
+    end in
+    runLoop' fuel cprop 0%nat 0%nat
+    .
+
+
+Definition runLoopBypassPreconditions (fuel : nat) (cprop : CProp ∅): G Result :=  
+  let fix runLoop'
+    (fuel : nat) 
+    (cprop : CProp ∅) 
+    (passed : nat)
+    (discards: nat)
+    : G Result :=
+    match fuel with
+    | O => ret (mkResult discards false passed [])
+    | S fuel' => 
+        res <- genAndRunBypassPreconditions cprop tt;;
         match res with
         | Normal seed false =>
             (* Fails *)

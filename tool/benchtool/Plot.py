@@ -39,12 +39,13 @@ def stacked_barchart_times(
     image_path: Optional[str] = None,
     agg: Literal['any', 'all'] = 'all',
     manual_bars: list[Bar] = [],
+    prefix: str = '',
 ):
 
     df = df[df['workload'] == case]
 
     if not strategies:
-        strategies = df.strategy.unique()
+        strategies = sorted(df.strategy.unique())
 
     tasks = df.task.unique()
     total_tasks = len(tasks)
@@ -149,7 +150,7 @@ def stacked_barchart_times(
 
     if image_path:
         suffix = 'time' if limit_type == 'time' else 'inputs'
-        fig.write_image(f'{image_path}/{case}_{suffix}.png',
+        fig.write_image(f'{image_path}/{prefix}_{case}_{suffix}.png',
                         width=1600,
                         height=900,
                         scale=1,

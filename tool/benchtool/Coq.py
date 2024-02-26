@@ -307,12 +307,14 @@ class Coq(BenchTool):
         extended_fuzzer_path = f"./{fuzzer}_test_runner_ext.ml"
         mli_path = f"{fuzzer}_test_runner_ext.mli"
         stub_path = f"{os.environ['OPAM_SWITCH_PREFIX']}/lib/coq/user-contrib/QuickChick/Stub.ml"
+        self._log(f"Generating extended fuzzer: {fuzzer}", LogLevel.INFO)
         f = open(extended_fuzzer_path, "w+")
         with open(stub_path, "r") as stub:
             f.write(stub.read())
             f.write("\n\n(* -----(Stub Ends)----- *)\n\n")
         with open(fuzzer_path, "r") as fuzzer_file:
             f.write(fuzzer_file.read())
+        f.close()
 
         # Generate mli and cmi files
         with open(f"{mli_path}", "w") as f:
