@@ -73,7 +73,6 @@ class Parser():
         for path in paths:
             with open(path) as f:
                 s = f.read()
-
                 nodes: list[Node] = []
                 while s:
                     # Parse block of mutants.
