@@ -9,7 +9,7 @@ def collect(results: str):
     tool = Python(results, log_level=LogLevel.DEBUG)
 
     for workload in tool.all_workloads():
-        if workload.name not in ['RBT']:
+        if workload.name not in ['Toposort']:
             continue
 
         for variant in tool.all_variants(workload):

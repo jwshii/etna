@@ -20,10 +20,10 @@ def analyze(results: str, images: str):
     dfa['percent'] = dfa['solved'] / dfa['total']
     print(dfa)
 
-    for workload in ['RBT']:
+    for workload in ['Toposort']:
         times = partial(stacked_barchart_times, case=workload, df=df)
         times(
-            strategies=['arbitrary', 'bst_only', 'insert'],
+            strategies=['no_branch', 'graph', 'dag'],
             colors=['#000000', '#D61C4E', '#6D0E56'],
             limits=[0.1, 1, 10, 60],
             limit_type='time',

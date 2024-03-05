@@ -22,6 +22,10 @@ def findi(f: Callable[[A], bool], l: list[A]) -> Optional[Tuple[int, A]]:
     return None
 
 
+def remove_first_hash(s: str) -> str:
+    return re.sub(r"#", "", s)
+
+
 def extract_variants(workload: Entry) -> list[Variant]:
     fname = os.path.join(workload.path, "impl.py")
     with open(fname, "r") as impl_file:
@@ -45,7 +49,8 @@ def extract_variants(workload: Entry) -> list[Variant]:
             mutant_start, _ = mutant_start_pair
             mutant_end, _ = mutant_end_pair
             new_body = "".join(contents[:base_start] + list(
-                map(lambda x: x[1:], contents[mutant_start + 1:mutant_end])) +
+                map(lambda x: remove_first_hash(x), contents[mutant_start +
+                                                             1:mutant_end])) +
                                contents[mutant_end + 1:])
             variants.append(
                 Modified(filename=fname, body=new_body, name=mutant_name))
