@@ -1,5 +1,7 @@
 import argparse
+from functools import partial
 from benchtool.Analysis import parse_results, overall_solved
+from benchtool.Plot import stacked_barchart_times
 import numpy as np
 import os
 
@@ -17,6 +19,17 @@ def analyze(results: str, images: str):
     dfa = dfa.groupby('strategy').sum(numeric_only=True)
     dfa['percent'] = dfa['solved'] / dfa['total']
     print(dfa)
+
+    for workload in ['RBT']:
+        times = partial(stacked_barchart_times, case=workload, df=df)
+        times(
+            strategies=['arbitrary', 'bst_only', 'insert'],
+            colors=['#000000', '#D61C4E', '#6D0E56'],
+            limits=[0.1, 1, 10, 60],
+            limit_type='time',
+            image_path=images,
+            show=False,
+        )
 
 
 if __name__ == "__main__":

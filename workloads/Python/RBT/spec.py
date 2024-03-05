@@ -26,3 +26,24 @@ def test_insert_valid(t: Tree, k: int, v: int):
     event("black_height", payload=black_height(t))
     assume(is_rbt(t))
     assert is_rbt(insert(k, v, t))
+
+
+def test_insert_member(t: Tree, k: int, v: int):
+    event("size", payload=size(t))
+    event("black_height", payload=black_height(t))
+    assume(is_rbt(t))
+    assert lookup(insert(k, v, t), k) == v
+
+
+def test_delete_valid(t: Tree, k: int):
+    event("size", payload=size(t))
+    event("black_height", payload=black_height(t))
+    assume(is_rbt(t))
+    assert is_rbt(delete(k, t))
+
+
+def test_delete_member(t: Tree, k: int):
+    event("size", payload=size(t))
+    event("black_height", payload=black_height(t))
+    assume(is_rbt(t))
+    assert lookup(delete(k, t), k) == None

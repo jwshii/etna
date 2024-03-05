@@ -7,15 +7,18 @@ from impl import Tree, E, T, Red, Black
 
 
 @st.composite
-def trees(draw, max_depth=3):
-    if max_depth == 0:
+def trees(draw, lo=-10, hi=10):
+    if lo > hi:
         return E()
     else:
-        if not draw(st.booleans()):
+        # Pick a number from a range, if 0 we just return a Leaf
+        if not draw(st.integers(min_value=0, max_value=3)):
             return E()
-        return T(draw(st.one_of(st.just(Red()), st.just(Black()))),
-                 draw(trees(max_depth - 1)), draw(st.integers()),
-                 draw(st.integers()), draw(trees(max_depth - 1)))
+
+        x = draw(st.integers(min_value=lo, max_value=hi))
+        return T(Red() if draw(st.booleans()) else Black(),
+                 draw(trees(lo, x - 1)), x, draw(st.integers()),
+                 draw(trees(x + 1, hi)))
 
 
 @given(trees(), st.integers(), st.integers())
