@@ -6,8 +6,8 @@ import spec
 from impl import *
 
 
-def vars():
-    return st.one_of(st.just("x"), st.just("y"), st.just("z"))
+def varnames():
+    return st.one_of([st.just(c) for c in "abcdefghijklmnopqrstuvwxyz"])
 
 
 def exprs():
@@ -15,7 +15,7 @@ def exprs():
         st.one_of(
             st.builds(Int, st.integers()),
             st.builds(Bool, st.booleans()),
-            st.builds(Var, vars()),
+            st.builds(Var, varnames()),
         ),
         lambda children: st.one_of(
             st.builds(Var, st.text()),
@@ -31,7 +31,7 @@ def exprs():
 @st.composite
 def programs(draw):
     return Program(
-        draw(st.lists(st.tuples(vars(), exprs()))),
+        draw(st.lists(st.tuples(varnames(), exprs()))),
         draw(exprs()),
     )
 

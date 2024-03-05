@@ -192,8 +192,10 @@ def to_python_expr(e: Expr) -> str:
 
 def python_evaluate(p: Program):
     assignments = "\n".join(f"{name} = {to_python_expr(expr)}" for name, expr in p.assignments)
-    exec(assignments)
-    return eval(to_python_expr(p.result))
+    l = {}
+    g = {}
+    exec(assignments, l, g)
+    return eval(to_python_expr(p.result), l, g)
 
 def variable_uses(p: Program) -> int:
     def variable_uses_expr(e: Expr):
