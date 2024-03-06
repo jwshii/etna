@@ -55,21 +55,21 @@ def trees(draw):
 
 
 @given(trees(), st.integers(), st.integers())
-@settings(max_examples=1000, phases=[Phase.generate])
+@settings(max_examples=100, phases=[Phase.generate])
 def test_insert_valid(t: Tree, k: int, v: int):
     spec.test_insert_valid(t, k, v)
 
 @given(trees(), st.integers(), st.integers())
-@settings(max_examples=1000, phases=[Phase.generate])
+@settings(max_examples=100, phases=[Phase.generate])
 def test_insert_member(t: Tree, k: int, v: int):
     spec.test_insert_member(t, k, v)
 
 @given(trees(), st.integers())
-@settings(max_examples=1000, phases=[Phase.generate])
+@settings(max_examples=100, phases=[Phase.generate])
 def test_delete_valid(t: Tree, k: int):
     spec.test_delete_valid(t, k)
 
 @given(trees(), st.integers())
-@settings(max_examples=1000, phases=[Phase.generate])
+@settings(max_examples=100, phases=[Phase.generate])
 def test_delete_member(t: Tree, k: int):
     spec.test_delete_member(t, k)

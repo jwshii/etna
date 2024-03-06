@@ -137,7 +137,11 @@ def evaluate_expr(e: Expr, env: dict[str, Value]) -> Optional[Value]:
         case Add(left, right):
             match (evaluate_expr(left, env), evaluate_expr(right, env)):
                 case (VInt(l), VInt(r)):
+                    #etna_base add_to_sub
                     return VInt(l + r)
+                    #etna_mutant add_to_sub
+                    #return VInt(l - r)
+                    #etna_mutant_end add_to_sub
                 case _:
                     return None
         case Mul(left, right):
@@ -167,7 +171,10 @@ def evaluate(p: Program) -> Optional[Value]:
         value = evaluate_expr(expr, env)
         if value is None:
             return None
+        #etna_base forget_update_env
         env[name] = value
+        #etna_mutant forget_update_env
+        #etna_mutant_end forget_update_env
     return evaluate_expr(p.result, env)
 
 def to_python_expr(e: Expr) -> str:

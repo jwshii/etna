@@ -37,7 +37,7 @@ def programs(draw):
 
 
 @given(programs())
-@settings(max_examples=10,
+@settings(max_examples=100,
           phases=[Phase.generate],
           suppress_health_check=HealthCheck.all())
 def test_evaluate_equiv_to_python(p):
