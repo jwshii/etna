@@ -29,8 +29,8 @@ def test_insert_valid(t: Tree, k: int, v: int):
 
 @given(trees(), st.integers(), st.integers())
 @settings(max_examples=100, phases=[Phase.generate])
-def test_insert_member(t: Tree, k: int, v: int):
-    spec.test_insert_member(t, k, v)
+def test_insert_lookup(t: Tree, k: int, v: int):
+    spec.test_insert_lookup(t, k, v)
 
 
 @given(trees(), st.integers())
@@ -41,5 +41,5 @@ def test_delete_valid(t: Tree, k: int):
 
 @given(trees(), st.integers())
 @settings(max_examples=100, phases=[Phase.generate])
-def test_delete_member(t: Tree, k: int):
-    spec.test_delete_member(t, k)
+def test_delete_lookup(t: Tree, k: int):
+    spec.test_delete_lookup(t, k)
