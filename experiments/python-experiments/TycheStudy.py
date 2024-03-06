@@ -2,7 +2,6 @@ import argparse
 from functools import partial
 from benchtool.Analysis import parse_results, overall_solved
 from benchtool.Plot import stacked_barchart_times
-import numpy as np
 import os
 from benchtool.Python import Python
 from benchtool.Types import LogLevel, TrialConfig
