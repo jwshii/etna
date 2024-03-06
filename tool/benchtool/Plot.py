@@ -109,6 +109,8 @@ def stacked_barchart_times(
     strategies = sorted(strategies,
                         key=lambda x: strategy_sorter[x] if x in strategy_sorter.keys() else -1)
 
+    results['label'] = results.apply(lambda row: f"{row.value} ({row.variable})", axis=1)
+
     for strategy, color in zip(strategies[::-1], extrapolated_colors):
         fig.add_trace(
             go.Bar(
@@ -116,7 +118,7 @@ def stacked_barchart_times(
                 y=results[results['strategy'] == strategy]['strategy'],
                 name=strategy,
                 marker_color=color,
-                text=results[results['strategy'] == strategy]['value'],
+                text=results[results['strategy'] == strategy]['label'],
                 orientation='h',
                 width=0.8,
                 textposition='auto',
