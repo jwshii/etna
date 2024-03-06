@@ -7,8 +7,8 @@ import os
 from benchtool.Python import Python
 from benchtool.Types import LogLevel, TrialConfig
 
-WORKLOADS = ['Expressions']
-TRIALS = 1
+WORKLOADS = ['Nameserver']
+TRIALS = 10
 
 
 def collect(results: str):
@@ -59,7 +59,7 @@ def analyze(results: str, images: str):
         times(
             strategies=['bad', 'ok', 'good'],
             colors=['#000000', '#D61C4E', '#6D0E56'],
-            limits=[0.5, 1, 2, 4, 8],
+            limits=[0.5, 1, 2, 4, 8, 16],
             limit_type='time',
             image_path=images,
             show=False,

@@ -1,18 +1,13 @@
-from hypothesis import strategies as st
+import sys
+from hypothesis import assume, strategies as st
 from hypothesis.stateful import RuleBasedStateMachine, rule
 
+sys.path.append("..")
+from impl import NameServer
 
-class NameServer:
-    names: dict[str, int] = {}
 
-    def register(self, name: str, pid: int) -> None:
-        self.names[name] = pid
-
-    def unregister(self, name: str) -> None:
-        self.names.pop(name, None)
-
-    def where_is(self, name: str) -> int | None:
-        return self.names.get(name)
+def names():
+    return st.text(alphabet="abcdefghijklmnopqrstuvwxyz")
 
 
 class NameServerComparison(RuleBasedStateMachine):
@@ -22,17 +17,23 @@ class NameServerComparison(RuleBasedStateMachine):
         self.model = {}
         self.ns = NameServer()
 
-    @rule(name=st.text(), pid=st.integers())
+    @rule(name=names(), pid=st.integers())
     def register(self, name: str, pid: int):
+        try:
+            self.ns.register(name, pid)
+        except ValueError:
+            assume(False)
         self.model[name] = pid
-        self.ns.register(name, pid)
 
-    @rule(name=st.text())
+    @rule(name=names())
     def unregister(self, name: str):
+        try:
+            self.ns.unregister(name)
+        except ValueError:
+            assume(False)
         self.model.pop(name, None)
-        self.ns.unregister(name)
 
-    @rule(name=st.text())
+    @rule(name=names())
     def where_is(self, name: str):
         assert self.ns.where_is(name) == self.model.get(name)
 
