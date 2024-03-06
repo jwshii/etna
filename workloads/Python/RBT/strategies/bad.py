@@ -1,3 +1,5 @@
+# BAD
+
 from hypothesis import Phase, given, settings, strategies as st
 import sys
 
@@ -7,7 +9,7 @@ from impl import Tree, E, T, Red, Black
 
 
 @st.composite
-def trees(draw, max_depth=3):
+def trees(draw, max_depth=5):
     if max_depth == 0:
         return E()
     else:

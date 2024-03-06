@@ -1,3 +1,5 @@
+# OK
+
 from hypothesis import Phase, given, settings, strategies as st
 import sys
 
@@ -12,7 +14,7 @@ def trees(draw, lo=-10, hi=10):
         return E()
     else:
         # Pick a number from a range, if 0 we just return a Leaf
-        if not draw(st.integers(min_value=0, max_value=3)):
+        if not draw(st.booleans()):
             return E()
 
         x = draw(st.integers(min_value=lo, max_value=hi))

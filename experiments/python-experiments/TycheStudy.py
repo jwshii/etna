@@ -6,8 +6,8 @@ import os
 from benchtool.Python import Python
 from benchtool.Types import LogLevel, TrialConfig
 
-WORKLOADS = ['Nameserver']
-TRIALS = 10
+WORKLOADS = ['RBT']
+TRIALS = 1
 
 
 def collect(results: str):

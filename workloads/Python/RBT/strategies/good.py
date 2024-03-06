@@ -1,3 +1,5 @@
+# GOOD
+
 from hypothesis import Phase, given, settings, strategies as st
 import sys
 
