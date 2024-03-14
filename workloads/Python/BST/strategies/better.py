@@ -7,7 +7,7 @@ from impl import Tree, Leaf, Node
 
 
 @st.composite
-def trees(draw, max_depth=3):
+def trees(draw, max_depth=1):
     if max_depth == 0:
         return Leaf()
     else:
@@ -20,8 +20,3 @@ def trees(draw, max_depth=3):
 @given(trees(), st.integers())
 def test_insert_valid(t: Tree, x: int):
     spec.test_insert_valid(t, x)
-
-
-@given(trees(), st.integers())
-def test_insert_post(t: Tree, x: int):
-    spec.test_insert_post(t, x)

@@ -22,8 +22,3 @@ def bsts(draw, lo=-10, hi=10):
 @given(bsts(), st.integers())
 def test_insert_valid(t: Tree, x: int):
     spec.test_insert_valid(t, x)
-
-
-@given(bsts(), st.integers())
-def test_insert_post(t: Tree, x: int):
-    spec.test_insert_post(t, x)

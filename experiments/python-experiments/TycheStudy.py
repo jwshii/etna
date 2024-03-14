@@ -6,7 +6,7 @@ import os
 from benchtool.Python import Python
 from benchtool.Types import LogLevel, TrialConfig
 
-WORKLOADS = ['RBT']
+WORKLOADS = ['Toposort']
 TRIALS = 1
 
 
