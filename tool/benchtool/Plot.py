@@ -55,6 +55,7 @@ def stacked_barchart_times(
 
     for within in limits:
         dft = overall_solved(df, agg=agg, within=within, solved_type=limit_type)
+        print(dft)
         dft = dft.reset_index()
         dft = dft.groupby(['strategy']).sum(numeric_only=False)
         for strategy in strategies:
@@ -69,7 +70,7 @@ def stacked_barchart_times(
     results = results.reset_index()
 
     results = results.melt(id_vars=['strategy'], value_vars=limits + ['rest'])
-
+    print(results)
     if not colors:
         colors = [
             '#000000',  # black
