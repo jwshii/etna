@@ -58,6 +58,7 @@ def stacked_barchart_times(
         dft = overall_solved(df, agg=agg, within=within, solved_type=limit_type)
         dft = dft.reset_index()
         dft = dft.groupby(['strategy']).sum(numeric_only=False)
+        print(dft)
         for strategy in strategies:
             # Note: I think the new version of Pandas broke some of this code.
             # Use 1.5.3 for now and come back and fix.
@@ -70,7 +71,7 @@ def stacked_barchart_times(
     results = results.reset_index()
 
     results = results.melt(id_vars=['strategy'], value_vars=limits + ['rest'])
-
+    print(results)
     if not colors:
         colors = [
             '#000000',  # black
@@ -109,7 +110,7 @@ def stacked_barchart_times(
 
     strategies = sorted(strategies,
                         key=lambda x: strategy_sorter[x] if x in strategy_sorter.keys() else -1)
-
+    print(strategies)
     for strategy, color in zip(strategies[::-1], extrapolated_colors):
         fig.add_trace(
             go.Bar(

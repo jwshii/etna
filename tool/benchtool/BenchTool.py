@@ -14,7 +14,7 @@ from typing import Callable, Optional
 from numpy import var
 
 from benchtool.Mutant import Parser
-from benchtool.Types import (Config, Entry, LogLevel, ReplaceLevel, TrialArgs, TrialConfig, Variant, Variable)
+from benchtool.Types import (Config, Entry, LogLevel, Original, ReplaceLevel, TrialArgs, TrialConfig, Variant, Variable)
 from benchtool.Util import ChangeDir, print_log, scandir_filter, recursive_scandir_filter
 
 
@@ -96,6 +96,20 @@ class BenchTool(ABC):
 
         return self.__trial
 
+    def just_build(self, workload: Entry) -> Callable[[TrialConfig], None]:
+        '''
+
+        :return: A function that can be used to run a trial.
+        '''
+
+        with self._change_dir(self.__temp):
+            self._log('Just building', LogLevel.INFO)
+            self._build(workload.path)
+
+        self.__variant = Original(workload.path, '')
+
+        return self.__trial
+    
     def all_variables(self, workload: Entry) -> list[Variable]:
         """
         Assumes that all variables are in `variables.json` file.

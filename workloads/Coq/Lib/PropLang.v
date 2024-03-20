@@ -11,6 +11,11 @@ Import MonadNotation.
 Axiom withInstrumentation : (unit -> bool) -> (bool * (bool * nat)).
 Extract Constant withInstrumentation => "withInstrumentation".
 
+Definition withTiming : (unit -> bool) -> (bool * (bool * nat)) :=
+  fun f => 
+    let result := withTime f in
+    (aug_res bool result, (true, time (aug_time bool result))).
+
 Inductive Ctx :=
 | EmptyCtx
 | CtxBind : Type -> Ctx -> Ctx.
@@ -1096,6 +1101,7 @@ Definition targetLoop
          (utility: Utility) : G Result :=
         match fuel with
         | O => ret (mkResult discards false passed [])
+
         | S fuel' => 
             let directive := sample seeds in
             res <- genAndRunWithDirective cprop directive tt;;
@@ -1128,7 +1134,8 @@ Definition targetLoop
 
 
 Fixpoint instrumentedMutAndRun {C : Ctx}
-(cprop : CProp C)
+(cprop : CProp C) (instrumentationFunction: (unit -> bool) -> (bool * (bool * nat)))
+{struct cprop}
 : ⟦C⟧ -> ⟦⦗cprop⦘⟧ -> G (RunResult cprop * Z).
 Proof.
 destruct cprop as [? ? ? gen mut shr pri cprop'
@@ -1137,7 +1144,7 @@ destruct cprop as [? ? ? gen mut shr pri cprop'
            |? prop].
 - intros env (x, xs).
   refine (bindGen (mut env x) (fun a => _)).
-  refine (bindGen (@instrumentedMutAndRun (A · C) cprop' (a, env) xs) (fun res => _)).
+  refine (bindGen (@instrumentedMutAndRun (A · C) cprop' instrumentationFunction (a, env) xs) (fun res => _)).
   destruct res as [res feedback].
   destruct res as [env' truth | env' discard_type].
   + refine (ret (Normal _ truth, feedback)).
@@ -1149,7 +1156,7 @@ destruct cprop as [? ? ? gen mut shr pri cprop'
   - intros env (x, xs).
     refine (bindGen (mut env x) (fun a => _)).
     refine (match a with Some a => _ | None => _ end).
-    * refine (bindGen (@instrumentedMutAndRun (A · C) cprop' (a, env) xs) (fun res => _)).
+    * refine (bindGen (@instrumentedMutAndRun (A · C) cprop' instrumentationFunction (a, env) xs) (fun res => _)).
       destruct res as [res feedback].
       destruct res as [env' truth | env' discard_type].
       + refine (ret (Normal _ truth, feedback)).
@@ -1165,7 +1172,7 @@ destruct cprop as [? ? ? gen mut shr pri cprop'
     simpl in *.
     refine (
       let '(res, (useful, energy)) := withInstrumentation (fun _ => (prop env)) in
-      if res then (bindGen (@instrumentedMutAndRun C cprop' env seed) (fun res => _))
+      if res then (bindGen (@instrumentedMutAndRun C cprop' instrumentationFunction env seed) (fun res => _))
       else (ret (Discard _ PreconditionFailure, (Z.of_nat energy)))
       ).
     + destruct res as [res feedback].
@@ -1180,7 +1187,7 @@ destruct cprop as [? ? ? gen mut shr pri cprop'
       refine (noneTypes cprop').
     - intros env seed.
       refine (
-        let '(res, (useful, energy)) := withInstrumentation (fun _ => (prop env)) in
+        let '(res, (useful, energy)) := instrumentationFunction (fun _ => (prop env)) in
         ret (Normal _ (prop env), (Z.of_nat energy))
         ).
       refine tt.
@@ -1190,6 +1197,8 @@ Defined.
 
 Fixpoint instrumentedGenAndRun {C : Ctx}
 (cprop : CProp C)
+(instrumentationFunction: (unit -> bool) -> (bool * (bool * nat)))
+{struct cprop}
 : ⟦C⟧ -> G (RunResult cprop * Z).
 Proof.
 destruct cprop as [? ? ? gen mut shr pri cprop'
@@ -1198,7 +1207,7 @@ destruct cprop as [? ? ? gen mut shr pri cprop'
            |? prop].
 - intros env.
   refine (bindGen (gen env) (fun a => _)).
-  refine (bindGen (@instrumentedGenAndRun (A · C) cprop' (a, env)) (fun res => _)).
+  refine (bindGen (@instrumentedGenAndRun (A · C) cprop' instrumentationFunction (a, env)) (fun res => _)).
   destruct res as [res feedback].
   destruct res as [env' truth | env' discard_type].
   + refine (ret (Normal _ truth, feedback)).
@@ -1210,7 +1219,7 @@ destruct cprop as [? ? ? gen mut shr pri cprop'
   - intros env.
     refine (bindGen (gen env) (fun a => _)).
     refine (match a with Some a => _ | None => _ end).
-    * refine (bindGen (@instrumentedGenAndRun (A · C) cprop' (a, env)) (fun res => _)).
+    * refine (bindGen (@instrumentedGenAndRun (A · C) cprop' instrumentationFunction (a, env)) (fun res => _)).
       destruct res as [res feedback].
       destruct res as [env' truth | env' discard_type].
       + refine (ret (Normal _ truth, feedback)).
@@ -1226,7 +1235,7 @@ destruct cprop as [? ? ? gen mut shr pri cprop'
     simpl in *.
     refine (
       let '(res, (useful, energy)) := withInstrumentation (fun _ => (prop env)) in
-      if res then (bindGen (@instrumentedGenAndRun C cprop' env) (fun res => _))
+      if res then (bindGen (@instrumentedGenAndRun C cprop' instrumentationFunction env) (fun res => _))
       else (ret (Discard _ PreconditionFailure, (Z.of_nat energy)))
       ).
     + destruct res as [res feedback].
@@ -1241,18 +1250,18 @@ destruct cprop as [? ? ? gen mut shr pri cprop'
       refine (noneTypes cprop').
     - intros env.
       refine (
-        let '(res, (useful, energy)) := withInstrumentation (fun _ => (prop env)) in
+        let '(res, (useful, energy)) := instrumentationFunction (fun _ => (prop env)) in
         ret (Normal _ (prop env), (Z.of_nat energy))
         ).
       refine tt.
 Defined.
 
 Definition instrumentedGenAndRunWithDirective {C : Ctx} {F: Type}
-         (cprop : CProp C) (d: @Directive ⟦⦗cprop⦘⟧ F)
+         (cprop : CProp C) (d: @Directive ⟦⦗cprop⦘⟧ F) (instrumentationFunction: (unit -> bool) -> (bool * (bool * nat)))
   : ⟦C⟧ -> G (RunResult cprop * Z) :=
   match d with
-  | Generate => fun env => instrumentedGenAndRun cprop env
-  | Mutate seed => fun env => instrumentedMutAndRun cprop env (input seed)
+  | Generate => fun env => instrumentedGenAndRun cprop instrumentationFunction env
+  | Mutate seed => fun env => instrumentedMutAndRun cprop instrumentationFunction env (input seed)
   end.
 
 
@@ -1275,7 +1284,7 @@ let fix fuzzLoop'
       | O => ret (mkResult discards false passed [])
       | S fuel' => 
           let directive := sample seeds in
-          res <- instrumentedGenAndRunWithDirective cprop directive tt;;
+          res <- instrumentedGenAndRunWithDirective cprop directive withInstrumentation tt;;
           let '(res, feedback) := res in
           match res with
           | Normal seed false =>
@@ -1312,6 +1321,96 @@ let fix fuzzLoop'
           end
       end in
       fuzzLoop' fuel 0%nat 0%nat seeds poolType utility.
+
+Record PerfResult := mkPerfResult {
+  perf_passed: nat;
+  perf_discards: nat;
+  best_seed: list (string * string);
+  best_feedback: Z; 
+}.
+
+#[global] Instance showPerfResult : Show PerfResult :=
+  {| show r := """discards"": " ++ show (perf_discards r) ++
+               ", ""foundbug"": false" ++
+               ", ""passed"": " ++ show (perf_passed r) ++
+               ", ""counterexample"": """ ++  showElemList (best_seed r) ++ """" ++
+               ", ""counterexample_time"": """ ++  show (best_feedback r) ++ """"
+  |}.
+
+
+
+Inductive Log (A:Type) : Type := MkLog : (nat -> RandomSeed -> A) -> GenType A.
+
+(** * Primitive generator combinators *)
+  
+Definition run {A : Type} (g : G A) := match g with MkGen f => f end.
+  
+Definition returnGen {A : Type} (x : A) : G A :=
+  MkGen (fun _ _ => x).
+
+Definition bindGen {A B : Type} (g : G A) (k : A -> G B) : G B :=
+  MkGen (fun n r =>
+              let (r1,r2) := randomSplit r in
+              run (k (run g n r1)) n r2).
+
+#[global] Instance MonadGen : Monad G :=
+  { ret := @returnGen
+  ; bind := @bindGen }.
+
+Definition perfFuzzLoop
+      (fuel : nat) 
+      (cprop : CProp ∅)
+      {Pool : Type}
+      {poolType: @SeedPool (⟦⦗cprop⦘⟧) Z Pool}
+      (seeds : Pool)
+      (utility: Utility) : G PerfResult :=
+      let fix fuzzLoop' 
+              (fuel : nat) 
+              (passed : nat)
+              (discards: nat)
+              {Pool : Type}
+              (seeds : Pool)
+              (poolType: @SeedPool (⟦⦗cprop⦘⟧) Z Pool)
+              (utility: Utility)
+              (best_seed: (option (⟦⦗cprop⦘⟧ * Z)))
+              : G PerfResult :=
+            match fuel with
+            | O => match best_seed with
+                  | None => ret (mkPerfResult passed discards [] 0)
+                  | Some (seed, feedback) =>
+                    let printingResult := print cprop tt seed in
+                    ret (mkPerfResult passed discards printingResult feedback)
+                  end
+            | S fuel' => 
+                let directive := sample seeds in
+                res <- instrumentedGenAndRunWithDirective cprop directive withTiming tt;;
+                let '(res, feedback) := res in
+                match res with
+                | Normal seed _ =>
+                    (* Passes *)
+                    match useful seeds feedback with
+                    | true =>
+                        let seeds' := invest (seed, feedback) seeds in
+                        let best_seed' := match best_seed with
+                                          | Some (best_seed, best_feedback) => 
+                                            if (feedback >? best_feedback) then Some (seed, feedback)
+                                            else Some (best_seed, best_feedback)
+                                          | None => Some (seed, feedback)
+                                          end in
+                        fuzzLoop' fuel' (passed + 1)%nat discards seeds' poolType utility best_seed'
+                    | false =>
+                        let seeds' := match directive with
+                                      | Generate => seeds
+                                      | Mutate _ => revise seeds
+                                      end in
+                        fuzzLoop' fuel' (passed + 1)%nat discards seeds' poolType utility best_seed
+                    end
+                | Discard _ _ => 
+                    fuzzLoop' fuel' passed (discards+1)%nat (revise seeds) poolType utility best_seed
+                end
+            end in
+          fuzzLoop' fuel 0%nat 0%nat seeds poolType utility None.
+
 
 Definition test2 (x y : nat) : bool :=
   (negb (Nat.eqb y  x)).

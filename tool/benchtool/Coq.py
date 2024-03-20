@@ -183,6 +183,7 @@ class Coq(BenchTool):
                         trial_result["time"] = (
                             float(json_result["time"][:-2]) * 0.001
                         )  # ms as string to seconds as float conversion
+                        trial_result["counterexample"] = json_result.get("counterexample")
 
                 except subprocess.TimeoutExpired as e:
                     print(f"Process Timed Out {process.pid}")
@@ -557,8 +558,10 @@ let () =
         # Generate runner directory if it does not exist
         if not os.path.exists(runners_path):
             os.makedirs(runners_path)
-        # Empty Runner Directory        
-        self._shell_command(["rm", f"{runners_path}*"])
+        # Empty Runner Directory
+        for file in os.listdir(runners_path):
+            self._log(f"Removing {file}", LogLevel.DEBUG)
+            os.remove(os.path.join(runners_path, file))
         
         # Generate and Add Runners for each strategy
         for strategy in strategies:
