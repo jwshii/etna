@@ -150,7 +150,7 @@
     [(list * (E)) (nothing)]
     [(list k (T l k2 v2 r))
       (cond
-         [(< k k2) (find k l)]
+        [(< k k2) (find k l)]
         [(> k k2) (find k r)]
         [else (just v2)]
       )

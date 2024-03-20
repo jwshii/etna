@@ -2,9 +2,9 @@
 @require[@for-label[BST
                     racket/base]]
 
-@title{BST}
+@title{RBT}
 @author{cerenmert}
 
-@defmodule[BST]
+@defmodule[RBT]
 
 Package Description Here
