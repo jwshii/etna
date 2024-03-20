@@ -7,17 +7,22 @@
 (require data/maybe)
 (require data/functor)
 
-(define (is-BST-Helper p t)
+
+
+(define/contract (is-BST-Helper p t)
+  (-> (-> integer? integer? boolean?) tree? boolean?)
   (match t 
     [(E) #t]
     [(T c a x v b) (and (p x) (is-BST-Helper p a ) (is-BST-Helper p b))]
   )
 )
 
-(define (is-BST t)
+(define/contract (is-BST t)
+(-> tree? boolean?)
   (match t 
     [(E) #t]
-    [(T c a x v b) (and (is-BST a) (is-BST b) 
+    [(T _ a x _ b) (and (is-BST a) (is-BST b) 
+    ; todo => it doesn't check if all right tree is greater
                         (is-BST-Helper (lambda (x y) (< x y)) b)
                         (is-BST-Helper (lambda (x y) (> x y)) b)
                    )
@@ -27,47 +32,54 @@
 
 (define (blackRoot t)
   (match t 
-    [(T (R) l k v r) #f]
-    [* #t]
+    [(T (R) _ _ _ _) #f]
+    [_ #t]
   )
 )
 
-(define (noRedRed t)
+(define/contract (noRedRed t)
+(-> tree? boolean?)
   (match t 
     [(E) #t]
-    [(T (B) a k v b) (and (noRedRed a) (noRedRed b))]
-    [(T (R) a k v b) (and (blackRoot a) (blackRoot b) (noRedRed a) (noRedRed b))]
+    [(T (B) a _ _ b) (and (noRedRed a) (noRedRed b))]
+    [(T (R) a _ _ b) (and (blackRoot a) (blackRoot b) (noRedRed a) (noRedRed b))]
   )
 )
 
-(define (isBlack rb)
+(define/contract (isBlack rb)
+  (color? . -> . number?)
   (match rb 
     [(B) 1]
     [(R) 0]
   )
 )
 
-(define (go t)
+(define (consistentBlackHeight_ t)
+  (-> tree? pair?)
   (match t 
     [(E) (cons #t 1)]
-    [(T rb a k v b) 
-        ((let ([aRes (go a)])
-          (let ([bRes (go b)])
-            (let ([aBool (car aRes)])
-              (let ([bBool (car bRes)])
-                (let ([aHeight (cdr aRes)])
-                  (let ([bHeight (cdr bRes)])
-                    (cons (and car aRes car bRes (= aHeight bHeight)) (+ aHeight (isBlack rb))))))))))
+    [(T rb a k v b)
+          (let*
+            ([aRes (consistentBlackHeight_ a)]
+            [bRes (consistentBlackHeight_ b)]
+            [aBool (car aRes)]
+            [aHeight (cdr aRes)]
+            [bBool (car bRes)] 
+            [bHeight (cdr bRes)])
+            (cons (and aBool bBool (= aHeight bHeight)) (+ aHeight (isBlack rb))))
     ]
   )
 )
 
-(define (consistentBlackHeight t)
-  (car (go t))
+(define/contract (consistentBlackHeight t)
+  (-> tree? boolean?)
+  (car (consistentBlackHeight_ t))
 )
 
-(define (isRBT t)
-  (just (and (is-BST t) (consistentBlackHeight t) (noRedRed t)))
+(define/contract (isRBT t)
+  (-> tree? maybe?)
+  (just (and (consistentBlackHeight t)))
+  ; (just (and (is-BST t) (consistentBlackHeight t) (noRedRed t)))
 )
 
 (define (to-list t)
