@@ -29,7 +29,7 @@ Local Open Scope prop_scope.
 
 Fixpoint interpCtx (C : Ctx) : Type :=
   match C with
-  | ∅ => unit
+  | ∅ => nat
   | T·C => T * interpCtx C
   end.
 
@@ -93,7 +93,7 @@ Fixpoint noneTypes {C : Ctx}
   | @ForAllMaybe A _ _ _ _ _ _ cprop' =>
       (None, noneTypes cprop')
   | Implies _ _ cprop' => noneTypes cprop'
-  | Check _ _ => tt
+  | Check _ _ => 0
   end.
 
 Definition typeHead {C : Ctx}
@@ -115,14 +115,14 @@ Definition test (x y : nat) : bool := Nat.ltb y x.
 Local Open Scope string.
 
 Definition example :=
-  @Implies (nat · (nat · ∅)) (fun '(y, (x, tt)) => Nat.ltb x y) (
-  @Check (nat · (nat · ∅)) (fun '(y, (x, tt)) => test x y)).
+  @Implies (nat · (nat · ∅)) (fun '(y, (x, s)) => Nat.ltb x y) (
+  @Check (nat · (nat · ∅)) (fun '(y, (x, s)) => test x y)).
 
 Definition example' :=
   ForAll "x" (fun tt => arb) (fun tt => mut) (fun tt n => shrink n) (fun tt n => show n) (
-  @ForAll _ (nat · ∅) "y" (fun '(x, tt) => gen x) (fun tt n => mut n) (fun tt n => shrink n) (fun tt n => show n) (
+  @ForAll _ (nat · ∅) "y" (fun '(x, _) => gen x) (fun tt n => mut n) (fun tt n => shrink n) (fun tt n => show n) (
   @Check (nat · (nat · ∅))
-             (fun '(y, (x, tt)) => test x y))).
+             (fun '(y, (x, _)) => test x y))).
 
 Inductive DiscardType := PreconditionFailure | GenerationFailure.
 
@@ -183,7 +183,7 @@ Proof.
         refine (noneTypes cprop').
   - intros env.
     refine (ret (Normal _ (prop env))).
-    refine tt.
+    refine 0.
 Defined.
 
 
@@ -234,7 +234,7 @@ Proof.
       refine env'.
   - intros env.
     refine (ret (Normal _ (prop env))).
-    refine tt.
+    refine 0.
 Defined.
 
 
@@ -259,7 +259,7 @@ Fixpoint justGen {C : Ctx}
   | Implies _ _ cprop' =>
       fun env => justGen cprop' env
   | Check C prop =>
-      fun env => ret tt
+      fun env => ret 0
   end.
 
 Fixpoint mutAll {C : Ctx}
@@ -287,7 +287,7 @@ Fixpoint mutAll {C : Ctx}
     refine(bindGen (@mutAll C cprop' env xs) (fun xs' => _)).
     refine (ret xs').
   - intros env _.
-    refine (ret tt).
+    refine (ret 0).
 Defined.  
 
 Fixpoint mutSome {C : Ctx}
@@ -316,7 +316,7 @@ Proof.
     refine(bindGen (@mutSome C cprop' env xs) (fun xs' => _)).
     refine (ret xs').
   - intros env _.
-    refine (ret tt).
+    refine (ret 0).
 Defined.
 
 
@@ -872,7 +872,7 @@ Fixpoint shrinkLoop(fuel : nat)
   match fuel with
   | O => counterexample
   | S fuel' =>
-      match shrinkOnTheFly cprop tt counterexample with
+      match shrinkOnTheFly cprop 0%nat counterexample with
       | Some c' => shrinkLoop fuel' cprop c'
       | None => counterexample
       end
@@ -880,8 +880,8 @@ Fixpoint shrinkLoop(fuel : nat)
 
 Definition generator (cprop: CProp ∅) (directive: @Directive ⟦⦗cprop⦘⟧ Z) :=
   match directive with
-  | Generate => justGen cprop tt
-  | Mutate seed => mutAll cprop tt (input seed)
+  | Generate => justGen cprop 0%nat
+  | Mutate seed => mutAll cprop 0%nat (input seed)
   end.
 
 
@@ -908,7 +908,7 @@ Proof.
       | Some values => Some values
       | _ => None
       end). 
-  - exact (Some tt).
+  - exact (Some 0%nat).
 Defined.
 
 
@@ -963,7 +963,7 @@ Proof.
         refine (noneTypes cprop').
   - intros env seed.
     refine (ret (Normal _ (prop env))).
-    refine tt.
+    refine 0%nat.
 Defined.
 
 
@@ -997,6 +997,7 @@ Definition mkResult
   |}.
 
 
+
 Definition runLoop (fuel : nat) (cprop : CProp ∅): G Result :=  
   let fix runLoop'
     (fuel : nat) 
@@ -1007,12 +1008,12 @@ Definition runLoop (fuel : nat) (cprop : CProp ∅): G Result :=
     match fuel with
     | O => ret (mkResult discards false passed [])
     | S fuel' => 
-        res <- genAndRun cprop tt;;
+        res <- genAndRun cprop (Nat.log2 (passed + discards)%nat);;
         match res with
         | Normal seed false =>
             (* Fails *)
             let shrinkingResult := shrinkLoop 10 cprop seed in
-            let printingResult := print cprop tt shrinkingResult in
+            let printingResult := print cprop 0%nat shrinkingResult in
             ret (mkResult discards true (passed + 1) printingResult)
         | Normal _ true =>
             (* Passes *)
@@ -1026,6 +1027,20 @@ Definition runLoop (fuel : nat) (cprop : CProp ∅): G Result :=
     .
 
 
+Definition retx {A: Type} (a: A) : G A := ret a.
+
+Open Scope nat_scope.
+
+Definition exampleSized :=
+  @ForAll _ ∅ "x" (fun s => (retx s)) (fun _ => mut) (fun _ => shrink) (fun _ => show) (
+  @Check (nat · ∅)
+              (fun '(x, _) => test x 3)).
+
+Definition exampleSized' :=
+  ForAll "x" (fun _ => (retx 100)) (fun _ => mut) (fun _ => shrink) (fun _ => show) (
+  @Check (nat · ∅)
+              (fun '(x, _) => test x 3)).
+
 Definition runLoopBypassPreconditions (fuel : nat) (cprop : CProp ∅): G Result :=  
   let fix runLoop'
     (fuel : nat) 
@@ -1036,12 +1051,12 @@ Definition runLoopBypassPreconditions (fuel : nat) (cprop : CProp ∅): G Result
     match fuel with
     | O => ret (mkResult discards false passed [])
     | S fuel' => 
-        res <- genAndRunBypassPreconditions cprop tt;;
+        res <- genAndRunBypassPreconditions cprop (Nat.log2 (passed + discards)%nat);;
         match res with
         | Normal seed false =>
             (* Fails *)
             let shrinkingResult := shrinkLoop 10 cprop seed in
-            let printingResult := print cprop tt shrinkingResult in
+            let printingResult := print cprop 0 shrinkingResult in
             ret (mkResult discards true (passed + 1) printingResult)
         | Normal _ true =>
             (* Passes *)
@@ -1104,12 +1119,12 @@ Definition targetLoop
 
         | S fuel' => 
             let directive := sample seeds in
-            res <- genAndRunWithDirective cprop directive tt;;
+            res <- genAndRunWithDirective cprop directive (Nat.log2 (passed + discards)%nat);;
             match res with
             | Normal seed false =>
                 (* Fails *)
                 let shrinkingResult := shrinkLoop 10 cprop seed in
-                let printingResult := print cprop tt shrinkingResult in
+                let printingResult := print cprop 0 shrinkingResult in
                 ret (mkResult discards true (passed + 1) printingResult)
             | Normal seed true =>
                 (* Passes *)
@@ -1165,7 +1180,7 @@ destruct cprop as [? ? ? gen mut shr pri cprop'
       + refine (ret (Discard _ discard_type, feedback)).
         simpl in *.
         refine (Some a, env').
-    * refine (ret (Discard _ GenerationFailure, 0)).
+    * refine (ret (Discard _ GenerationFailure, 0%Z)).
       simpl in *.
       refine (None, noneTypes cprop').
   - intros env seed.
@@ -1190,7 +1205,7 @@ destruct cprop as [? ? ? gen mut shr pri cprop'
         let '(res, (useful, energy)) := instrumentationFunction (fun _ => (prop env)) in
         ret (Normal _ (prop env), (Z.of_nat energy))
         ).
-      refine tt.
+      refine 0.
 Defined.
 
 
@@ -1228,7 +1243,7 @@ destruct cprop as [? ? ? gen mut shr pri cprop'
       + refine (ret (Discard _ discard_type, feedback)).
         simpl in *.
         refine (Some a, env').
-    * refine (ret (Discard _ GenerationFailure, 0)).
+    * refine (ret (Discard _ GenerationFailure, 0%Z)).
       simpl in *.
       refine (None, noneTypes cprop').
   - intros env.
@@ -1253,7 +1268,7 @@ destruct cprop as [? ? ? gen mut shr pri cprop'
         let '(res, (useful, energy)) := instrumentationFunction (fun _ => (prop env)) in
         ret (Normal _ (prop env), (Z.of_nat energy))
         ).
-      refine tt.
+      refine 0.
 Defined.
 
 Definition instrumentedGenAndRunWithDirective {C : Ctx} {F: Type}
@@ -1284,13 +1299,13 @@ let fix fuzzLoop'
       | O => ret (mkResult discards false passed [])
       | S fuel' => 
           let directive := sample seeds in
-          res <- instrumentedGenAndRunWithDirective cprop directive withInstrumentation tt;;
+          res <- instrumentedGenAndRunWithDirective cprop directive withInstrumentation (Nat.log2 (passed + discards)%nat);;
           let '(res, feedback) := res in
           match res with
           | Normal seed false =>
               (* Fails *)
               let shrinkingResult := shrinkLoop 10 cprop seed in
-              let printingResult := print cprop tt shrinkingResult in
+              let printingResult := print cprop 0 shrinkingResult in
               ret (mkResult discards true (passed + 1) printingResult)
           | Normal seed true =>
               (* Passes *)
@@ -1338,25 +1353,6 @@ Record PerfResult := mkPerfResult {
   |}.
 
 
-
-Inductive Log (A:Type) : Type := MkLog : (nat -> RandomSeed -> A) -> GenType A.
-
-(** * Primitive generator combinators *)
-  
-Definition run {A : Type} (g : G A) := match g with MkGen f => f end.
-  
-Definition returnGen {A : Type} (x : A) : G A :=
-  MkGen (fun _ _ => x).
-
-Definition bindGen {A B : Type} (g : G A) (k : A -> G B) : G B :=
-  MkGen (fun n r =>
-              let (r1,r2) := randomSplit r in
-              run (k (run g n r1)) n r2).
-
-#[global] Instance MonadGen : Monad G :=
-  { ret := @returnGen
-  ; bind := @bindGen }.
-
 Definition perfFuzzLoop
       (fuel : nat) 
       (cprop : CProp ∅)
@@ -1378,12 +1374,12 @@ Definition perfFuzzLoop
             | O => match best_seed with
                   | None => ret (mkPerfResult passed discards [] 0)
                   | Some (seed, feedback) =>
-                    let printingResult := print cprop tt seed in
+                    let printingResult := print cprop 0 seed in
                     ret (mkPerfResult passed discards printingResult feedback)
                   end
             | S fuel' => 
                 let directive := sample seeds in
-                res <- instrumentedGenAndRunWithDirective cprop directive withTiming tt;;
+                res <- instrumentedGenAndRunWithDirective cprop directive withTiming (Nat.log2 (passed + discards)%nat);;
                 let '(res, feedback) := res in
                 match res with
                 | Normal seed _ =>
@@ -1417,19 +1413,33 @@ Definition test2 (x y : nat) : bool :=
 
 
 Definition example2 :=
-  @ForAll _ ∅ "x" (fun tt => arb) (fun tt n => mut n) (fun tt n => shrink n) (fun tt n => show n) (
-  @ForAll _ (nat · ∅) "y" (fun '(x, tt) => gen x) (fun tt n => mut n) (fun tt n => shrink n) (fun tt n => show n) (
+  @ForAll _ ∅ "x" (fun tt => arb) (fun tt => mut) (fun tt n => shrink n) (fun tt n => show n) (
+  @ForAll _ (nat · ∅) "y" (fun '(x, _) => gen x) (fun tt n => mut n) (fun tt n => shrink n) (fun tt n => show n) (
   @Check (nat · (nat · ∅))
-              (fun '(y, (x, tt)) => test2 x y))).
+              (fun '(y, (x, _)) => test2 x y))).
+
+
+Definition example2' :=
+  @Check (nat · (nat · ∅))
+              (fun '(y, (x, _)) => test2 x y).
+
+              
+
+Definition example2'' :=
+  @ForAll _ ∅ "x" (fun tt => arb) (fun tt n => mut n) (fun tt n => shrink n) (fun tt n => show n) (
+  @ForAll _ (nat · ∅) "y" (fun '(x, _) => gen x) (fun tt n => mut n) (fun tt n => shrink n) (fun tt n => show n) (
+  @Check (nat · (nat · ∅))
+              (fun '(y, (x, _)) => test2 x y))).
+              
 
 Definition example3 :=
   @ForAll _ ∅ "x" (fun tt => arb) (fun tt n => mut n) (fun tt n => shrink n) (fun tt n => show n) (
-  @ForAll _ (nat · ∅) "y" (fun '(x, tt) => gen x) (fun tt n => mut n) (fun tt n => shrink n) (fun tt n => show n) (
+  @ForAll _ (nat · ∅) "y" (fun '(x, _) => gen x) (fun tt n => mut n) (fun tt n => shrink n) (fun tt n => show n) (
   @Check (nat · (nat · ∅))
-              (fun '(y, (x, tt)) => (test2 x y)))).
+              (fun '(y, (x, _)) => (test2 x y)))).
 
   Definition fb :=
-  (fun '(y, (x, tt)) => (2000 - Z.of_nat(x - y) - Z.of_nat(y - x))).
+  (fun '(y, (x, tt)) => (2000 - (x - y) - (y - x))).
 
 Definition example3' :=
   forAll arb (fun (x: nat)  =>
