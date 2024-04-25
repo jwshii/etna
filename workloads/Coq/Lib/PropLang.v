@@ -1031,15 +1031,45 @@ Definition retx {A: Type} (a: A) : G A := ret a.
 
 Open Scope nat_scope.
 
+(*
+Fixpoint lastCtx (C : Ctx) : ⟦ C ⟧-> nat :=
+  match C with
+  | nat => fun c => c
+  | (_,C') => fun c => lastCtx C' c
+  end.
+*)     
+
+Definition lastCtx (C : Ctx) : ⟦ C ⟧ -> nat.
+  induction C; simpl in *.
+  - exact id.
+  - intros [_ c].
+    exact (IHC c).
+Defined.
+
+Definition sized {A} (C : Ctx) (g : ⟦ C ⟧ -> nat -> G A) : ⟦ C ⟧ -> G A.
+  intros ctx.
+  exact (g ctx (lastCtx C ctx)).
+Defined.
+  
 Definition exampleSized :=
   @ForAll _ ∅ "x" (fun s => (retx s)) (fun _ => mut) (fun _ => shrink) (fun _ => show) (
   @Check (nat · ∅)
               (fun '(x, _) => test x 3)).
 
+
 Definition exampleSized' :=
   ForAll "x" (fun _ => (retx 100)) (fun _ => mut) (fun _ => shrink) (fun _ => show) (
   @Check (nat · ∅)
               (fun '(x, _) => test x 3)).
+
+Definition sizedRetx {A : Type} (a : A) (n : nat) : G A :=
+  ret a.
+
+Definition exampleSized'' :=
+  @ForAll _ ∅ "x" (sized _ (fun _ => sizedRetx 3)) (fun _ => mut) (fun _ => shrink) (fun _ => show) (
+  @Check (nat · ∅)
+              (fun '(x, _) => test x 3)).
+
 
 Definition runLoopBypassPreconditions (fuel : nat) (cprop : CProp ∅): G Result :=  
   let fix runLoop'
@@ -1465,3 +1495,4 @@ Fixpoint toMonad (C : Ctx) (cprop: CProp C) : ⟦C⟧ -> Checker :=
     fun env => 
     checker (prop env)
   end.
+
