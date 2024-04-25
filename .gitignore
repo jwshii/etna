@@ -35,6 +35,7 @@ bin/
 **/Coq/**.native
 **/Coq/**.ml
 **/Coq/**.mli
+**/Coq/**_exec
 
 tui
 
