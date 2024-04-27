@@ -1,39 +1,40 @@
 #lang racket/base
 
-(require "src/impl.rkt")
-(require "src/spec.rkt")
-(require "Strategies/RackcheckBespoke.rkt")
-(require rackcheck)
-(require racket/cmdline)
-(require rebellion/collection/association-list)
-
-(define config (make-config #:tests 4000000000 #:deadline (+ (current-inexact-milliseconds) (* 240 1000))))
-
-(define props
-    (association-list "test_prop_InsertValid" test_prop_InsertValid
-                      "test_prop_DeleteValid" test_prop_DeleteValid
-                      "test_prop_UnionValid" test_prop_UnionValid
-                      "test_prop_InsertPost" test_prop_InsertPost
-                      "test_prop_DeletePost" test_prop_DeletePost
-                      "test_prop_UnionPost" test_prop_UnionPost
-                      "test_prop_InsertModel" test_prop_InsertModel
-                      "test_prop_DeleteModel" test_prop_DeleteModel
-                      "test_prop_UnionModel" test_prop_UnionModel
-                      "test_prop_InsertInsert" test_prop_InsertInsert
-                      "test_prop_InsertDelete" test_prop_InsertDelete
-                      "test_prop_InsertUnion" test_prop_InsertUnion
-                      "test_prop_DeleteInsert" test_prop_DeleteInsert
-                      "test_prop_DeleteDelete" test_prop_DeleteDelete
-                      "test_prop_DeleteUnion" test_prop_DeleteUnion
-                      "test_prop_UnionDeleteInsert" test_prop_UnionDeleteInsert
-                      "test_prop_UnionUnionIdem" test_prop_UnionUnionIdem
-                      "test_prop_UnionUnionAssoc" test_prop_UnionUnionAssoc                    
-    )
-)
-
 (module+ main
-    (command-line
-      #:program "rackcheck-bespoke"
-      #:args info
-      (check-property config (vector-ref (association-list-ref props (list-ref info 0)) 0)))
-)
+  (require racket/cmdline)
+  (require "src/impl.rkt")
+  (require "src/spec.rkt")
+  (require rackcheck)
+  (require racket/dict)
+  (require (prefix-in rc: "Strategies/RackcheckBespoke.rkt"))
+  (require (prefix-in pl: "Strategies/ProplangBespoke.rkt"))
+
+  (command-line
+   #:program "rackcheck-bespoke"
+   #:args info
+
+   (define property (list-ref info 0))
+   (define strategy (list-ref info 1))
+
+  (define strategy-longform (case strategy
+                      [("RackcheckBespoke" "rc") "RackcheckBespoke"]
+                      [("ProplangBespoke" "pl") "ProplangBespoke"]
+                      (else (error "Unknown strategy"))))
+
+  (define prop-fn (dynamic-require (string-append "Strategies/" strategy-longform ".rkt") (string->symbol property)))
+
+   ; Dynamically load the property from the strategy file
+
+   (define tests 4000000)
+   (define config (make-config #:tests tests #:deadline (+ (current-inexact-milliseconds) (* 240 1000))))
+
+   (define (check-rackcheck-property p) (check-property config p))
+   (define (check-tartarus-property p) (p tests))
+
+   (define checker-fn (case strategy-longform
+                        [("RackcheckBespoke") check-rackcheck-property]
+                        [("ProplangBespoke") check-tartarus-property]
+                        (else (error "Unknown strategy"))))
+
+   (checker-fn prop-fn)
+  ))

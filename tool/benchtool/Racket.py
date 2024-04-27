@@ -41,8 +41,9 @@ class Racket(BenchTool):
             self._shell_command(['raco', 'exe', 'main.rkt'])
         
     def _run_trial(self, workload_path: str, params: TrialArgs):
+
         with self._change_dir(workload_path):
-            cmd = ['./main', params.property]
+            cmd = ['./main', params.property, params.strategy]
             results = []
             self._log(
                 f"Running {params.workload},{params.strategy},{params.mutant},{params.property}",
