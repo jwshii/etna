@@ -7,7 +7,6 @@
 (require data/maybe)
 (require racket/trace)
 
-
 (require racket/dict)
 (require (for-syntax racket/base racket/set syntax/transformer))
 
@@ -115,26 +114,50 @@
               [(discard) (set! discards (+ 1 discards)) (loop (+ n 1))]))))
     (displayln (run-result->json-str (run-result (- (current-inexact-milliseconds) start) foundbug passed discards counterexample)))))
 
+(define (blacken-correct t)
+    (match t 
+        [(E) (E)]
+        [(T c a k v b) (T (B) a k v b)]
+    )
+)
 
+(define (balance-correct col tl k v tr)
+    (match (list col tl k v tr)
+        [(list (B) (T (R) (T (R) a x vx b) y vy c) z vz d) 
+            (T (R) (T (B) a x vx b) y vy (T (B) c z vz d))]
+        [(list (B) (T (R) a x vx (T (R) b y vy c)) z vz d)
+            (T (R) (T (B) a x vx b) y vy (T (B) c z vz d))]
+        [(list (B) a x vx (T (R) (T (R) b y vy c) z vz d)) 
+            (T (R) (T (B) a x vx b) y vy (T (B) c z vz d))]
+        [(list (B) a x vx (T (R) b y vy (T (R) c z vz d)))
+            (T (R) (T (B) a x vx b) y vy (T (B) c z vz d))]
+        [(list rb a x vx b) (T rb a x vx b)]
+    )
+)
 
-(define (insert_correct kv t)
-  (let ([k (first kv)])
-    (let([v (second kv)])
-      (match t
-        [(E) (T (E) k v (E))]
-        [(T l k2 v2 r) (cond [(< k k2) (T (insert_correct kv l) k2 v2 r)]
-                             [(> k k2) (T l k2 v2 (insert_correct kv r))]
-                             [else (T l k2 v r)])]))))
+(define (insert-aux kv t)
+    (let ([x (first kv)])
+     (let([vx (second kv)])
+        (match t 
+            [(E) (T (R) (E) x vx (E))]
+            [(T rb a y vy b) (cond  [(< x y) (balance-correct rb (insert-aux kv a) y vy b)]
+                                    [(< y x) (balance-correct rb a y vy (insert-aux kv b))]
+                                    [else (T rb a y vx b)])]
+        )))
+)
+
+(define (insert-correct kv s)
+    (blacken-correct (insert-aux kv s))
+)
 
 (define gen:kv (gen:tuple gen:natural gen:natural))
 
 (define gen:kvlist (gen:list gen:kv))
 
 (define bespoke
-  (gen:let ([kvs gen:kvlist])
-           (foldl insert_correct (E) kvs)))
-
-; (run-generator bespoke)
+    (gen:let ([kvs gen:kvlist])
+        (foldl insert-correct (E) kvs))       
+)
 
 #| Validity Properties |#
 
@@ -156,14 +179,6 @@
                 )
                `((t . ,bespoke) (k . ,gen:natural)))))
 
-(define test_prop_UnionValid
-  (lambda (cfg) (run-loop cfg
-               (property
-                (forall t1 t2)
-                (equal? (prop_UnionValid t1 t2) (just #t))
-                )
-               `((t1 . ,bespoke) (t2 . ,bespoke))
-               )))
 
 #| Post-condition Properties |#
 
@@ -187,17 +202,6 @@
                `((t . ,bespoke) (k1 . ,gen:natural) (k2 . ,gen:natural))
                )))
 
-
-(define test_prop_UnionPost
-  (lambda (cfg) (run-loop cfg
-               (property
-                (forall t1 t2 k)
-                (equal? (prop_UnionPost t1 t2 k) (just #t))
-                )
-               `((t1 . ,bespoke) (t2 . ,bespoke) (k . ,gen:natural))
-               )))
-
-
 #| Model-based Properties |#
 
 (define test_prop_InsertModel
@@ -216,15 +220,6 @@
                 (equal? (prop_DeleteModel t k) (just #t))
                 )
                `((t . ,bespoke) (k . ,gen:natural))
-               )))
-
-(define test_prop_UnionModel
-  (lambda (cfg) (run-loop cfg
-               (property
-                (forall t1 t2)
-                (equal? (prop_UnionModel t1 t2) (just #t))
-                )
-               `((t1 . ,bespoke) (t2 . ,bespoke))
                )))
 
 #| Metamorphic Properties |#
@@ -247,15 +242,6 @@
                `((t . ,bespoke) (k1 . ,gen:natural) (k2 . ,gen:natural) (v . ,gen:natural))
                )))
 
-(define test_prop_InsertUnion
-  (lambda (cfg) (run-loop cfg
-               (property
-                (forall t1 t2 k v)
-                (equal? (prop_InsertUnion t1 t2 k v) (just #t))
-                )
-               `((t1 . ,bespoke) (t2 . ,bespoke) (k . ,gen:natural) (v . ,gen:natural))
-               )))
-
 (define test_prop_DeleteInsert
   (lambda (cfg) (run-loop cfg
                (property
@@ -274,60 +260,15 @@
                `((t . ,bespoke) (k1 . ,gen:natural) (k2 . ,gen:natural))
                )))
 
-(define test_prop_DeleteUnion
-  (lambda (cfg) (run-loop cfg
-               (property
-                (forall t1 t2 k)
-                (equal? (prop_DeleteUnion t1 t2 k) (just #t))
-                )
-               `((t1 . ,bespoke) (t2 . ,bespoke) (k . ,gen:natural))
-               )))
-
-(define test_prop_UnionDeleteInsert
-  (lambda (cfg) (run-loop cfg
-               (property
-                (forall t1 t2 k v)
-                (equal? (prop_UnionDeleteInsert t1 t2 k v) (just #t))
-                )
-               `((t1 . ,bespoke) (t2 . ,bespoke) (k . ,gen:natural) (v . ,gen:natural))
-               )))
-
-(define test_prop_UnionUnionIdem
-  (lambda (cfg) (run-loop cfg
-               (property
-                (forall t)
-                (equal? (prop_UnionUnionIdem t) (just #t))
-                )
-               `((t . ,bespoke))
-               )))
-
-(define test_prop_UnionUnionAssoc
-  (lambda (cfg) (run-loop cfg
-               (property
-                (forall t1 t2 t3)
-                (equal? (prop_UnionUnionAssoc t1 t2 t3) (just #t))
-                )
-               `((t1 . ,bespoke) (t2 . ,bespoke) (t3 . ,bespoke))
-               )))
-
-; Time, foundbug, #tests, counterexample
 (provide
  test_prop_InsertValid
  test_prop_DeleteValid
- test_prop_UnionValid
  test_prop_InsertPost
  test_prop_DeletePost
- test_prop_UnionPost
  test_prop_InsertModel
  test_prop_DeleteModel
- test_prop_UnionModel
  test_prop_InsertInsert
  test_prop_InsertDelete
- test_prop_InsertUnion
  test_prop_DeleteInsert
  test_prop_DeleteDelete
- test_prop_DeleteUnion
- test_prop_UnionDeleteInsert
- test_prop_UnionUnionIdem
- test_prop_UnionUnionAssoc
  )

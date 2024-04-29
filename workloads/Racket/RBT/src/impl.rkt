@@ -18,7 +18,13 @@
 
 (define tree? (lambda (x) (or (E? x) (T? x))))
 
-(define (return x) (just x))
+(define (return x)
+  (match x
+    [(nothing) (nothing)]
+    [(just x) (just x)]
+    [_ (just x)]
+    )
+)
 
 (define (apply f x)
   (match x
@@ -41,7 +47,7 @@
   )
 
 (define/contract (redden t)
-  (tree? . -> . tree?)
+  (tree? . -> . (maybe/c tree?))
   (match t
     [(T _ l k v r) (just (T (R) l k v r))]
     [_ nothing]
@@ -53,9 +59,9 @@
   (match (list col tl k v tr)
     #|! |#
     [(list (B) (T (R) (T (R) a x vx b) y vy c) z vz d)
-     (T (R) T((B) a x vx b) y vy (T (B) c z vz d))
+     (T (R) (T (B) a x vx b) y vy (T (B) c z vz d))
      ]
-    #|!! swap_ad|#
+    #|!! swap_cd|#
     #|!
       [(list (B) (T (R) (T (R) a x vx b) y vy c) z vz d)
              (T (R) (T (B) a x vx b) y vy (T (B) d z vz c))
@@ -169,7 +175,7 @@
   (tree? any/c any/c tree? . -> . (maybe/c tree?))
   (match (list tl k v tr)
     [(list a x vx (T (R) b y vy c)) (return (T (R) a x vx (T (B) b y vy c)))]
-    [(list (T (B) a x vx b) y vy bl) (return ((balance (B) (T (R) a x vx b) y vy bl)))]
+    [(list (T (B) a x vx b) y vy bl) (return (balance (B) (T (R) a x vx b) y vy bl))]
     [(list (T (R)  a x vx (T (B) b y vy c)) z vz bl)
      #|! |#
      (do [a2  <- (redden a)]
@@ -210,7 +216,7 @@
        (match t3
          [(T (R) b2 z vz c2)
           #|! |#
-          (return (T (R) (T (B) a x vx b2) z vz (T (R) c2 y vy d)))
+          (return (T (R) (T (B) a x vx b2) z vz (T (B) c2 y vy d)))
 
           #|!! miscolor_join_2 |#
           #|!
@@ -222,7 +228,7 @@
        )
      ]
     [(list a (T (R) b x vx c)) (do [t3  <- (join a b)] (return (T (R) t3 x vx c)))]
-    [(list (T (R) a x vx b) c) (apply (t (R) a x vx) (join b c))]
+    [(list (T (R) a x vx b) c) (do [t3 <- (join b c)] (return (T (R) a x vx t3)))]
     )
   )
 
@@ -257,8 +263,8 @@
      #|!! delete_4 |#
      #|!
         (cond
-          [(< x y) (del a)]
-          [(> x y) (del b)]
+          [(< x y) (del x a)]
+          [(> x y) (del x b)]
           [else (join a b)]
         )
         |#
@@ -266,8 +272,8 @@
      #|!! delete_5 |#
      #|!
         (cond
-          [(> x y) (delLeft a y vy b)]
-          [(< x y) (delRight a y vy b)]
+          [(> x y) (delLeft x a y vy b)]
+          [(< x y) (delRight x a y vy b)]
           [else (join a b)]
         )
         |#
@@ -276,9 +282,9 @@
   )
 
 (define/contract (delete x tr)
-  (any/c tree? . -> . tree?)
+  (any/c tree? . -> . (maybe/c tree?))
   #|! |#
-  (apply blacken (del x tr))
+  (return (apply blacken (del x tr)))
 
   #|!! miscolor_delete |#
   #|!

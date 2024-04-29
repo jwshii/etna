@@ -114,7 +114,7 @@
          [(cons (E) *) r]
          [(cons * (E)) l]
          #|! |#
-           [(cons (T l k v r) t) (T (union l (below k t)) k v (union r (above k t)))]
+          ;  [(cons (T l k v r) t) (T (union l (below k t)) k v (union r (above k t)))]
 
          #|!! union_6 |#
          #|!

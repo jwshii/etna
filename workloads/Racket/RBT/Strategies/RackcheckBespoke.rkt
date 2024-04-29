@@ -35,8 +35,8 @@
      (let([vx (second kv)])
         (match t 
             [(E) (T (R) (E) x vx (E))]
-            [(T rb a y vy b) (cond  [(< x y) (balance-correct rb (insert-aux x vx a) y vy b)]
-                                    [(< y x) (balance-correct rb a y vy (insert-aux x vx b))]
+            [(T rb a y vy b) (cond  [(< x y) (balance-correct rb (insert-aux kv a) y vy b)]
+                                    [(< y x) (balance-correct rb a y vy (insert-aux kv b))]
                                     [else (T rb a y vx b)])]
         )))
 )
