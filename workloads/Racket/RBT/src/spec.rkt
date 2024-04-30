@@ -10,7 +10,7 @@
 
 
 (define/contract (is-BST-Helper p t)
-  (-> (-> integer? integer? boolean?) tree? boolean?)
+  (-> (-> integer? boolean?) tree? boolean?)
   (match t
     [(E) #t]
     [(T c a x v b) (and (p x) (is-BST-Helper p a ) (is-BST-Helper p b))]
@@ -23,8 +23,8 @@
     [(E) #t]
     [(T _ a x _ b) (and (is-BST a) (is-BST b)
                         ; todo => it doesn't check if all right tree is greater
-                        (is-BST-Helper (lambda (x y) (< x y)) b)
-                        (is-BST-Helper (lambda (x y) (> x y)) b)
+                        (is-BST-Helper (lambda (y) (> x y)) a)
+                        (is-BST-Helper (lambda (y) (< x y)) b)
                         )
                    ]
     )
@@ -78,8 +78,7 @@
 
 (define/contract (isRBT t)
   (-> tree? maybe?)
-  (just (and (consistentBlackHeight t)))
-  ; (just (and (is-BST t) (consistentBlackHeight t) (noRedRed t)))
+  (just (and (is-BST t) (consistentBlackHeight t) (noRedRed t)))
   )
 
 (define (to-list t)
@@ -204,10 +203,15 @@
 
 (define (prop_DeleteInsert t k1 k2 v)
   (assumes (isRBT t)
-           (match (list (delete k1 (insert k2 v t)) (delete k1 t))
-             [(list (just t1) (just t2)) (just (equal? (to-list t1)
-                                                       (to-list (if (= k1 k2) t2 (insert k1 v t2)))))]
-             [_ (just #f)])))
+           (match (delete k1 (insert k2 v t))
+             [(nothing) (just #f)]
+             [(just t1) (match (delete k1 t)
+                          [(nothing) (just #f)]
+                          [(just t2) (just (equal? (to-list t1) (to-list (if (= k1 k2) t2 (insert k2 v t2)))))]
+                          )]
+             )
+           )
+  )
 
 (define (prop_DeleteDelete t k1 k2)
   (assumes (isRBT t)
