@@ -11,7 +11,7 @@ def collect(results: str):
 
     for workload in tool.all_workloads():
         print(f'Collecting {workload.name}...')
-        if workload.name in ['BST', 'RBT']:
+        if workload.name in ['BST', 'RBT', 'STLC']:
             for variant in tool.all_variants(workload):
                 print(f'Collecting {workload.name} {variant.name}...')
                 if variant.name == 'base':
