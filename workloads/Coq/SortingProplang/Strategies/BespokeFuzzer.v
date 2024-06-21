@@ -86,9 +86,9 @@ Axiom sorted : (list nat) -> bool.
 Extract Constant sorted => "fun l -> true".
 
 Definition prop_sort : CProp ∅ :=
-  @ForAll _ ∅ "l" (fun tt => arbitrary) (fun tt => fuzz) (fun tt n => shrink n) (fun tt n => show n) (
+  @ForAll _ ∅ "l" (fun _ => arbitrary) (fun _ => fuzz) (fun _ n => shrink n) (fun _ n => show n) (
   @Check (list nat · ∅)
-              (fun '(l, tt) =>
+              (fun '(l, _) =>
                 let l := sort l in sorted l)).
 
 

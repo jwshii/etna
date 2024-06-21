@@ -22,10 +22,10 @@ Extract Constant number_of_trials => "max_int".
 (* --------------------- Tests --------------------- *)
 
 Definition prop_SinglePreserve   :=
-	ForAllMaybe "e" (fun tt => arbitrary) (fun tt e => arbitrary) (fun tt => shrink) (fun tt => show) (
-  Implies (Expr · ∅) (fun '(e, tt) => isJust (mt e)) (
+	ForAllMaybe "e" (fun _ => arbitrary) (fun _ e => arbitrary) (fun _ => shrink) (fun _ => show) (
+  Implies (Expr · ∅) (fun '(e, _) => isJust (mt e)) (
 	Check (Expr · ∅)
-	(fun '(e, tt) => 
+	(fun '(e, _) => 
     match (mt e) with
     | None => false
     | Some t' => mtypeCheck (pstep e) t'
@@ -36,10 +36,10 @@ Definition test_prop_SinglePreserve := (runLoop number_of_trials prop_SinglePres
 (*! QuickProp test_prop_SinglePreserve. *)
 
 Definition prop_MultiPreserve   :=
-	ForAllMaybe "e" (fun tt => arbitrary) (fun tt e => arbitrary) (fun tt => shrink) (fun tt => show) (
-  Implies (Expr · ∅) (fun '(e, tt) => isJust (mt e)) (
+	ForAllMaybe "e" (fun _ => arbitrary) (fun _ e => arbitrary) (fun _ => shrink) (fun _ => show) (
+  Implies (Expr · ∅) (fun '(e, _) => isJust (mt e)) (
 	Check (Expr · ∅)
-	(fun '(e, tt) => 
+	(fun '(e, _) => 
     match (mt e) with
     | None => false
     | Some t' => mtypeCheck (multistep 40 pstep e) t'

@@ -55,22 +55,22 @@ Open Scope Z_scope.
 
 
 Definition prop_InsertValid :=
-	ForAll "t" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) (fun '(t, tt) => isRBT t) (
-	ForAll "k" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
-	ForAll "v" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
+	ForAll "t" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
+	Implies (Tree · ∅) (fun '(t, _) => isRBT t) (
+	ForAll "k" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
+	ForAll "v" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
 	Check (Z · (Z · (Tree · ∅)))
-	(fun '(v, (k, (t, tt))) => (isRBT (insert k v t))))))).
+	(fun '(v, (k, (t, _))) => (isRBT (insert k v t))))))).
 
 Definition test_prop_InsertValid := (fuzzLoop number_of_trials prop_InsertValid (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_InsertValid. *)
 
 Definition prop_DeleteValid :=
-	ForAll "t" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) (fun '(t, tt) => isRBT t) (
-	ForAll "k" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
+	ForAll "t" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
+	Implies (Tree · ∅) (fun '(t, _) => isRBT t) (
+	ForAll "k" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
 	Check (Z · (Tree · ∅))
-	(fun '(k, (t, tt)) => (match delete k t with
+	(fun '(k, (t, _)) => (match delete k t with
 						   | None => false
 						   | Some t' => isRBT t'
 							end))))).
@@ -79,13 +79,13 @@ Definition test_prop_DeleteValid := (fuzzLoop number_of_trials prop_DeleteValid 
 (*! QuickProp test_prop_DeleteValid. *)
 
 Definition prop_InsertPost :=
-	ForAll "t" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) (fun '(t, tt) => isRBT t) (
-	ForAll "k" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
-	ForAll "k'" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
-	ForAll "v" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
+	ForAll "t" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
+	Implies (Tree · ∅) (fun '(t, _) => isRBT t) (
+	ForAll "k" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
+	ForAll "k'" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
+	ForAll "v" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
 	Check (Z · (Z · (Z · (Tree · ∅))))
-	(fun '(v, (k', (k, (t, tt)))) => (let v' := find k' (insert k v t) in
+	(fun '(v, (k', (k, (t, _)))) => (let v' := find k' (insert k v t) in
 										if k =? k' then (v' = Some v)?
 										else (v' = find k' t)?))))))).
 
@@ -93,12 +93,12 @@ Definition test_prop_InsertPost := (fuzzLoop number_of_trials prop_InsertPost (H
 (*! QuickProp test_prop_InsertPost. *)
 
 Definition prop_DeletePost :=
-	ForAll "t" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) (fun '(t, tt) => isRBT t) (
-	ForAll "k" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
-	ForAll "k'" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
+	ForAll "t" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
+	Implies (Tree · ∅) (fun '(t, _) => isRBT t) (
+	ForAll "k" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
+	ForAll "k'" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
 	Check (Z · (Z · (Tree · ∅)))
-	(fun '(k', (k, (t, tt))) => (match delete k t with
+	(fun '(k', (k, (t, _))) => (match delete k t with
 								| None => false
 								| Some t' =>
 								(find k' t' = if k =? k' then None else find k' t)?
@@ -109,22 +109,22 @@ Definition test_prop_DeletePost := (fuzzLoop number_of_trials prop_DeletePost (H
 
 
 Definition prop_InsertModel :=
-	ForAll "t" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) (fun '(t, tt) => isRBT t) (
-	ForAll "k" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
-	ForAll "v" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
+	ForAll "t" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
+	Implies (Tree · ∅) (fun '(t, _) => isRBT t) (
+	ForAll "k" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
+	ForAll "v" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
 	Check (Z · (Z · (Tree · ∅)))
-	(fun '(v, (k, (t, tt))) => ((toList (insert k v t) = L_insert (k, v) (deleteKey k (toList t)))?)))))).
+	(fun '(v, (k, (t, _))) => ((toList (insert k v t) = L_insert (k, v) (deleteKey k (toList t)))?)))))).
 
 Definition test_prop_InsertModel := (fuzzLoop number_of_trials prop_InsertModel (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_InsertModel. *)
 
 Definition prop_DeleteModel :=
-	ForAll "t" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) (fun '(t, tt) => isRBT t) (
-	ForAll "k" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
+	ForAll "t" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
+	Implies (Tree · ∅) (fun '(t, _) => isRBT t) (
+	ForAll "k" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
 	Check (Z · (Tree · ∅))
-	(fun '(k, (t, tt)) => ( match delete k t with
+	(fun '(k, (t, _)) => ( match delete k t with
 							| None => false
 							| Some t' => (toList t' = deleteKey k (toList t))?
 							end))))).
@@ -133,14 +133,14 @@ Definition test_prop_DeleteModel := (fuzzLoop number_of_trials prop_DeleteModel 
 (*! QuickProp test_prop_DeleteModel. *)
 
 Definition prop_InsertInsert :=
-	ForAll "t" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) (fun '(t, tt) => isRBT t) (
-	ForAll "k" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
-	ForAll "k'" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
-	ForAll "v" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
-	ForAll "v'" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
+	ForAll "t" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
+	Implies (Tree · ∅) (fun '(t, _) => isRBT t) (
+	ForAll "k" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
+	ForAll "k'" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
+	ForAll "v" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
+	ForAll "v'" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
 	Check (Z · (Z · (Z · (Z · (Tree · ∅)))))
-	(fun '(v', (v, (k', (k, (t, tt))))) => (
+	(fun '(v', (v, (k', (k, (t, _))))) => (
 		(toList (insert k v (insert k' v' t)) = toList(if k =? k' then insert k v t else insert k' v' (insert k v t)))?
 	)))))))).
 
@@ -149,13 +149,13 @@ Definition test_prop_InsertInsert := (fuzzLoop number_of_trials prop_InsertInser
 
 
 Definition prop_InsertDelete :=
-	ForAll "t" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) (fun '(t, tt) => isRBT t) (
-	ForAll "k" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
-	ForAll "k'" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
-	ForAll "v" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
+	ForAll "t" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
+	Implies (Tree · ∅) (fun '(t, _) => isRBT t) (
+	ForAll "k" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
+	ForAll "k'" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
+	ForAll "v" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
 	Check (Z · (Z · (Z · (Tree · ∅))))
-	(fun '(v, (k', (k, (t, tt)))) => (
+	(fun '(v, (k', (k, (t, _)))) => (
 		match (delete k' t) with
 		| None => false
 		| Some t' =>
@@ -170,13 +170,13 @@ Definition test_prop_InsertDelete := (fuzzLoop number_of_trials prop_InsertDelet
 (*! QuickProp test_prop_InsertDelete. *)
 
 Definition prop_DeleteInsert :=
-	ForAll "t" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) (fun '(t, tt) => isRBT t) (
-	ForAll "k" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
-	ForAll "k'" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
-	ForAll "v'" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
+	ForAll "t" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
+	Implies (Tree · ∅) (fun '(t, _) => isRBT t) (
+	ForAll "k" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
+	ForAll "k'" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
+	ForAll "v'" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
 	Check (Z · (Z · (Z · (Tree · ∅))))
-	(fun '(v', (k', (k, (t, tt)))) => (
+	(fun '(v', (k', (k, (t, _)))) => (
 		match delete k (insert k' v' t) with
 		| None => false
 		| Some t' =>
@@ -193,12 +193,12 @@ Definition test_prop_DeleteInsert := (fuzzLoop number_of_trials prop_DeleteInser
 (*! QuickProp test_prop_DeleteInsert. *)
 
 Definition prop_DeleteDelete :=
-	ForAll "t" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
-	Implies (Tree · ∅) (fun '(t, tt) => isRBT t) (
-	ForAll "k" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
-	ForAll "k'" (fun tt => arbitrary) (fun tt => fuzz) (fun tt => shrink) (fun tt => show) (
+	ForAll "t" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
+	Implies (Tree · ∅) (fun '(t, _) => isRBT t) (
+	ForAll "k" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
+	ForAll "k'" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
 	Check (Z · (Z · (Tree · ∅)))
-	(fun '(k', (k, (t, tt))) => (
+	(fun '(k', (k, (t, _))) => (
 		match delete k' t with
 		| None => false
 		| Some t' =>
