@@ -1496,3 +1496,8 @@ Fixpoint toMonad (C : Ctx) (cprop: CProp C) : ⟦C⟧ -> Checker :=
     checker (prop env)
   end.
 
+(* For testing, should move to instances properly *)
+Instance FuzzyNat : Fuzzy nat := { fuzz x := ret x }.
+
+Derive Property test.
+Print test_prop.
