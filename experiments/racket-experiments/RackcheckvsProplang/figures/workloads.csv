@@ -1,0 +1,7 @@
+strategy,workload,0.1,1.0,10.0,60.0,rest
+ProplangBespoke,BST,53,0,0,0,0
+RackcheckBespoke,BST,40,0,0,0,13
+ProplangBespoke,RBT,50,7,2,0,14
+RackcheckBespoke,RBT,30,6,1,0,36
+ProplangBespoke,STLC,18,0,0,0,2
+RackcheckBespoke,STLC,18,0,0,0,2

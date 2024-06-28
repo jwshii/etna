@@ -39,11 +39,10 @@ def collect(results: str):
 
                     for property in tool.all_properties(workload):
                         if workload.name.startswith('STLC'):
-                            property = 'test_' + property + '_runner'
-                            pass
+                            property = 'test_' + property
                         elif workload.name.endswith('Proplang'):
-                            property = 'test_' + property + '_runner'
-                            if property[10:-7] not in tasks[workload.name[:3]][variant.name]:
+                            property = 'test_' + property
+                            if property not in tasks[workload.name[:3]][variant.name]:
                                 print(f'Skipping {workload.name},{strategy.name},{variant.name},{property}')
                                 continue
                         elif workload.name == 'BST':
