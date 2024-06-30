@@ -19,10 +19,10 @@ class ResultColumns:
 def extract(name: str) -> ResultColumns:
     name = name.split(",")
 
-    workload = (name[0],)
-    strategy = (name[1],)
-    mutant = (name[2],)
-    property = (name[3],)
+    workload = name[0]
+    strategy = name[1]
+    mutant = name[2]
+    property = name[3]
     version = None
 
     if len(name) == 5 and name[4].endswith(".json"):
