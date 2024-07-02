@@ -1533,7 +1533,14 @@ Notation "x : T" :=
          (fun _ => @fuzz T _),
          (fun _ => @shrink T _),
      (fun _ => @show T _)))
-    (at level 100).
+    (at level 100, T at next level).
+
+Notation "x : T 'gen:' g" :=
+  (("", (fun _ => g),
+         (fun _ => @fuzz T _),
+         (fun _ => @shrink T _),
+     (fun _ => @show T _)))
+    (at level 100, T at next level).
 
 Definition t1 : ttyp nat ∅ := ("x" : nat).
 
@@ -1572,6 +1579,13 @@ Definition t3 :=
   FORALL x : nat
   FORALL y : nat , 
   CHECK (fun '(y,(x,_)) => test x y).       
+
+Definition t4 := 
+  FORALL x : nat gen:(choose (0, 10))
+  FORALL y : nat , 
+  CHECK (fun '(y,(x,_)) => test x y).       
+
+Print t4.
 
 Derive Property test.
 Print test_prop.
