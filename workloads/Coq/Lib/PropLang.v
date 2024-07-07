@@ -60,6 +60,7 @@ Inductive CProp : Ctx -> Type :=
 | Check : forall C,
       (⟦C⟧ -> bool) -> CProp C.
 
+
 Fixpoint inputTypes {C : Ctx}
          (cprop : CProp C) : Ctx :=
   match cprop with
@@ -1498,6 +1499,93 @@ Fixpoint toMonad (C : Ctx) (cprop: CProp C) : ⟦C⟧ -> Checker :=
 
 (* For testing, should move to instances properly *)
 #[export] Instance FuzzyNat : Fuzzy nat := { fuzz x := ret x }.
+
+Notation "'FOO' x ':' T ',' c" :=
+  (ForAll "" (fun _ => @arbitrary T _)
+            (fun _ => @fuzz T _)
+            (fun _ => @shrink T _)
+            (fun _ => @show T _)
+            c)
+    (at level 200, x ident, T at level 200, c at level 200, right associativity).
+
+Definition typeOf {X} (x : X) := X.
+
+Definition ttyp A C := 
+  (string * (⟦ C ⟧ -> G A) * 
+         (⟦ C ⟧ -> A -> G A) * 
+         (⟦ C ⟧ -> A -> list A) *
+         (⟦ C ⟧ -> A -> string))%type.
+
+Definition ForAllCurried {A C}
+  (t : string * (⟦ C ⟧ -> G A) * 
+         (⟦ C ⟧ -> A -> G A) * 
+         (⟦ C ⟧ -> A -> list A) *
+         (⟦ C ⟧ -> A -> string)) : 
+  CProp (A · C) -> CProp C :=
+  let '(n,g,f,s,p) := t in
+  ForAll n g f s p.
+
+Notation "'FORALL' x1 'FORALL' x2 'FORALL' .. 'FORALL' xn ',' c" :=
+  (ForAllCurried x1 (ForAllCurried x2 .. (ForAllCurried xn c) ..)) (at level 200).
+
+Notation "x : T" :=
+  (("", (fun _ => @arbitrary T _),
+         (fun _ => @fuzz T _),
+         (fun _ => @shrink T _),
+     (fun _ => @show T _)))
+    (at level 100, T at next level).
+
+Notation "x : T 'gen:' g" :=
+  (("", (fun _ => g),
+         (fun _ => @fuzz T _),
+         (fun _ => @shrink T _),
+     (fun _ => @show T _)))
+    (at level 100, T at next level).
+
+Definition t1 : ttyp nat ∅ := ("x" : nat).
+
+Definition t2 :=
+  FORALL x : nat FORALL y : nat , 
+        (Check (nat · (nat · ∅)) (fun _ => true)).
+
+Class Untuple (A : Type) :=
+  { untuple : Ctx
+  ; untuple_correct : ⟦untuple⟧ = A
+  }.
+
+Instance Untuple_empty : Untuple nat :=
+  { untuple := ∅
+  ; untuple_correct := eq_refl }.
+
+#[refine] Instance Untuple_pair {A B} `{Untuple B} : Untuple (A * B) :=
+  { untuple := A · @untuple B _ }.
+Proof.
+destruct H.
+simpl.
+rewrite untuple_correct0.
+reflexivity.
+Defined.
+
+Definition CHECK {A} `{Untuple A} (p : A -> bool) : CProp (@untuple A _).
+  refine (Check (@untuple A _) _).
+  rewrite untuple_correct.
+  exact p.
+Defined.
+
+Print test.
+(* test = fun x y : nat => y <? x 
+     : nat -> nat -> bool *)
+Definition t3 :=
+  FORALL x : nat
+  FORALL y : nat , 
+  CHECK (fun '(y,(x,_)) => test x y).       
+
+Definition t4 := 
+  FORALL x : nat gen:(choose (0, 10))
+  FORALL y : nat , 
+  CHECK (fun '(y,(x,_)) => test x y).       
+
+Print t4.
 
 Derive Property test.
 Print test_prop.
