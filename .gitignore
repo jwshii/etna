@@ -7,7 +7,8 @@
 **/__pycache__/*
 **/.mypy_cache/*
 results
-**/*_results
+**/*_results*
+**/results*
 share
 etc
 dist
