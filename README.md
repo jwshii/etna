@@ -47,7 +47,7 @@ Please see `DOCUMENTATION.md` to learn more about these details.
 2. For Haskell, run the following commands:
 
     ```
-    $ cd ~/etna/bench-suite/Haskell/BST
+    $ cd ~/etna/workloads/Haskell/BST
     $ stack ghci src/Impl.hs
     ```
 
