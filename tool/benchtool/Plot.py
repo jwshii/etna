@@ -157,6 +157,159 @@ def stacked_barchart_times(
     if show:
         fig.show()
 
+def double_stacked_barchart_times(
+    case: str,
+    df: pd.DataFrame,
+    df2: pd.DataFrame,
+    limits: list[float],
+    limit_type: str,
+    strategies: list[str] = None,
+    colors: list[str] = None,
+    show: bool = True,
+    image_path: Optional[str] = None,
+    agg: Literal['any', 'all'] = 'all',
+    manual_bars: list[Bar] = [],
+):
+    def process_df(df, strategies):
+        df = df[df['workload'] == case]
+
+        if not strategies:
+            strategies = df.strategy.unique()
+
+        tasks = df.task.unique()
+        total_tasks = len(tasks)
+
+        results = pd.DataFrame(
+            columns=limits, index=strategies, dtype=int, data=0)
+
+        results['rest'] = total_tasks
+
+        for within in limits:
+            dft = overall_solved(df, agg=agg, within=within,
+                                 solved_type=limit_type)
+            dft = dft.reset_index()
+            dft = dft.groupby(['strategy']).sum(numeric_only=False)
+            for strategy in strategies:
+                # Note: I think the new version of Pandas broke some of this code.
+                # Use 1.5.3 for now and come back and fix.
+                results.loc[strategy].loc[within] = dft.loc[strategy]['solved'] - (
+                    total_tasks - results.loc[strategy].loc['rest'])
+                results.loc[strategy].loc[
+                    'rest'] = results.loc[strategy].loc['rest'] - results.loc[strategy].loc[within]
+
+        results = results.rename_axis('strategy')
+        results = results.reset_index()
+
+        results = results.melt(
+            id_vars=['strategy'], value_vars=limits + ['rest'])
+        return results
+
+    results = process_df(df, strategies)
+    results2 = process_df(df2, strategies)
+
+    if not colors:
+        colors = [
+            '#000000',  # black
+            '#900D0D',  # red
+            '#DC5F00',  # orange
+            '#243763',  # blue
+            '#436E4F',  # green
+            '#470938',  # purple
+            '#D61C4E',  # pink
+            '#334756',  # dark blue
+            '#290001',  # dark brown
+            '#000000',  # black
+        ]
+
+    extrapolated_colors = list(
+        map(light_gradient, map(ImageColor.getrgb, colors), [len(limits) + 1] * len(colors)))
+
+    fig = go.Figure()
+    fig.update_layout(
+        title=f'',
+        xaxis=go.layout.XAxis(showticklabels=False,),
+        yaxis=go.layout.YAxis(
+            title='',
+            showticklabels=False,
+        ),
+        font_size=60,
+        font={'family': 'Helvetica'},
+        width=1920,
+        height=1080,
+        showlegend=False,
+    )
+
+    # hide y axis title
+    strategy_sorter = dict(map(lambda x: (x[1], x[0]), enumerate(strategies)))
+
+    strategies = sorted(strategies,
+                        key=lambda x: strategy_sorter[x] if x in strategy_sorter.keys() else -1)
+
+    for strategy, color in zip(strategies[::-1], extrapolated_colors):
+        fig.add_trace(
+            go.Bar(
+                x=results[results['strategy'] == strategy]['value'],
+                y=results[results['strategy'] == strategy]['strategy'],
+                name=strategy,
+                marker_color=color,
+                text=results[results['strategy'] == strategy]['value'],
+                orientation='h',
+                width=0.4,
+                textposition='auto',
+                textfont_size=60,
+                textfont={'family': 'Helvetica'},
+                textangle=0,
+                cliponaxis=False,
+                insidetextanchor='middle',
+                # don't show name on y axis
+            ))
+    for strategy, color in zip(strategies[::-1], extrapolated_colors):   
+        fig.add_trace(
+            go.Bar(
+                x=results2[results2['strategy'] == strategy]['value'],
+                y=results2[results2['strategy'] == strategy]['strategy'],
+                name=strategy + ' (remote)',
+                marker_color=color,
+                text=results2[results2['strategy'] == strategy]['value'],
+                orientation='h',
+                width=0.4,
+                textposition='auto',
+                textfont_size=60,
+                textfont={'family': 'Helvetica'},
+                textangle=0,
+                cliponaxis=False,
+                insidetextanchor='middle',
+                # don't show name on y axis
+            ))
+
+    for bar in manual_bars:
+        fig.add_trace(
+            go.Bar(
+                x=bar.values,
+                y=np.array([bar.name] * (len(limits) + 1)),
+                name=bar.name,
+                marker_color=light_gradient(ImageColor.getrgb(bar.color),
+                                            len(limits) + 1),
+                text=bar.values,
+                orientation='h',
+                width=0.8,
+                textposition='auto',
+                textfont_size=60,
+                textfont={'family': 'Helvetica'},
+                textangle=0,
+                cliponaxis=False,
+                insidetextanchor='middle',
+            ))
+
+    if image_path:
+        fig.write_image(f'{image_path}/{case}.png',
+                        width=1600,
+                        height=900,
+                        scale=1,
+                        engine='kaleido')
+
+    if show:
+        fig.show()
 
 def dashboard(df: pd.DataFrame):
     app = Dash(__name__)
