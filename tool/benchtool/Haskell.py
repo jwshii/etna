@@ -19,14 +19,23 @@ class Haskell(BenchTool):
                 path='workloads/Haskell',
                 ignore='common',  # This contains the library code
                 strategies='src/Strategy',
-                impl_spec_path='src'),
+                impl_path='src',
+                spec_path='src/Spec.hs'),
             results,
             log_level,
             replace_level)
+    
+    def all_properties(self, workload: Entry) -> set[str]:
+        spec = os.path.join(workload.path, self._config.spec_path)
+        with open(spec) as f:
+            contents = f.read()
+            regex = re.compile(r'prop_[^\s]*')
+            matches = regex.findall(contents)
+            return list(dict.fromkeys(matches))
 
     def _build(self, workload_path: str):
         with self._change_dir(workload_path):
-            self._shell_command(['make', 'build'])
+            self._shell_command(['stack', 'build'])
 
     def _run_trial(self, workload_path: str, params: TrialArgs):
 
