@@ -8,3 +8,5 @@ snapshots:
 - completed:
     sha256: fb634b19f31da06684bb07ce02a20c75a3162138f279b388905b03ebd57bb50f
     size: 618876
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/19/6.yaml
+  original: lts-19.6
