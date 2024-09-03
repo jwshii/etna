@@ -129,7 +129,6 @@ redblack = {
 lu = {
     'base': [],
     'ppNot_1': [
-        'val',
         'exp',
         'stat',
     ],
@@ -139,7 +138,6 @@ lu = {
         'stat',
     ],
     'stringP_1': [
-        'val',
         'exp',
         'stat',
     ],
