@@ -211,7 +211,6 @@ class BenchTool(ABC):
                           label=strategy_label,
                           short_circuit=cfg.short_circuit))
 
-
     @abstractmethod
     def _preprocess(self, workload: Entry) -> None:
         '''
