@@ -47,7 +47,7 @@ Definition balance (col: Color) (tl: Tree) (key: Z) (val: Z) (tr: Tree) : Tree :
     match col, tl, key, val, tr with
     (*! *)
     | B, (T R (T R a x vx b) y vy c), z, vz, d => T R (T B a x vx b) y vy (T B c z vz d)
-(*!! swap_ad *)
+(*!! swap_cd *)
 (*! 
     | B, (T R (T R a x vx b) y vy c), z, vz, d => T R (T B a x vx b) y vy (T B d z vz c) 
 *)
@@ -159,9 +159,7 @@ Fixpoint _join (t1: Tree) (t2: Tree) (f: nat) : option Tree :=
             (*! *)
                 Some (T R (T R a x vx b') z vz (T R c' y vy d))
             (*!! miscolor_join_1 *)
-            (*! 
-            Some(T R (T B a x vx b') z vz (T B c' y vy d))
-            *)
+            (*! Some(T R (T B a x vx b') z vz (T B c' y vy d)) *)
             | Some(bc) => Some(T R a x vx (T R bc y vy d))
             end
         | (T B a x vx b), (T B c y vy d) =>
@@ -260,7 +258,7 @@ Definition delete (x: Z) (t: Tree) : option Tree :=
     (*! *)
     t' <- del x t fuel ;;
     Some (blacken t')
-    (*!! miscolordelete *)
+    (*!! miscolor_delete *)
     (*!
     del x t fuel
     *)

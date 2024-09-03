@@ -75,10 +75,14 @@ Definition prop_DeletePost (t: Tree) (k: nat) (k': nat) :=
 Definition prop_UnionPost (t: Tree) (t': Tree) (k: nat) :=
   isBST t
     -=>
-    let lhs := find k (union t t') in
-    let rhs := find k t in
-    let rhs':= find k t' in
-    ((lhs ==? rhs) || (lhs ==? rhs')) .
+    (let lhs := find k (union t t') in
+    match (find k t) with
+    | Some rhs => lhs ==? (Some rhs)
+    | None => match (find k t') with
+            | Some rhs => lhs ==? (Some rhs)
+            | None => lhs ==? None
+            end
+    end).
 
 (* ---------- *)
 
@@ -154,7 +158,13 @@ Definition prop_UnionModel (t: Tree) (t': Tree) :=
 (* ---------- *)
 
 Fixpoint tree_eqb (t: Tree) (t': Tree) : bool :=
-  toList t ==? toList t'.
+  match t, t' with
+  | E, E => true
+  | T l k v r, T l' k' v' r' =>
+    (k =? k') && (v =? v') && tree_eqb l l' && tree_eqb r r'
+  | _, _ => false
+  end.
+
 
 Notation "A =|= B" := (tree_eqb A B) (at level 100, right associativity).
 (* -- Metamorphic properties. *)
