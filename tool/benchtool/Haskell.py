@@ -24,7 +24,7 @@ class Haskell(BenchTool):
             results,
             log_level,
             replace_level)
-    
+
     def all_properties(self, workload: Entry) -> set[str]:
         spec = os.path.join(workload.path, self._config.spec_path)
         with open(spec) as f:

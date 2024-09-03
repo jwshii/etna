@@ -157,6 +157,7 @@ def stacked_barchart_times(
     if show:
         fig.show()
 
+
 def dashboard(df: pd.DataFrame):
     app = Dash(__name__)
 

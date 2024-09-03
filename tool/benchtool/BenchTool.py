@@ -110,6 +110,7 @@ class BenchTool(ABC):
 
         return [get_base(e) for e in entries]
 
+    @abstractmethod
     def all_properties(self, workload: Entry) -> list[Entry]:
         pass
 
