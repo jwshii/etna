@@ -169,43 +169,34 @@ lu = {
         'stat',
     ],
     'reserved_1': [
-        'val',
         'exp',
         'stat',
     ],
     'reserved_2': [
-        'val',
         'exp',
         'stat',
     ],
     'reserved_3': [
-        'val',
         'exp',
         'stat',
     ],
     'nameP_1': [
-        'val',
         'exp',
         'stat',
     ],
     'nameP_2': [
-        'val',
         'exp',
         'stat',
     ],
     'bofP_1': [
-        'val',
         'exp',
         'stat',
     ],
     'tableConstP_1': [
-        'val',
         'exp',
         'stat',
     ],
     'statementP_1': [
-        'val',
-        'exp',
         'stat',
     ],
 }

@@ -15,25 +15,9 @@ def collect(results: str):
             continue
 
         with open(os.path.join(workload.path, 'app/Main.hs'), 'r+') as f:
-            oirginal_file = f.read()
-
-            old_string = r'\(allProps "src/Spec.hs"\)'
-
-            new_content = "(pure " + str(tool.all_properties(
-                Entry(workload.name, workload.path))).replace('\'', '\"') + ")"
-
-            # Replace property string in Main.hs
-            new_file = re.sub(old_string, new_content, oirginal_file)
-            f.seek(0)
-            f.write(new_file)
-            f.truncate()
-
             for variant in tool.all_variants(workload):
                 if variant.name == 'base':
                     # Don't run on base (non-buggy) implementation.
-                    continue
-
-                if variant.name not in ['wsP_1']:
                     continue
 
                 for strategy in tool.all_strategies(workload):
@@ -64,9 +48,6 @@ def collect(results: str):
                                           short_circuit=True)
 
                         run_trial(cfg)
-            f.seek(0)
-            f.write(oirginal_file)
-            f.truncate()
 
 
 if __name__ == '__main__':

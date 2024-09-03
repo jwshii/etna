@@ -20,11 +20,10 @@ def analyze(results: str, images: str):
         times = partial(stacked_barchart_times, case=workload, df=df)
         times(
             strategies=['Random', 'Hybrid', 'Correct'],
-            colors=['#6D0E56'],
-            limits=[0.01, 0.02, 0.05, 0.1, 0.2, 0.5],
+            limits=[0.01, 0.02, 0.05, 0.1],
             limit_type='time',
             image_path=images,
-            show=False,
+            show=True,
         )
 
     # Compute solve rates.
