@@ -21,7 +21,6 @@ Fixpoint gen_bst (s : nat) (lo hi : nat) : G Tree :=
 
 Definition bespoke := gen_bst 5 0 40.
 
-
 Definition test_prop_InsertValid   :=
   forAll bespoke (fun (t: Tree)  =>
   forAll arbitrary (fun (k: nat)  =>
