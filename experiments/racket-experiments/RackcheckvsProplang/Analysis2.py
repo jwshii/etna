@@ -133,14 +133,15 @@ def process_data(results: str, figures: str):
         ],
     )
     bst = charter(case="BST")
-    rbt = charter(case="RBT")
-    stlc = charter(case="STLC")
+    # rbt = charter(case="RBT")
+    # stlc = charter(case="STLC")
 
     bst["workload"] = "BST"
-    rbt["workload"] = "RBT"
-    stlc["workload"] = "STLC"
+    # rbt["workload"] = "RBT"
+    # stlc["workload"] = "STLC"
 
-    df = pd.concat([bst, rbt, stlc])
+    # df = pd.concat([bst, rbt, stlc])
+    df = pd.concat([bst])
     # Turn variable/value into column, where each variable has its own column and value is the value of that column.
     df = df.pivot(
         index=["strategy", "workload"], columns="variable", values="value"
@@ -307,6 +308,6 @@ if __name__ == "__main__":
     # analyze(results_path, images_path)
     df = process_data(results_path, images_path)
     df = pd.read_csv(f"{images_path}/workloads.csv", index_col=False)
-    for case in ["BST", "RBT", "STLC"]:
+    for case in ["BST"]:
         plot_data(df, images_path, "time", "task_bucket", case, show_names=False)
         plot_data(df, images_path, "time", "task_bucket_named", case, show_names=True)

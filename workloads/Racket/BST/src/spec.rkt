@@ -68,7 +68,7 @@
 #| ----------- |#
 
 (define (tree-equiv? t1 t2)
-  (just (equal? (tree->list t1) (tree->list t2))))
+  (equal? (tree->list t1) (tree->list t2)))
 
 #| ----------- |#
 
