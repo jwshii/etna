@@ -20,7 +20,7 @@ Class Indist (A : Type) : Type := {
 Arguments indistxx {_ _} [obs] _.
 Arguments indist_sym {_ _} [obs] _ _.
 
-#[refine] Instance oindist {T : Type} `{Indist T} : Indist (option T) := {
+#[global] #[refine] Instance oindist {T : Type} `{Indist T} : Indist (option T) := {
   indist obs x1 x2 :=
     match x1, x2 with
     | None, None => true
@@ -33,7 +33,7 @@ Proof.
 - abstract by move => obs [x|//=] [y|//=]; rewrite indist_sym.
 Defined.
 
-#[refine] Instance indistList {A : Type} `{Indist A} : Indist (list A) :=
+#[global] #[refine] Instance indistList {A : Type} `{Indist A} : Indist (list A) :=
 {|
   indist lab l1 l2 :=
     (size l1 == size l2) && all (fun p => indist lab p.1 p.2) (zip l1 l2)
@@ -54,7 +54,7 @@ Proof. by rewrite {1 3}/indist /= eqSS; bool_congr. Qed.
    - Just syntactic equality thanks to the per-stamp-level allocator!
 *)
 
-#[refine] Instance indistValue : Indist Value :=
+#[global] #[refine] Instance indistValue : Indist Value :=
 {|
   indist _lab v1 v2 := v1 == v2
 |}.
@@ -71,7 +71,7 @@ Defined.
      * Else if they are not lower, the label equality suffices
 *)
 
-#[refine] Instance indistAtom : Indist Atom :=
+#[global] #[refine] Instance indistAtom : Indist Atom :=
 {|
   indist lab a1 a2 :=
     let '(Atm v1 l1) := a1 in
@@ -85,7 +85,7 @@ Proof.
   case: eqP=> [->|] //=.
 Defined.
 
-#[refine] Instance indistFrame : Indist frame :=
+#[global] #[refine] Instance indistFrame : Indist frame :=
 {|
   indist lab f1 f2 :=
     let '(Fr l1 vs1) := f1 in
@@ -114,7 +114,7 @@ Definition indistMemAsym lab m1 m2 :=
          indist lab (get_memframe m1 b) (get_memframe m2 b))
       (blocks_stamped_below lab m1).
 
-#[refine] Instance indistMem : Indist memory :=
+#[global] #[refine] Instance indistMem : Indist memory :=
 {|
   indist lab m1 m2 :=
     indistMemAsym lab m1 m2 && indistMemAsym lab m2 m1
@@ -145,7 +145,7 @@ Qed.
      * The returning labels must be equal
 *)
 
-#[refine] Instance indistStackFrame : Indist StackFrame :=
+#[global] #[refine] Instance indistStackFrame : Indist StackFrame :=
 {|
   indist lab sf1 sf2 :=
     match sf1, sf2 with
@@ -162,7 +162,7 @@ Proof.
   rewrite orbC (eq_sym ra1) indist_sym (eq_sym rr1) (eq_sym rl1).
 Defined.
 
-#[refine] Instance indistStack : Indist Stack :=
+#[global] #[refine] Instance indistStack : Indist Stack :=
 {|
   indist lab s1 s2 :=
     indist lab (unStack s1) (unStack s2)
@@ -172,7 +172,7 @@ Proof.
 - abstract by move=> obs s1 s2; exact: indist_sym.
 Defined.
 
-#[refine] Instance indistImems : Indist imem :=
+#[global] #[refine] Instance indistImems : Indist imem :=
 {|
   indist _lab imem1 imem2 := imem1 == imem2 :> seq (@Instr Label)
 |}.
@@ -212,7 +212,7 @@ have [l /=|/norP [/negbTE -> /negbTE ->]] := boolP (_ || _) => /andP [ind_sf ind
 by move: ind_stk; rewrite -!lock; apply: IH.
 Qed.
 
-#[refine] Instance indistSState : Indist SState :=
+#[global] #[refine] Instance indistSState : Indist SState :=
 {|
   indist lab st1 st2 :=
     [&& indist lab (st_imem st1) (st_imem st2),

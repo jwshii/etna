@@ -20,12 +20,12 @@ Import LabelEqType.
 Local Open Scope string.
 
 Axiom show_pos : positive -> string.
-Instance showPos : Show positive :=
+#[global] Instance showPos : Show positive :=
 {|
   show := show_pos
 |}.
 
-Instance show_label : Show Label :=
+#[global] Instance show_label : Show Label :=
 {|
   show lab := match lab with
                 | L  => "L"
@@ -35,7 +35,7 @@ Instance show_label : Show Label :=
               end
 |}.
 
-Instance show_bin_op : Show BinOpT :=
+#[global] Instance show_bin_op : Show BinOpT :=
 {|
   show x := "Binop " ++ (
             match x with
@@ -47,7 +47,7 @@ Instance show_bin_op : Show BinOpT :=
             end)
 |}.
 
-Instance show_instr : Show (@Instr Label) :=
+#[global] Instance show_instr : Show (@Instr Label) :=
 {|
   show i :=
     match i with
@@ -77,7 +77,7 @@ Instance show_instr : Show (@Instr Label) :=
     end
 |}.
 
-Instance show_op_code : Show OpCode :=
+#[global] Instance show_op_code : Show OpCode :=
 {|
   show op :=
     match op with
@@ -103,14 +103,14 @@ Instance show_op_code : Show OpCode :=
     end
 |}.
 
-Instance show_pointer : Show Pointer :=
+#[global] Instance show_pointer : Show Pointer :=
 {|
   show ptr :=
     let '(Ptr x y) := ptr in
     "(f=" ++ show x ++ ";i=" ++ show y ++ ")"
 |}.
 
-Instance show_val : Show Value :=
+#[global] Instance show_val : Show Value :=
 {|
   show val :=
     match val with
@@ -130,25 +130,25 @@ Fixpoint numed_contents {A : Type} (s : A -> string) (l : list A) (n : nat)
 
 Definition par (s : string) := "( " ++ s ++ " )".
 
-Instance show_atom : Show Atom :=
+#[global] Instance show_atom : Show Atom :=
 {|
   show a :=
     let '(v @ l) := a in
     show v ++ " @ " ++ show l
 |}.
 
-Instance show_Ptr_atom : Show Ptr_atom :=
+#[global] Instance show_Ptr_atom : Show Ptr_atom :=
 {|
   show p :=
     let '(PAtm i l) := p in show i ++ " @ " ++ show l
 |}.
 
-Instance show_list {A : Type} `{_ : Show A} : Show (list A) :=
+#[global] Instance show_list {A : Type} `{_ : Show A} : Show (list A) :=
 {|
   show l := numed_contents show l 0
 |}.
 
-Instance show_frame : Show frame :=
+#[global] Instance show_frame : Show frame :=
 {|
   show f :=
     let '(Fr lab data) := f in
@@ -164,21 +164,21 @@ Class ShowPair (A : Type) : Type :=
   show_pair : Label -> A -> A -> string
 }.
 
-Instance show_value_pair : ShowPair Value :=
+#[global] Instance show_value_pair : ShowPair Value :=
 {|
   show_pair lab v1 v2 :=
     if indist lab v1 v2 then show v1
     else show_variation (show v1) (show v2)
 |}.
 
-Instance show_label_pair : ShowPair Label :=
+#[global] Instance show_label_pair : ShowPair Label :=
 {|
   show_pair lab l1 l2 :=
     if eqtype.eq_op l1 l2 then show l1
     else show_variation (show l1) (show l2)
 |}.
 
-Instance show_atom_pair : ShowPair Atom :=
+#[global] Instance show_atom_pair : ShowPair Atom :=
 {|
   show_pair lab a1 a2 :=
     let '(v1 @ l1) := a1 in
@@ -187,7 +187,7 @@ Instance show_atom_pair : ShowPair Atom :=
     ++ show_pair lab l1 l2
 |}.
 
-Instance show_ptr_atom_pair : ShowPair Ptr_atom :=
+#[global] Instance show_ptr_atom_pair : ShowPair Ptr_atom :=
 {|
   show_pair lab p1 p2 :=
     if pc_eq p1 p2 then
@@ -319,7 +319,7 @@ Fixpoint show_low_stack_pair lab s1 s2 :=
     | s, Mty => "Unequal stack 1: " ++ nl ++ show_single_stack s
   end.
 
-Instance show_stack_pair : ShowPair Stack :=
+#[global] Instance show_stack_pair : ShowPair Stack :=
 {|
   show_pair lab s1 s2 :=
     let (h1,l1) := keep_top lab s1 in
@@ -339,7 +339,7 @@ Instance show_stack_pair : ShowPair Stack :=
 |}.
 *)
 
-Instance show_SState_pair : ShowPair SState :=
+#[global] Instance show_SState_pair : ShowPair SState :=
 {|
   show_pair lab st1 st2 :=
     let '(St im1 m1 s1 r1 pc1) := st1 in
@@ -356,7 +356,7 @@ Instance show_SState_pair : ShowPair SState :=
        show_stack (unStack s1)
 |}.
 
-Instance show_variation_instance : Show Variation :=
+#[global] Instance show_variation_instance : Show Variation :=
 {|
   show v := let '(Var lab st1 st2) := v in
             "Obs level:" ++ show lab ++ nl ++ show_pair lab st1 st2

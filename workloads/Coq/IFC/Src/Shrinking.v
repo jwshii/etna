@@ -81,7 +81,7 @@ Fixpoint noopRemove (l : Label) (l1 l2 : list (@Instr Label))
     | _, _ => nil
   end.
 
-Instance shrVVal : ShrinkV Value :=
+#[global] Instance shrVVal : ShrinkV Value :=
 {|
   shrinkV vv :=
     match vv with
@@ -105,7 +105,7 @@ Definition shrinkVLabeled {A B : Type} (c : B -> Label -> A) (b b' : B)
       [Var lab (c b ls) (c b' ls)]
   ) (shrinkLabel l).
 
-Instance shrVAtom : ShrinkV Atom :=
+#[global] Instance shrVAtom : ShrinkV Atom :=
 {|
   shrinkV va :=
     let '(Var lab (Atm v l) (Atm v' l')) := va in
@@ -135,7 +135,7 @@ Fixpoint shrink_datas (lab : Label) (ds ds' : list Atom) :=
 Definition shrinkListAtom := shrinkListAux shrinkAtom.
 
 (* Probably need to revisit this *)
-Instance shrVFrame : ShrinkV frame :=
+#[global] Instance shrVFrame : ShrinkV frame :=
 {|
   shrinkV vf :=
     let '(Var obs (Fr lab data1) (Fr lab2 data2)) := vf in
@@ -175,7 +175,7 @@ Fixpoint shr_v_mem (lim : nat) (mf : mframe) (l : Label) (m1 m2 : mem) :=
       end
   end.
 
-Instance shrVMem : ShrinkV mem :=
+#[global] Instance shrVMem : ShrinkV mem :=
 {|
   shrinkV vm :=
     match vm with
@@ -221,7 +221,7 @@ intros; unfold fst; unfold snd; unfold stackLength; simpl; omega.
 Defined.
 *)
 
-Instance shrVStack : ShrinkV Stack :=
+#[global] Instance shrVStack : ShrinkV Stack :=
 {|
   shrinkV vs := []
 (*

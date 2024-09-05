@@ -216,14 +216,14 @@ Definition get_blocks_at_level {A} (m : mem A) s:=
 Definition get_blocks {A} (ss : list Label) (m : mem A) : list block :=
     flatten (map (get_blocks_at_level m) ss).
 
-Instance show_block : Show block :=
+#[global] Instance show_block : Show block :=
   {|
     show b :=
       let (z,s) := (b : block) in
       ("(" ++ show z ++ " @ " ++ show s ++ ")")%string
   |}.
 
-Instance gen_block : GenSized block :=
+#[global] Instance gen_block : GenSized block :=
   {|
     arbitrarySized := fun n => liftGen2 pair (arbitrarySized n) (arbitrarySized n)
   |}.
@@ -329,7 +329,7 @@ Proof.
   apply /eqP; auto.
 Qed.  
 
-Hint Resolve
+#[global] Hint Resolve
      update_list_Z_spec
      update_list_Z_spec3
      nth_error_Z_length_none

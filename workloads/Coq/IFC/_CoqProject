@@ -24,7 +24,6 @@ Strategies/BespokeGenerator.v
 Strategies/TypeBasedGenerator.v
 Strategies/TypeBasedFuzzer.v
 Strategies/VariationalFuzzer.v
-Strategies/PropLangGenerator.v
 #Driver.v -- run `make tests` for this
 Runners/TypeBasedGenerator_test_runner.v
 Runners/BespokeGenerator_test_runner.v

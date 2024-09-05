@@ -350,13 +350,13 @@ Definition reg_eq_dec : forall r1 r2 : regId,
   {r1 = r2} + {r1 <> r2}.
 Proof. apply Z.eq_dec. Defined.
 
-Hint Resolve reg_eq_dec.
+#[global] Hint Resolve reg_eq_dec.
 
 Definition bin_op_eq_dec : forall b1 b2 : BinOpT,
   {b1 = b2} + {b1 <> b2}.
 Proof. decide equality. Defined.
 
-Hint Resolve bin_op_eq_dec.
+#[global] Hint Resolve bin_op_eq_dec.
 
 Definition instr_eq_dec : forall i1 i2 : @Instr Label,
   {i1 = i2} + {i1 <> i2}.
@@ -541,10 +541,17 @@ Proof.
   congruence.
 Qed.
 
+Set Printing All.
+Print move.
+
 Lemma load_store_new : forall {m m':memory} {b ofs a},
     store m (Ptr b ofs) a = Some m' ->
     load m' (Ptr b ofs) = Some a.
-Proof. by move=> ????? H; rewrite (load_store H) !eqxx.  Qed.
+Proof.
+move=> m m' b ofs a H.
+rewrite (load_store H) !eqxx.
+reflexivity.  
+Qed.
 
 Lemma load_some_store_some : forall {m:memory} {b ofs a},
     load m (Ptr b ofs) = Some a ->
@@ -916,10 +923,13 @@ Definition fstep t (st:SState) : option SState :=
               let stmp := K ∪ K' ∪ LPC in
                  (* this stamp is just instrumentation;
                     and it doesn't go via the rule table *)
-              do alloc_res : (mframe * memory) <- alloc i Ll stmp (Vint 0 @ ⊥) μ;
-              let (dfp, μ') := alloc_res in
-              do r' <- registerUpdate r r3 (Vptr (Ptr dfp 0) @ rl);
-              Some (St im μ' σ r' (PAtm (j+1) rpcl))
+              match alloc i Ll stmp (Vint 0 @ ⊥) μ with
+              | Some alloc_res =>
+                let (dfp, μ') := alloc_res in
+                do r' <- registerUpdate r r3 (Vptr (Ptr dfp 0) @ rl);
+                Some (St im μ' σ r' (PAtm (j+1) rpcl))
+              | _ => None
+              end
             | _ => None
           end
         | _, _ => None
@@ -1059,7 +1069,7 @@ Definition fstep t (st:SState) : option SState :=
       end
     | Halt => None
   end.
-
+(* 
 Ltac fstep_inv :=
   simpl;
   match goal with
@@ -1072,8 +1082,8 @@ Ltac fstep_inv :=
     let em := fresh "em" in
     destruct v eqn:em; try done
   | |- None = Some _ -> _ => done
-  end.
-
+  end. *)
+(* 
 Ltac step_rewrite :=
   simpl;
   match goal with
@@ -1081,7 +1091,7 @@ Ltac step_rewrite :=
     rewrite H
   | H : ?v = _ |- context[match ?v with _ => _ end] => rewrite H
   end;
-  simpl.
+  simpl. *)
 
 Lemma fstepP t st st' : fstep t st = Some st' <-> step t st st'.
 Proof.

@@ -123,7 +123,7 @@
 (define gSized
   (gen:bind gen:typ
             (lambda (tau)
-              (gen:bind-opt (gen:expr '() tau 3) (lambda (x) (gen:const x))))))
+              (gen:bind-opt (gen:expr '() tau 10) (lambda (x) (gen:const x))))))
 
 (define test_prop_SinglePreserve
   (property prop_SinglePreserve ([e gSized])

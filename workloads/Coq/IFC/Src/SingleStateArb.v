@@ -22,19 +22,19 @@ Definition genSState : G SState :=
   let '(Var _ st _) := v in
   returnGen st).
 
-Instance gSState : Gen SState :=
+#[global] Instance gSState : Gen SState :=
 {|
   arbitrary := @genSState 
 |}.
 
-Instance shrSState : Shrink SState :=
+#[global] Instance shrSState : Shrink SState :=
 {| shrink x :=
     let all : list (@Variation SState):= shrinkVSState (Var top x x) in
     let SState_of_var v := let '(Var _ x _) := v in x in
     filter (indist top x) (List.map SState_of_var all)
 |}.
 
-Instance showSState : Show SState :=
+#[global] Instance showSState : Show SState :=
 {|
   show x := show_pair top x x
 |}.
