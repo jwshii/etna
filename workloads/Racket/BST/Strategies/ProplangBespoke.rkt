@@ -107,6 +107,9 @@
       (if (= n tests)
           (run-result (- (current-inexact-monotonic-milliseconds) start) #f passed discards "")
           (let ([env (run-generators generators n)])
+            (displayln (format "Running test ~a" n))
+            (displayln (format "\tEnv: ~a" env))
+            (displayln (format "\tResult: ~a" (check-property p env)))
             (case (check-property p env)
               [(fail) (run-result (- (current-inexact-monotonic-milliseconds) start)
                                   #t passed discards (~v env))]
@@ -286,9 +289,6 @@
   (run-loop cfg
             (property
              (forall t k1 k2)
-             (implies (BST? t))
-             (implies (real? k1))
-             (implies (real? k2))
              (tree-equiv? (delete k1 (delete k2 t))
                           (delete k2 (delete k1 t))))
             `((t . ,bespoke) (k1 . ,gen:natural) (k2 . ,gen:natural))))

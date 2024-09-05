@@ -47,9 +47,3 @@ class ChangeDir(object):
             raise Exception('impossible')
         os.chdir(self.old_dir)
         return False
-
-
-def print_log(msg: str, msg_level: LogLevel, log_level: LogLevel):
-    if msg_level >= log_level:
-        time = datetime.now().strftime('%H:%M:%S')
-        print(f'{time} [{msg_level.name}] {msg}')

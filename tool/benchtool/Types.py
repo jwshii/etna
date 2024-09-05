@@ -168,10 +168,10 @@ class TrialConfig:
 
 
 class LogLevel(IntEnum):
-    DEBUG = 0
-    INFO = 1
-    WARNING = 2
-    ERROR = 3
+    DEBUG = 10
+    INFO = 20
+    WARNING = 30
+    ERROR = 40
 
 
 class ReplaceLevel(IntEnum):

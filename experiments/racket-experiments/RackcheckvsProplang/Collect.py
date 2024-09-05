@@ -5,25 +5,28 @@ from benchtool.Tasks import tasks
 from benchtool.Racket import Racket
 from benchtool.Types import TrialConfig, ReplaceLevel
 
+import logging
 
 def collect(results: str):
-    tool = Racket(results=results, replace_level=ReplaceLevel.SKIP)
+    tool = Racket(results=results,log_level=logging.DEBUG, replace_level=ReplaceLevel.SKIP, log_file='myapp.log')
 
     for workload in tool.all_workloads():
-        print(f'Collecting {workload.name}...')
-        if workload.name in ['BST', 'RBT', 'STLC']:
+        tool._log(f'Collecting {workload.name}...', logging.INFO)
+        if workload.name in ['BST']:
             for variant in tool.all_variants(workload):
-                print(f'Collecting {workload.name} {variant.name}...')
+                tool._log(f'Collecting {workload.name} {variant.name}...', logging.INFO)
                 if variant.name == 'base':
                     continue
 
                 run_trial = None
 
                 for strategy in tool.all_strategies(workload):           
-                    print(f'Collecting {workload.name} {variant.name} {strategy.name}...')
+                    tool._log(f'Collecting {workload.name} {variant.name} {strategy.name}...', logging.INFO)
+                    print(tool.all_properties(workload))
                     for property in tool.all_properties(workload):
-                        print(f'Collecting {workload.name} {variant.name} {strategy.name} {property}...')
+                        tool._log(f'Collecting {workload.name} {variant.name} {strategy.name} {property}...', logging.INFO)
                         if property.split('_')[1] not in tasks[workload.name][variant.name]:
+                            tool._log(f'Skipping {workload.name} {variant.name} {strategy.name} {property}...', logging.INFO)
                             continue
                         property = 'test_' + property       
                         
@@ -31,12 +34,13 @@ def collect(results: str):
                         finished = set(os.listdir(results))
                         file = f'{workload.name},{strategy.name},{variant.name},{property}'
                         if f'{file}.json' in finished:
+                            tool._log(f'Skipping {workload.name} {variant.name} {strategy.name} {property}...', logging.INFO)
                             continue
 
                         if not run_trial:
                             run_trial = tool.apply_variant(workload, variant, no_base=True)
 
-                        print(f'Running {workload.name} {variant.name} {strategy.name} {property}...')
+                        tool._log(f'Running {workload.name} {variant.name} {strategy.name} {property}...', logging.INFO)
                         cfg = TrialConfig(workload=workload,
                                         strategy=strategy.name,
                                         property=property,

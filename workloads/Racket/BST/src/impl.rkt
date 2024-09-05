@@ -50,18 +50,16 @@
     [(E) (E)]
     [(T l key val r)
      #|! |#
-     (cond
-       [(< k key) (T (delete k l) key val r)]
-       [(> k key) (T l key val (delete k r))]
-       [else (join l r)])
+    ;  (cond
+    ;    [(< k key) (T (delete k l) key val r)]
+    ;    [(> k key) (T l key val (delete k r))]
+    ;    [else (join l r)])
      #|!! delete_4 |#
-     #|!
+
      (cond
        [(< k key) (delete k l)]
        [(> k key) (delete k r)]
        [else (join l r)])
-     |#
-
      #|!! delete_5 |#
      #|!
      (cond

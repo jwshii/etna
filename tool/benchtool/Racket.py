@@ -15,6 +15,7 @@ class Racket(BenchTool):
         results: str,
         log_level: LogLevel = LogLevel.INFO,
         replace_level: ReplaceLevel = ReplaceLevel.REPLACE,
+        log_file: str | None = None,
     ):
         super().__init__(
             Config(
@@ -30,6 +31,7 @@ class Racket(BenchTool):
             results,
             log_level,
             replace_level,
+            log_file,
         )
 
     def all_properties(self, workload: Entry) -> set[str]:
