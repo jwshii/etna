@@ -12,6 +12,9 @@ import Spec
 import Test.QuickCheck hiding (Result)
 import Test.QuickCheck qualified as QC
 
+-- Code in this file is adapted from a CIS 5520 homework assignment at the
+-- University of Pennsylvania.
+
 -- | Generate a small set of names for generated tests. These names are guaranteed to not include
 -- reserved words
 genName :: Gen VarName

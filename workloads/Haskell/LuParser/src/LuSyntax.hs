@@ -2,7 +2,8 @@ module LuSyntax where
 
 import Control.Applicative
 
--- Code in this file is adapted from a CIS 5520 homework assignment at Penn.
+-- Code in this file is adapted from a CIS 5520 homework assignment at the
+-- University of Pennsylvania.
 
 newtype Block = Block [Statement] -- s1 ... sn
   deriving (Eq, Show)

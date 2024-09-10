@@ -2,7 +2,8 @@
 {-# LANGUAGE InstanceSigs #-}
 {-# LANGUAGE LambdaCase #-}
 
--- Code in this file is from a CIS 5520 homework assignment at Penn
+-- Code in this file is adapted from a CIS 5520 homework assignment at the
+-- University of Pennsylvania.
 
 -- | A small, applicative-based parsing library
 -- NOTE: this library does not export the `P` data constructor.
