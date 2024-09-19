@@ -140,6 +140,7 @@ class Entry:
 @dataclass
 class TrialArgs:
     file: str
+    experiment_id: str
     trials: int
     workload: str
     strategy: str
@@ -165,6 +166,7 @@ class TrialConfig:
     timeout: float | None = None  # in seconds
     short_circuit: bool = False
     seeds: list[int] | None = None  # if not provided, don't provide a seed to the runner
+    experiment_id: str | None = None  # if not provided, use the file name
 
 
 class LogLevel(IntEnum):

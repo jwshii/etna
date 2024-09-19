@@ -3,6 +3,7 @@ import re
 import json
 import subprocess
 from benchtool.BenchTool import BenchTool
+from benchtool.Store import EtnaCLIStoreWriter
 from benchtool.Types import Config, Entry, LogLevel, ReplaceLevel, TrialArgs
 
 IMPL_DIR = "src"
@@ -47,6 +48,8 @@ class Racket(BenchTool):
             self._shell_command(["raco", "exe", "main.rkt"])
 
     def _run_trial(self, workload_path: str, params: TrialArgs):
+        metric_writer = EtnaCLIStoreWriter()
+
         with self._change_dir(workload_path):
             cmd = ["./main", params.property, params.strategy]
             results = []
@@ -96,6 +99,8 @@ class Racket(BenchTool):
                     self._log(f"{params.strategy} Result: Timeout", LogLevel.INFO)
 
                 results.append(trial_result)
+                metric_writer.write(params.experiment_id, trial_result)
+
                 if params.short_circuit and trial_result["time"] == params.timeout:
                     break
 

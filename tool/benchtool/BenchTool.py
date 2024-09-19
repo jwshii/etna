@@ -333,7 +333,11 @@ class BenchTool(ABC):
             experiment = f"{cfg.workload.name},{strategy_label},{self.__variant.name},{cfg.property}"
         else:
             experiment = cfg.file
+
         file = os.path.join(self.results, f"{experiment}.json")
+
+        if not cfg.experiment_id:
+            cfg.experiment_id = experiment
 
         if os.path.isfile(file):
             match self._replace_level:
@@ -351,6 +355,7 @@ class BenchTool(ABC):
                 cfg.workload.path,
                 TrialArgs(
                     file=file,
+                    experiment_id=cfg.experiment_id,
                     trials=cfg.trials,
                     workload=cfg.workload.name,
                     strategy=cfg.strategy,
