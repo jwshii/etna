@@ -126,4 +126,77 @@ redblack = {
     ],
 }
 
-tasks = {'BST': bst, 'RBT': {**bst, **redblack}}
+lu = {
+    'base': [],
+    'ppNot_1': [
+        'exp',
+        'stat',
+    ],
+    'wsP_1': [
+        'val',
+        'exp',
+        'stat',
+    ],
+    'stringP_1': [
+        'exp',
+        'stat',
+    ],
+    'boolValP_1': [
+        'val',
+        'exp',
+        'stat',
+    ],
+    'stringValP_1': [
+        'val',
+        'exp',
+        'stat',
+    ],
+    'stringValP_2': [
+        'val',
+        'exp',
+        'stat',
+    ],
+    'stringValP_3': [
+        'val',
+        'exp',
+        'stat',
+    ],
+    'stringValP_4': [
+        'val',
+        'exp',
+        'stat',
+    ],
+    'reserved_1': [
+        'exp',
+        'stat',
+    ],
+    'reserved_2': [
+        'exp',
+        'stat',
+    ],
+    'reserved_3': [
+        'exp',
+        'stat',
+    ],
+    'nameP_1': [
+        'exp',
+        'stat',
+    ],
+    'nameP_2': [
+        'exp',
+        'stat',
+    ],
+    'bofP_1': [
+        'exp',
+        'stat',
+    ],
+    'tableConstP_1': [
+        'exp',
+        'stat',
+    ],
+    'statementP_1': [
+        'stat',
+    ],
+}
+
+tasks = {'BST': bst, 'RBT': {**bst, **redblack}, 'LuParser': lu}
