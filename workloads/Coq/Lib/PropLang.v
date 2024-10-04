@@ -1528,24 +1528,24 @@ Definition ForAllCurried {A C}
 Notation "'FORALL' x1 'FORALL' x2 'FORALL' .. 'FORALL' xn ',' c" :=
   (ForAllCurried x1 (ForAllCurried x2 .. (ForAllCurried xn c) ..)) (at level 200).
 
-Notation "x : T" :=
+Notation "x :- T" :=
   (("", (fun _ => @arbitrary T _),
          (fun _ => @fuzz T _),
          (fun _ => @shrink T _),
      (fun _ => @show T _)))
-    (at level 100, T at next level).
+    (at level 99, T at next level).
 
-Notation "x : T 'gen:' g" :=
+Notation "x :- T 'gen:' g" :=
   (("", (fun _ => g),
          (fun _ => @fuzz T _),
          (fun _ => @shrink T _),
      (fun _ => @show T _)))
-    (at level 100, T at next level).
+    (at level 99, T at next level).
 
-Definition t1 : ttyp nat ∅ := ("x" : nat).
+Definition t1 : ttyp nat ∅ := ("x" :- nat).
 
 Definition t2 :=
-  FORALL x : nat FORALL y : nat , 
+  FORALL x :- nat FORALL y :- nat , 
         (Check (nat · (nat · ∅)) (fun _ => true)).
 
 Class Untuple (A : Type) :=
@@ -1553,13 +1553,16 @@ Class Untuple (A : Type) :=
   ; untuple_correct : ⟦untuple⟧ = A
   }.
 
-Instance Untuple_empty : Untuple nat :=
+#[local] Instance Untuple_empty : Untuple nat :=
   { untuple := ∅
   ; untuple_correct := eq_refl }.
 
-#[refine] Instance Untuple_pair {A B} `{Untuple B} : Untuple (A * B) :=
+Require Import Program.Tactics.
+
+#[local] Program Instance Untuple_pair {A B} `{Untuple B} : Untuple (A * B) :=
   { untuple := A · @untuple B _ }.
-Proof.
+
+Next Obligation.
 destruct H.
 simpl.
 rewrite untuple_correct0.
@@ -1576,13 +1579,13 @@ Print test.
 (* test = fun x y : nat => y <? x 
      : nat -> nat -> bool *)
 Definition t3 :=
-  FORALL x : nat
-  FORALL y : nat , 
+  FORALL x :- nat
+  FORALL y :- nat , 
   CHECK (fun '(y,(x,_)) => test x y).       
 
 Definition t4 := 
-  FORALL x : nat gen:(choose (0, 10))
-  FORALL y : nat , 
+  FORALL x :- nat gen:(choose (0, 10))
+  FORALL y :- nat , 
   CHECK (fun '(y,(x,_)) => test x y).       
 
 Print t4.
