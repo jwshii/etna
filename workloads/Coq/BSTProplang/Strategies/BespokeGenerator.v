@@ -53,6 +53,114 @@ Proof. dec_eq. Defined.
 Axiom number_of_trials : nat.
 Extract Constant number_of_trials => "max_int".
 
+Axiom Time : Type.
+Extract Constant Time => "int".
+
+Axiom getCurrentTime : unit -> Time.
+Extract Constant getCurrentTime => "fun _ -> Unix.gettimeofday ()".
+
+Axiom timePassed : Time -> Time -> nat.
+Extract Constant timePassed => "fun t1 t2 -> ((Float.to_int ((t2 -. t1) *. 1000000.0)))".
+
+Record TimedResult := mkTimedResult {
+  result: Result;
+  time : nat;
+}.
+
+Open Scope string_scope.
+#[global] Instance showTimedResult : Show TimedResult :=
+  {| show r := show (result r) ++ 
+  				", ""time"": " ++ show (time r) |}.
+
+
+Local Open Scope nat_scope.
+
+Definition timedRunLoop (max_time : nat)  (cprop : CProp ∅): G TimedResult := 
+	let start_time := getCurrentTime tt in
+	let fix runLoop'
+		(fuel : nat) 
+		(cprop : CProp ∅) 
+		(passed : nat)
+		(discards: nat)
+		: G TimedResult :=
+	let current_time := getCurrentTime tt in
+	if  max_time <=? (timePassed start_time current_time) then
+		ret (mkTimedResult (mkResult discards false passed []) (timePassed start_time current_time))
+	else
+		match fuel with
+		| O => ret (mkTimedResult (mkResult discards false passed []) (timePassed start_time current_time))
+		| S fuel' => 
+			res <- genAndRun cprop (Nat.log2 (passed + discards)%nat);;
+			match res with
+			| Normal seed false =>
+				(* Fails *)
+				let shrinkingResult := shrinkLoop 10 cprop seed in
+				let printingResult := print cprop 0%nat shrinkingResult in
+				ret (mkTimedResult (mkResult discards true (passed + 1) printingResult) (timePassed start_time current_time))
+			| Normal _ true =>
+				(* Passes *)
+				runLoop' fuel' cprop (passed + 1)%nat discards
+			| Discard _ _ => 
+				(* Discard *)
+				runLoop' fuel' cprop passed (discards + 1)%nat
+			end
+		end in
+		runLoop' number_of_trials cprop 0%nat 0%nat
+    .
+
+
+Record PreciseResult := mkPreciseResult {
+	presult: Result;
+	execution_time : nat;
+	generation_time : nat;
+	shrinking_time : nat;
+	total_time : nat;
+}.
+
+#[global] Instance showPreciseResult : Show PreciseResult :=
+  {| show r := show (presult r) ++
+			   """, ""execution_time"": " ++ show (execution_time r) ++
+			   ", ""generation_time"": " ++ show (generation_time r) ++
+			   ", ""shrinking_time"": " ++ show (shrinking_time r) ++
+			   ", ""total_time"": " ++ show (total_time r) |}.
+
+
+Definition preciseRunLoop (fuel: nat)  (cprop : CProp ∅): G PreciseResult := 
+	let fix runLoop'
+		(fuel : nat) 
+		(cprop : CProp ∅) 
+		(passed : nat)
+		(discards: nat)
+		(generation_time: nat)
+		(execution_time: nat)
+		: G PreciseResult :=
+	let current_time := getCurrentTime tt in
+		match fuel with
+		| O => ret (mkPreciseResult (mkResult discards false passed []) execution_time generation_time 0 (execution_time + generation_time))
+		| S fuel' => 
+			input <- justGen cprop (Nat.log2 (passed + discards)%nat);;
+			res <- jusRun cprop input;;
+			match res with
+			| Normal seed false =>
+				(* Fails *)
+				let shrinkingResultWithTime := withTime(fun _ => shrinkLoop 10 cprop seed) in
+				let shrinkingResult := aug_res shrinkingResultWithTime in
+				let shrinking_time := aug_time shrinkingResultWithTime in
+				let printingResult := print cprop 0%nat shrinkingResult in
+				ret (mkPreciseResult (mkResult discards true (passed + 1) printingResult) execution_time generation_time shrinking_time (execution_time + generation_time + shrinking_time))
+			| Normal _ true =>
+				(* Passes *)
+				runLoop' fuel' cprop (passed + 1)%nat discards
+			| Discard _ _ => 
+				(* Discard *)
+				runLoop' fuel' cprop passed (discards + 1)%nat
+			end
+		end in
+		runLoop' fuel cprop 0%nat 0%nat
+	.
+	
+		
+
 Definition prop_InsertValid   :=
 	@ForAll _ ∅ "t" bespoke (fun s _ => bespoke s) (fun _ => shrink) (fun _ => show) (
 	Implies (Tree · ∅) (fun '(t, _) => isBST t) (
@@ -63,6 +171,8 @@ Definition prop_InsertValid   :=
 
 Definition test_prop_InsertValid := (runLoop number_of_trials prop_InsertValid).
 (*! QuickProp test_prop_InsertValid. *)
+
+Sample1 (timedRunLoop 1000000 prop_InsertValid).
 
 Definition prop_DeleteValid   :=
 	@ForAll _ ∅ "t" bespoke (fun s _ => bespoke s) (fun _ => shrink) (fun _ => show) (

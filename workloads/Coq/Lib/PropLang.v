@@ -263,6 +263,14 @@ Fixpoint justGen {C : Ctx}
       fun env => ret 0
   end.
 
+Print genAndRun.
+
+Definition justRun {C: Ctx}
+          (cprop: CProp C)
+          (input: ⟦⟬cprop⟭⟧)
+  : G (RunResult cprop).
+
+
 Fixpoint mutAll {C : Ctx}
          (cprop : CProp C)
   : ⟦C⟧ -> ⟦⦗cprop⦘⟧ -> (G (⟦⟬cprop⟭⟧)).
