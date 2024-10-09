@@ -811,7 +811,7 @@ Fixpoint low_indist (fuel: nat) (t: table) (v: Variation) :=
 
 
 Definition test_propLLNI :=
-  runLoop 10000 (
+  runLoop number_of_trials (
   ForAll "v" (fun _ => gen_variation_SState) (fun _ _ => gen_variation_SState) (fun _ => shrink) (fun _ => show) (
   Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => indist lab st1 st2) (
   Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => well_formed st1) (
@@ -820,6 +820,5 @@ Definition test_propLLNI :=
     low_indist 1000 default_table (Var lab st1 st2)
   )))))).
 
-Sample1 test_propLLNI.
 (*! QuickProp test_propEENI.  *)
 

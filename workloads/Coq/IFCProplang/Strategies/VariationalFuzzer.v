@@ -105,9 +105,21 @@ Definition test_propEENI :=
 
      *)
 
-    
-
-
+Fixpoint step_until_low (fuel: nat) (t: table) (l: Label) (st: SState) (s: nat) : ((option SState) * nat) :=
+  match fuel with
+  | 0 => (None, s)
+  | S n' =>
+    match is_low_SState st l with
+    | true => (Some st, S s)
+    | false =>
+      match fstep t st with
+      | Some st' => 
+        let '(res, run_length) := step_until_low n' t l st' s in
+        (res, S run_length)
+      | None => (None, s)
+      end
+    end
+  end.
 
 Fixpoint low_indist (fuel: nat) (t: table) (v: Variation) :=
   match fuel with
@@ -155,22 +167,14 @@ Definition propLLNI :=
     low_indist 1000 default_table (Var lab st1 st2)
   ))))).
 
-
-Definition fuzzPropLLNI :=
-  fuzzLoop num_tests propLLNI
-  (HeapSeedPool.(mkPool) tt) HillClimbingUtility
-.
-Check HeapSeedPool.(mkPool) tt.
-Check LeftistHeap.Heap.
-
-Check propLLNI.
-Check HillClimbingUtility.
-Check (fun _ => 10%Z).
 Definition test_propLLNI :=
   targetLoop 
     10000 
     propLLNI
-    (fun _ => 10%Z).
+    (fun '((Var lab st1 st2), _) =>
+
+
+    ).
 
 Check test_propLLNI.
 
