@@ -263,13 +263,6 @@ Fixpoint justGen {C : Ctx}
       fun env => ret 0
   end.
 
-Print genAndRun.
-
-Definition justRun {C: Ctx}
-          (cprop: CProp C)
-          (input: ⟦⟬cprop⟭⟧)
-  : G (RunResult cprop).
-
 
 Fixpoint mutAll {C : Ctx}
          (cprop : CProp C)
@@ -458,7 +451,7 @@ Record SingletonPool {A F: Type} := {
   seed: option (@Seed A F);
 }.
 
-#[global] Instance StaticSingletonPool {A F: Type} `{Dec_Eq A} `{Scalar F} : @SeedPool A F (@SingletonPool A F) :=
+#[global] Instance StaticSingletonPool {A F: Type} : @SeedPool A F (@SingletonPool A F) :=
   {| mkPool _ := {| seed := None |};
      invest seed pool := match seed with 
                          | (a, f) => {| seed := Some (mkSeed a f 1) |}
@@ -471,7 +464,7 @@ Record SingletonPool {A F: Type} := {
      best pool := seed pool
   |}.
 
-#[global] Instance DynamicMonotonicSingletonPool {A F: Type} `{Dec_Eq A} `{Scalar F} : @SeedPool A F (@SingletonPool A F) :=
+#[global] Instance DynamicMonotonicSingletonPool {A F: Type} : @SeedPool A F (@SingletonPool A F) :=
   {| mkPool _ := {| seed := None |};
     invest seed pool := match seed with 
                         | (a, f) => {| seed := Some (mkSeed a f 20) |}
@@ -492,7 +485,7 @@ Record SingletonPool {A F: Type} := {
     best pool := seed pool
 |}.
 
-#[global] Instance DynamicResettingSingletonPool {A F: Type} `{Dec_Eq A} `{Scalar F} : @SeedPool A F (@SingletonPool A F) :=
+#[global] Instance DynamicResettingSingletonPool {A F: Type} : @SeedPool A F (@SingletonPool A F) :=
   {| mkPool _ := {| seed := None |};
     invest seed pool := match seed with 
                         | (a, f) => {| seed := Some (mkSeed a f 100) |}
@@ -551,7 +544,7 @@ End QueuePool.
 Import QueuePool.
 
 
-#[global] Instance QueueSeedPool {A F: Type} `{Dec_Eq A} `{Scalar F} : @SeedPool A F (@QueuePool.t A F) :=
+#[global] Instance QueueSeedPool {A F: Type}  `{Scalar F} : @SeedPool A F (@QueuePool.t A F) :=
 {| mkPool _ := QueuePool.mkQueuePool tt;
   invest seed pool := match seed with 
                       | (a, f) => QueuePool.push_front (mkSeed a f 1) pool
@@ -691,7 +684,7 @@ Module LeftistHeap.
 
 End LeftistHeap.
 
-#[global] Instance HeapSeedPool {A F: Type} `{Dec_Eq A} `{Scalar F} : @SeedPool A F (@LeftistHeap.Heap A F) :=
+#[global] Instance HeapSeedPool {A F: Type} `{Scalar F} : @SeedPool A F (@LeftistHeap.Heap A F) :=
 {| mkPool _ := LeftistHeap.empty tt;
   invest seed pool := match seed with 
                       | (a, f) => LeftistHeap.insert (mkSeed a f 100) pool
