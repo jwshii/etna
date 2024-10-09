@@ -1,5 +1,9 @@
 Require Import ZArith.
 
+Set Warnings "-deprecated-syntactic-definition,-deprecated".
+Set Warnings "-notation-overridden,-parsing".
+Set Warnings "-fragile-hint-constr,-automation".
+
 From mathcomp Require Import ssreflect ssrfun ssrbool ssrnat eqtype seq.
 
 Require Import Utils.

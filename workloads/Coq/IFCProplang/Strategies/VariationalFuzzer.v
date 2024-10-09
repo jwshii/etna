@@ -23,18 +23,15 @@ Import LabelEqType.
   {| fuzz n := choose (n - 5, n + 5)%Z |}.
 
 
-Derive (GenSized, Show, Shrink) for Instr.
-Derive (GenSized, Show, Shrink) for Pointer.
-Derive (GenSized, Show, Shrink) for Value.
-Derive (GenSized, Show, Shrink) for Atom.
-Derive (GenSized, Show, Shrink) for Ptr_atom.
-Derive (GenSized, Show, Shrink) for StackFrame.
-Derive (GenSized, Show, Shrink) for Stack.
-Derive (GenSized, Show, Shrink) for SState.
-Derive (GenSized, Show, Shrink) for Variation.
+Derive (GenSized) for Instr.
+Derive (GenSized) for Pointer.
+Derive (GenSized) for Value.
+Derive (GenSized) for Atom.
+Derive (GenSized) for Ptr_atom.
+Derive (GenSized) for StackFrame.
+Derive (GenSized) for Stack.
+Derive (GenSized) for SState.
 
-
-Search Variation.
 
 Axiom num_tests : nat. 
 Extract Constant num_tests => "max_int".
@@ -121,62 +118,14 @@ Fixpoint step_until_low (fuel: nat) (t: table) (l: Label) (st: SState) (s: nat) 
     end
   end.
 
-Fixpoint low_indist (fuel: nat) (t: table) (v: Variation) :=
-  match fuel with
-  | 0 => true
-  | S n' =>
-    let '(Var lab st1 st2) := v in
-    let next_step : option ((option SState) * (option SState)) := 
-      match is_low_SState st1 lab, is_low_SState st2 lab with
-      | true, true => 
-        (* When both states are low, we check indistinguishability *)
-        if indist lab st1 st2 then
-          (* If they are indistinguishable, we step forward *)
-          Some (fstep t st1, fstep t st2)
-          (* If they are distinguishable, we found a bug *)
-        else None
-      | true, false => 
-        (* If one of the states is low, we step the other *)
-        Some (fstep t st1, Some st2)
-      | false, true =>
-        (* If one of the states is low, we step the other *)
-        Some (Some st1, fstep t st2)
-      | false, false =>
-        (* If both states are high, we step both *)
-        Some (fstep t st1, fstep t st2)
-      end in
-    match next_step with
-    | None => 
-      (* Two low states were distinguishable *)
-      false
-    | Some (Some st1', Some st2') =>
-      (* Both states stepped, we continue *)
-      low_indist n' t (Var lab st1' st2')
-    | _ =>
-      (* One of the traces ended, so we stop *)
-      true
-    end
-  end.
-
-Definition propLLNI :=
-  ForAll "v" (fun _ => gen_variation_SState) (fun _ _ => gen_variation_SState) (fun _ => shrink) (fun _ => show) (
-  Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => indist lab st1 st2) (
-  Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => well_formed st1) (
-  Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => well_formed st2) (
-  Check ((@Variation SState) · ∅) (fun '(Var lab st1 st2, _) => 
-    low_indist 1000 default_table (Var lab st1 st2)
-  ))))).
-
 Definition test_propLLNI :=
   targetLoop 
-    10000 
+    number_of_trials 
     propLLNI
-    (fun '((Var lab st1 st2), _) =>
-
-
-    ).
-
-Check test_propLLNI.
-
+    (fun '(_, (result, _)) =>
+      Z.of_nat (snd (unwrap_or result (false, 0)))
+    )
+    (HeapSeedPool.(mkPool) tt)
+    HillClimbingUtility.
   
 (*! QuickProp test_propEENI. *)

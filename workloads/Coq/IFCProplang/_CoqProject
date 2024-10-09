@@ -26,7 +26,7 @@ Strategies/TypeBasedFuzzer.v
 Strategies/VariationalFuzzer.v
 Strategies/VariationalGenerator.v
 #Driver.v -- run `make tests` for this
-Runners/TypeBasedGenerator_test_runner.v
-Runners/BespokeGenerator_test_runner.v
-Runners/TypeBasedFuzzer_test_runner.v
-Runners/VariationalFuzzer_test_runner.v
+# Runners/TypeBasedGenerator_test_runner.v
+# Runners/BespokeGenerator_test_runner.v
+# Runners/TypeBasedFuzzer_test_runner.v
+# Runners/VariationalFuzzer_test_runner.v

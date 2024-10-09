@@ -15,6 +15,7 @@
 
 (** Formalizations of machine integers modulo $2^N$ #2<sup>N</sup>#. *)
 
+Set Warnings "-deprecated-syntactic-definition,-deprecated,-notation-overridden,-parsing".
 Require Import Eqdep_dec.
 Require Import Zquot.
 Require Import Zwf.

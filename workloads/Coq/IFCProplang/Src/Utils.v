@@ -1,6 +1,10 @@
 Require Import ZArith. (* omega *)
 Require Import List.
 
+
+Set Warnings "-implicit-core-hint-db,-deprecated".
+Set Warnings "-notation-overridden,-parsing".
+
 From mathcomp Require Import ssreflect ssrfun ssrbool ssrnat eqtype seq.
 
 (** * Useful tactics *)

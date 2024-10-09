@@ -3,6 +3,9 @@ Require Import ZArith.
 Require Import Coq.Strings.String.
 Require Import Lia.
 
+Set Warnings "-deprecated-syntactic-definition,-deprecated".
+Set Warnings "-notation-overridden,-parsing".
+Set Warnings "-funind-cannot-build-inversion,-funind,-unused-intro-patterns,-tactics".
 
 From QuickChick Require Import QuickChick.
 From mathcomp Require Import ssreflect ssrfun ssrbool ssrnat eqtype seq.

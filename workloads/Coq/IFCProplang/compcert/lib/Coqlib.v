@@ -16,7 +16,7 @@
 (** This file collects a number of definitions and theorems that are
     used throughout the development.  It complements the Coq standard
     library. *)
-
+    Set Warnings "-deprecated-syntactic-definition,-deprecated,-notation-overridden,-parsing".
 Require Export ZArith.
 Require Export Znumtheory.
 Require Export List.

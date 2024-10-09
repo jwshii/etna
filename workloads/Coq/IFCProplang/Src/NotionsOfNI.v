@@ -1,3 +1,4 @@
+Set Warnings "-notation-overridden,-parsing".
 From mathcomp Require Import ssreflect ssrbool ssrnat eqtype ssrfun seq.
 
 Set Implicit Arguments.
@@ -129,7 +130,7 @@ Inductive indistt : seq A -> seq A -> Prop :=
                  indistt t2 t1.
 
 Definition indisttb (t1 t2 : seq A) : bool :=
-  all id (map (prod_curry (indist o))
+  all id (map (uncurry (indist o))
               (zip (filter (low o) t1) (filter (low o) t2))).
 
 Lemma indisttbtN t : indisttb t [::].

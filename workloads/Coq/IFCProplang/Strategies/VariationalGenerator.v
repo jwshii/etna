@@ -25,20 +25,17 @@ Definition gen_variation_copy : G (@Variation SState) :=
   let '(St _ m s r pc) := st in
   returnGen (Var l (St im m s r pc) st)))).
 
-  Definition test_propEENI :=
-    runLoop number_of_trials (
-    ForAll "v" (fun _ => gen_variation_copy) (fun _ _ => gen_variation_copy) (fun _ => shrink) (fun _ => show) (
-    Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => indist lab st1 st2) (
-    Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => well_formed st1) (
-    Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => well_formed st2) (
-    Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => is_some (fst (fstep_trans 30 default_table st1))) (
-    Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => is_some (fst (fstep_trans 30 default_table st2))) (
-    Check ((@Variation SState) · ∅) (fun '(Var lab st1 st2, _) => 
-      let st1' := unwrap_or (fst (fstep_trans 30 default_table st1)) st1 in
-      let st2' := unwrap_or (fst (fstep_trans 30 default_table st2)) st2 in
-      indist lab st1' st2' && well_formed st1' && well_formed st2'
-    )))))))).
+Definition propLLNI :=
+  ForAll "v" (fun _ => gen_variation_copy) (fun _ _ => gen_variation_copy) (fun _ => shrink) (fun _ => show) (
+  Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => indist lab st1 st2) (
+  Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => well_formed st1) (
+  Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => well_formed st2) (
+  @ForAll (option (bool * nat)) ((@Variation SState) · ∅) "result" (fun '(v, _) => returnGen (low_indist 100 default_table v 0)) (fun '(v, _) _ => returnGen (low_indist 100 default_table v 0)) (fun _ => shrink) (fun _ => show) (
+  Implies ((option (bool * nat)) · _) (fun '(result, _) => is_some result) (
+  Check ((option (bool * nat)) · _) (fun '(result, _) => 
+    fst (unwrap_or result (false, 0))
+  ))))))).
   
-(* Sample test_propEENI. *)
-(*! QuickProp test_propEENI. *)
-  
+
+Definition test_propLLNI := runLoop 1000 propLLNI.
+(*! QuickProp test_propLLNI.  *)

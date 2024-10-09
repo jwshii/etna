@@ -1,3 +1,9 @@
+
+
+Set Warnings "-deprecated-syntactic-definition,-deprecated".
+Set Warnings "-notation-overridden,-parsing".
+Set Warnings "-implicit-core-hint-db,-deprecated".
+
 Require Import ZArith.
 From QuickChick Require Import QuickChick.
 Require Import Utils. Import DoNotation. Import MonadNotation.
@@ -44,9 +50,9 @@ Definition default_table : table := fun op =>
 (* ---"OpLab"--- *)
 
 (*! *)
-| OpLab => ≪ TRUE , BOT , LabPC ≫
+(* | OpLab => ≪ TRUE , BOT , LabPC ≫ *)
 (*!! OpLab_1 *)
- (* | OpLab => ≪ TRUE , BOT , BOT ≫ *)
+ | OpLab => ≪ TRUE , BOT , BOT ≫
 
 (* ---"OpMLab"--- *)
 
@@ -540,9 +546,6 @@ Proof.
   have [?|//] := (ofs =P _); subst ofs'.
   congruence.
 Qed.
-
-Set Printing All.
-Print move.
 
 Lemma load_store_new : forall {m m':memory} {b ofs a},
     store m (Ptr b ofs) a = Some m' ->

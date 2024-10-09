@@ -1,8 +1,8 @@
 (* Machine instructions *)
 
-Require Import ZArith.
-
+Set Warnings "-deprecated-syntactic-definition,-deprecated,-notation-overridden,-parsing".
 From mathcomp Require Import ssreflect ssrfun ssrbool ssrnat eqtype seq.
+Require Import ZArith.
 Require Import Utils.
 
 Definition regId := Z.

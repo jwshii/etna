@@ -1,8 +1,4 @@
 From mathcomp Require Import ssreflect eqtype seq.
-From QuickChick Require Import QuickChick.
-
-From PropLang Require Import PropLang.
-Local Open Scope prop_scope.
 
 Require Import TestingCommon.
 Require Import Reachability.
@@ -11,6 +7,13 @@ Require Import SanityChecks.
 Require Import ZArith.
 
 Require Import List.
+
+From QuickChick Require Import QuickChick.
+
+From PropLang Require Import PropLang.
+Local Open Scope prop_scope.
+
+
 Import LabelEqType.
 
 Local Open Scope nat_scope.
@@ -700,125 +703,54 @@ Definition unwrap_or {A : Type} (o : option A) (a: A) : A :=
   | None => a
   end.
 
-
-Definition fstep_trans (f: nat) (t: table) (st: SState) : (option SState * nat) :=
-  let fix aux (n : nat) (st : SState) : (option SState) * nat :=
-    match n with
-    | 0 => (Some st, f)
-    | S n' => match fstep t st with
-              | Some st' => aux n' st'
-              | None => (Some st, f - n')
-              end
-    end in
-    aux f st.
-
-
-Definition test_propEENI :=
-  runLoop number_of_trials (
-  ForAll "v" (fun _ => gen_variation_SState) (fun _ _ => gen_variation_SState) (fun _ => shrink) (fun _ => show) (
-  Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => indist lab st1 st2) (
-  Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => well_formed st1) (
-  Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => well_formed st2) (
-  Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => is_some (fst (fstep_trans 30 default_table st1))) (
-  Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => is_some (fst (fstep_trans 30 default_table st2))) (
-  Check ((@Variation SState) · ∅) (fun '(Var lab st1 st2, _) => 
-    let st1' := unwrap_or (fst (fstep_trans 30 default_table st1)) st1 in
-    let st2' := unwrap_or (fst (fstep_trans 30 default_table st2)) st2 in
-    indist lab st1' st2' && well_formed st1' && well_formed st2'
-  )))))))).
-
-
-
-(* 
-Definition llni : Prop :=
-  forall (o : O) (s1 s2 : A) (t1 t2 : seq A),
-    start s1 ->
-    start s2 ->
-    indist o s1 s2 ->
-    rtrace s1 t1 ->
-    rtrace s2 t2 ->
-    indisttb o t1 t2.
-     *)
-
-Definition prop_LLNI (t : table) (v : Variation) : option bool :=
-  let '(Var lab st1 st2) := v in
-  if indist lab st1 st2 && well_formed st1 && well_formed st2 then
-  (* start s1 -> start s2 -> indist o s1 s2 *)
-    match fstep t st1, fstep t st2  with
-    | Some st1', Some st2' =>
-      (* Recursively follow through the traces *)
-      let fix low_indist (fuel: nat) (t: table) (v: Variation) :=
-        match fuel with
-        | 0 => None
-        | S n' =>
-          let '(Var lab st1 st2) := v in
-          if is_low_SState st1 lab && is_low_SState st2 lab && negb (indist lab st1 st2) then
-            (* Low states must be indistinguishable *)
-            Some false
-          else
-              (* Either one of the states is not low, or they are indistinguishable *)
-              match fstep t st1, fstep t st2 with
-              | Some st1', Some st2' =>
-                (* Both stepped, follow through *)
-                low_indist n' t (Var lab st1' st2')
-              | _, _ =>
-                (* One of the states failed to step, we are done *)
-                Some true
-              end
-        end in low_indist 40 t (Var lab st1' st2')
-    (* LLNI holds for empty trace(ask leo??) *)
-    | _, _ => Some true
-    end
-  else None.
-
-
-Fixpoint low_indist (fuel: nat) (t: table) (v: Variation) :=
+Fixpoint step_until_low (fuel: nat) (t: table) (l: Label) (st: SState) (s: nat) : ((option SState) * nat) :=
   match fuel with
-  | 0 => true
+  | 0 => (None, s)
   | S n' =>
-    let '(Var lab st1 st2) := v in
-    let next_step : option ((option SState) * (option SState)) := 
-      match is_low_SState st1 lab, is_low_SState st2 lab with
-      | true, true => 
-        (* When both states are low, we check indistinguishability *)
-        if indist lab st1 st2 then
-          (* If they are indistinguishable, we step forward *)
-          Some (fstep t st1, fstep t st2)
-          (* If they are distinguishable, we found a bug *)
-        else None
-      | true, false => 
-        (* If one of the states is low, we step the other *)
-        Some (fstep t st1, Some st2)
-      | false, true =>
-        (* If one of the states is low, we step the other *)
-        Some (Some st1, fstep t st2)
-      | false, false =>
-        (* If both states are high, we step both *)
-        Some (fstep t st1, fstep t st2)
-      end in
-    match next_step with
-    | None => 
-      (* Two low states were distinguishable *)
-      false
-    | Some (Some st1', Some st2') =>
-      (* Both states stepped, we continue *)
-      low_indist n' t (Var lab st1' st2')
-    | _ =>
-      (* One of the traces ended, so we stop *)
-      true
+    match is_low_SState st l with
+    | true => (Some st, S s)
+    | false =>
+      match fstep t st with
+      | Some st' => 
+        let '(res, run_length) := step_until_low n' t l st' s in
+        (res, S run_length)
+      | None => (None, s)
+      end
     end
   end.
 
+Fixpoint low_indist (fuel: nat) (t: table) (v: Variation) (s: nat) : option (bool * nat) :=
+  match fuel with
+  | 0 => None
+  | S n' =>
+    let '(Var lab st1 st2) := v in
+    let '(st1, sl) := step_until_low n' t lab st1 s in
+    let '(st2, sr) := step_until_low n' t lab st2 s in
+    match (st1, st2) with
+    | (Some st1, Some st2) => 
+      if indist lab st1 st2 
+          && well_formed st1 
+          && well_formed st2 then
+            low_indist n' t (Var lab st1 st2) (max sl sr)
+          else 
+          Some (false, max sl sr)
+    | _ => Some (true, min sl sr)
+    end
+  end.
 
-Definition test_propLLNI :=
-  runLoop number_of_trials (
+Definition propLLNI :=
   ForAll "v" (fun _ => gen_variation_SState) (fun _ _ => gen_variation_SState) (fun _ => shrink) (fun _ => show) (
   Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => indist lab st1 st2) (
   Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => well_formed st1) (
   Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => well_formed st2) (
-  Check ((@Variation SState) · ∅) (fun '(Var lab st1 st2, _) => 
-    low_indist 1000 default_table (Var lab st1 st2)
-  )))))).
+  @ForAll (option (bool * nat)) ((@Variation SState) · ∅) "result" (fun '(v, _) => returnGen (low_indist 100 default_table v 0)) (fun '(v, _) _ => returnGen (low_indist 100 default_table v 0)) (fun _ => shrink) (fun _ => show) (
+  Implies ((option (bool * nat)) · _) (fun '(result, _) => is_some result) (
+  Check ((option (bool * nat)) · _) (fun '(result, _) => 
+    fst (unwrap_or result (false, 0))
+  ))))))).
 
-(*! QuickProp test_propEENI.  *)
+
+
+Definition test_propLLNI := runLoop 1000 propLLNI.
+(*! QuickProp test_propLLNI.  *)
 

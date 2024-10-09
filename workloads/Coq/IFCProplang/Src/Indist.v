@@ -1,6 +1,9 @@
 Require Import ZArith.
 Require Import Instructions.
 
+Set Warnings "-deprecated-syntactic-definition,-deprecated".
+Set Warnings "-notation-overridden,-parsing".
+Set Warnings "-funind-cannot-build-inversion,-funind".
 From mathcomp Require Import ssreflect ssrfun ssrbool eqtype ssrnat seq choice fintype.
 
 Require Import Utils Labels Memory Machine.
