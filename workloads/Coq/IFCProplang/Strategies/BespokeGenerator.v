@@ -751,6 +751,6 @@ Definition propLLNI :=
 
 
 
-Definition test_propLLNI := runLoop 1000 propLLNI.
+Definition test_propLLNI := runLoop number_of_trials propLLNI.
 (*! QuickProp test_propLLNI.  *)
 

@@ -21,9 +21,7 @@ Definition generate_instructions n : G (list (@Instr Label)) :=
 Definition gen_variation_copy : G (@Variation SState) :=
   bindGen arbitrary (fun l  =>
   bindGen arbitrary (fun st =>
-  bindGen (generate_instructions 10) (fun im =>
-  let '(St _ m s r pc) := st in
-  returnGen (Var l (St im m s r pc) st)))).
+  returnGen (Var l st st))).
 
 Definition propLLNI :=
   ForAll "v" (fun _ => gen_variation_copy) (fun _ _ => gen_variation_copy) (fun _ => shrink) (fun _ => show) (
@@ -35,7 +33,6 @@ Definition propLLNI :=
   Check ((option (bool * nat)) · _) (fun '(result, _) => 
     fst (unwrap_or result (false, 0))
   ))))))).
-  
 
-Definition test_propLLNI := runLoop 1000 propLLNI.
+Definition test_propLLNI := runLoop number_of_trials propLLNI.
 (*! QuickProp test_propLLNI.  *)

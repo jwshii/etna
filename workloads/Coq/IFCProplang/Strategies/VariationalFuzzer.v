@@ -14,6 +14,8 @@ Require Import List.
 Import ListNotations.
 
 Require Import ZArith.
+Require Import Datatypes.
+Require Import Coq.FSets.FMapFacts.
 (* Require Import Generation. *)
 From mathcomp Require Import ssreflect eqtype seq.
 Import LabelEqType.
@@ -23,21 +25,22 @@ Import LabelEqType.
   {| fuzz n := choose (n - 5, n + 5)%Z |}.
 
 
-Derive (GenSized) for Instr.
-Derive (GenSized) for Pointer.
-Derive (GenSized) for Value.
-Derive (GenSized) for Atom.
-Derive (GenSized) for Ptr_atom.
-Derive (GenSized) for StackFrame.
-Derive (GenSized) for Stack.
-Derive (GenSized) for SState.
+  Derive (GenSized, Fuzzy) for BinOpT.
+Derive (GenSized, Fuzzy) for Instr.
+Derive (GenSized, Fuzzy) for Pointer.
+Derive (GenSized, Fuzzy) for Value.
+Derive (GenSized, Fuzzy) for Atom.
+Derive (GenSized, Fuzzy) for Ptr_atom.
+Derive (GenSized, Fuzzy) for StackFrame.
+Derive (GenSized, Fuzzy) for Stack.
+Derive (GenSized, Fuzzy) for SState.
 
 
 Axiom num_tests : nat. 
 Extract Constant num_tests => "max_int".
 
 
-Definition mutate_instructions (im: list Instr) (st: SState) (lab: Label) : G (list (@Instr Label)) :=
+Definition mutate_instructions (im: imem) : G (list (@Instr Label)) :=
   freq_ (ret im) [
     (* Generate from scratch *) 
     (1, generate_instructions 10) 
@@ -68,39 +71,17 @@ Definition mutate_instructions (im: list Instr) (st: SState) (lab: Label) : G (l
 Definition gen_variation_copy : G (@Variation SState) :=
   bindGen arbitrary (fun l  =>
   bindGen arbitrary (fun st =>
-  bindGen (generate_instructions 10) (fun im =>
-  let '(St _ m s r pc) := st in
-  returnGen (Var l (St im m s r pc) st)))).
+  returnGen (Var l st st))).
+
 
 Definition mutate_variation (v: @Variation SState) : G (@Variation SState) :=
   let '(Var l st1 st2) := v in
-  let '(St im m s r pc) := st1 in
-  bindGen (mutate_instructions im st1 l) (fun im' =>
-  returnGen (Var l (St im' m s r pc) st2)).
-(* 
-Definition test_propEENI :=
-  @targetLoop 
-    number_of_trials 
-    (ForAll "v" (fun _ => gen_variation_copy) (fun _ => mutate_variation) (fun _ => (@shrink _ ShrinkVariation)) (fun _ => @show _ ShowVariation) (
-    Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => indist lab st1 st2) (
-    Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => well_formed st1) (
-    Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => well_formed st2) (
-    Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => is_some (fst (fstep_trans 30 default_table st1))) (
-    Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => is_some (fst (fstep_trans 30 default_table st2))) (
-    Check ((@Variation SState) · ∅) (fun '(Var lab st1 st2, _) => 
-      let st1' := unwrap_or (fst (fstep_trans 30 default_table st1)) st1 in
-      let st2' := unwrap_or (fst (fstep_trans 30 default_table st2)) st2 in
-      indist lab st1' st2' && well_formed st1' && well_formed st2'
-    ))))))))
-    (fun '((Var lab st1 st2), _) => 
-    let run_length_1 := snd (fstep_trans 30 default_table st1) in
-    let run_length_2 := snd (fstep_trans 30 default_table st2) in
-      Z.of_nat run_length_1)
-      _ _
-    (HeapSeedPool.(mkPool) tt) 
-    HillClimbingUtility.
+  let '(St im1 m1 s1 r1 pc1) := st1 in
+  let '(St im2 m2 s2 r2 pc2) := st2 in
+  bindGen (mutate_instructions im1) (fun im =>
+  bindGen (fuzz m1) (fun m => 
+  ret (Var l (St im m s1 r1 pc1) (St im m s2 r2 pc2)))).
 
-     *)
 
 Fixpoint step_until_low (fuel: nat) (t: table) (l: Label) (st: SState) (s: nat) : ((option SState) * nat) :=
   match fuel with
@@ -118,14 +99,16 @@ Fixpoint step_until_low (fuel: nat) (t: table) (l: Label) (st: SState) (s: nat) 
     end
   end.
 
-Definition test_propLLNI :=
-  targetLoop 
-    number_of_trials 
-    propLLNI
-    (fun '(_, (result, _)) =>
-      Z.of_nat (snd (unwrap_or result (false, 0)))
-    )
-    (HeapSeedPool.(mkPool) tt)
-    HillClimbingUtility.
-  
+Definition propLLNI :=
+  ForAll "v" (fun _ => gen_variation_copy) (fun _ => mutate_variation) (fun _ => shrink) (fun _ => show) (
+  Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => indist lab st1 st2) (
+  Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => well_formed st1) (
+  Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => well_formed st2) (
+  @ForAll (option (bool * nat)) ((@Variation SState) · ∅) "result" (fun '(v, _) => returnGen (low_indist 100 default_table v 0)) (fun '(v, _) _ => returnGen (low_indist 100 default_table v 0)) (fun _ => shrink) (fun _ => show) (
+  Implies ((option (bool * nat)) · _) (fun '(result, _) => is_some result) (
+  Check ((option (bool * nat)) · _) (fun '(result, _) => 
+    fst (unwrap_or result (false, 0))
+  ))))))).
+
+Definition test_propLLNI := targetLoop 1000 propLLNI (fun '(_, (result, _)) => Z.of_nat (snd (unwrap_or result (false, 0)))) (HeapSeedPool.(mkPool) tt) HillClimbingUtility.
 (*! QuickProp test_propEENI. *)

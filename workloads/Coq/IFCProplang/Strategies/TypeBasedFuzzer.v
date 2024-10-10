@@ -5,9 +5,13 @@ Require Import Reachability.
 Require Import SSNI.
 Require Import SanityChecks.
 Require Import ZArith.
-(* Require Import Generation. *)
+Require Import BespokeGenerator.
 From mathcomp Require Import ssreflect eqtype seq.
 Import LabelEqType.
+
+
+From PropLang Require Import PropLang.
+Local Open Scope prop_scope.
 
 #[local] Instance FuzzyZ : Fuzzy Z :=
   {| fuzz n := choose (n - 5, n + 5)%Z |}.
@@ -23,30 +27,16 @@ Derive (Arbitrary, Fuzzy) for Stack.
 Derive (Arbitrary, Fuzzy) for SState.
 Derive (Arbitrary, Fuzzy) for Variation.
 
+Definition propLLNI :=
+  ForAll "v" (fun _ => arbitrary) (fun _ => fuzz) (fun _ => shrink) (fun _ => show) (
+  Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => indist lab st1 st2) (
+  Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => well_formed st1) (
+  Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => well_formed st2) (
+  @ForAll (option (bool * nat)) ((@Variation SState) · ∅) "result" (fun '(v, _) => returnGen (low_indist 100 default_table v 0)) (fun '(v, _) _ => returnGen (low_indist 100 default_table v 0)) (fun _ => shrink) (fun _ => show) (
+  Implies ((option (bool * nat)) · _) (fun '(result, _) => is_some result) (
+  Check ((option (bool * nat)) · _) (fun '(result, _) => 
+    fst (unwrap_or result (false, 0))
+  ))))))).
 
-(* 
-ManualExtract BinOpT.
-ManualExtract Instr.
-ManualExtract Pointer.
-ManualExtract Value.
-ManualExtract Atom.
-ManualExtract Ptr_atom.
-ManualExtract StackFrame.
-ManualExtract Stack.
-ManualExtract SState.
-ManualExtract Variation. *)
-  
-Definition test_propSSNI_smart (v: @Variation SState) :=
-    propSSNI_smart default_table v.
-
-Axiom num_tests : nat. Extract Constant num_tests => "max_int".
-
-Definition test_propSSNI_smart_fuzzer :=
-  fun (u : unit) => fuzzLoopWith (updMaxDiscard (updMaxSuccess (updAnalysis stdArgs true) num_tests) num_tests) arbitrary fuzz show test_propSSNI_smart.
-
-(*! FuzzChick test_propSSNI_smart (test_propSSNI_smart_fuzzer tt). *)
-
-  (* gen_variation_SState
-  gen_variation_copy: fuzzy
-  gen_variation_naive == arbitrary/random
-  gen_variation_naive: fuzzy *)
+Definition test_propLLNI := fuzzLoop number_of_trials propLLNI (HeapSeedPool.(mkPool) tt) HillClimbingUtility.
+(*! QuickProp test_propLLNI.  *)
