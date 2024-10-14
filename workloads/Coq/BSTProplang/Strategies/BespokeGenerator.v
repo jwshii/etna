@@ -125,7 +125,7 @@ Record PreciseResult := mkPreciseResult {
 			   ", ""total_time"": " ++ show (total_time r) |}.
 
 
-Definition preciseRunLoop (fuel: nat)  (cprop : CProp ∅): G PreciseResult := 
+(* Definition preciseRunLoop (fuel: nat)  (cprop : CProp ∅): G PreciseResult := 
 	let fix runLoop'
 		(fuel : nat) 
 		(cprop : CProp ∅) 
@@ -159,7 +159,7 @@ Definition preciseRunLoop (fuel: nat)  (cprop : CProp ∅): G PreciseResult :=
 		runLoop' fuel cprop 0%nat 0%nat
 	.
 	
-		
+		 *)
 
 Definition prop_InsertValid   :=
 	@ForAll _ ∅ "t" bespoke (fun s _ => bespoke s) (fun _ => shrink) (fun _ => show) (
@@ -172,8 +172,6 @@ Definition prop_InsertValid   :=
 Definition test_prop_InsertValid := (runLoop number_of_trials prop_InsertValid).
 (*! QuickProp test_prop_InsertValid. *)
 
-Sample1 (timedRunLoop 1000000 prop_InsertValid).
-
 Definition prop_DeleteValid   :=
 	@ForAll _ ∅ "t" bespoke (fun s _ => bespoke s) (fun _ => shrink) (fun _ => show) (
 	Implies (Tree · ∅) (fun '(t, _) => isBST t) (
@@ -182,7 +180,6 @@ Definition prop_DeleteValid   :=
 	(fun '(k, (t, _)) => (isBST (delete k t)))))).
 
 Definition test_prop_DeleteValid := (runLoop number_of_trials prop_DeleteValid).
-
 (*! QuickProp test_prop_DeleteValid. *)
 
 Definition prop_UnionValid :=
@@ -206,7 +203,6 @@ Definition prop_InsertPost :=
 	(fun '(v, (k', (k, (t, _)))) => ((find k' (insert k v t) = if k =? k' then Some v else find k' t)?))))))).
 
 Definition test_prop_InsertPost := (runLoop number_of_trials prop_InsertPost).
-
 (*! QuickProp test_prop_InsertPost. *)
 
 Definition prop_DeletePost :=

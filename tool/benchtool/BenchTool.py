@@ -3,6 +3,7 @@ from typing import Callable, Optional
 
 from benchtool.Mutant import Parser
 from benchtool.Types import (
+    BuildConfig,
     Config,
     Entry,
     LogLevel,
@@ -98,7 +99,7 @@ class BenchTool(ABC):
         return p.extract(p.parse(workload))
 
     def apply_variant(
-        self, workload: Entry, variant: Variant, no_base=False
+        self, workload: Entry, variant: Variant, cfg: BuildConfig
     ) -> Callable[[TrialConfig], None]:
         """
         Overwrites `config.impl` file for `workload` with contents
@@ -107,7 +108,7 @@ class BenchTool(ABC):
         :return: A function that can be used to run a trial.
         """
 
-        if no_base and variant.name == "base":
+        if cfg.no_base and variant.name == "base":
             return lambda _: None
 
         with self._change_dir(self.__temp):
@@ -115,7 +116,7 @@ class BenchTool(ABC):
             self.__apply_variant_in_impl(workload, variant)
 
             self._log(f"Building with mutant: {variant.name}", LogLevel.INFO)
-            self._build(workload.path)
+            self._build(cfg)
 
         self.__variant = variant
 
@@ -258,7 +259,7 @@ class BenchTool(ABC):
         pass
 
     @abstractmethod
-    def _build(self, workload_path: str):
+    def _build(self, cfg: BuildConfig):
         """
         Takes a path and returns the command to build the workloads.
         """
@@ -280,7 +281,7 @@ class BenchTool(ABC):
         Helper for running a subprocess with `subprocess`.
         """
         try:
-            subprocess.call(
+            result = subprocess.call(
                 cmd,
                 stdout=sys.stdout
                 if self._log_level == LogLevel.DEBUG

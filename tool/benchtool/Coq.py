@@ -1,5 +1,6 @@
+from pathlib import Path
 from benchtool.BenchTool import BenchTool, Entry
-from benchtool.Types import Config, LogLevel, ReplaceLevel, TrialArgs
+from benchtool.Types import BuildConfig, Config, LogLevel, ReplaceLevel, TrialArgs
 
 import json
 import os
@@ -7,6 +8,8 @@ import re
 import subprocess
 import ctypes
 import platform
+import jinja2
+
 
 IMPL_DIR = "Src"
 STRATEGIES_DIR = "Strategies"
@@ -61,54 +64,42 @@ class Coq(BenchTool):
 
         return [mk_entry(s) for s in strategies]
 
-    def _build(self, workload_path: str):
+
+    def _build(self, cfg: BuildConfig):
         coq_path = os.path.join(os.getcwd(), "workloads", "Coq")
         print(f"Building {coq_path}")
-        # Cleanup, delete all o, cmi, cmo, cmx, vo, vos, vok, glob, ml, mli, native, out, conf, aux
-        for extension in [".o", ".cmi", ".cmo", ".cmx", ".vo", ".vos", ".vok", ".glob", ".ml", ".mli", ".native", ".out", ".conf", ".aux", "_exec"]:
-            self._shell_command(["find", coq_path, "-type", "f", "-name", f"*{extension}", "-delete"])
 
-        # Build common
-        common = self.common()
-        self._log(f"Building common: {common.name}", LogLevel.INFO)
-        with self._change_dir(common.path):
-            self._shell_command(["coq_makefile", "-f", "_CoqProject", "-o", "Makefile"])
-            self._shell_command(["make"])
-            self._shell_command(["make", "install"])
-        self._log(f"Built common: {common.name}", LogLevel.DEBUG)
+        if cfg.clean:
+            # Cleanup, delete all o, cmi, cmo, cmx, vo, vos, vok, glob, ml, mli, native, out, conf, aux
+            self._log(f"Cleaning up {coq_path}", LogLevel.INFO)
+            self._shell_command(["./cleanup.sh"])
+            self._log(f"Cleaned up {coq_path}", LogLevel.INFO)
 
-        strategies = self._get_generator_names(workload_path)
-        print(f"Strategies: {strategies}")
-        strategy_build_commands = map(
-            lambda strategy: self._get_strategy_build_command(strategy), strategies
-        )
-        fuzzers = self._get_fuzzer_names(workload_path)
-        print(f"Fuzzers: {fuzzers}")
-        fuzzer_build_commands = map(
-            lambda fuzzer: self._get_fuzzer_build_command(fuzzer), fuzzers
-        )
-        with self._change_dir(workload_path):
-            self._shell_command(["coq_makefile", "-f", "_CoqProject", "-o", "Makefile"])
-            self._shell_command(["make", "clean"])
-            self._shell_command(["make"])
+        if cfg.build_common:
+            common = self.common()
+            self._log(f"Building common: {common.name}", LogLevel.INFO)
+            with self._change_dir(common.path):
+                self._shell_command(["./build", "-i"] + ([] if cfg.clean else ["-c"]))
+            self._log(f"Built common: {common.name}", LogLevel.DEBUG)
 
-            for cmd in strategy_build_commands:
-                self._shell_command(cmd.split(" "))
-                self._log(f"Built strategy {cmd}", LogLevel.DEBUG)
+        if cfg.build_strategies or cfg.build_fuzzers:
+            print(f"Building {cfg.path}")
+            with self._change_dir(cfg.path):
+                print(os.listdir())
+                self._shell_command(["./build"] + ([] if cfg.clean else ["-c"]))
 
-            for i, fuzzer_build_command in enumerate(fuzzer_build_commands):
-                self._log(f"Built fuzzer {fuzzers[i]}", LogLevel.DEBUG)
-                self._log(
-                    f"Fuzzer Command 1: {fuzzer_build_command[0]}", LogLevel.DEBUG
-                )
-                self._log(
-                    f"Fuzzer Command 2: {fuzzer_build_command[1]}", LogLevel.DEBUG
-                )
-                self._generate_extended_version_of_fuzzer(fuzzers[i])
-                self._shell_command(fuzzer_build_command[2].split(" "))
-                self._shell_command(fuzzer_build_command[3].split(" "))
-                self._shell_command(fuzzer_build_command[0].split(" "))
-                self._shell_command(fuzzer_build_command[1].split(" "))
+        if cfg.build_strategies:
+            strategies = self._get_generator_names(cfg.path)
+            with self._change_dir(cfg.path):
+                for strategy in strategies:
+                    self._log(f"Building strategy {strategy}", LogLevel.DEBUG)
+                    self._shell_command(["./build_generator.sh", strategy])
+
+        if cfg.build_fuzzers:
+            fuzzers = self._get_fuzzer_names(cfg.path)
+            with self._change_dir(cfg.path):
+                for fuzzer in fuzzers:
+                    self._shell_command(["./build_fuzzer.sh", fuzzer])
 
     def _run_trial(self, workload_path: str, params: TrialArgs):
         self._log(f"Running trial {params}", LogLevel.DEBUG)
@@ -303,48 +294,6 @@ class Coq(BenchTool):
 
             json.dump(results, open(params.file, "w"))
 
-    def _generate_extended_version_of_fuzzer(self, fuzzer: str):
-        fuzzer_path = f"./{fuzzer}_test_runner.ml"
-        extended_fuzzer_path = f"./{fuzzer}_test_runner_ext.ml"
-        mli_path = f"{fuzzer}_test_runner_ext.mli"
-        stub_path = f"{os.environ['OPAM_SWITCH_PREFIX']}/lib/coq/user-contrib/QuickChick/Stub.ml"
-        self._log(f"Generating extended fuzzer: {fuzzer}", LogLevel.INFO)
-        f = open(extended_fuzzer_path, "w+")
-        with open(stub_path, "r") as stub:
-            f.write(stub.read())
-            f.write("\n\n(* -----(Stub Ends)----- *)\n\n")
-        with open(fuzzer_path, "r") as fuzzer_file:
-            f.write(fuzzer_file.read())
-        f.close()
-
-        # Generate mli and cmi files
-        with open(f"{mli_path}", "w") as f:
-            f.write("(* Empty file *)")
-
-        self._shell_command(
-            [
-                "ocamlc",
-                "-c",
-                f"{mli_path}",
-            ]
-        )
-
-        f.close()
-
-    def _get_strategy_build_command(self, strategy: str) -> str:
-        self._log(f"Building strategy: {strategy}", LogLevel.INFO)
-        return f"ocamlfind ocamlopt -linkpkg -package zarith -package unix -package eio_main -thread -rectypes {strategy}_test_runner.mli {strategy}_test_runner.ml -o {strategy}_test_runner.native"
-
-    def _get_fuzzer_build_command(self, fuzzer: str) -> str:
-        qc_path = os.environ["OPAM_SWITCH_PREFIX"] + "/lib/coq/user-contrib/QuickChick"
-        fuzzer_build_command = (
-            f"ocamlfind ocamlopt -ccopt -Wno-error=implicit-function-declaration -afl-instrument -linkpkg -package unix -package str -package coq-core.plugins.extraction -thread -rectypes -w a -o ./{fuzzer}_exec ./{fuzzer}_test_runner_ext.ml {qc_path}/SHM.c",
-            f"ocamlfind ocamlopt -ccopt -Wno-error=implicit-function-declaration -linkpkg -package unix -package str -rectypes -w a -I . -o main_exec {qc_path}/Main.ml {qc_path}/SHM.c",
-            f"{qc_path}/cmdprefix.pl {fuzzer}_test_runner_ext.ml",
-            f"{qc_path}/cmdsuffix.pl {fuzzer}_test_runner_ext.ml",
-        )
-
-        return fuzzer_build_command
 
     def _get_fuzzer_names(self, workload_path):
         return list(
@@ -398,92 +347,6 @@ class Coq(BenchTool):
 
         return test_ls
 
-    def _generate_test_file_parametrized(
-        self,
-        runners_path: str,
-        strategy_name: str,
-        tests: list[str],
-        workload: Entry,
-        test_string_template: str,
-        main_function_string: str,
-    ):
-        workload_name = workload.name
-        file_name = f"{strategy_name}_test_runner.v"
-        strategy_import = f"From {workload_name} Require Import {strategy_name}.\n"
-        library_import = "From QuickChick Require Import QuickChick.\nFrom PropLang Require Import PropLang.\n"
-        set_warnings = 'Set Warnings "-extraction-opaque-accessed,-extraction".\n'
-        size_axiom = 'Axiom num_tests : nat. Extract Constant num_tests => "max_int".\n'
-        test_map = f"""
-
-Parameter OCamlString : Type.
-Extract Constant OCamlString => "string".
-Axiom qctest_map : OCamlString -> unit.
-Extract Constant qctest_map => "
-fun test_name ->
-  let test_map = [
-    {'; '.join([f'(""{test_name}"", qctest_{test_name})' for test_name in tests])}
-  ] in
-  let test = List.assoc test_name test_map in
-  test ()
-{main_function_string}
-".
-
-"""
-        extraction_string_template = (
-            f'Extraction "{strategy_name}_test_runner.ml" sample1 runLoop <test-names> qctest_map.\n'
-        )
-
-        with open(os.path.join(runners_path, file_name), "w") as runner_file:
-            runner_file.write(strategy_import)
-            runner_file.write(library_import)
-            runner_file.write(set_warnings)
-            runner_file.write(size_axiom)
-            for test in tests:
-                test_string = test_string_template.replace("<test-name>", test)
-                runner_file.write(test_string)
-            test_names = " ".join(list(map(lambda test: f"qctest_{test}", tests)))
-            runner_file.write(test_map)
-            extraction_string = extraction_string_template.replace(
-                "<test-names>", test_names
-            )
-            runner_file.write(extraction_string)
-
-    def _generate_test_file_qc(
-        self, runners_path: str, strategy_name: str, tests: list[str], workload: Entry
-    ):
-        main_function_string = """
-let () =
-  Sys.argv.(1) |> qctest_map
-"""
-        test_string_template = 'Definition qctest_<test-name> := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (quickCheckWith (updMaxDiscard (updMaxSuccess (updAnalysis stdArgs true) num_tests) num_tests) <test-name>))) ++ "}|]")).\n'
-
-        self._generate_test_file_parametrized(
-            runners_path,
-            strategy_name,
-            tests,
-            workload,
-            test_string_template,
-            main_function_string,
-        )
-
-    def _generate_test_file_pl(
-        self, runners_path: str, strategy_name: str, tests: list[str], workload: Entry
-    ):
-        main_function_string = """
-let () =
-  Sys.argv.(1) |> qctest_map
-"""
-        test_string_template = 'Definition qctest_<test-name> := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (sample1 <test-name>))) ++ "}|]")).\n'
-
-        self._generate_test_file_parametrized(
-            runners_path,
-            strategy_name,
-            tests,
-            workload,
-            test_string_template,
-            main_function_string,
-        )
-
     def _generate_test_file(
         self,
         runners_path: str,
@@ -493,61 +356,32 @@ let () =
         isPropLang: bool,
         isFuzzer: bool,
     ):
-        if isFuzzer:
-            main_function_string = """
-let () =
-  Printf.printf ""Entering main of qc_exec\\n""; flush stdout;
-  setup_shm_aux ();
-  Sys.argv.(1) |> qctest_map ; flush stdout;
-"""
-        else:
-            main_function_string = """
-let () =
-Sys.argv.(1) |> qctest_map
-"""
+        data = {
+            "workload_name": workload.name,
+            "strategy_name": strategy_name,
+            "type": "QuickProp" if isPropLang else "FuzzChick" if isFuzzer else "QuickChick",
+            "fuzzer": isFuzzer,
+            "test_names": tests,
+        }
 
-        if isPropLang:
-            test_string_template = 'Definition qctest_<test-name> := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (sample1 <test-name>))) ++ "}|]")).\n'
-        elif isFuzzer:
-            test_string_template = 'Definition qctest_<test-name> := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime (fun tt => (<test-name>_fuzzer tt))) ++ "}|]")).\n'
-        else:
-            test_string_template = 'Definition qctest_<test-name> := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (quickCheckWith (updMaxDiscard (updMaxSuccess (updAnalysis stdArgs true) num_tests) num_tests) <test-name>))) ++ "}|]")).\n'
+        template = Path(self.common().path, "templates", "Runner.v.jinja")
 
-        self._generate_test_file_parametrized(
-            runners_path,
-            strategy_name,
-            tests,
-            workload,
-            test_string_template,
-            main_function_string,
-        )
+        with open(template, "r") as f:
+            template = f.read()
 
-    def _generate_test_file_fc(
-        self, runners_path: str, fuzzer_name: str, tests: list[str], workload: Entry
-    ):
-        main_function_string = """
-let () =
-  Printf.printf ""Entering main of qc_exec\\n""; flush stdout;
-  setup_shm_aux ();
-  Sys.argv.(1) |> qctest_map ; flush stdout;
-"""
-        test_string_template = 'Definition qctest_<test-name> := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime (fun tt => (<test-name>_fuzzer tt))) ++ "}|]")).\n'
-        self._generate_test_file_parametrized(
-            runners_path,
-            fuzzer_name,
-            tests,
-            workload,
-            test_string_template,
-            main_function_string,
-        )
+        jinja = jinja2.Environment(loader=jinja2.BaseLoader()).from_string(template)
+
+        with open(os.path.join(runners_path, f"{strategy_name}_test_runner.v"), "w") as f:
+            f.write(jinja.render(data))
+
 
     def _preprocess(self, workload: Entry) -> None:
         # Relevant Paths
-        strategies_path = f"{workload.path}/{STRATEGIES_DIR}/"
-        runners_path = f"{workload.path}/{RUNNERS_DIR}/"
+        strategies_path = Path(workload.path, STRATEGIES_DIR)
+        runners_path = Path(workload.path, RUNNERS_DIR)
 
         # Read _CoqProject file
-        with open(f"{workload.path}/_CoqProject", "r") as coq_project_file_reader:
+        with open(Path(workload.path, "_CoqProject"), "r") as coq_project_file_reader:
             coq_project_file_contents = coq_project_file_reader.read().splitlines()
             strategies = []
             # Get all strategies
@@ -556,8 +390,7 @@ let () =
                     strategies.append(line.split("/")[-1][:-2])
 
         # Generate runner directory if it does not exist
-        if not os.path.exists(runners_path):
-            os.makedirs(runners_path)
+        os.makedirs(runners_path, exist_ok=True)
         # Empty Runner Directory
         for file in os.listdir(runners_path):
             self._log(f"Removing {file}", LogLevel.DEBUG)
@@ -579,7 +412,7 @@ let () =
 
         # Add runners to the _CoqProject file
         # Remove runners from the _CoqProject file
-        with open(f"{workload.path}/_CoqProject", "w") as coq_project_file_writer:
+        with open(Path(workload.path, "_CoqProject"), "w") as coq_project_file_writer:
             for coq_project_file_line in coq_project_file_contents:
                 if (
                     not coq_project_file_line.startswith(RUNNERS_DIR)

@@ -32,7 +32,15 @@ class Config:
     spec_path: FilePath
     ''' Relative path to file containing properties. '''
 
-
+@dataclass
+class BuildConfig:
+    path: str
+    clean: bool
+    build_common: bool
+    build_strategies: bool
+    build_fuzzers: bool
+    no_base: bool
+    
 class Node:
     ''' A chunk of the file being parsed. '''
     pass
