@@ -25,7 +25,7 @@ def collect_fuzzers(results: str):
             while energies.current is not None:
                 print(f'Running {workload.name},{seed_pools.variants[seed_pools.current]},{energies.variants[energies.current]}')
                 # Iterates over different energy levels such as 1, 10, 100, 1000.
-                for variant in tool.all_variants(workload)[:3]:
+                for variant in tool.all_variants(workload):
                     print(f'Running {workload.name},{seed_pools.variants[seed_pools.current]},{energies.variants[energies.current]},{variant.name}')
 
                     if variant.name == 'base':  
@@ -84,7 +84,7 @@ def collect_bespoke_generator(results: str):
 
         tool._preprocess(workload)
 
-        for variant in tool.all_variants(workload)[:3]:
+        for variant in tool.all_variants(workload):
             run_trial = None
 
             for strategy in tool.all_strategies(workload):
