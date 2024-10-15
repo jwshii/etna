@@ -72,7 +72,8 @@ class Coq(BenchTool):
         if cfg.clean:
             # Cleanup, delete all o, cmi, cmo, cmx, vo, vos, vok, glob, ml, mli, native, out, conf, aux
             self._log(f"Cleaning up {coq_path}", LogLevel.INFO)
-            self._shell_command(["./cleanup.sh"])
+            with self._change_dir(coq_path):
+                self._shell_command(["./cleanup"])
             self._log(f"Cleaned up {coq_path}", LogLevel.INFO)
 
         if cfg.build_common:
@@ -155,7 +156,7 @@ class Coq(BenchTool):
                     else:
                         result = stdout_data[start + 2 : end]
                         self._log(f"{params.strategy} Result: {result}", LogLevel.INFO)
-                        json_result = json.loads(result)
+                        json_result = json.loads(result, strict=False)
                         trial_result["foundbug"] = (
                             json_result["foundbug"]
                             if "foundbug" in json_result
@@ -258,7 +259,7 @@ class Coq(BenchTool):
                     print(f"Result: {stdout_data}")
                     result = stdout_data[start + 2 : end]
                     self._log(f"{params.strategy} Result: {result}", LogLevel.INFO)
-                    json_result = json.loads(result)
+                    json_result = json.loads(result, strict=False)
                     trial_result["foundbug"] = (
                         json_result["foundbug"]
                         if "foundbug" in json_result

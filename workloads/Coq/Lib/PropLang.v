@@ -467,7 +467,7 @@ Record SingletonPool {A F: Type} := {
 #[global] Instance DynamicMonotonicSingletonPool {A F: Type} : @SeedPool A F (@SingletonPool A F) :=
   {| mkPool _ := {| seed := None |};
     invest seed pool := match seed with 
-                        | (a, f) => {| seed := Some (mkSeed a f 20) |}
+                        | (a, f) => {| seed := Some (mkSeed a f 1) |}
                         end ;
     revise pool :=  match seed pool with
                     | None => pool
@@ -488,7 +488,7 @@ Record SingletonPool {A F: Type} := {
 #[global] Instance DynamicResettingSingletonPool {A F: Type} : @SeedPool A F (@SingletonPool A F) :=
   {| mkPool _ := {| seed := None |};
     invest seed pool := match seed with 
-                        | (a, f) => {| seed := Some (mkSeed a f 100) |}
+                        | (a, f) => {| seed := Some (mkSeed a f 1) |}
                         end ;
     revise pool := match seed pool with
                    | None => pool
@@ -508,61 +508,98 @@ Record SingletonPool {A F: Type} := {
                  end
 |}.
 
-Module QueuePool.
+Module Queue.
   Local Open Scope list_scope.
-  Definition t {A F: Type} := list (@Seed A F).
 
-  Definition mkQueuePool {A F: Type} : unit -> @t A F :=
+  Definition mkQueue {T: Type} : unit -> list T :=
     fun _ => nil.
 
-  Definition is_empty {A F: Type} (q: @t A F) : bool :=
+  Definition is_empty {T: Type} (q: list T) : bool :=
     match q with
     | [] => true
     | _ => false
     end.
 
-  Definition push_front {A F: Type} (seed: @Seed A F) (q: @t A F) : @t A F :=
+  Definition push_front {T: Type} (seed: T) (q: list T) : list T :=
     q ++ [seed].
   
-  Definition push_back {A F: Type} (seed: @Seed A F) (q: @t A F) : @t A F :=
+  Definition push_back {T: Type} (seed: T) (q: list T) : list T :=
     seed :: q.
 
-  Definition pop_back {A F: Type} (q: @t A F) : option (@Seed A F * @t A F) :=
+  Definition pop_back {T: Type} (q: list T) : option (T * list T) :=
     match q with
     | [] => None
     | h :: t => Some (h, t)
     end.
 
-  Definition pop_front {A F: Type} (q: @t A F) : option (@Seed A F * @t A F) :=
+  Definition pop_front {T: Type} (q: list T) : option (T * list T) :=
     match rev q with
     | [] => None
     | h :: t => Some (h, rev t)
     end.
 
-End QueuePool.
+End Queue.
 
-Import QueuePool.
+Module FIFOQueue.
+  Import Queue.
 
+  Definition t := list.
 
-#[global] Instance QueueSeedPool {A F: Type}  `{Scalar F} : @SeedPool A F (@QueuePool.t A F) :=
-{| mkPool _ := QueuePool.mkQueuePool tt;
+  Definition mkFIFOQueue {T: Type} : unit -> t T :=
+    mkQueue.
+
+  Definition is_empty {T: Type} (q: t T) : bool :=
+    is_empty q.
+
+  Definition push {T: Type} (seed: T) (q: t T) : t T :=
+    push_back seed q.
+
+  Definition pop {T: Type} (q: t T) : option (T * t T) :=
+    pop_front q.
+
+End FIFOQueue.
+
+Module FILOQueue.
+  Import Queue.
+
+  Definition t := list.
+
+  Definition mkFILOQueue {T: Type} : unit -> t T :=
+    mkQueue.
+
+  Definition is_empty {T: Type} (q: t T) : bool :=
+    is_empty q.
+
+  Definition push {T: Type} (seed: T) (q: t T) : t T :=
+    push_front seed q.
+
+  Definition pop {T: Type} (q: t T) : option (T * t T) :=
+    pop_front q.
+
+End FILOQueue.
+    
+
+Import FIFOQueue.
+
+#[global] Instance FIFOSeedPool {A F: Type}  `{Scalar F} : @SeedPool A F (FIFOQueue.t (@Seed A F)) :=
+{| mkPool _ := FIFOQueue.mkFIFOQueue tt;
   invest seed pool := match seed with 
-                      | (a, f) => QueuePool.push_front (mkSeed a f 1) pool
+                      | (a, f) => FIFOQueue.push (mkSeed a f 1) pool
                       end ;
-  revise pool :=  match QueuePool.pop_front pool with
+  revise pool :=  match FIFOQueue.pop pool with
                   | None => pool
                   | Some (h, t) => 
                       let '{| input := a; feedback := f; energy := n|} := h in
                       if (n =? 0) then t
-                      else QueuePool.push_front (mkSeed a f (n - 1)) t
+                      else FIFOQueue.push (mkSeed a f (n - 1)) t
                   end ;
-  sample pool := match QueuePool.pop_back pool with
+  sample pool := match FIFOQueue.pop pool with
                  | None => Generate
                  | Some(h, _) => if (energy h =? 0) 
                               then Generate
                               else Mutate h
                  end ;
-  best pool := let fix maxSeed (cmax: option (@Seed A F)) (q: @t A F) `{Scalar F} : option (@Seed A F) :=
+  best pool := let fix maxSeed (cmax: option (@Seed A F)) (q: FIFOQueue.t (@Seed A F)) `{Scalar F} : option (@Seed A F) :=
                 match q with
                 | [] => cmax
                 | h :: t => match cmax with
@@ -572,6 +609,40 @@ Import QueuePool.
                 end in
                 maxSeed None pool
 |}.
+
+
+
+Import FILOQueue.
+
+#[global] Instance FILOSeedPool {A F: Type}  `{Scalar F} : @SeedPool A F (FILOQueue.t (@Seed A F)) :=
+{| mkPool _ := FILOQueue.mkFILOQueue tt;
+  invest seed pool := match seed with 
+                      | (a, f) => FILOQueue.push (mkSeed a f 1) pool
+                      end ;
+  revise pool :=  match FILOQueue.pop pool with
+                  | None => pool
+                  | Some (h, t) => 
+                      let '{| input := a; feedback := f; energy := n|} := h in
+                      if (n =? 0) then t
+                      else FILOQueue.push (mkSeed a f (n - 1)) t
+                  end ;
+  sample pool := match FILOQueue.pop pool with
+                 | None => Generate
+                 | Some(h, _) => if (energy h =? 0) 
+                              then Generate
+                              else Mutate h
+                 end ;
+  best pool := let fix maxSeed (cmax: option (@Seed A F)) (q: FIFOQueue.t (@Seed A F)) `{Scalar F} : option (@Seed A F) :=
+                match q with
+                | [] => cmax
+                | h :: t => match cmax with
+                            | None => maxSeed (Some h) t
+                            | Some seed => if ((scale (feedback h)) >? (scale (feedback seed))) then maxSeed (Some h) t else maxSeed (Some seed) t
+                            end
+                end in
+                maxSeed None pool
+|}.
+
 
 Module LeftistHeap.
 
@@ -687,7 +758,7 @@ End LeftistHeap.
 #[global] Instance HeapSeedPool {A F: Type} `{Scalar F} : @SeedPool A F (@LeftistHeap.Heap A F) :=
 {| mkPool _ := LeftistHeap.empty tt;
   invest seed pool := match seed with 
-                      | (a, f) => LeftistHeap.insert (mkSeed a f 100) pool
+                      | (a, f) => LeftistHeap.insert (mkSeed a f 1) pool
                       end ;
   revise pool :=  match LeftistHeap.extractMax pool with
                   | None => pool

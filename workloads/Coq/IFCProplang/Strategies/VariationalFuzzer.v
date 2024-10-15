@@ -110,5 +110,5 @@ Definition propLLNI :=
     fst (unwrap_or result (false, 0))
   ))))))).
 
-Definition test_propLLNI := targetLoop 1000 propLLNI (fun '(_, (result, _)) => Z.of_nat (snd (unwrap_or result (false, 0)))) (HeapSeedPool.(mkPool) tt) HillClimbingUtility.
-(*! QuickProp test_propEENI. *)
+Definition test_propLLNI := targetLoop number_of_trials propLLNI (fun '(_, (result, _)) => Z.of_nat (snd (unwrap_or result (false, 0)))) (HeapSeedPool.(mkPool) tt) HillClimbingUtility.
+(*! QuickProp test_propLLNI. *)

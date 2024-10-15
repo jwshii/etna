@@ -184,7 +184,7 @@ class BenchTool(ABC):
             return list(mixtures)
 
     def update_variable(
-        self, workload: Entry, variable: Variable, version: int
+        self, workload: Entry, variable: Variable, version: int | None = None
     ) -> Callable[[TrialConfig], None]:
         """
         Overwrites `config.impl` file for `workload` with contents
@@ -194,6 +194,12 @@ class BenchTool(ABC):
         """
 
         old = variable.variants[variable.current]
+
+        if version is None:
+            version = variable.current + 1
+            if version >= len(variable.variants):
+                variable.current = None
+                return lambda _: None
         new = variable.variants[version]
 
         with self._change_dir(

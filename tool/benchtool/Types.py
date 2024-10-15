@@ -130,6 +130,7 @@ class Variable:
 
     def next(self) -> Variable:
         if self.current == len(self.variants) - 1:
+            self.current = None
             return None
         
         self.current += 1
