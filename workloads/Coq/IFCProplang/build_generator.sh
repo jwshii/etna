@@ -21,4 +21,4 @@ if [ ! -f "Strategies/$strategy"".v" ]; then
     exit 1
 fi
 
-ocamlfind ocamlopt -linkpkg -package zarith -package unix -package eio_main -thread -rectypes $strategy"_test_runner.mli" $strategy"_test_runner.ml" -o $strategy"_test_runner.native"
+ocamlfind ocamlopt -linkpkg -package zarith -package unix  -thread -rectypes $strategy"_test_runner.mli" $strategy"_test_runner.ml" -o $strategy"_test_runner.native"
