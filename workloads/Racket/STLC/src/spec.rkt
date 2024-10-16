@@ -1,7 +1,6 @@
 #lang racket
 
 (require "./impl.rkt")
-(require rackcheck)
 (require data/maybe)
 
 (define (assumes p1 p2)
