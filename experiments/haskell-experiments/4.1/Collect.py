@@ -2,17 +2,17 @@ import argparse
 import os
 
 from benchtool.Haskell import Haskell
-from benchtool.Types import ReplaceLevel, TrialConfig
+from benchtool.Types import LogLevel, ReplaceLevel, BuildConfig, TrialConfig
 from benchtool.Tasks import tasks
 
 # Section 4.1 (Comparing Frameworks)
 
 
 def collect(results: str):
-    tool = Haskell(results, replace_level=ReplaceLevel.SKIP)
+    tool = Haskell(results, log_level=LogLevel.DEBUG, replace_level=ReplaceLevel.SKIP)
 
     for workload in tool.all_workloads():
-        if workload.name not in ['BST', 'RBT', 'STLC', 'FSUB']:
+        if workload.name not in ['FSUB']:
             continue
 
         for variant in tool.all_variants(workload):
@@ -23,7 +23,7 @@ def collect(results: str):
             run_trial = None
 
             for strategy in tool.all_strategies(workload):
-                if strategy.name not in ['Correct', 'Quick', 'Lean', 'Small']:
+                if strategy.name not in ['Correct']:
                     continue
 
                 for property in tool.all_properties(workload):
@@ -48,7 +48,14 @@ def collect(results: str):
                         continue
 
                     if not run_trial:
-                        run_trial = tool.apply_variant(workload, variant)
+                        run_trial = tool.apply_variant(workload, variant, BuildConfig(
+                            path=workload.path,
+                            clean=True,
+                            build_common=False,
+                            build_strategies=True,
+                            build_fuzzers=False,
+                            no_base=False,
+                        ))
 
                     cfg = TrialConfig(workload=workload,
                                       strategy=strategy.name,
