@@ -11,8 +11,8 @@
 
 (define/contract (type-check e t ty)
   (env? term? typ? . -> . boolean?)
-  (match (get-typ (-1) e t)
-    [(just ty-p) (sub-check (-1) e ty-p ty)]
+  (match (get-typ -1 e t)
+    [(just ty-p) (sub-check -1 e ty-p ty)]
     [(nothing) #f]
     )
   )
@@ -29,11 +29,11 @@
        (just (Arr ty1 ty2)))]
     [(App t1 t2)
      (do [ty1 <- (get-typ fuel e t1)]
-       (do [(Arr ty11 ty12) <- (promote-TVar fuel e ty1)]
-         (do [ty2 <- (get-typ fuel e t2)]
-           (if (sub-check fuel e ty2 ty11)
-               ty12
-               (nothing)))))]
+       [(Arr ty11 ty12) <- (promote-TVar fuel e ty1)]
+       [ty2 <- (get-typ fuel e t2)]
+       (if (sub-check fuel e ty2 ty11)
+           (just ty12)
+           (nothing)))]
     [(TAbs ty1 t2)
      (do [ty2 <- (get-typ fuel (EBound e ty1) t2)]
        (just (All ty1 ty2)))]
@@ -41,10 +41,9 @@
      (do [ty1 <- (get-typ fuel e t1)]
        (match (promote-TVar fuel e ty1)
          [(just (All ty11 ty12))
-          (do [ty2 <- (promote-TVar fuel e ty2)]
             (if (sub-check fuel e ty2 ty11)
                 (just (tsubst ty12 0 ty2))
-                (nothing)))]
+                (nothing))]
          [_ (nothing)]
          ))]
     )
@@ -71,7 +70,7 @@
       (match (list ty1 ty2)
         [(list ty1 (Top)) (and (wf-env e) (wf-typ e ty1))]
         [(list (TVar x1) ty2)
-         (if (eq? ty1 ty2)
+         (if (equal? ty1 ty2)
              (and (wf-env e) (wf-typ e ty1))
              (match (get-bound e x1)
                [(just ty1) (sub-check (- fuel 1) e ty1 ty2)]

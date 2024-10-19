@@ -801,9 +801,6 @@ Definition propLLNI :=
   ))))))).
 
 
-Sample (gen_variation_SState).
-
-
 Definition test_propLLNI := runLoop number_of_trials propLLNI.
-(* QuickCheck test_propLLNI.  *)
+(*! QuickProp test_propLLNI.  *)
 

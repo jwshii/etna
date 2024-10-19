@@ -1,4 +1,4 @@
-From IFCProplang Require Import VariationalFuzzer.
+From IFCProplang Require Import VariationalMutatingGenerator.
 From QuickChick Require Import QuickChick.
 From PropLang Require Import PropLang.
 Set Warnings "-extraction-opaque-accessed,-extraction".
@@ -22,10 +22,8 @@ fun test_name ->
 
 
 let () =
-  Printf.printf ""Entering main of qc_exec\\n""; flush stdout;
-  setup_shm_aux ();
-  Sys.argv.(1) |> qctest_map ; flush stdout;
+Sys.argv.(1) |> qctest_map
 ".
 
 
-Extraction "VariationalFuzzer_test_runner.ml" sample1 runLoop qctest_test_propLLNI  qctest_map.
+Extraction "VariationalMutatingGenerator_test_runner.ml" sample1 runLoop qctest_test_propLLNI  qctest_map.

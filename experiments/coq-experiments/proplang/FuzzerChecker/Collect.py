@@ -4,7 +4,6 @@ from typing import List
 
 from benchtool.Coq import Coq
 from benchtool.Types import BuildConfig, TrialConfig, ReplaceLevel, LogLevel, Variable
-from benchtool.Tasks import tasks
 
 def collect_fuzzers(results: str):
     tool = Coq(results=results, replace_level=ReplaceLevel.REPLACE, log_level=LogLevel.DEBUG)
@@ -89,7 +88,7 @@ def collect_bespoke_generator(results: str):
 
             for strategy in tool.all_strategies(workload):
                 print(f'Running {workload.name},{strategy.name},{variant.name}')
-                if not strategy.name.endswith('BespokeGenerator'):
+                if not strategy.name.startswith('BespokeGenerator'):
                     continue
 
                 print(f'Running {workload.name},{strategy.name},{variant.name}')
@@ -127,4 +126,4 @@ if __name__ == '__main__':
     
     filepath = pathlib.Path(__file__).resolve().parent
     collect_bespoke_generator(pathlib.Path(filepath, 'results'))
-    collect_fuzzers(pathlib.Path(filepath, 'results'))
+    # collect_fuzzers(pathlib.Path(filepath, 'results'))

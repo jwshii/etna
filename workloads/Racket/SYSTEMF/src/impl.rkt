@@ -21,7 +21,6 @@
 (define term? (lambda (x) (or (Var? x) (Abs? x) (App? x) (TAbs? x) (TApp? x))))
 
 
-
 #| shifting and substitution |#
 
 (define/contract (tshift x typ)
@@ -101,7 +100,7 @@
         [(TVar y) (#|! |#
                     cond
                     [(< y x) (TVar y)]
-                    [(= y x) (ty_prime)]
+                    [(= y x) ty_prime]
                     [else (TVar (- y 1))]
                    #|!! tsubst_tvar_flip |#
                    #|! 
@@ -142,7 +141,7 @@
         [(Var y) (#|! |#
                   cond 
                   [(< y x) (Var y)]
-                  [(= y x) (t-prime)]
+                  [(= y x) t-prime]
                   [else (Var (- y 1))]
                   #|!! subst_var_flip |#
                   #|!
