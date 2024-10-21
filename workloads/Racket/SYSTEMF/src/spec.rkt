@@ -1,4 +1,4 @@
-#lang errortrace racket
+#lang racket
 
 (require data/maybe)
 (require "Impl.rkt")

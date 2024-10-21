@@ -1,6 +1,5 @@
 #lang racket
 
-
 (require data/maybe)
 (require data/monad)
 (require racket/trace)
@@ -16,7 +15,11 @@
 (struct Var (n) #:transparent)
 (struct Abs (typ term) #:transparent)
 (struct App (term1 term2) #:transparent)
-(struct TAbs (typ term) #:transparent)
+(struct TAbs (typ term) 
+    #:transparent
+    #:methods gen:custom-write
+     [(define (write-proc tabs-val output-port output-mode)
+     (fprintf output-port "#<tabs:~a:~a>" (TAbs-typ tabs-val) (TAbs-term tabs-val)))])
 (struct TApp (term typ) #:transparent)
 (define term? (lambda (x) (or (Var? x) (Abs? x) (App? x) (TAbs? x) (TApp? x))))
 

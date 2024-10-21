@@ -9,7 +9,7 @@
   (command-line
    #:program "rackcheck-bespoke"
    #:args info
-
+   (define seed 45)
    (define property (list-ref info 0))
    (define strategy-longform (list-ref info 1))
    (define strategy (case strategy-longform
@@ -19,9 +19,8 @@
 
    (define search-key (string-append strategy ":" property))
    ; Dynamically load the property from the strategy file
-
    (define tests 4000000)
-   (define config (make-config #:tests tests #:deadline (+ (current-inexact-milliseconds) (* 240 1000))))
+   (define config (make-config #:tests tests #:deadline (+ (current-inexact-milliseconds) (* 240 1000)) #:seed seed))
 
    (define (check-rackcheck-property p) (check-property config p))
    (define (check-tartarus-property p) (p tests))
@@ -38,8 +37,8 @@
        ("rc:test_prop_SinglePreserve"   . ,rc:test_prop_SinglePreserve)
        ("rc:test_prop_MultiPreserve"    . ,rc:test_prop_MultiPreserve)
        ; Proplang properties
-      ;  ("pl:test_prop_SinglePreserve"   . ,pl:test_prop_SinglePreserve)
-      ;  ("pl:test_prop_MultiPreserve"    . ,pl:test_prop_MultiPreserve)
+       ;  ("pl:test_prop_SinglePreserve"   . ,pl:test_prop_SinglePreserve)
+       ;  ("pl:test_prop_MultiPreserve"    . ,pl:test_prop_MultiPreserve)
        )
      )
 

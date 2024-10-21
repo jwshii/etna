@@ -7,6 +7,8 @@
 (require data/maybe)
 (require racket/trace)
 
+(displayln (format "is-term: ~a" (term? (TAbs (Top) (Abs (TVar 0) (Var 0))))))
+
 (define/contract (list-pop ls index)
   (-> (listof any/c) exact-integer? (values any/c (listof any/c)))
   (let ([index (+ index 1)])

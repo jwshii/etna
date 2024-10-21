@@ -1,8 +1,6 @@
-
 #lang racket
 
 (require data/maybe)
-(require data/monad)
 (require racket/trace)
 (require "Impl.rkt")
 
