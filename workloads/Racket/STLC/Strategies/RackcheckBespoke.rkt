@@ -4,6 +4,7 @@
 (require "../src/spec.rkt")
 (require rackcheck)
 (require data/maybe)
+(require racket/trace)
 
 (define (gen:bind-opt g f)
   (gen:bind g
@@ -116,14 +117,11 @@
     )
   )
 
-
-
-
-
 (define gSized
   (gen:bind gen:typ
             (lambda (tau)
               (gen:bind-opt (gen:expr '() tau 10) (lambda (x) (gen:const x))))))
+
 
 (define test_prop_SinglePreserve
   (property prop_SinglePreserve ([e gSized])

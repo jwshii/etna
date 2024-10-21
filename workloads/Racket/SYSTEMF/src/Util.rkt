@@ -121,14 +121,14 @@
     )
 )
 
-(trace get-bound)
-(trace get-var)
-(trace wf-typ)
-(trace wf-term)
-(trace wf-env)
-(trace ctx-app)
-(trace multi-step)
-(trace is-nf)
+; (trace get-bound)
+; (trace get-var)
+; (trace wf-typ)
+; (trace wf-term)
+; (trace wf-env)
+; (trace ctx-app)
+; (trace multi-step)
+; (trace is-nf)
 
 (provide 
     env?

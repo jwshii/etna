@@ -1,4 +1,4 @@
-#lang racket
+#lang errortrace racket
 
 (require data/maybe)
 (require "Impl.rkt")
@@ -25,19 +25,14 @@
     )
   )
 
-(define/contract (prop_SinglePreserve t)
-  (term? . -> . (maybe/c boolean?))
-  (let ([mty (get-typ 40 (Empty) t)])
-    (match (just? mty)
-      [(nothing) (nothing)]
-      [#f (nothing)]
-      [(just #f) (nothing)]
-      [(just #t) (just (mtype-check (pstep t) (from-just! mty)))]
-      [#t (just (mtype-check (pstep t) (from-just! mty)))]
-      )
-    ; (assumes (just? mty) (just (mtype-check (pstep t) (from-just! mty))))
-    )
-  )
+(define (prop_SinglePreserve t)
+  ((maybe/c term?) . -> . (maybe/c boolean?))
+  (match t
+    [(nothing) (nothing)]
+    [(just t)
+     (let ([mty (get-typ 40 (Empty) t)])
+       (assumes (just? mty) (just (mtype-check (pstep t) (from-just! mty))))
+       )]))
 
 (define/contract (prop_MultiPreserve t)
   (term? . -> . (maybe/c boolean?))
@@ -105,7 +100,7 @@
 
   (define test-cases-shift_abs_no_incr
     (list
-      (App (App (Abs (Arr (All (Top) (Arr (TVar 0) (TVar 0))) (All (Top) (Arr (TVar 0) (TVar 0)))) (App (Abs (All (Top) (Arr (TVar 0) (TVar 0))) (Abs (Arr (All (Top) (All (Arr (TVar 0) (TVar 0)) (Arr (TVar 0) (TVar 0)))) (All (Top) (All (Top) (Arr (TVar 0) (TVar 0))))) (TAbs (Arr (Arr (All (Top) (Arr (TVar 0) (TVar 0))) (All (All (Top) (Arr (TVar 0) (TVar 0))) (Arr (TVar 0) (TVar 0)))) (All (Top) (Arr (TVar 0) (TVar 0)))) (Abs (TVar 0) (Var 0))))) (TAbs (Top) (Abs (TVar 0) (Var 0))))) (TApp (TAbs (Top) (Abs (All (TVar 0) (Arr (TVar 0) (TVar 0))) (Var 0))) (Top))) (Abs (All (Top) (All (Arr (TVar 0) (TVar 0)) (Arr (TVar 0) (TVar 0)))) (App (App (Abs (All (Top) (Arr (TVar 0) (TVar 0))) (Abs (Arr (All (Top) (Arr (TVar 0) (TVar 0))) (All (Top) (Arr (TVar 0) (TVar 0)))) (TAbs (Top) (Var 1)))) (TAbs (Top) (Abs (TVar 0) (Var 0)))) (Abs (All (Top) (Arr (TVar 0) (TVar 0))) (Var 0)))))
+     (App (App (Abs (Arr (All (Top) (Arr (TVar 0) (TVar 0))) (All (Top) (Arr (TVar 0) (TVar 0)))) (App (Abs (All (Top) (Arr (TVar 0) (TVar 0))) (Abs (Arr (All (Top) (All (Arr (TVar 0) (TVar 0)) (Arr (TVar 0) (TVar 0)))) (All (Top) (All (Top) (Arr (TVar 0) (TVar 0))))) (TAbs (Arr (Arr (All (Top) (Arr (TVar 0) (TVar 0))) (All (All (Top) (Arr (TVar 0) (TVar 0))) (Arr (TVar 0) (TVar 0)))) (All (Top) (Arr (TVar 0) (TVar 0)))) (Abs (TVar 0) (Var 0))))) (TAbs (Top) (Abs (TVar 0) (Var 0))))) (TApp (TAbs (Top) (Abs (All (TVar 0) (Arr (TVar 0) (TVar 0))) (Var 0))) (Top))) (Abs (All (Top) (All (Arr (TVar 0) (TVar 0)) (Arr (TVar 0) (TVar 0)))) (App (App (Abs (All (Top) (Arr (TVar 0) (TVar 0))) (Abs (Arr (All (Top) (Arr (TVar 0) (TVar 0))) (All (Top) (Arr (TVar 0) (TVar 0)))) (TAbs (Top) (Var 1)))) (TAbs (Top) (Abs (TVar 0) (Var 0)))) (Abs (All (Top) (Arr (TVar 0) (TVar 0))) (Var 0)))))
      ))
 
   (for ([test-case test-cases-shift_abs_no_incr])

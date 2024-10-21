@@ -227,13 +227,13 @@
     )
 )
 
-(trace tshift)
-(trace shift)
-(trace shift-typ)
-(trace tsubst)
-(trace subst)
-(trace subst-typ)
-(trace pstep)
+; (trace tshift)
+; (trace shift)
+; (trace shift-typ)
+; (trace tsubst)
+; (trace subst)
+; (trace subst-typ)
+; (trace pstep)
 
 
 

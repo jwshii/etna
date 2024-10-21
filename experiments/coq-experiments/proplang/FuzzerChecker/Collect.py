@@ -34,7 +34,7 @@ def collect_fuzzers(results: str):
 
                     for strategy in tool.all_strategies(workload):
                         print(f'Running {workload.name},{strategy.name},{variant.name}')
-                        if not strategy.name.endswith('Fuzzer'):
+                        if not strategy.name.endswith('VariationalMutatingGenerator'):
                             continue
 
                         print(f'Running {workload.name},{strategy.name},{variant.name}')
@@ -53,8 +53,8 @@ def collect_fuzzers(results: str):
                                     path=workload.path,
                                     clean=True,
                                     build_common=True,
-                                    build_strategies=False,
-                                    build_fuzzers=True,
+                                    build_strategies=True,
+                                    build_fuzzers=False,
                                     no_base=True,
                                 ))
                             print(f'Running {workload.name},{strategy.name},{variant.name},{property}')
@@ -125,5 +125,5 @@ def collect_bespoke_generator(results: str):
 if __name__ == '__main__':
     
     filepath = pathlib.Path(__file__).resolve().parent
-    collect_bespoke_generator(pathlib.Path(filepath, 'results'))
-    # collect_fuzzers(pathlib.Path(filepath, 'results'))
+    # collect_bespoke_generator(pathlib.Path(filepath, 'results'))
+    collect_fuzzers(pathlib.Path(filepath, 'results'))

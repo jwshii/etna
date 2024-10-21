@@ -1,5 +1,4 @@
-
-#lang racket
+#lang errortrace racket
 
 (require data/maybe)
 (require data/monad)
@@ -17,8 +16,52 @@
     )
   )
 
+
+(define/contract (promote-TVar fuel e ty)
+  (number? env? typ? . -> . (maybe/c typ?))
+  (if (equal? fuel 0)
+      (nothing)
+      (match ty
+        [_ #:when (not (and (wf-env e) (wf-typ e ty))) (nothing)]
+        [(TVar n)
+         (do [ty <- (get-bound e n)]
+           (promote-TVar (- fuel 1) e ty))]
+        [_  (just ty)]
+        )
+      )
+  )
+
+
+
+(define/contract (sub-check fuel e ty1 ty2)
+  (number? env? typ? typ? . -> . boolean?)
+  (if (eq? fuel 0)
+      #f
+      (match (list ty1 ty2)
+        [(list ty1 (Top)) (and (wf-env e) (wf-typ e ty1))]
+        [(list (TVar x1) ty2)
+         (if (equal? ty1 ty2)
+             (and (wf-env e) (wf-typ e ty1))
+             (match (get-bound e x1)
+               [(just ty1) (sub-check (- fuel 1) e ty1 ty2)]
+               [(nothing) #f]
+               )
+             )
+         ]
+        [(list (Arr s1 s2) (Arr t1 t2))
+         (and (sub-check (- fuel 1) e t1 s1)
+              (sub-check (- fuel 1) e s2 t2))]
+        [(list (All s1 s2) (All t1 t2))
+         (and (sub-check (- fuel 1) e t1 s1)
+              (sub-check (- fuel 1) (EBound e t1) s2 t2))]
+        [(list _ _) #f]
+        )
+      )
+  )
+
 (define/contract (get-typ fuel e term)
   (number? env? term? . -> . (maybe/c typ?))
+  (displayln (format "get-typ ~a ~a" term (term? term)))
   (match term
     [(Var x)
      (if (wf-env e)
@@ -49,50 +92,13 @@
     )
   )
 
-(define/contract (promote-TVar fuel e ty)
-  (number? env? typ? . -> . (maybe/c typ?))
-  (if (equal? fuel 0)
-      (nothing)
-      (match ty
-        [_ #:when (not (and (wf-env e) (wf-typ e ty))) (nothing)]
-        [(TVar n)
-         (do [ty <- (get-bound e n)]
-           (promote-TVar (- fuel 1) e ty))]
-        [_  (just ty)]
-        )
-      )
-  )
-
-(define/contract (sub-check fuel e ty1 ty2)
-  (number? env? typ? typ? . -> . boolean?)
-  (if (eq? fuel 0)
-      #f
-      (match (list ty1 ty2)
-        [(list ty1 (Top)) (and (wf-env e) (wf-typ e ty1))]
-        [(list (TVar x1) ty2)
-         (if (equal? ty1 ty2)
-             (and (wf-env e) (wf-typ e ty1))
-             (match (get-bound e x1)
-               [(just ty1) (sub-check (- fuel 1) e ty1 ty2)]
-               [(nothing) #f]
-               )
-             )
-         ]
-        [(list (Arr s1 s2) (Arr t1 t2))
-         (and (sub-check (- fuel 1) e t1 s1)
-              (sub-check (- fuel 1) e s2 t2))]
-        [(list (All s1 s2) (All t1 t2))
-         (and (sub-check (- fuel 1) e t1 s1)
-              (sub-check (- fuel 1) (EBound e t1) s2 t2))]
-        [(list _ _) #f]
-        )
-      )
-  )
-
-(trace type-check)
-(trace get-typ)
-(trace promote-TVar)
-(trace sub-check)
+; (get-typ 40 (Empty) (Abs (All (Top) (Arr (TVar 0) (TVar 0))) (Abs (All (Top) (Arr (TVar 0) (TVar 0))) (Abs (Arr (All (Top) (Arr (TVar 0) (TVar 0))) (All (Top) (Arr (TVar 0) (TVar 0)))) (TAbs (All (Top) (Arr (TVar 0) (TVar 0))) (Abs (TVar 0) (Var 0)))))))
+; (get-typ 40 (Empty) (Abs (Arr (All (Top) (All (Top) (Arr (TVar 0) (TVar 0)))) (All (Top) (Arr (TVar 0) (TVar 0)))) (Abs (All (Top) (Arr (TVar 0) (Arr (TVar 0) (TVar 0)))) (TAbs (Top) (Abs (TVar 0) (Var 0))))))
+; (get-typ 40 (Empty) (TAbs (Top) (TApp (TApp (TAbs (Arr (TVar 0) (Arr (TVar 0) (TVar 0))) (TAbs (Arr (TVar 1) (TVar 1)) (Abs (TVar 2) (Var 0)))) (Arr (TVar 0) (Arr (TVar 0) (TVar 0)))) (Arr (TVar 0) (TVar 0)))))
+; (trace type-check)
+; (trace get-typ)
+; (trace promote-TVar)
+; (trace sub-check)
 
 (provide
  type-check
