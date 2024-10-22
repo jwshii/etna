@@ -5,7 +5,7 @@
   (require rackcheck)
   (require racket/dict)
   (require (prefix-in rc: "Strategies/RackcheckBespoke.rkt"))
-  ; (require (prefix-in pl: "Strategies/ProplangBespoke.rkt"))
+  (require (prefix-in pl: "Strategies/ProplangBespoke.rkt"))
   (command-line
    #:program "rackcheck-bespoke"
    #:args info
@@ -36,8 +36,8 @@
        ("rc:test_prop_SinglePreserve"   . ,rc:test_prop_SinglePreserve)
        ("rc:test_prop_MultiPreserve"    . ,rc:test_prop_MultiPreserve)
        ; Proplang properties
-       ;  ("pl:test_prop_SinglePreserve"   . ,pl:test_prop_SinglePreserve)
-       ;  ("pl:test_prop_MultiPreserve"    . ,pl:test_prop_MultiPreserve)
+        ("pl:test_prop_SinglePreserve"   . ,pl:test_prop_SinglePreserve)
+        ("pl:test_prop_MultiPreserve"    . ,pl:test_prop_MultiPreserve)
        )
      )
 

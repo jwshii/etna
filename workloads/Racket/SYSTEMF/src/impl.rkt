@@ -105,21 +105,21 @@
                    #|! 
                         cond
                         [(< y x) (TVar (- y 1))]
-                        [(= y x) (ty_prime)]
+                        [(= y x) ty_prime]
                         [else (TVar y)]
                    |#
                    #|!! tsubst_tvar_no_shift |#
                    #|! 
                         cond
                         [(< y x) (TVar y)]
-                        [(= y x) (ty_prime)]
+                        [(= y x) ty_prime]
                         [else (TVar y)]
                    |#
                    #|!! tsubst_tvar_over_shift |#
                    #|! 
                         cond
                         [(< y x) (TVar (- y 1))]
-                        [(= y x) (ty_prime)]
+                        [(= y x) ty_prime]
                         [else (TVar (- y 1))]
                    |#
         )]
@@ -146,14 +146,14 @@
                   #|!
                     cond 
                     [(< y x) (Var (- y 1))]
-                    [(= y x) (t-prime)]
+                    [(= y x) t-prime]
                     [else (Var y)]
                   |#
                   #|!! subst_var_no_decr |#
                   #|!
                     cond 
                     [(< y x) (Var y)]
-                    [(= y x) (t-prime)]
+                    [(= y x) t-prime]
                     [else (Var y)]
                   |#
         )]
