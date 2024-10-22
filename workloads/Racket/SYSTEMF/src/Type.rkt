@@ -8,10 +8,6 @@
 
 #| type |#
 
-(define (term2? x) 
-  (displayln (format "calling term? on ~a and result is ~a" x (term? x)))
-  (term? x))
-
 (define/contract (type-check e t ty)
   (env? term? typ? . -> . boolean?)
   (match (get-typ -1 e t)
@@ -64,7 +60,7 @@
   )
 
 (define/contract (get-typ fuel e term)
-  (number? env? term2? . -> . (maybe/c typ?))
+  (number? env? term? . -> . (maybe/c typ?))
   (match term
     [(Var x)
      (if (wf-env e)
@@ -95,10 +91,6 @@
     )
   )
 
-; (get-typ 40 (Empty) (Abs (All (Top) (Arr (TVar 0) (TVar 0))) (Abs (All (Top) (Arr (TVar 0) (TVar 0))) (Abs (Arr (All (Top) (Arr (TVar 0) (TVar 0))) (All (Top) (Arr (TVar 0) (TVar 0)))) (TAbs (All (Top) (Arr (TVar 0) (TVar 0))) (Abs (TVar 0) (Var 0)))))))
-; (get-typ 40 (Empty) (Abs (Arr (All (Top) (All (Top) (Arr (TVar 0) (TVar 0)))) (All (Top) (Arr (TVar 0) (TVar 0)))) (Abs (All (Top) (Arr (TVar 0) (Arr (TVar 0) (TVar 0)))) (TAbs (Top) (Abs (TVar 0) (Var 0))))))
-; (get-typ 40 (Empty) (TAbs (Top) (TApp (TApp (TAbs (Arr (TVar 0) (Arr (TVar 0) (TVar 0))) (TAbs (Arr (TVar 1) (TVar 1)) (Abs (TVar 2) (Var 0)))) (Arr (TVar 0) (Arr (TVar 0) (TVar 0)))) (Arr (TVar 0) (TVar 0)))))
-(get-typ 40 (Empty) (TAbs (Top) (Abs (TVar 0) (Var 0))))
 ; (trace type-check)
 ; (trace get-typ)
 ; (trace promote-TVar)

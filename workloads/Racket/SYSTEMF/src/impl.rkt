@@ -15,11 +15,7 @@
 (struct Var (n) #:transparent)
 (struct Abs (typ term) #:transparent)
 (struct App (term1 term2) #:transparent)
-(struct TAbs (typ term) 
-    #:transparent
-    #:methods gen:custom-write
-     [(define (write-proc tabs-val output-port output-mode)
-     (fprintf output-port "#<tabs:~a:~a>" (TAbs-typ tabs-val) (TAbs-term tabs-val)))])
+(struct TAbs (typ term) #:transparent)
 (struct TApp (term typ) #:transparent)
 (define term? (lambda (x) (or (Var? x) (Abs? x) (App? x) (TAbs? x) (TApp? x))))
 
@@ -68,7 +64,7 @@
         )]
         [(Abs ty1 t2) (#|! |#
                        Abs ty1 (shift (+ 1 x) t2)
-                       #|!! shift_abs_no incr |#
+                       #|!! shift_abs_no_incr |#
                        #|! 
                             Abs ty1 (shift x t2)
                        |#

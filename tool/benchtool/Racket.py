@@ -4,7 +4,7 @@ import json
 import subprocess
 from benchtool.BenchTool import BenchTool
 from benchtool.Store import EtnaCLIStoreWriter
-from benchtool.Types import Config, Entry, LogLevel, ReplaceLevel, TrialArgs
+from benchtool.Types import BuildConfig, Config, Entry, LogLevel, ReplaceLevel, TrialArgs
 
 IMPL_DIR = "src"
 STRATEGIES_DIR = "Strategies"
@@ -43,8 +43,8 @@ class Racket(BenchTool):
             matches = regex.findall(contents)
             return list(dict.fromkeys(matches))
 
-    def _build(self, workload_path: str):
-        with self._change_dir(workload_path):
+    def _build(self, cfg: BuildConfig):
+        with self._change_dir(cfg.path):
             self._shell_command(["raco", "exe", "main.rkt"])
 
     def _run_trial(self, workload_path: str, params: TrialArgs):

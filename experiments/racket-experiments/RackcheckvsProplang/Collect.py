@@ -3,7 +3,7 @@ import pathlib
 
 from benchtool.Tasks import tasks
 from benchtool.Racket import Racket
-from benchtool.Types import TrialConfig, ReplaceLevel
+from benchtool.Types import BuildConfig, TrialConfig, ReplaceLevel
 
 import logging
 
@@ -12,20 +12,19 @@ def collect(results: str):
 
     for workload in tool.all_workloads():
         tool._log(f'Collecting {workload.name}...', logging.INFO)
-        if workload.name in ['BST']:
+        if workload.name in ['SYSTEMF']:
             for variant in tool.all_variants(workload):
                 tool._log(f'Collecting {workload.name} {variant.name}...', logging.INFO)
-                if variant.name == 'base':
-                    continue
-
                 run_trial = None
 
                 for strategy in tool.all_strategies(workload):           
                     tool._log(f'Collecting {workload.name} {variant.name} {strategy.name}...', logging.INFO)
-                    print(tool.all_properties(workload))
-                    for property in tool.all_properties(workload):
+
+                    properties = tool.all_properties(workload) if workload.name != 'SYSTEMF' else ['prop_SinglePreserve', 'prop_MultiPreserve'] 
+
+                    for property in properties:
                         tool._log(f'Collecting {workload.name} {variant.name} {strategy.name} {property}...', logging.INFO)
-                        if property.split('_')[1] not in tasks[workload.name][variant.name]:
+                        if workload.name != "SYSTEMF" and property.split('_')[1] not in tasks[workload.name][variant.name]:
                             tool._log(f'Skipping {workload.name} {variant.name} {strategy.name} {property}...', logging.INFO)
                             continue
                         property = 'test_' + property       
@@ -41,7 +40,14 @@ def collect(results: str):
 
 
                         if not run_trial:
-                            run_trial = tool.apply_variant(workload, variant, no_base=True)
+                            run_trial = tool.apply_variant(workload, variant, BuildConfig(
+                                    path=workload.path,
+                                    clean=False,
+                                    build_common=False,
+                                    build_strategies=True,
+                                    build_fuzzers=False,
+                                    no_base=False,
+                                ))
 
                         tool._log(f'Running {workload.name} {variant.name} {strategy.name} {property}...', logging.INFO)
                         cfg = TrialConfig(workload=workload,

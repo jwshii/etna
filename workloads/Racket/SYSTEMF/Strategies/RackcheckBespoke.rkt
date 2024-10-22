@@ -1,13 +1,10 @@
-#lang errortrace racket
+#lang racket
 
-(require "../src/impl.rkt")
-(require "../src/spec.rkt")
+(require "../src/Impl.rkt")
+(require "../src/Spec.rkt")
 (require "../src/Util.rkt")
 (require rackcheck)
 (require data/maybe)
-(require racket/trace)
-
-(displayln (format "is-term: ~a" (term? (TAbs (Top) (Abs (TVar 0) (Var 0))))))
 
 (define/contract (list-pop ls index)
   (-> (listof any/c) exact-integer? (values any/c (listof any/c)))
@@ -15,10 +12,7 @@
     (if (> index (length ls))
         (values (raise-argument-error) ls)
         (match/values (split-at ls index)
-                      [(l1 l2) (values (last l1) (append (take l1 (- (length l1) 1)) l2))]
-                      )
-        )
-    ))
+                      [(l1 l2) (values (last l1) (append (take l1 (- (length l1) 1)) l2))]))))
 
 (define (backtrack gs)
   (define (backtrack-iter gs)
@@ -47,8 +41,7 @@
     [0 (nothing)]
     [n (just (
       gen:bind (gen:integer-in 0 (- n 1))
-               (lambda (i) (gen:const (TVar i)))
-    ))]))
+               (lambda (i) (gen:const (TVar i)))))]))
 
 
 (define/contract (gen:exact-typ0 e)
@@ -79,8 +72,6 @@
         (cons 1 (gen:exact-typ0 e))))))
 
 
-; (trace gen:exact-typ0)
-; (trace gen:exact-typ)
 
 (define/contract (tshift-correct x typ)
   (number? typ? . -> . typ?)
@@ -107,17 +98,12 @@
             let ([rest (go (+ 1 n) m e ty)])
               (if (equal? ty (tlift m ty1))
                   (cons (Var n) rest)
-                  rest
-              )
-            )]
-          ))]
+                  rest))]))]
     [vars (go 0 0 e ty)])
     (match vars
       ['() (gen:const nothing)]
-      [vars (gen:one-of (map (lambda (v) (just v)) vars))]
-      )))
+      [vars (gen:one-of (map (lambda (v) (just v)) vars))])))
 
-; (trace gen:bound-vars)
 
 (define/contract (gen:exact-term0 e ty)
   (env? typ? . -> . gen?)
@@ -126,17 +112,14 @@
         [(Arr ty1 ty2) (gen:bind (gen:exact-term0 (EVar e ty1) ty2)
                         (lambda (g) (match g
                           [(nothing) (gen:const nothing)]
-                          [(just g) (gen:const (just (Abs ty1 g)))]
-                          )))]
+                          [(just g) (gen:const (just (Abs ty1 g)))])))]
         [(All ty1 ty2) (gen:bind (gen:exact-term0 (EBound e ty1) ty2)
                         (lambda (g) (match g
                           [(nothing) (gen:const nothing)]
-                          [(just g) (gen:const (just (TAbs ty1 g)))]
-                          )))]
+                          [(just g) (gen:const (just (TAbs ty1 g)))])))]
         [_ (gen:const nothing)])])
   (backtrack (list g (gen:bound-vars e ty)))))
 
-; (trace gen:exact-term0)
 
 (define/contract (fetch-candidate-typs typ)
   (typ? . -> . (listof typ?))
@@ -145,25 +128,21 @@
       [(Top) #t]
       [(TVar n-prime) (<= n n-prime)]
       [(Arr ty1 ty2) (and (fetchp n ty1) (fetchp n ty2))]
-      [(All ty1 ty2) (and (fetchp n ty1) (fetchp (+ 1 n) ty2))]
-      ))]
+      [(All ty1 ty2) (and (fetchp n ty1) (fetchp (+ 1 n) ty2))]))]
     [tunshift (lambda (n ty) (match ty
       [(Top) (Top)]
       [(TVar n-prime) (TVar (- n-prime n))]
       [(Arr ty1 ty2) (Arr (tunshift n ty1) (tunshift n ty2))]
-      [(All ty1 ty2) (All (tunshift n ty1) (tunshift (+ 1 n) ty2))]
-      ))]
+      [(All ty1 ty2) (All (tunshift n ty1) (tunshift (+ 1 n) ty2))]))]
     [f (lambda (n ty) (let (
       [l1 (if (fetchp n ty) (list (tunshift n ty)) '())]
       [l2 (match ty
             [(Arr ty1 ty2) (append (f n ty1) (f n ty2))]
             [(All ty1 ty2) (append (f n ty1) (f (+ 1 n) ty2))]
-            [_ '()]
-            )])
+            [_ '()])])
       (append l1 l2)))])
     (f 0 typ)))
 
-; (trace fetch-candidate-typs)
 
 (define/contract (gen:cand typ)
   (typ? . -> . gen?)
@@ -172,7 +151,6 @@
         (gen:const nothing)
         (gen:one-of (map just cands)))))
 
-; (trace gen:cand)
 
 (define/contract (gen:replace-typ n ty ty-prime)
   (exact-integer? typ? typ? . -> . gen?)
@@ -185,11 +163,9 @@
           [(All ty1 ty2) (gen:bind (gen:replace-typ n ty1 ty-prime)
                           (lambda (ty1-prime) (gen:bind (gen:replace-typ (+ 1 n) ty2 (tshift-correct 0 ty-prime))
                           (lambda (ty2-prime) (gen:const (All ty1-prime ty2-prime))))))]
-          [_ (gen:frequency (list g1))]
-          ))])
+          [_ (gen:frequency (list g1))]))])
     (gen:frequency (list g1 g2))))
 
-; (trace gen:replace-typ)
 
 (define/contract (gen:replace ty)
   (typ? . -> . gen?)
@@ -197,11 +173,8 @@
   (lambda (mty1) (match mty1
     [(nothing) (gen:const nothing)]
     [(just ty1) (gen:bind (gen:replace-typ 0 (tshift-correct 0 ty) (tshift-correct 0 ty1))
-                (lambda (ty2) (gen:const (just (cons ty1 ty2))))
-                )]
-    ))))
+                (lambda (ty2) (gen:const (just (cons ty1 ty2)))))]))))
 
-; (trace gen:replace)
 
 (define/contract (gen:exact-term n e ty)
   (exact-integer? env? typ? . -> . gen?)
@@ -214,16 +187,13 @@
              (gen:bind (gen:exact-term (- n 1) (EVar e ty1) ty2) (lambda (g) 
              (match g
                 [(nothing) (gen:const (nothing))]
-                [(just g) (gen:const (just (Abs ty1 g)))]
-              )))]
+                [(just g) (gen:const (just (Abs ty1 g)))])))]
             [(All ty1 ty2) 
               (gen:bind (gen:exact-term (- n 1) (EBound e ty1) ty2) (lambda (g)
               (match g
                 [(nothing) (gen:const (nothing))]
-                [(just g) (gen:const (just (TAbs ty1 g)))]
-              )))]
-            [_ (gen:const nothing)]
-        )]
+                [(just g) (gen:const (just (TAbs ty1 g)))])))]
+            [_ (gen:const nothing)])]
         [g2 (gen:bind (gen:exact-typ (- n 1) e)
               (lambda (ty1) (gen:bind (gen:exact-term (- n 1) e (Arr ty1 ty))
               (lambda (t1) (gen:bind (gen:exact-term (- n 1) e ty1)
@@ -232,14 +202,12 @@
                   [(list (nothing) _) (gen:const (nothing))]
                   [(list _ (nothing)) (gen:const (nothing))]
                   [(list (just t1) (just t2)) (gen:const (just (App t1 t2)))]
-                  )
-                ))))))]
+                  )))))))]
         [g3 (gen:bind (gen:exact-typ (- n 1) e)
             (lambda (ty1) (gen:bind (gen:exact-term (- n 1) e (All ty1 (tshift-correct 0 ty)))
             (lambda (t1) (match t1
               [(nothing) (gen:const (nothing))]
-              [(just t1) (gen:const (just (TApp t1 ty1)))]
-              )))))]
+              [(just t1) (gen:const (just (TApp t1 ty1)))])))))]
         [g4 (gen:bind (gen:replace ty)
             (lambda (tup) (match tup
               [(nothing) (gen:const (nothing))]
@@ -247,13 +215,9 @@
                 (gen:bind (gen:exact-term (- n 1) e (All ty2 ty12))
                 (lambda (t1) (match t1
                   [(nothing) (gen:const (nothing))]
-                  [(just t1) (gen:const (just (TApp t1 ty2)))]
-                  )))]
-              )))]
-        )
+                  [(just t1) (gen:const (just (TApp t1 ty2)))])))])))])
         (backtrack (list g0 g1 g2 g3 g4)))))
 
-; (trace gen:exact-term)
 
 (define gen:term
     (gen:bind (gen:exact-typ 4 (Empty))
@@ -263,15 +227,11 @@
 
 (define test_prop_SinglePreserve
   (property prop_SinglePreserve ([e gen:term])
-            (equal? (prop_SinglePreserve e) (just #t)))
-  )
+            (equal? (prop_SinglePreserve e) (just #t))))
 
 (define test_prop_MultiPreserve
   (property prop_MultiPreserve ([e gen:term])
-            (equal? (prop_MultiPreserve e) (just #t)))
-  )
-
-(term? (Abs (All (Arr (All (Top) (Arr (TVar 0) (TVar 0))) (All (Top) (Arr (TVar 0) (TVar 0)))) (Arr (TVar 0) (TVar 0))) (Abs (All (Top) (Arr (TVar 0) (TVar 0))) (Abs (All (All (Top) (Arr (TVar 0) (TVar 0))) (Arr (TVar 0) (TVar 0))) (Var 1)))))
+            (equal? (prop_MultiPreserve e) (just #t))))
 
 (provide test_prop_SinglePreserve test_prop_MultiPreserve)
 

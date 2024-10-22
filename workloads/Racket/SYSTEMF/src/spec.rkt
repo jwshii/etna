@@ -5,7 +5,6 @@
 (require "Type.rkt")
 (require "Util.rkt")
 
-
 (define/contract (mtype-check e t)
   ((maybe/c term?) typ? . -> . boolean?)
   (match e
@@ -20,26 +19,31 @@
   (match p1
     [(nothing) nothing]
     [(just #f) nothing]
+    [#f nothing]
     [(just #t) p2]
     [#t p2]
     )
   )
 
-(define (prop_SinglePreserve t)
+(define/contract (prop_SinglePreserve t)
   ((maybe/c term?) . -> . (maybe/c boolean?))
   (match t
     [(nothing) (nothing)]
     [(just t)
      (let ([mty (get-typ 40 (Empty) t)])
-       (assumes (just? mty) (just (mtype-check (pstep t) (from-just! mty))))
-       )]))
+      (match mty
+        [(nothing) (nothing)]
+        [(just mty) (just (mtype-check (pstep t) mty))]))]))
 
 (define/contract (prop_MultiPreserve t)
-  (term? . -> . (maybe/c boolean?))
-  (let ([mty (get-typ 40 (Empty) t)])
-    (assumes (just? mty) (just (mtype-check (multi-step pstep t) (from-just! mty))))
-    )
-  )
+  ((maybe/c term?) . -> . (maybe/c boolean?))
+  (match t
+    [(nothing) (nothing)]
+    [(just t)
+     (let ([mty (get-typ 40 (Empty) t)])
+      (match mty
+        [(nothing) (nothing)]
+        [(just mty) (just (mtype-check (multi-step pstep t) mty))]))]))
 
 (define/contract (size term)
   (term? . -> . number?)
