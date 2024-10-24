@@ -88,7 +88,7 @@ def collect_bespoke_generator(results: str):
 
             for strategy in tool.all_strategies(workload):
                 print(f'Running {workload.name},{strategy.name},{variant.name}')
-                if not strategy.name.startswith('BespokeGenerator'):
+                if not strategy.name.startswith('BespokeLLNIGenerator'):
                     continue
 
                 print(f'Running {workload.name},{strategy.name},{variant.name}')
@@ -109,7 +109,7 @@ def collect_bespoke_generator(results: str):
                             build_common=False,
                             build_strategies=True,
                             build_fuzzers=False,
-                            no_base=False,
+                            no_base=True,
                         ))
                     print(f'Running {workload.name},{strategy.name},{variant.name},{property}')
                     cfg = TrialConfig(workload=workload,
@@ -125,5 +125,5 @@ def collect_bespoke_generator(results: str):
 if __name__ == '__main__':
     
     filepath = pathlib.Path(__file__).resolve().parent
-    # collect_bespoke_generator(pathlib.Path(filepath, 'results'))
-    collect_fuzzers(pathlib.Path(filepath, 'results'))
+    collect_bespoke_generator(pathlib.Path(filepath, 'results'))
+    # collect_fuzzers(pathlib.Path(filepath, 'results'))

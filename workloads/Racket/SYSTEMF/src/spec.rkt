@@ -45,17 +45,6 @@
         [(nothing) (nothing)]
         [(just mty) (just (mtype-check (multi-step pstep t) mty))]))]))
 
-(define/contract (size term)
-  (term? . -> . number?)
-  (match term
-    [(Abs _ t) (+ 1 (size t))]
-    [(App t1 t2) (+ 1 (size t1) (size t2))]
-    [(TAbs _ t) (+ 1 (size t))]
-    [(TApp t _) (+ 1 (size t))]
-    [_ 1]
-    )
-  )
-
 (provide prop_SinglePreserve prop_MultiPreserve)
 
 (module+ test

@@ -827,7 +827,7 @@ Fixpoint low_indist_trace (fuel: nat) (t: table) (v: Variation) (s: nat) (sts1 s
     end
   end.
 
-
+(* 
 Definition test_Prop :=
   forAll (gen_variation_SState) (fun v =>
   let '(Var lab st1 st2) := v in
@@ -840,17 +840,21 @@ Definition test_Prop :=
   end).
 
 Extract Constant defNumTests => "100".
-QuickCheck test_Prop.
+QuickCheck test_Prop. *)
+
+#[local] Instance shrinkTrace : Shrink (option (prod (prod (prod bool (list SState)) (list SState)) nat)) := {
+  shrink := fun l => [::]
+}.
 
 Definition propLLNI :=
   ForAll "v" (fun _ => gen_variation_SState) (fun _ _ => gen_variation_SState) (fun _ => shrink) (fun _ => show) (
   Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => indist lab st1 st2) (
   Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => well_formed st1) (
   Implies ((@Variation SState) · ∅) (fun '((Var lab st1 st2), _) => well_formed st2) (
-  @ForAll (option (bool * nat)) ((@Variation SState) · ∅) "result" (fun '(v, _) => returnGen (low_indist 100 default_table v 0)) (fun '(v, _) _ => returnGen (low_indist 100 default_table v 0)) (fun _ => shrink) (fun _ => show) (
-  Implies ((option (bool * nat)) · _) (fun '(result, _) => is_some result) (
-  Check ((option (bool * nat)) · _) (fun '(result, _) => 
-    fst (unwrap_or result (false, 0))
+  @ForAll (option (bool * list SState * list SState * nat)) ((@Variation SState) · ∅) "result" (fun '(v, _) => returnGen (low_indist_trace 100 default_table v 0 nil nil)) (fun '(v, _) _ => returnGen (low_indist_trace 100 default_table v 0 nil nil)) (fun _ => shrink) (fun _ => show) (
+  Implies ((option (bool * list SState * list SState * nat)) · _) (fun '(result, _) => is_some result) (
+  Check ((option (bool * list SState * list SState * nat)) · _) (fun '(result, _) => 
+    fst (fst (fst (unwrap_or result (false, nil, nil, 0))))
   ))))))).
 
 

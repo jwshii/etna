@@ -9,7 +9,14 @@
 (struct TVar (n) #:transparent)
 (struct Arr (t1 t2) #:transparent)
 (struct All (t1 t2) #:transparent)
-(define typ? (lambda (x) (or (Top? x) (TVar? x) (Arr? x) (All? x))))
+; (define typ? (lambda (x) (or (Top? x) (TVar? x) (Arr? x) (All? x))))
+(define (typ? x)
+  (match x
+    [(Top) #t]
+    [(TVar n) (exact-nonnegative-integer? n)]
+    [(Arr t1 t2) (and (typ? t1) (typ? t2))]
+    [(All t1 t2) (and (typ? t1) (typ? t2))]
+    [_ #f]))
 
 ; Term := Var Nat | Abs Typ Term | App Term Term | TAbs Typ Term | TApp Term Typ
 (struct Var (n) #:transparent)
@@ -17,8 +24,15 @@
 (struct App (term1 term2) #:transparent)
 (struct TAbs (typ term) #:transparent)
 (struct TApp (term typ) #:transparent)
-(define term? (lambda (x) (or (Var? x) (Abs? x) (App? x) (TAbs? x) (TApp? x))))
-
+; (define term? (lambda (x) (or (Var? x) (Abs? x) (App? x) (TAbs? x) (TApp? x))))
+(define (term? x)
+  (match x
+    [(Var n) (exact-nonnegative-integer? n)]
+    [(Abs typ term) (and (typ? typ) (term? term))]
+    [(App term1 term2) (and (term? term1) (term? term2))]
+    [(TAbs typ term) (and (typ? typ) (term? term))]
+    [(TApp term typ) (and (term? term) (typ? typ))]
+    [_ #f]))
 
 #| shifting and substitution |#
 
@@ -27,15 +41,15 @@
     (match typ
         [(Top) (Top)]
         [(TVar y) (#|! |#
-                     if (<= x y) (TVar (+ 1 y)) (TVar y)
-                     #|!! tshift_tvar_all |#
-                     #|!
-                         TVar (+ 1 y)
-                     |#
-                     #|!! tshift_tvar_no_incr |#
-                     #|!
-                         TVar y
-                     |#
+                    if (<= x y) (TVar (+ 1 y)) (TVar y)
+                    #|!! tshift_tvar_all |#
+                    #|!
+                        TVar (+ 1 y)
+                    |#
+                    #|!! tshift_tvar_no_incr |#
+                    #|!
+                        TVar y
+                    |#
         )]
         [(Arr ty1 ty2) (Arr (tshift x ty1) (tshift x ty2))]
         [(All ty1 ty2) (#|! |#

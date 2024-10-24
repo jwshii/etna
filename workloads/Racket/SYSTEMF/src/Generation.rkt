@@ -2,6 +2,7 @@
 
 (require "Impl.rkt")
 (require "Util.rkt")
+(require "Type.rkt")
 (require rackcheck)
 (require data/maybe)
 
@@ -222,6 +223,116 @@
     (gen:bind (gen:exact-typ 4 (Empty))
     (lambda (ty) (gen:exact-term 4 (Empty) ty))))
 
+
+
+(define/contract (shrink:num n)
+  (exact-integer? . -> . (listof exact-integer?))
+  (if (zero? n)
+      '()
+      (list (- n 1))))
+
+; shrinkType :: Type -> [Type]
+; shrinkType Base = []
+; shrinkType (t1 :-> t2) =
+;   Base :
+;   t1 :
+;   t2 :
+;   [t1' :-> t2 | t1' <- shrinkType t1]
+;     ++ [t1 :-> t2' | t2' <- shrinkType t2]
+; shrinkType (TVar n) = Base : [TVar n' | n' <- shrink n]
+; shrinkType (ForAll t) = Base : t : [ForAll t' | t' <- shrinkType t]
+
+(define/contract (shrink:typ ty)
+  (typ? . -> . (listof typ?))
+    (match ty
+      [(Top) '()]
+      [(Arr ty1 ty2) (append
+        (list (Top) ty1 ty2)
+        (map (lambda (ty1^) (Arr ty1^ ty2)) (shrink:typ ty1))
+        (map (lambda (ty2^) (Arr ty1 ty2^)) (shrink:typ ty2)))]
+      [(TVar n) (append
+        (list (Top))
+        (map (lambda (n^) (TVar n^)) (shrink:num n)))]
+      [(All ty1 ty2) (append
+        (list (Top) ty1 ty2)
+        (map (lambda (ty1^) (All ty1^ ty2)) (shrink:typ ty1))
+        (map (lambda (ty2^) (All ty1 ty2^)) (shrink:typ ty2)))]))
+
+; shrinkExpr' Con = []
+; shrinkExpr' (Var n) = Con : [Var n' | n' <- shrink n]
+; shrinkExpr' (Lam t e) =
+;   Con :
+;   e :
+;   [Lam t' e | t' <- shrinkType t]
+;     ++ [Lam t e' | e' <- shrinkExpr' e]
+; shrinkExpr' (e1 :@: e2) = Con : e1 : e2 : [e1' :@: e2 | e1' <- shrinkExpr' e1] ++ [e1 :@: e2' | e2' <- shrinkExpr' e2]
+; shrinkExpr' (Cond e1 e2 e3) = Con : e1 : e2 : e3 : [Cond e1' e2 e3 | e1' <- shrinkExpr' e1] ++ [Cond e1 e2' e3 | e2' <- shrinkExpr' e2] ++ [Cond e1 e2 e3' | e3' <- shrinkExpr' e3]
+; shrinkExpr' BTrue = [Con]
+; shrinkExpr' BFalse = [Con, BTrue]
+; shrinkExpr' (TLam e) = Con : e : [TLam e' | e' <- shrinkExpr' e]
+; shrinkExpr' (TApp e t) = Con : e : [TApp e' t | e' <- shrinkExpr' e] ++ [TApp e t' | t' <- shrinkType t]
+
+; shrinkExpr :: _ => Expr -> [Expr]
+; shrinkExpr e =
+;   [e' | e' <- shrinkExpr' e, wellTyped e']
+;     ++ [e'' | e' <- shrinkExpr' e, e'' <- shrinkExpr' e', wellTyped e'']
+;     ++ [e' | Just e' <- [step e], size e' < size e] --, typeOf e' = typeOf e]
+
+(define/contract (shrink:term^ e)
+  (term? . -> . (listof term?))
+    (match e
+      [(Var n) (map (lambda (n^) (Var n^)) (shrink:num n))]
+      [(Abs ty e) (append
+        (list e)
+        (map (lambda (ty^) (Abs ty^ e)) (shrink:typ ty))
+        (map (lambda (e^) (Abs ty e^)) (shrink:term^ e)))]
+      [(App e1 e2) (append
+        (list e1 e2)
+        (map (lambda (e1^) (App e1^ e2)) (shrink:term^ e1))
+        (map (lambda (e2^) (App e1 e2^)) (shrink:term^ e2)))]
+      [(TAbs ty e) (append
+        (list e)
+        (map (lambda (ty^) (TAbs ty^ e)) (shrink:typ ty))
+        (map (lambda (e^) (TAbs ty e^)) (shrink:term^ e)))]
+      [(TApp e ty) (append
+        (list e)
+        (map (lambda (e^) (TApp e^ ty)) (shrink:term^ e))
+        (map (lambda (ty^) (TApp e ty^)) (shrink:typ ty)))]))
+
+(define/contract (well-typed? t)
+  (term? . -> . boolean?)
+  (let ([result (get-typ 40 (Empty) t)])
+    (match result
+      [(nothing) #f]
+      [(just _) #t])))
+
+
+(define/contract (size term)
+  (term? . -> . number?)
+  (match term
+    [(Abs _ t) (+ 1 (size t))]
+    [(App t1 t2) (+ 1 (size t1) (size t2))]
+    [(TAbs _ t) (+ 1 (size t))]
+    [(TApp t _) (+ 1 (size t))]
+    [_ 1]
+    )
+  )
+
+(define/contract (shrink:term e)
+  ((maybe/c term?) . -> . (listof (maybe/c term?)))
+  (match e
+    [(nothing) '()]
+    [(just e) (map 
+                (lambda (e^) (just e^))
+              (append
+                (filter (lambda (e^) (well-typed? e^)) (shrink:term^ e))
+                (filter (lambda (e^) (well-typed? e^)) (apply append (map shrink:term^ (shrink:term^ e))))
+                (match (pstep e)
+                  [(nothing) '()]
+                  [(just e^) (if (< (size e^) (size e)) (list e^) '())])
+                  ))]))
+
 (provide 
     gen:term
+    shrink:term
 )

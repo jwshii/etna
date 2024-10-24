@@ -67,15 +67,25 @@
          (get-var e x)
          (nothing))]
     [(Abs ty1 t2)
-     (do [ty2 <- (get-typ fuel (EVar e ty1) t2)]
-       (just (Arr ty1 ty2)))]
+     (match (get-typ fuel (EVar e ty1) t2)
+        [(just ty2) (just (Arr ty1 ty2))]
+        [(nothing) (nothing)]
+        )]
     [(App t1 t2)
-     (do [ty1 <- (get-typ fuel e t1)]
-       [(Arr ty11 ty12) <- (promote-TVar fuel e ty1)]
-       [ty2 <- (get-typ fuel e t2)]
-       (if (sub-check fuel e ty2 ty11)
-           (just ty12)
-           (nothing)))]
+     (match (get-typ fuel e t1)
+        [(nothing) (nothing)]
+        [(just ty1) (match (promote-TVar fuel e ty1)
+                      [(just (Arr ty11 ty12))
+                        (match (get-typ fuel e t2)
+                          [(just ty2)
+                           (if (sub-check fuel e ty2 ty11)
+                               (just ty12)
+                               (nothing))]
+                          [_ (nothing)]
+                          )]
+                      [_ (nothing)]
+                      )]
+        )]
     [(TAbs ty1 t2)
      (do [ty2 <- (get-typ fuel (EBound e ty1) t2)]
        (just (All ty1 ty2)))]

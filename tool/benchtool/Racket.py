@@ -85,9 +85,14 @@ class Racket(BenchTool):
                     trial_result["foundbug"] = json_result["foundbug"]
                     trial_result["discards"] = 0  # todo: fix this
                     trial_result["passed"] = json_result["passed"]
-                    trial_result["time"] = (
-                        json_result["time"] * 0.001
-                    )  # ms as string to seconds as float conversion
+                    if "time" in json_result:
+                        trial_result["time"] = (
+                            json_result["time"] * 0.001
+                        )  # ms as string to seconds as float conversion
+                    else:
+                        trial_result["time"] = (json_result["search-time"] + json_result["shrink-time"]) * 0.001
+                        trial_result["search-time"] = json_result["search-time"] * 0.001
+                        trial_result["shrink-time"] = json_result["shrink-time"] * 0.001
 
                 except subprocess.TimeoutExpired:
                     process.kill()
