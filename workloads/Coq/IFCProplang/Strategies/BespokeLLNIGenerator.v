@@ -758,15 +758,31 @@ Fixpoint step_until_low (fuel: nat) (t: table) (l: Label) (st: SState) (s: nat) 
   match fuel with
   | 0 => (None, s)
   | S n' =>
-    match is_low_SState st l with
-    | true => (Some st, S s)
-    | false =>
-      match fstep t st with
-      | Some st' => 
-        let '(res, run_length) := step_until_low n' t l st' s in
-        (res, S run_length)
-      | None => (None, s)
+    match fstep t st with
+    | Some st' =>
+        match is_low_SState st' l with
+        | true => (Some st', S s)
+        | false =>
+            let '(res, run_length) := step_until_low n' t l st' s in
+            (res, S run_length)
+        end
+    | None => (None, s)
+    end
+  end.
+
+Fixpoint step_until_low_trace (fuel: nat) (t: table) (l: Label) (st: SState) (s: nat) : option SState * list SState * nat :=
+  match fuel with
+  | 0 => (None, cons st nil, s)
+  | S n' =>
+    match fstep t st with
+    | Some st' => 
+      match is_low_SState st' l with
+      | true => (Some st', cons st' nil, S s)
+      | false =>
+        let '(res, sts, run_length) := step_until_low_trace n' t l st' s in
+        (res, cons st sts, S run_length)
       end
+    | None => (None, cons st nil, s)
     end
   end.
 
@@ -788,6 +804,43 @@ Fixpoint low_indist (fuel: nat) (t: table) (v: Variation) (s: nat) : option (boo
     | _ => Some (true, min sl sr)
     end
   end.
+
+Fixpoint low_indist_trace (fuel: nat) (t: table) (v: Variation) (s: nat) (sts1 sts2 : list SState) : option (bool * list SState * list SState * nat) :=
+  match fuel with
+  | 0 => None
+  | S n' =>
+    let '(Var lab st1 st2) := v in
+    let '(st1', sts1', sl) := step_until_low_trace n' t lab st1 s in
+    let '(st2', sts2', sr) := step_until_low_trace n' t lab st2 s in
+    let sts1'' := sts1 ++ List.rev sts1' in
+    let sts2'' := sts2 ++ List.rev sts2' in    
+    match (st1', st2') with
+    | (Some st1'', Some st2'') =>
+(*      trace (show (Var lab st1'' st2'')) *) (
+      if indist lab st1'' st2'' 
+          && well_formed st1'' 
+          && well_formed st2'' then
+            low_indist_trace n' t (Var lab st1'' st2'') (max sl sr) sts1'' sts2''
+          else 
+          Some (false, sts1'', sts2'', max sl sr))
+    | _ => Some (true, sts1'', sts2'', min sl sr)
+    end
+  end.
+
+
+Definition test_Prop :=
+  forAll (gen_variation_SState) (fun v =>
+  let '(Var lab st1 st2) := v in
+  match low_indist_trace 100 default_table v 0 nil nil with
+  | None => checker tt
+  | Some (res, sts1, sts2, steps) =>
+      collect (List.length sts1, List.length sts2)
+      (whenFail (Printing.show_execution lab sts1 sts2) 
+      (checker true))
+  end).
+
+Extract Constant defNumTests => "100".
+QuickCheck test_Prop.
 
 Definition propLLNI :=
   ForAll "v" (fun _ => gen_variation_SState) (fun _ _ => gen_variation_SState) (fun _ => shrink) (fun _ => show) (
