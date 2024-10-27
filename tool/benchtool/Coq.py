@@ -1,6 +1,7 @@
 from pathlib import Path
 from benchtool.BenchTool import BenchTool, Entry
 from benchtool.Types import BuildConfig, Config, LogLevel, ReplaceLevel, TrialArgs
+from benchtool.Store import S3MetricWriter
 
 import json
 import os
@@ -110,6 +111,7 @@ class Coq(BenchTool):
             self._run_trial_strategy(workload_path, params)
 
     def _run_trial_fuzzer(self, workload_path: str, params: TrialArgs):
+        metric_writer = S3MetricWriter("pldi")
         with self._change_dir(workload_path):
             results = []
             self._log(
@@ -214,15 +216,18 @@ class Coq(BenchTool):
                     trial_result["time"] = -1
 
                 results.append(trial_result)
+                
                 if params.short_circuit and trial_result["time"] == params.timeout:
                     break
                 elif trial_result["time"] == -1:
                     self._log(f"Exiting due to erroneous trial", LogLevel.ERROR)
                     exit(0)
 
+            metric_writer.write(params.experiment_id, results)
             json.dump(results, open(params.file, "w"))
 
     def _run_trial_strategy(self, workload_path: str, params: TrialArgs):
+        metric_writer = S3MetricWriter("pldi")
         with self._change_dir(workload_path):
             results = []
             self._log(
@@ -292,7 +297,7 @@ class Coq(BenchTool):
                 results.append(trial_result)
                 if params.short_circuit and trial_result["time"] == params.timeout:
                     break
-
+            metric_writer.write(params.experiment_id, results)
             json.dump(results, open(params.file, "w"))
 
 

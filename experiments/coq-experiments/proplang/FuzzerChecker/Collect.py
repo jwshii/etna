@@ -40,12 +40,13 @@ def collect_fuzzers(results: str):
                         print(f'Running {workload.name},{strategy.name},{variant.name}')
 
                         for property in ["propLLNI"]:
-                            print(f'Running Prop {workload.name},{strategy.name},{variant.name},{property}')
+                            print(f'Running p {workload.name},{strategy.name},{variant.name},{property}')
                             property = 'test_' + property
                             # Don't compile tasks that are already completed.
                             finished = set(os.listdir(results))
                             file = f'{workload.name},{strategy.name},{variant.name},{property},{seed_pools.variants[seed_pools.current]},{energies.variants[energies.current]}'
                             if f'{file}.json' in finished:
+                                print(f'{file} already exists')
                                 continue
 
                             if not run_trial:
@@ -57,14 +58,16 @@ def collect_fuzzers(results: str):
                                     build_fuzzers=False,
                                     no_base=True,
                                 ))
-                            print(f'Running {workload.name},{strategy.name},{variant.name},{property}')
+                            print(f'Running trial {workload.name},{strategy.name},{variant.name},{property}')
                             cfg = TrialConfig(workload=workload,
                                                 strategy=strategy.name,
                                                 property=property,
                                                 file=file,
                                                 trials=10,
                                                 timeout=60,
-                                                short_circuit=True)
+                                                short_circuit=True,
+                                                experiment_id=f"FuzzerChecker/{file}.json"
+                                )
                             run_trial(cfg)
                 print("Updating energies")
                 print(1, energies)
@@ -118,12 +121,13 @@ def collect_bespoke_generator(results: str):
                                         file=file,
                                         trials=10,
                                         timeout=60,
-                                        short_circuit=True)
+                                        short_circuit=True,
+                                        experiment_id=f"FuzzerChecker/{file}.json"
+                    )
                     run_trial(cfg)
 
 
 if __name__ == '__main__':
-    
     filepath = pathlib.Path(__file__).resolve().parent
     collect_bespoke_generator(pathlib.Path(filepath, 'results'))
-    # collect_fuzzers(pathlib.Path(filepath, 'results'))
+    collect_fuzzers(pathlib.Path(filepath, 'results'))

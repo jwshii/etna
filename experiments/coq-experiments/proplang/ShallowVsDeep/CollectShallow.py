@@ -2,14 +2,18 @@ import os
 import pathlib
 
 from benchtool.Coq import Coq
-from benchtool.Types import TrialConfig, ReplaceLevel, LogLevel, Entry
+from benchtool.Types import BuildConfig, TrialConfig, ReplaceLevel, LogLevel, Entry
 from benchtool.Tasks import tasks
 
 
 def collect(results: str):
     tool = Coq(results=results, replace_level=ReplaceLevel.REPLACE, log_level=LogLevel.DEBUG)
     for workload in tool.all_workloads():
-        if workload.name not in ['BST', 'RBT', 'STLC']:
+        if workload.name not in [
+                                'BST', 
+                                 'RBT', 
+                                 'STLC'
+                                 ]:
             continue
 
         tool._preprocess(workload)
@@ -37,7 +41,14 @@ def collect(results: str):
                         continue
 
                     if not run_trial:
-                        run_trial = tool.apply_variant(workload, variant, no_base=True)
+                        run_trial = tool.apply_variant(workload, variant, BuildConfig(
+                            path=workload.path,
+                            clean=True,
+                            build_common=True,
+                            build_strategies=True,
+                            build_fuzzers=True,
+                            no_base=True,
+                        ))
 
                     cfg = TrialConfig(workload=workload,
                                         strategy=strategy.name,

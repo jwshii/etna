@@ -56,7 +56,10 @@ fun test_name ->
 
 
 let () =
-Sys.argv.(1) |> qctest_map
+  Printf.printf ""Entering main of qc_exec\\n""; flush stdout;
+  setup_shm_aux ();
+  Sys.argv.(1) |> qctest_map ; flush stdout;
 ".
 
 
+Extraction "TypeBasedFuzzer_test_runner.ml" sample1 runLoop qctest_test_prop_InsertValid qctest_test_prop_DeleteValid qctest_test_prop_UnionValid qctest_test_prop_InsertPost qctest_test_prop_DeletePost qctest_test_prop_UnionPost qctest_test_prop_InsertModel qctest_test_prop_DeleteModel qctest_test_prop_UnionModel qctest_test_prop_InsertInsert qctest_test_prop_InsertDelete qctest_test_prop_InsertUnion qctest_test_prop_DeleteInsert qctest_test_prop_DeleteDelete qctest_test_prop_DeleteUnion qctest_test_prop_UnionDeleteInsert qctest_test_prop_UnionUnionIdem qctest_test_prop_UnionUnionAssoc  qctest_map.

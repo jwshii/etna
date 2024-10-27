@@ -9,7 +9,11 @@ from benchtool.Tasks import tasks
 def collect(results: str):
     tool = Coq(results=results, replace_level=ReplaceLevel.REPLACE, log_level=LogLevel.DEBUG)
     for workload in tool.all_workloads():
-        if workload.name not in ['BSTProplang', 'RBTProplang', 'STLCProplang']:
+        if workload.name not in [
+            'BSTProplang', 
+            'RBTProplang', 
+            'STLCProplang'
+            ]:
             continue
 
         tool._preprocess(workload)
@@ -36,8 +40,8 @@ def collect(results: str):
                     if not run_trial:
                         run_trial = tool.apply_variant(workload, variant, BuildConfig(
                             path=workload.path,
-                            clean=False,
-                            build_common=False,
+                            clean=True,
+                            build_common=True,
                             build_strategies=True,
                             build_fuzzers=True,
                             no_base=True,
