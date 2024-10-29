@@ -3,7 +3,7 @@ import re
 import json
 import subprocess
 from benchtool.BenchTool import BenchTool
-from benchtool.Store import EtnaCLIStoreWriter
+from benchtool.Store import EtnaCLIStoreWriter, S3MetricWriter
 from benchtool.Types import BuildConfig, Config, Entry, LogLevel, ReplaceLevel, TrialArgs
 
 IMPL_DIR = "src"
@@ -49,7 +49,7 @@ class Racket(BenchTool):
 
     def _run_trial(self, workload_path: str, params: TrialArgs):
         # metric_writer = EtnaCLIStoreWriter()
-
+        metric_writer = S3MetricWriter("pldi")
         with self._change_dir(workload_path):
             cmd = ["./main", params.property, params.strategy]
             results = []
@@ -115,11 +115,12 @@ class Racket(BenchTool):
                     self._log(f"{params.strategy} Result: Timeout", LogLevel.INFO)
 
                 results.append(trial_result)
-                # metric_writer.write(params.experiment_id, trial_result)
+                
 
                 if params.short_circuit and trial_result["time"] == params.timeout:
                     break
 
+            metric_writer.write(params.experiment_id, results)
             json.dump(results, open(params.file, "w"))
 
     def _preprocess(self, workload: Entry) -> None:

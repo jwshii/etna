@@ -53,7 +53,8 @@ def collect(results: str):
                                         file=file,
                                         trials=10,
                                         timeout=60,
-                                        short_circuit=True)
+                                        short_circuit=True,
+                                        experiment_id=f"ShallowVsDeep-Coq/{file}.json")
                     run_trial(cfg)
 
 

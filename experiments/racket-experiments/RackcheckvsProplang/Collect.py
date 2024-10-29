@@ -35,9 +35,6 @@ def collect(results: str):
                         if f'{file}.json' in finished:
                             tool._log(f'Skipping {workload.name} {variant.name} {strategy.name} {property}...', logging.INFO)
                             continue
-                        
-                        experiment_id = os.environ.get("ETNA_EXPERIMENT_ID") or file
-
 
                         if not run_trial:
                             run_trial = tool.apply_variant(workload, variant, BuildConfig(
@@ -53,10 +50,11 @@ def collect(results: str):
                         cfg = TrialConfig(workload=workload,
                                         strategy=strategy.name,
                                         property=property,
-                                        experiment_id=experiment_id,
+                                        file=file,
                                         trials=10,
                                         timeout=60,
-                                        short_circuit=True)
+                                        short_circuit=True,
+                                        experiment_id=f"ShallowVsDeep-Racket/{file}.json")
                         run_trial(cfg)
 
 
