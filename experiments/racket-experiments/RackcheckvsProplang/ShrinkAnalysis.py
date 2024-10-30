@@ -89,31 +89,58 @@ for file in filter(lambda f: f.startswith("SYSTEMF"), os.listdir(results_path)):
 
     if shrinkages.get((mutant, property)) is None:
         shrinkages[((mutant, property))] = {
-            "ProplangBespoke": -1,
-            "RackcheckBespoke": -1,
+            "ProplangBespoke": {
+                "Shrinkage": -1,
+                "Size": -1,
+                "ShrinkedSize": -1
+            },
+            "RackcheckBespoke": {
+                "Shrinkage": -1,
+                "Size": -1,
+                "ShrinkedSize": -1
+            },
         }
     
+    average_size = 0
+    average_shrinked_size = 0
     for i, item in enumerate(contents):
         size = item["size"]
         shrinked_size = item["shrinked-size"]
         shrinkage = size / shrinked_size
         total += shrinkage
+        average_size += size
+        average_shrinked_size += shrinked_size
     
     total /= len(contents)
-    shrinkages[(mutant, property)][strategy] = total
-    shrinkages[(mutant, property)]["Proplang/Rackcheck"] = shrinkages[(mutant, property)]["ProplangBespoke"] / shrinkages[(mutant, property)]["RackcheckBespoke"]
+    average_size /= len(contents)
+    average_shrinked_size /= len(contents)
+
+    shrinkages[(mutant, property)][strategy] = {
+        "Shrinkage": total,
+        "Size": average_size,
+        "ShrinkedSize": average_shrinked_size
+    }
+    print(shrinkages[(mutant, property)])
+    shrinkages[(mutant, property)]["Proplang/Rackcheck"] = shrinkages[(mutant, property)]["ProplangBespoke"]["Shrinkage"] / shrinkages[(mutant, property)]["RackcheckBespoke"]["Shrinkage"]
+    shrinkages[(mutant, property)]["Proplang/Rackcheck Size"] = shrinkages[(mutant, property)]["ProplangBespoke"]["Size"] / shrinkages[(mutant, property)]["RackcheckBespoke"]["Size"]
     # print(f"Average shrinkage for {file} is {total}")
 
-average_win = 0
+average_win_shrinkage = 0
+average_win_size = 0
 for key, value in shrinkages.items():
     print(f"Mutant: {key[0]}, Property: {key[1]}")
     print(f"\tProplangBespoke: {value['ProplangBespoke']}")
     print(f"\tRackcheckBespoke: {value['RackcheckBespoke']}")
-    print(f"\tProplang/Rackcheck: {value['Proplang/Rackcheck']}\n")
-    average_win += value['Proplang/Rackcheck']
+    print(f"\tProplang/Rackcheck: {value['Proplang/Rackcheck']}")
+    print(f"\tProplang/Rackcheck Size: {value['Proplang/Rackcheck Size']}\n")
+    average_win_shrinkage += value['Proplang/Rackcheck']
+    average_win_size += value['Proplang/Rackcheck Size']
 
-average_win /= len(shrinkages)
 
-print(f"Average win ratio for Proplang is {average_win}")
+average_win_shrinkage /= len(shrinkages)
+average_win_size /= len(shrinkages)
+
+print(f"Average win ratio for Proplang Shrinkage is {average_win_shrinkage}")
+print(f"Average win ratio for Proplang Size is {average_win_size}")
 
 
