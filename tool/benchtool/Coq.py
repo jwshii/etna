@@ -10,6 +10,7 @@ import subprocess
 import ctypes
 import platform
 import jinja2
+import time
 
 
 IMPL_DIR = "Src"
@@ -135,12 +136,19 @@ class Coq(BenchTool):
                         "time": None,
                         "counterexample": None,
                     }
+                    if os.environ.get("SYNC"):
+                        os.system("sudo hwclock -s")
+                    start_time = time.time()
+                    start_time_monotonic = time.monotonic()
                     process = subprocess.Popen(
                         cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
                     )
                     stdout_data, stderr_data = process.communicate(
                         timeout=params.timeout
                     )
+                    end_time_monotonic = time.monotonic()
+                    end_time = time.time()
+
                     start = stdout_data.find("[|")
                     end = stdout_data.find("|]")
 
@@ -174,14 +182,18 @@ class Coq(BenchTool):
                             if "passed" in json_result
                             else json_result["tests"]
                         )
-                        trial_result["time"] = (
-                            float(json_result["time"][:-2]) * 0.001
-                        )  # ms as string to seconds as float conversion
+                        trial_result["time"] = json_result["time"]
+                        trial_result["process_time"] = end_time - start_time
+                        trial_result["process_time_monotonic"] = end_time_monotonic - start_time_monotonic
+                        trial_result["start"] = json_result.get("start")
+                        trial_result["process_start"] = start_time
+                        trial_result["ending"] = json_result.get("ending")
+                        trial_result["process_ending"] = end_time
                         trial_result["counterexample"] = json_result.get("counterexample")
 
                 except subprocess.TimeoutExpired as e:
                     print(f"Process Timed Out {process.pid}")
-                    os.system(f"pkill {params.strategy}_exec")
+                    os.system(f"pkill -f {params.strategy}_exec")
                     print(f"Process Output: {e}")
                     shm_id = int(
                         e.stdout.decode("utf-8").split("|?SHM ID: ")[1].split("?|")[0]
@@ -224,7 +236,7 @@ class Coq(BenchTool):
                     exit(0)
 
             metric_writer.write(params.experiment_id, results)
-            json.dump(results, open(params.file, "w"))
+            json.dump(results, open(params.file, "w"), indent=2)
 
     def _run_trial_strategy(self, workload_path: str, params: TrialArgs):
         metric_writer = S3MetricWriter("pldi")
@@ -251,13 +263,19 @@ class Coq(BenchTool):
                     "counterexample": None,
                 }
                 try:
+                    if os.environ.get("SYNC"):
+                        os.system("sudo hwclock -s")
+                    start_time = time.time()
+                    start_time_monotonic = time.monotonic()
                     process = subprocess.Popen(
                         cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
                     )
-
+            
                     stdout_data, stderr_data = process.communicate(
                         timeout=params.timeout
                     )
+                    end_time_monotonic = time.monotonic()
+                    end_time = time.time()
 
                     start = stdout_data.find("[|")
                     end = stdout_data.find("|]")
@@ -280,9 +298,13 @@ class Coq(BenchTool):
                         if "passed" in json_result
                         else json_result["tests"]
                     )
-                    trial_result["time"] = (
-                        float(json_result["time"][:-2]) * 0.001
-                    )  # ms as string to seconds as float conversion
+                    trial_result["time"] = json_result["time"]
+                    trial_result["process_time"] = end_time - start_time
+                    trial_result["process_time_monotonic"] = end_time_monotonic - start_time_monotonic
+                    trial_result["start"] = json_result.get("start")
+                    trial_result["process_start"] = start_time
+                    trial_result["ending"] = json_result.get("ending")
+                    trial_result["process_ending"] = end_time
                     trial_result["counterexample"] = json_result.get("counterexample")
 
                 except subprocess.TimeoutExpired:
@@ -298,7 +320,7 @@ class Coq(BenchTool):
                 if params.short_circuit and trial_result["time"] == params.timeout:
                     break
             metric_writer.write(params.experiment_id, results)
-            json.dump(results, open(params.file, "w"))
+            json.dump(results, open(params.file, "w"), indent=2)
 
 
     def _get_fuzzer_names(self, workload_path):

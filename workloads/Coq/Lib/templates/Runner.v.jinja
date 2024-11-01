@@ -1,6 +1,8 @@
 From {{workload_name}} Require Import {{strategy_name}}.
 From QuickChick Require Import QuickChick.
+{% if type == "QuickProp" %}
 From PropLang Require Import PropLang.
+{%- endif %}
 Set Warnings "-extraction-opaque-accessed,-extraction".
 
 Axiom num_tests : nat. 
@@ -42,9 +44,9 @@ Sys.argv.(1) |> qctest_map
 ".
 
 {% if type == "QuickChick" %}
-Extraction "{{strategy_name}}_test_runner.ml" sample1 runLoop {% for test_name in test_names -%} qctest_{{test_name}} {% endfor %} qctest_map.
+Extraction "{{strategy_name}}_test_runner.ml" {% for test_name in test_names -%} qctest_{{test_name}} {% endfor %} qctest_map.
 {% elif type == "QuickProp" %}
 Extraction "{{strategy_name}}_test_runner.ml" sample1 runLoop {% for test_name in test_names -%} qctest_{{test_name}} {% endfor %} qctest_map.
 {% elif type == "FuzzChick" %}
-Extraction "{{strategy_name}}_test_runner.ml" sample1 runLoop {% for test_name in test_names -%} qctest_{{test_name}} {% endfor %} qctest_map.
+Extraction "{{strategy_name}}_test_runner.ml" {% for test_name in test_names -%} qctest_{{test_name}} {% endfor %} qctest_map.
 {% endif %}

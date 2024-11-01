@@ -45,6 +45,9 @@ old_data/
 old/
 
 etna/
+.venv/
+lib64
+pyvenv.cfg
 
 **/*.log
 downloads/

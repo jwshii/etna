@@ -1,6 +1,6 @@
 From STLC Require Import TypeBasedGenerator.
 From QuickChick Require Import QuickChick.
-From PropLang Require Import PropLang.
+
 Set Warnings "-extraction-opaque-accessed,-extraction".
 
 Axiom num_tests : nat. 
@@ -28,4 +28,4 @@ Sys.argv.(1) |> qctest_map
 ".
 
 
-Extraction "TypeBasedGenerator_test_runner.ml" sample1 runLoop qctest_test_prop_SinglePreserve qctest_test_prop_MultiPreserve  qctest_map.
+Extraction "TypeBasedGenerator_test_runner.ml" qctest_test_prop_SinglePreserve qctest_test_prop_MultiPreserve  qctest_map.

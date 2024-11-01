@@ -1,5 +1,6 @@
 From BSTProplang Require Import TypeBasedGenerator.
 From QuickChick Require Import QuickChick.
+
 From PropLang Require Import PropLang.
 Set Warnings "-extraction-opaque-accessed,-extraction".
 

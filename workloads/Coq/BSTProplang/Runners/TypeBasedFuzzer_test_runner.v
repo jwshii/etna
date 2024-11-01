@@ -1,5 +1,6 @@
 From BSTProplang Require Import TypeBasedFuzzer.
 From QuickChick Require Import QuickChick.
+
 From PropLang Require Import PropLang.
 Set Warnings "-extraction-opaque-accessed,-extraction".
 
