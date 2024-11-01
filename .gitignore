@@ -50,3 +50,4 @@ lib64
 pyvenv.cfg
 
 **/*.log
+downloads/
