@@ -3,7 +3,9 @@ import subprocess
 from typing import Callable, List, Tuple
 from pathlib import Path
 from abc import ABC, abstractmethod
-from boto3 import client
+import os
+if os.environ["METRICS_LOCAL"] == "False":
+    from boto3 import client
 
 import json
 
@@ -74,6 +76,7 @@ class S3MetricWriter(MetricWriter):
         self.bucket = bucket
 
     def write(self, metric_id: str, metrics: dict):
-        s3 = client("s3")
-        s3.put_object(Bucket=self.bucket, Key=f"{metric_id}.json", Body=json.dumps(metrics, indent=4), ContentType="application/json", ACL="public-read")
+        if os.environ["METRICS_LOCAL"] == "False":
+            s3 = client("s3")
+            s3.put_object(Bucket=self.bucket, Key=f"{metric_id}.json", Body=json.dumps(metrics, indent=4), ContentType="application/json", ACL="public-read")
 

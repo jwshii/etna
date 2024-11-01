@@ -8,10 +8,13 @@ Require Import List ZArith.
 Import ListNotations.
 Import MonadNotation.
 
+Axiom float_of_nat : OCamlFloat -> nat.
+Extract Constant float_of_nat => "Float.to_int".
+
 Definition withTiming : (unit -> bool) -> (bool * (bool * nat)) :=
   fun f => 
-    let result := withTime f in
-    (aug_res bool result, (true, time (aug_time bool result))).
+    let '(TResult result time start ending) := withTime f in
+    (result, (true, (float_of_nat time))).
 
 Inductive Ctx :=
 | EmptyCtx

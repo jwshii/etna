@@ -97,7 +97,7 @@ Fixpoint genExpr env tau (sz: nat) : G (option Expr) :=
 
 Definition gSized := 
     typ <- arbitrary ;;
-    genExpr [] typ 2.
+    genExpr [] typ 5.
 
 Definition test_prop_SinglePreserve :=
   forAllMaybe gSized (fun (e: Expr) =>

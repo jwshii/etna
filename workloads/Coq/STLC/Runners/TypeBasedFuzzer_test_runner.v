@@ -1,6 +1,6 @@
 From STLC Require Import TypeBasedFuzzer.
 From QuickChick Require Import QuickChick.
-From PropLang Require Import PropLang.
+
 Set Warnings "-extraction-opaque-accessed,-extraction".
 
 Axiom num_tests : nat. 
@@ -30,4 +30,4 @@ let () =
 ".
 
 
-Extraction "TypeBasedFuzzer_test_runner.ml" sample1 runLoop qctest_test_prop_SinglePreserve qctest_test_prop_MultiPreserve  qctest_map.
+Extraction "TypeBasedFuzzer_test_runner.ml" qctest_test_prop_SinglePreserve qctest_test_prop_MultiPreserve  qctest_map.
