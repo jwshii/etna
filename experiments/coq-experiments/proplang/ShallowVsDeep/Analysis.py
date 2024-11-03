@@ -145,7 +145,7 @@ def time_sliced_results(
     return results
 
 
-def process_data(results: str, figures: str):
+def process_data(results: str, figures: str, case: str) -> pd.DataFrame:
     df = parse_results(results)
 
     charter = partial(
@@ -160,15 +160,15 @@ def process_data(results: str, figures: str):
             "TypeBasedGenerator",
         ],
     )
-    bst = charter(case="BST")
-    rbt = charter(case="RBT")
-    stlc = charter(case="STLC")
-
-    bst["workload"] = "BST"
-    rbt["workload"] = "RBT"
-    stlc["workload"] = "STLC"
-
-    df = pd.concat([bst, rbt, stlc])
+    # bst = charter(case="BST")
+    # rbt = charter(case="RBT")
+    # stlc = charter(case="STLC")
+    df = charter(case=case)
+    df["workload"] = case
+    # bst["workload"] = "BST"
+    # rbt["workload"] = "RBT"
+    # stlc["workload"] = "STLC"
+    df = pd.concat([df])
     # Turn variable/value into column, where each variable has its own column and value is the value of that column.
     df = df.pivot(
         index=["strategy", "workload", "version"], columns="variable", values="value"
@@ -336,8 +336,13 @@ if __name__ == "__main__":
     results_path = f"{filepath}/results"
     images_path = f"{filepath}/figures"
     # analyze(results_path, images_path)
-    df = process_data(results_path, images_path)
-    df = pd.read_csv(f"{images_path}/workloads.csv", index_col=False)
-    for case in ["BST", "RBT", "STLC"]:
+
+    for case in [
+        "BST", 
+        "RBT", 
+        "STLC"
+        ]:
+        df = process_data(results_path, images_path, case)
+        df = pd.read_csv(f"{images_path}/workloads.csv", index_col=False)
         plot_data(df, images_path, "time", "task_bucket", case, show_names=False)
         plot_data(df, images_path, "time", "task_bucket_named", case, show_names=True)

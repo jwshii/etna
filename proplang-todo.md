@@ -1,34 +1,5 @@
 Todo List
 
 
-- [ ] Case Study 1: Comparison of Shallow vs Deep Embeddings
-  - [ ] 1.1: Coq(QuickChick vs PropLang)
-    - [x] S3 Upload
-    - [ ] QuickChick
-      - [ ] BST
-      - [ ] RBT
-      - [ ] STLC
-    - [ ] PropLang
-      - [ ] BST
-      - [ ] RBT
-      - [ ] STLC
-  - [ ] 1.2: Racket
-    - [ ] BST
-      - [ ] No bugs found in base
-      - [ ] Rackcheck
-      - [ ] Proplang
-    - [ ] RBT
-      - [ ] No bugs found in base
-      - [ ] Rackcheck
-      - [ ] Proplang
-    - [ ] STLC
-      - [ ] No bugs found in base
-      - [ ] Rackcheck
-      - [ ] Proplang
-- [ ] Case Study 2: Exploration of Targeted Property-Based Testing
-  - [ ] IFCProplang
-    - [ ] 
-- [ ] Case Study 3: Exploration of Shrinking Strategies
-  - [] Size comparison script
-  - [ ] Shrinking Comparison of Rackcheck and PropLang
-    - [ ]  
+- [ ] Fuzzers use energy level 1 by default. Make it 100.
+- [ ] Perl scripts are not working uniformly in Mac and Linux. Need to fix it. 

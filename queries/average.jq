@@ -37,13 +37,13 @@ def count_bins($averages):
 
 
 def main:
-    (if $ARGS.named.workload == null then ".*" else $ARGS.named.workload end) as $workload
-    | (if $ARGS.named.strategy == null then ".*" else $ARGS.named.strategy end) as $strategy
+    (if $ARGS.named.workload == null then ".*" else $ARGS.named.workload + "$" end) as $workload
+    | (if $ARGS.named.strategy == null then ".*" else $ARGS.named.strategy + "$" end) as $strategy
     | average($workload; $strategy)
-    | count_bins(.)
-    | sort_by(.bin)
-    | map({bin: .bin, count: .count})
-    | {bins: .}
+    # | count_bins(.)
+    # | sort_by(.bin)
+    # | map({bin: .bin, count: .count})
+    # | {bins: .}
     ;
 
 main
