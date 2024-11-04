@@ -1100,6 +1100,16 @@ Definition runLoop (fuel : nat) (cprop : CProp ∅): G Result :=
     .
 
 
+Definition sample_sized (A : Type) (g : G A) (sz: nat) : A :=
+  match g with
+    | MkGen m =>
+      let rnd := newRandomSeed in
+      m sz rnd
+  end.
+
+Definition invoke {A : Type} (g : G A) : A :=
+sample_sized A g 5.
+
 Definition retx {A: Type} (a: A) : G A := ret a.
 
 Open Scope nat_scope.

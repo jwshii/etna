@@ -15,7 +15,7 @@ def collect(results: str):
                                 #  'RBT', 
                                 #  'RBTProplang',
                                  'STLC',
-                                 'STLCProplang'
+                                #  'STLCProplang'
                                  ]:
             continue
 
@@ -29,7 +29,7 @@ def collect(results: str):
             run_trial = None
 
             for strategy in tool.all_strategies(workload):
-                if strategy.name not in ['BespokeGenerator']:
+                if strategy.name not in ['BespokeGenerator', 'ProplangBespokeGenerator']:
                     continue
 
                 for property in tool.all_properties(workload):
@@ -43,7 +43,7 @@ def collect(results: str):
                     
                     # Don't compile tasks that are already completed.
                     finished = set(os.listdir(results))
-                    suffix = "deeper" if workload.name.endswith("Proplang") else "shallow"
+                    suffix = "deeper" if strategy.name.startswith("Proplang") else "shallow"
 
                     file = f'{workload.name},{strategy.name},{variant.name},{property},{suffix}'
                     if f'{file}.json' in finished:
@@ -63,7 +63,7 @@ def collect(results: str):
                                         strategy=strategy.name,
                                         property=property,
                                         file=file,
-                                        trials=100,
+                                        trials=10,
                                         timeout=60,
                                         short_circuit=True,
                                         experiment_id=f"ShallowVsDeep-Coq/{file}.json")

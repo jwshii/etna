@@ -1,14 +1,15 @@
 From QuickChick Require Import QuickChick.
 
+From PropLang Require Import PropLang.
 Set Warnings "-extraction-opaque-accessed,-extraction".
 
-From STLC Require Import TypeBasedFuzzer.
+From STLC Require Import ProplangTypeBasedFuzzer.
 
 Axiom num_tests : nat. 
 Extract Constant num_tests => "max_int".
 
-Definition qctest_test_prop_SinglePreserve := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime (fun tt => (test_prop_SinglePreserve_fuzzer tt))) ++ "}|]")).
-Definition qctest_test_prop_MultiPreserve := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime (fun tt => (test_prop_MultiPreserve_fuzzer tt))) ++ "}|]")).
+Definition qctest_test_prop_SinglePreserve := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (invoke test_prop_SinglePreserve))) ++ "}|]")).
+Definition qctest_test_prop_MultiPreserve := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (invoke test_prop_MultiPreserve))) ++ "}|]")).
 
 Parameter OCamlString : Type.
 Extract Constant OCamlString => "string".
@@ -31,4 +32,4 @@ let () =
 ".
 
 
-Extraction "TypeBasedFuzzer_test_runner.ml" qctest_test_prop_SinglePreserve qctest_test_prop_MultiPreserve  qctest_map.
+Extraction "ProplangTypeBasedFuzzer_test_runner.ml" sample1 runLoop qctest_test_prop_SinglePreserve qctest_test_prop_MultiPreserve  qctest_map.

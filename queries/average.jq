@@ -40,10 +40,12 @@ def main:
     (if $ARGS.named.workload == null then ".*" else $ARGS.named.workload + "$" end) as $workload
     | (if $ARGS.named.strategy == null then ".*" else $ARGS.named.strategy + "$" end) as $strategy
     | average($workload; $strategy)
-    # | count_bins(.)
-    # | sort_by(.bin)
-    # | map({bin: .bin, count: .count})
-    # | {bins: .}
+    | if $ARGS.named.bins == "true" then 
+        count_bins(., if $ARGS.named.bin_type == null then "" else false end)
+        | sort_by(.bin)
+        | map({bin: .bin, count: .count})
+        | {bins: .}
+     end
     ;
 
 main

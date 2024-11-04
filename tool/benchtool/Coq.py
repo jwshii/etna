@@ -430,7 +430,7 @@ class Coq(BenchTool):
                 os.path.join(strategies_path, f"{strategy}.v"), "r"
             ) as strategy_file:
                 content = strategy_file.read()
-                isPropLang = workload.name.endswith("Proplang")
+                isPropLang = workload.name.endswith("Proplang") or strategy.startswith("Proplang")
                 isFuzzer = strategy.endswith("Fuzzer")
                 tests = self._parse_tests_all(content)
 
