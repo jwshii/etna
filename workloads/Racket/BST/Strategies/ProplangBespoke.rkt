@@ -1,8 +1,8 @@
 #lang racket
 
-(require "../src/impl.rkt")
-(require "../src/spec.rkt")
-(require "../src/generation.rkt")
+(require "../src/Impl.rkt")
+(require "../src/Spec.rkt")
+(require "../src/Generation.rkt")
 (require (only-in rackcheck gen:tuple gen:natural gen:list gen:let))
 
 (require rackcheck/shrink-tree)

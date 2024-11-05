@@ -1,8 +1,8 @@
 #lang racket
 
-(require "../src/impl.rkt")
-(require "../src/spec.rkt")
-(require "../src/generation.rkt")
+(require "../src/Impl.rkt")
+(require "../src/Spec.rkt")
+(require "../src/Generation.rkt")
 
 (require data/maybe)
 (require (only-in rackcheck gen:natural))

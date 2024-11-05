@@ -1,64 +1,59 @@
 import pathlib
+from typing import Literal, Optional
 from benchtool.Analysis import *
 from benchtool.Plot import *
-from functools import partial
 from itertools import product
 
 from PIL import ImageColor, Image, ImageDraw, ImageFont
 
+import os
+import json
+import pandas as pd
+import plotly.graph_objects as go
+
 
 @dataclass
-class ResultColumns:
+class Result:
     workload: str
+    discards: int
+    foundbug: bool
     strategy: str
     mutant: str
+    passed: int
     property: str
-    version: str
+    time: float
+    counterexample: str | None
+    process_time: float | None
+    process_time_monotonic: float | None
+
+    def task(self) -> str:
+        return f"{self.mutant}-{self.property}"
 
 
-def extract(name: str) -> ResultColumns:
-    name = name.split(",")
-
-    workload = name[0]
-    strategy = name[1]
-    mutant = name[2]
-    property = name[3]
-    version = None
-
-    if len(name) == 5 and name[4].endswith(".json"):
-        version = name[4].split(".")[0]
-
-    return ResultColumns(
-        workload=workload,
-        strategy=strategy,
-        mutant=mutant,
-        property=property,
-        version=version,
-    )
-
-
-def df_insert(df: pd.DataFrame, column: str, value: any) -> pd.DataFrame:
-    df.insert(len(df.columns), column, value)
-    return df
-
-
-def parse_results(results: str) -> pd.DataFrame:
+def parse_results(results: str) -> list[Result]:
     entries = scandir_filter(results, os.path.isfile)
     entries = [e for e in entries if e.path.endswith(".json")]
 
-    df = pd.concat(
-        [
-                pd.read_json(e.path, orient="records", typ="frame")
-            for e in entries
-        ]
-    )
+    results = []
 
-    df["inputs"] = df.apply(lambda x: x["passed"] + (1 if x["foundbug"] else 0), axis=1)
-    df = df.drop(["passed"], axis=1)
+    for entry in entries:
+        runs = json.load(open(entry.path))
+        for run in runs:
+            results.append(Result(
+                workload=run.get("workload"),
+                discards=run.get("discards"),
+                foundbug=run.get("foundbug"),
+                strategy=run.get("strategy"),
+                mutant=run.get("mutant"),
+                passed=run.get("passed"),
+                property=run.get("property"),
+                time=run.get("time"),
+                counterexample=run.get("counterexample"),
+                process_time=run.get("process_time"),
+                process_time_monotonic=run.get("process_time_monotonic")
+            ))
 
-    df["task"] = df["workload"] + "," + df["mutant"] + "," + df["property"]
-    df["version"] = df.apply(lambda x: "deeper" if "Proplang" in df["workload"] or "Proplang" in df["strategy"] else "shallow", axis=1)
-    return df
+    return results
 
 
 def overall_solved(
@@ -83,71 +78,69 @@ def overall_solved(
 
     return df[["solved", "total"]]
 
+type Limit = float
+type TimeSlicedResults = dict[str, dict[Limit, int]] 
 
 def time_sliced_results(
     case: str,
-    df: pd.DataFrame,
-    limits: list[float],
+    data: list[Result],
+    limits: list[Limit],
     limit_type: str,
     strategies: list[str] = None,
     agg: Literal["any", "all"] = "all",
 ):
-    df = df[(df["workload"] == case) | (df["workload"] == case + "Proplang")]
+    data = [d for d in data if d.workload == case]
 
     if not strategies:
-        strategies = sorted(df.strategy.unique())
-
-    versions = ["deeper", "shallow"]
-
-    tasks = df.task.unique()
-    total_tasks = len(tasks) // 2
-
-    def dashmerge(sv):
-        return sv[0] + "-" + sv[1]
+        strategies = sorted(set([d.strategy for d in data]))
+    print("Strategies", strategies)
     
-    results = pd.DataFrame(
-        columns=limits, index=map(dashmerge, product(strategies, versions)), dtype=int, data=0
-    )
+    tasks = set([d.task() for d in data])
 
-    results["rest"] = total_tasks
-    print("pre-results", results)
+    avg_data = []
+
+    for task, strategy in product(tasks, strategies):
+        task_data = [d for d in data if d.task() == task and d.strategy == strategy]
+        if len(task_data) == 0:
+            continue
+
+        timed_out = [d for d in task_data if d.time == limits[-1]]
+        if len(timed_out) > 0:
+            task_data = timed_out
+        else:
+            avg_result = Result(
+                workload=task_data[0].workload,
+                discards=sum([d.discards for d in task_data]) / len(task_data),
+                foundbug=task_data[0].foundbug,
+                strategy=task_data[0].strategy,
+                mutant=task_data[0].mutant,
+                passed=sum([d.passed for d in task_data]) / len(task_data),
+                property=task_data[0].property,
+                time=sum([d.time for d in task_data]) / len(task_data),
+                counterexample=task_data[0].counterexample,
+                process_time=sum([d.process_time for d in task_data]) / len(task_data),
+                process_time_monotonic=sum([d.process_time_monotonic for d in task_data]) / len(task_data),
+            )
+            avg_data.append(avg_result)
+
+    results : TimeSlicedResults = { strategy: { limit: 0 for limit in limits } for strategy in strategies }
+
     for within in limits:
-        dft = overall_solved(df, agg=agg, within=within, solved_type=limit_type)
-        dft = dft.reset_index()
-        dft = dft.groupby(["strategy", "version"]).sum(numeric_only=False)
-        dft = dft.reset_index()
-        dft["strategy-version"] = dft["strategy"] + "-" + dft.version
-        dft = dft.set_index("strategy-version")
-        for sv in map(dashmerge, product(strategies, versions)):
-            # Note: I think the new version of Pandas broke some of this code.
-            # Use 1.5.3 for now and come back and fix.
-            results.loc[sv].loc[within] = dft.loc[sv]["solved"] - (
-                total_tasks - results.loc[sv].loc["rest"]
-            )
-            results.loc[sv].loc["rest"] = (
-                results.loc[sv].loc["rest"] - results.loc[sv].loc[within]
-            )
-    print("results", results)
-    results = results.rename_axis("strategy-version")
-    results = results.reset_index()
+        within_result = list(filter(lambda r: r.__dict__[limit_type] < within, avg_data))
+        for strategy in strategies:
+            strategy_result = len(list(filter(lambda r: r.strategy == strategy, within_result)))
+            results[strategy][within] = strategy_result - sum([w for w in results[strategy].values()])
 
-    results = results.melt(
-        id_vars=["strategy-version"], value_vars=limits + ["rest"]
-    )
-
-    results['strategy'] = results['strategy-version'].apply(lambda x: x.split("-")[0])
-    results['version'] = results['strategy-version'].apply(lambda x: x.split("-")[1])
-    del results['strategy-version']
-
+    for strategy in strategies:
+        results[strategy]["rest"] = len(tasks) - sum([w for w in results[strategy].values()])
     return results
 
 
-def process_data(results: str, figures: str, case: str) -> pd.DataFrame:
-    df = parse_results(results)
+def process_case(results: str, figures: str, case: str) -> TimeSlicedResults:
+    results : list[Result] = parse_results(results)
 
-    charter = partial(
-        time_sliced_results,
-        df=df,
+    results : TimeSlicedResults = time_sliced_results(
+        data=results,
         limits=[0.1, 1, 10, 60],
         limit_type="time",
         strategies=[
@@ -156,30 +149,14 @@ def process_data(results: str, figures: str, case: str) -> pd.DataFrame:
             "TypeBasedFuzzer",
             "TypeBasedGenerator",
         ],
+        case=case
     )
-    # bst = charter(case="BST")
-    # rbt = charter(case="RBT")
-    # stlc = charter(case="STLC")
-    df = charter(case=case)
-    df["workload"] = case
-    # bst["workload"] = "BST"
-    # rbt["workload"] = "RBT"
-    # stlc["workload"] = "STLC"
-    df = pd.concat([df])
-    # Turn variable/value into column, where each variable has its own column and value is the value of that column.
-    df = df.pivot(
-        index=["strategy", "workload", "version"], columns="variable", values="value"
-    ).reset_index()
 
-    df.sort_values(by=["workload", "strategy"], inplace=True)
-
-    df.to_csv(f"{figures}/workloads.csv", index=False)
-
-    return df
+    return results
 
 
 def plot_data(
-    df: pd.DataFrame,
+    data: pd.DataFrame,
     figures: str,
     limit_type: str,
     prefix: str,
@@ -248,7 +225,7 @@ def plot_data(
     # - colors denote the time limit, we create a gradient of colors for each strategy
 
     def tokey(x):
-        return str(float(x)) if x != "rest" else "rest"
+        return str(x)
 
     def luma(r, g, b):
         return 0.299 * r + 0.587 * g + 0.114 * b
@@ -266,9 +243,7 @@ def plot_data(
 
     im = Image.new("RGB", (image_width, image_height), (255, 255, 255))
     draw = ImageDraw.Draw(im)
-    font = ImageFont.truetype(
-        "/System/Library/Fonts/Supplemental/Arial Bold.ttf", fontsize
-    )
+    font = ImageFont.truetype("SourceCodePro-Medium.ttf", fontsize)
 
     x_start = hspace
     total_tasks = tasks[case]
@@ -297,6 +272,7 @@ def plot_data(
                 if limit != "rest"
                 else (240, 240, 240)
             )
+            print(strategy, case, version, limit)
             value = df[(df["strategy"] == strategy) & (df["workload"] == case) & (df["version"] == version)][
                 tokey(limit)
             ].values[0]
@@ -328,6 +304,44 @@ def plot_data(
     im.save(f"{figures}/{prefix}_{case}_{suffix}.png")
 
 
+
+def process_data(results_path: str, images_path: str, case: str) -> pd.DataFrame:
+
+    shallow_results = process_case(results_path, images_path, case)
+    deeper_results = process_case(results_path, images_path, case + "Proplang")
+
+    df = pd.DataFrame(columns=["strategy","workload","version"] + [str(limit) for limit in [0.1, 1, 10, 60, "rest"]])
+
+    for strategy, data in shallow_results.items():
+        df = df.append({
+            "strategy": strategy,
+            "workload": case,
+            "version": "shallow",
+            "0.1": data[0.1],
+            "1": data[1],
+            "10": data[10],
+            "60": data[60],
+            "rest": data["rest"]
+        }, ignore_index=True)
+
+    for strategy, data in deeper_results.items():
+        df = df.append({
+            "strategy": strategy,
+            "workload": case,
+            "version": "deeper",
+            "0.1": data[0.1],
+            "1": data[1],
+            "10": data[10],
+            "60": data[60],
+            "rest": data["rest"]
+        }, ignore_index=True)
+
+    # Save the data to a CSV file.
+    df.to_csv(f"{images_path}/workloads.csv", index=False)
+
+    return df
+
+
 if __name__ == "__main__":
     filepath = pathlib.Path(__file__).resolve().parent
     results_path = f"{filepath}/results"
@@ -341,5 +355,6 @@ if __name__ == "__main__":
         ]:
         df = process_data(results_path, images_path, case)
         df = pd.read_csv(f"{images_path}/workloads.csv", index_col=False)
+        print(df)
         plot_data(df, images_path, "time", "task_bucket", case, show_names=False)
         plot_data(df, images_path, "time", "task_bucket_named", case, show_names=True)

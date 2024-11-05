@@ -4,7 +4,7 @@
 
 (require data/maybe)
 (require data/monad)
-(require algebraic/control/applicative)
+; (require algebraic/control/applicative)
 
 (struct B() #:transparent)
 

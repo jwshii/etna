@@ -243,7 +243,7 @@ def plot_data(
     im = Image.new("RGB", (image_width, image_height), (255, 255, 255))
     draw = ImageDraw.Draw(im)
     font = ImageFont.truetype(
-        "/System/Library/Fonts/Supplemental/Arial Bold.ttf", fontsize
+        "SourceCodePro-Medium.ttf", fontsize
     )
 
     x_start = hspace

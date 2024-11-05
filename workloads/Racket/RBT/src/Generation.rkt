@@ -1,7 +1,7 @@
 #lang racket
 
 
-(require "../src/impl.rkt")
+(require "Impl.rkt")
 (require rackcheck)
 (require data/maybe)
 

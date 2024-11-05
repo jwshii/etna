@@ -1,6 +1,6 @@
 #lang racket
 
-(require (only-in "impl.rkt" E T))
+(require (only-in "Impl.rkt" E T))
 (require (only-in rackcheck gen:tuple gen:natural gen:list gen:let))
 
 (define (insert_correct kv t)

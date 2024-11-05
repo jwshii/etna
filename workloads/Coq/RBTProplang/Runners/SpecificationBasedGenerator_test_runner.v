@@ -1,22 +1,23 @@
-From RBTProplang Require Import SpecificationBasedGenerator.
 From QuickChick Require Import QuickChick.
 
 From PropLang Require Import PropLang.
 Set Warnings "-extraction-opaque-accessed,-extraction".
 
+From RBTProplang Require Import SpecificationBasedGenerator.
+
 Axiom num_tests : nat. 
 Extract Constant num_tests => "max_int".
 
-Definition qctest_test_prop_InsertValid := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (sample1 test_prop_InsertValid))) ++ "}|]")).
-Definition qctest_test_prop_DeleteValid := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (sample1 test_prop_DeleteValid))) ++ "}|]")).
-Definition qctest_test_prop_InsertPost := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (sample1 test_prop_InsertPost))) ++ "}|]")).
-Definition qctest_test_prop_DeletePost := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (sample1 test_prop_DeletePost))) ++ "}|]")).
-Definition qctest_test_prop_InsertModel := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (sample1 test_prop_InsertModel))) ++ "}|]")).
-Definition qctest_test_prop_DeleteModel := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (sample1 test_prop_DeleteModel))) ++ "}|]")).
-Definition qctest_test_prop_InsertInsert := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (sample1 test_prop_InsertInsert))) ++ "}|]")).
-Definition qctest_test_prop_InsertDelete := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (sample1 test_prop_InsertDelete))) ++ "}|]")).
-Definition qctest_test_prop_DeleteInsert := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (sample1 test_prop_DeleteInsert))) ++ "}|]")).
-Definition qctest_test_prop_DeleteDelete := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (sample1 test_prop_DeleteDelete))) ++ "}|]")).
+Definition qctest_test_prop_InsertValid := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (invoke test_prop_InsertValid))) ++ "}|]")).
+Definition qctest_test_prop_DeleteValid := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (invoke test_prop_DeleteValid))) ++ "}|]")).
+Definition qctest_test_prop_InsertPost := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (invoke test_prop_InsertPost))) ++ "}|]")).
+Definition qctest_test_prop_DeletePost := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (invoke test_prop_DeletePost))) ++ "}|]")).
+Definition qctest_test_prop_InsertModel := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (invoke test_prop_InsertModel))) ++ "}|]")).
+Definition qctest_test_prop_DeleteModel := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (invoke test_prop_DeleteModel))) ++ "}|]")).
+Definition qctest_test_prop_InsertInsert := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (invoke test_prop_InsertInsert))) ++ "}|]")).
+Definition qctest_test_prop_InsertDelete := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (invoke test_prop_InsertDelete))) ++ "}|]")).
+Definition qctest_test_prop_DeleteInsert := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (invoke test_prop_DeleteInsert))) ++ "}|]")).
+Definition qctest_test_prop_DeleteDelete := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (invoke test_prop_DeleteDelete))) ++ "}|]")).
 
 Parameter OCamlString : Type.
 Extract Constant OCamlString => "string".

@@ -1,14 +1,15 @@
-From STLCProplang Require Import NewGenerator.
 From QuickChick Require Import QuickChick.
 
 From PropLang Require Import PropLang.
 Set Warnings "-extraction-opaque-accessed,-extraction".
 
+From STLCProplang Require Import NewGenerator.
+
 Axiom num_tests : nat. 
 Extract Constant num_tests => "max_int".
 
-Definition qctest_test_prop_SinglePreserve := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (sample1 test_prop_SinglePreserve))) ++ "}|]")).
-Definition qctest_test_prop_MultiPreserve := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (sample1 test_prop_MultiPreserve))) ++ "}|]")).
+Definition qctest_test_prop_SinglePreserve := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (invoke test_prop_SinglePreserve))) ++ "}|]")).
+Definition qctest_test_prop_MultiPreserve := (fun _ : unit => print_extracted_coq_string ("[|{" ++ show (withTime(fun tt => (invoke test_prop_MultiPreserve))) ++ "}|]")).
 
 Parameter OCamlString : Type.
 Extract Constant OCamlString => "string".

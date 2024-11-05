@@ -758,7 +758,7 @@ End LeftistHeap.
 #[global] Instance HeapSeedPool {A F: Type} `{Scalar F} : @SeedPool A F (@LeftistHeap.Heap A F) :=
 {| mkPool _ := LeftistHeap.empty tt;
   invest seed pool := match seed with 
-                      | (a, f) => LeftistHeap.insert (mkSeed a f 1) pool
+                      | (a, f) => LeftistHeap.insert (mkSeed a f 100) pool
                       end ;
   revise pool :=  match LeftistHeap.extractMax pool with
                   | None => pool

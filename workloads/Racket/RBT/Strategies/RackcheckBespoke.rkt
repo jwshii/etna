@@ -1,13 +1,13 @@
 #lang racket
 
-(require "../src/impl.rkt")
-(require "../src/spec.rkt")
-(require "../src/generation.rkt")
+(require "../src/Impl.rkt")
+(require "../src/Spec.rkt")
+(require "../src/Generation.rkt")
 
 (require rackcheck)
 (require rackunit)
 (require data/maybe)
-(require algebraic/control/applicative)
+; (require algebraic/control/applicative)
 
 (provide (all-defined-out))
 

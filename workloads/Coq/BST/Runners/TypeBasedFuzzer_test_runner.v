@@ -1,7 +1,8 @@
-From BST Require Import TypeBasedFuzzer.
 From QuickChick Require Import QuickChick.
 
 Set Warnings "-extraction-opaque-accessed,-extraction".
+
+From BST Require Import TypeBasedFuzzer.
 
 Axiom num_tests : nat. 
 Extract Constant num_tests => "max_int".

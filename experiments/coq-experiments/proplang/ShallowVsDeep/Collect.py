@@ -10,12 +10,12 @@ def collect(results: str):
     tool = Coq(results=results, replace_level=ReplaceLevel.REPLACE, log_level=LogLevel.DEBUG)
     for workload in tool.all_workloads():
         if workload.name not in [
-                                # 'BST',
-                                # 'BSTProplang', 
-                                #  'RBT', 
-                                #  'RBTProplang',
+                                'BST',
+                                'BSTProplang', 
+                                 'RBT', 
+                                 'RBTProplang',
                                  'STLC',
-                                #  'STLCProplang'
+                                 'STLCProplang'
                                  ]:
             continue
 
@@ -29,9 +29,6 @@ def collect(results: str):
             run_trial = None
 
             for strategy in tool.all_strategies(workload):
-                if strategy.name not in ['BespokeGenerator', 'ProplangBespokeGenerator']:
-                    continue
-
                 for property in tool.all_properties(workload):
 
                     property = 'test_' + property

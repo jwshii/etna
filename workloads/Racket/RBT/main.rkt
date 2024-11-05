@@ -2,8 +2,6 @@
 
 (module+ main
   (require racket/cmdline)
-  (require "src/impl.rkt")
-  (require "src/spec.rkt")
   (require rackcheck)
   (require racket/dict)
   (require (prefix-in rc: "Strategies/RackcheckBespoke.rkt"))

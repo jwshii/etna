@@ -20,7 +20,7 @@ def collect(results: str):
                 for strategy in tool.all_strategies(workload):           
                     tool._log(f'Collecting {workload.name} {variant.name} {strategy.name}...', logging.INFO)
 
-                    properties = tool.all_properties(workload) if workload.name != 'SYSTEMF' else ['prop_SinglePreserve', 'prop_MultiPreserve'] 
+                    properties = tool.all_properties(workload) if workload.name not in ['SYSTEMF', 'STLC'] else ['prop_SinglePreserve', 'prop_MultiPreserve'] 
 
                     for property in properties:
                         tool._log(f'Collecting {workload.name} {variant.name} {strategy.name} {property}...', logging.INFO)

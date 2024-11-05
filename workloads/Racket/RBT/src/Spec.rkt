@@ -2,7 +2,7 @@
 
 (provide (all-defined-out))
 
-(require "./impl.rkt")
+(require "Impl.rkt")
 (require rackcheck)
 (require data/maybe)
 (require data/functor)

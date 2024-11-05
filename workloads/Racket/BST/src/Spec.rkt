@@ -2,7 +2,7 @@
 
 (provide (all-defined-out))
 
-(require "./impl.rkt")
+(require "Impl.rkt")
 (require data/maybe)
 
 ;; tree A -> listof real

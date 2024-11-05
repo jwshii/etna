@@ -1,8 +1,8 @@
 #lang racket
 
 (require rackunit)
-(require "./impl.rkt")
-(require "./spec.rkt")
+(require "Impl.rkt")
+(require "Spec.rkt")
 (require data/maybe)
 
 ; isRBT Tests

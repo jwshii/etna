@@ -27,7 +27,7 @@ class Racket(BenchTool):
                 ignore="util",  # This contains the library code
                 strategies=STRATEGIES_DIR,
                 impl_path=IMPL_DIR,
-                spec_path="src/spec.rkt",
+                spec_path="src/Spec.rkt",
             ),
             results,
             log_level,
