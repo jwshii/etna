@@ -11,7 +11,7 @@ def parse_results(results: str) -> pd.DataFrame:
     entries = scandir_filter(results, os.path.isfile)
     entries = [e for e in entries if e.path.endswith('.json')]
 
-    df = pd.concat([df_insert(pd.read_json(e.path, orient='records', typ='frame'), "version", e.name.split(',')[2]) for e in entries])
+    df = pd.concat([df_insert(pd.read_json(e.path, orient='records', typ='frame'), "version", e.name.split(',')[4] if len(e.name.split(',')) >= 5 else "HeapSeedPool") for e in entries])
 
     df['inputs'] = df.apply(lambda x: x['passed'] + (1 if x['foundbug'] else 0), axis=1)
     df = df.drop(['passed'], axis=1)
@@ -59,15 +59,15 @@ def stacked_barchart_times(
     if not strategies:
         strategies = df.strategy.unique()
 
-    vmap = {
-        '0': 'HeapSeedPool',
-        '1': 'StaticSingletonPool',
-        '2': 'DynamicMonotonicSingletonPool',
-        '3': 'DynamicResettingSingletonPool',
-        '4': 'QueueSeedPool',
-    }
+    # vmap = {
+    #     '0': 'HeapSeedPool',
+    #     '1': 'StaticSingletonPool',
+    #     '2': 'DynamicMonotonicSingletonPool',
+    #     '3': 'DynamicResettingSingletonPool',
+    #     '4': 'QueueSeedPool',
+    # }
 
-    df['version'] = df['version'].apply(lambda x: vmap[x])
+    # df['version'] = df['version'].apply(lambda x: vmap[x])
 
     versions = df.version.unique()
 
@@ -210,11 +210,11 @@ def analyze(results: str, images: str):
             show=False,
         )
 
-    for workload in ['STLCProplang', 'RBTProplang']:
+    for workload in ['STLCProplang', 'RBTProplang', 'IFCProplang']:
         times = partial(stacked_barchart_times, case=workload, df=df)
         times(
             strategies=[
-                'TypeBasedFuzzer',
+                'VariationalMutatingGenerator',
             ],
             colors=['#000000', '#900D0D', '#DC5F00', '#243763', '#FFD700'],
             limits=[0.1, 1, 10, 60],

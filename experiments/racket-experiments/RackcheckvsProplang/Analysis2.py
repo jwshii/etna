@@ -306,7 +306,7 @@ if __name__ == "__main__":
     results_path = f"{filepath}/results"
     images_path = f"{filepath}/figures"
     # analyze(results_path, images_path)
-    limit_type = "time"
+    limit_type = "search-time"
     df = process_data(results_path, images_path, limit_type)
     df = pd.read_csv(f"{images_path}/workloads.csv", index_col=False)
     for case in ["BST", "RBT", "STLC", "SYSTEMF"]:

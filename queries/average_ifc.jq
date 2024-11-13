@@ -7,20 +7,12 @@ def bin: if . < 0 then "error"
          else "timeout"
          end;
 
-def version: if .version == null then "none"
-             else
-                .version as $version
-                | $version | split(",") | .[0] as $structure
-                | $version | split(",") | .[-2] | .[0:-1] as $energy
-                | $structure + "-" + $energy
-            end;
-
 def average($workload; $strategy):
     flatten
     | map(select((.workload | test($workload)) and (.strategy | test($strategy))))
-    | if ($workload == ".*") and ($strategy == ".*") then group_by(.mutant, .property, .version, .strategy, .workload)
-      elif $workload == ".*" then group_by(.mutant, .property, .version, .workload)
-      elif $strategy == ".*" then group_by(.mutant, .property, .version, .strategy)
+    | if ($workload == ".*") and ($strategy == ".*") then group_by(.mutant, .property, .strategy, .workload)
+      elif $workload == ".*" then group_by(.mutant, .property, .workload)
+      elif $strategy == ".*" then group_by(.mutant, .property, .strategy)
       else group_by(.mutant, .property)
       end
     | map({
@@ -47,7 +39,6 @@ def count_bins($averages):
 def main:
     (if $ARGS.named.workload == null then ".*" else $ARGS.named.workload + "$" end) as $workload
     | (if $ARGS.named.strategy == null then ".*" else $ARGS.named.strategy + "$" end) as $strategy
-    # | map(.[] | version)
     | average($workload; $strategy)
     | if $ARGS.named.bins == "true" then 
         count_bins(.)
