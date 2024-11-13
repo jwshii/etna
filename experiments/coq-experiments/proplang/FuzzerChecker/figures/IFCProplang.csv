@@ -1,0 +1,106 @@
+,strategy,variable,value
+0,"VariationalMutatingGenerator-FIFOSeedPool,| (a, f) => FIFOQueue.push (mkSeed a f 1000) pool.json",0.1,5
+1,"VariationalMutatingGenerator-HeapSeedPool,LeftistHeap.insert (mkSeed a f 1) pool.json",0.1,7
+2,"VariationalMutatingGenerator-HeapSeedPool,LeftistHeap.insert (mkSeed a f 1000) pool.json",0.1,8
+3,"VariationalMutatingGenerator-FILOSeedPool,| (a, f) => FILOQueue.push (mkSeed a f 1) pool.json",0.1,5
+4,"VariationalMutatingGenerator-DynamicMonotonicSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 1000) |}.json",0.1,6
+5,"VariationalMutatingGenerator-FIFOSeedPool,| (a, f) => FIFOQueue.push (mkSeed a f 10) pool.json",0.1,2
+6,"VariationalMutatingGenerator-DynamicResettingSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 1000) |}.json",0.1,5
+7,"VariationalMutatingGenerator-DynamicResettingSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 10) |}.json",0.1,5
+8,"VariationalMutatingGenerator-FILOSeedPool,| (a, f) => FILOQueue.push (mkSeed a f 100) pool.json",0.1,6
+9,"VariationalMutatingGenerator-DynamicMonotonicSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 1) |}.json",0.1,4
+10,"VariationalMutatingGenerator-DynamicMonotonicSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 100) |}.json",0.1,6
+11,"VariationalMutatingGenerator-DynamicMonotonicSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 10) |}.json",0.1,4
+12,"VariationalMutatingGenerator-HeapSeedPool,LeftistHeap.insert (mkSeed a f 100) pool.json",0.1,18
+13,"VariationalMutatingGenerator-FIFOSeedPool,| (a, f) => FIFOQueue.push (mkSeed a f 100) pool.json",0.1,7
+14,"VariationalMutatingGenerator-DynamicResettingSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 1) |}.json",0.1,3
+15,"VariationalMutatingGenerator-FILOSeedPool,| (a, f) => FILOQueue.push (mkSeed a f 1000) pool.json",0.1,5
+16,"VariationalMutatingGenerator-DynamicResettingSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 100) |}.json",0.1,4
+17,"VariationalMutatingGenerator-FILOSeedPool,| (a, f) => FILOQueue.push (mkSeed a f 10) pool.json",0.1,2
+18,"VariationalMutatingGenerator-FIFOSeedPool,| (a, f) => FIFOQueue.push (mkSeed a f 1) pool.json",0.1,4
+19,"VariationalMutatingGenerator-HeapSeedPool,LeftistHeap.insert (mkSeed a f 10) pool.json",0.1,14
+20,"VariationalMutatingGenerator-StaticSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 1) |}.json",0.1,6
+21,"VariationalMutatingGenerator-FIFOSeedPool,| (a, f) => FIFOQueue.push (mkSeed a f 1000) pool.json",1.0,8
+22,"VariationalMutatingGenerator-HeapSeedPool,LeftistHeap.insert (mkSeed a f 1) pool.json",1.0,12
+23,"VariationalMutatingGenerator-HeapSeedPool,LeftistHeap.insert (mkSeed a f 1000) pool.json",1.0,6
+24,"VariationalMutatingGenerator-FILOSeedPool,| (a, f) => FILOQueue.push (mkSeed a f 1) pool.json",1.0,13
+25,"VariationalMutatingGenerator-DynamicMonotonicSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 1000) |}.json",1.0,11
+26,"VariationalMutatingGenerator-FIFOSeedPool,| (a, f) => FIFOQueue.push (mkSeed a f 10) pool.json",1.0,12
+27,"VariationalMutatingGenerator-DynamicResettingSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 1000) |}.json",1.0,10
+28,"VariationalMutatingGenerator-DynamicResettingSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 10) |}.json",1.0,8
+29,"VariationalMutatingGenerator-FILOSeedPool,| (a, f) => FILOQueue.push (mkSeed a f 100) pool.json",1.0,8
+30,"VariationalMutatingGenerator-DynamicMonotonicSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 1) |}.json",1.0,8
+31,"VariationalMutatingGenerator-DynamicMonotonicSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 100) |}.json",1.0,6
+32,"VariationalMutatingGenerator-DynamicMonotonicSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 10) |}.json",1.0,9
+33,"VariationalMutatingGenerator-HeapSeedPool,LeftistHeap.insert (mkSeed a f 100) pool.json",1.0,5
+34,"VariationalMutatingGenerator-FIFOSeedPool,| (a, f) => FIFOQueue.push (mkSeed a f 100) pool.json",1.0,5
+35,"VariationalMutatingGenerator-DynamicResettingSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 1) |}.json",1.0,12
+36,"VariationalMutatingGenerator-FILOSeedPool,| (a, f) => FILOQueue.push (mkSeed a f 1000) pool.json",1.0,8
+37,"VariationalMutatingGenerator-DynamicResettingSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 100) |}.json",1.0,10
+38,"VariationalMutatingGenerator-FILOSeedPool,| (a, f) => FILOQueue.push (mkSeed a f 10) pool.json",1.0,9
+39,"VariationalMutatingGenerator-FIFOSeedPool,| (a, f) => FIFOQueue.push (mkSeed a f 1) pool.json",1.0,8
+40,"VariationalMutatingGenerator-HeapSeedPool,LeftistHeap.insert (mkSeed a f 10) pool.json",1.0,5
+41,"VariationalMutatingGenerator-StaticSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 1) |}.json",1.0,8
+42,"VariationalMutatingGenerator-FIFOSeedPool,| (a, f) => FIFOQueue.push (mkSeed a f 1000) pool.json",10.0,6
+43,"VariationalMutatingGenerator-HeapSeedPool,LeftistHeap.insert (mkSeed a f 1) pool.json",10.0,7
+44,"VariationalMutatingGenerator-HeapSeedPool,LeftistHeap.insert (mkSeed a f 1000) pool.json",10.0,3
+45,"VariationalMutatingGenerator-FILOSeedPool,| (a, f) => FILOQueue.push (mkSeed a f 1) pool.json",10.0,4
+46,"VariationalMutatingGenerator-DynamicMonotonicSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 1000) |}.json",10.0,4
+47,"VariationalMutatingGenerator-FIFOSeedPool,| (a, f) => FIFOQueue.push (mkSeed a f 10) pool.json",10.0,2
+48,"VariationalMutatingGenerator-DynamicResettingSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 1000) |}.json",10.0,5
+49,"VariationalMutatingGenerator-DynamicResettingSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 10) |}.json",10.0,3
+50,"VariationalMutatingGenerator-FILOSeedPool,| (a, f) => FILOQueue.push (mkSeed a f 100) pool.json",10.0,6
+51,"VariationalMutatingGenerator-DynamicMonotonicSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 1) |}.json",10.0,2
+52,"VariationalMutatingGenerator-DynamicMonotonicSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 100) |}.json",10.0,4
+53,"VariationalMutatingGenerator-DynamicMonotonicSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 10) |}.json",10.0,5
+54,"VariationalMutatingGenerator-HeapSeedPool,LeftistHeap.insert (mkSeed a f 100) pool.json",10.0,1
+55,"VariationalMutatingGenerator-FIFOSeedPool,| (a, f) => FIFOQueue.push (mkSeed a f 100) pool.json",10.0,5
+56,"VariationalMutatingGenerator-DynamicResettingSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 1) |}.json",10.0,5
+57,"VariationalMutatingGenerator-FILOSeedPool,| (a, f) => FILOQueue.push (mkSeed a f 1000) pool.json",10.0,5
+58,"VariationalMutatingGenerator-DynamicResettingSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 100) |}.json",10.0,5
+59,"VariationalMutatingGenerator-FILOSeedPool,| (a, f) => FILOQueue.push (mkSeed a f 10) pool.json",10.0,9
+60,"VariationalMutatingGenerator-FIFOSeedPool,| (a, f) => FIFOQueue.push (mkSeed a f 1) pool.json",10.0,4
+61,"VariationalMutatingGenerator-HeapSeedPool,LeftistHeap.insert (mkSeed a f 10) pool.json",10.0,7
+62,"VariationalMutatingGenerator-StaticSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 1) |}.json",10.0,2
+63,"VariationalMutatingGenerator-FIFOSeedPool,| (a, f) => FIFOQueue.push (mkSeed a f 1000) pool.json",60.0,2
+64,"VariationalMutatingGenerator-HeapSeedPool,LeftistHeap.insert (mkSeed a f 1) pool.json",60.0,5
+65,"VariationalMutatingGenerator-HeapSeedPool,LeftistHeap.insert (mkSeed a f 1000) pool.json",60.0,0
+66,"VariationalMutatingGenerator-FILOSeedPool,| (a, f) => FILOQueue.push (mkSeed a f 1) pool.json",60.0,1
+67,"VariationalMutatingGenerator-DynamicMonotonicSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 1000) |}.json",60.0,0
+68,"VariationalMutatingGenerator-FIFOSeedPool,| (a, f) => FIFOQueue.push (mkSeed a f 10) pool.json",60.0,4
+69,"VariationalMutatingGenerator-DynamicResettingSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 1000) |}.json",60.0,2
+70,"VariationalMutatingGenerator-DynamicResettingSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 10) |}.json",60.0,4
+71,"VariationalMutatingGenerator-FILOSeedPool,| (a, f) => FILOQueue.push (mkSeed a f 100) pool.json",60.0,2
+72,"VariationalMutatingGenerator-DynamicMonotonicSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 1) |}.json",60.0,3
+73,"VariationalMutatingGenerator-DynamicMonotonicSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 100) |}.json",60.0,2
+74,"VariationalMutatingGenerator-DynamicMonotonicSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 10) |}.json",60.0,2
+75,"VariationalMutatingGenerator-HeapSeedPool,LeftistHeap.insert (mkSeed a f 100) pool.json",60.0,3
+76,"VariationalMutatingGenerator-FIFOSeedPool,| (a, f) => FIFOQueue.push (mkSeed a f 100) pool.json",60.0,3
+77,"VariationalMutatingGenerator-DynamicResettingSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 1) |}.json",60.0,2
+78,"VariationalMutatingGenerator-FILOSeedPool,| (a, f) => FILOQueue.push (mkSeed a f 1000) pool.json",60.0,3
+79,"VariationalMutatingGenerator-DynamicResettingSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 100) |}.json",60.0,0
+80,"VariationalMutatingGenerator-FILOSeedPool,| (a, f) => FILOQueue.push (mkSeed a f 10) pool.json",60.0,1
+81,"VariationalMutatingGenerator-FIFOSeedPool,| (a, f) => FIFOQueue.push (mkSeed a f 1) pool.json",60.0,2
+82,"VariationalMutatingGenerator-HeapSeedPool,LeftistHeap.insert (mkSeed a f 10) pool.json",60.0,5
+83,"VariationalMutatingGenerator-StaticSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 1) |}.json",60.0,2
+84,"VariationalMutatingGenerator-FIFOSeedPool,| (a, f) => FIFOQueue.push (mkSeed a f 1000) pool.json",rest,49
+85,"VariationalMutatingGenerator-HeapSeedPool,LeftistHeap.insert (mkSeed a f 1) pool.json",rest,39
+86,"VariationalMutatingGenerator-HeapSeedPool,LeftistHeap.insert (mkSeed a f 1000) pool.json",rest,53
+87,"VariationalMutatingGenerator-FILOSeedPool,| (a, f) => FILOQueue.push (mkSeed a f 1) pool.json",rest,47
+88,"VariationalMutatingGenerator-DynamicMonotonicSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 1000) |}.json",rest,49
+89,"VariationalMutatingGenerator-FIFOSeedPool,| (a, f) => FIFOQueue.push (mkSeed a f 10) pool.json",rest,50
+90,"VariationalMutatingGenerator-DynamicResettingSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 1000) |}.json",rest,48
+91,"VariationalMutatingGenerator-DynamicResettingSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 10) |}.json",rest,50
+92,"VariationalMutatingGenerator-FILOSeedPool,| (a, f) => FILOQueue.push (mkSeed a f 100) pool.json",rest,48
+93,"VariationalMutatingGenerator-DynamicMonotonicSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 1) |}.json",rest,53
+94,"VariationalMutatingGenerator-DynamicMonotonicSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 100) |}.json",rest,52
+95,"VariationalMutatingGenerator-DynamicMonotonicSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 10) |}.json",rest,50
+96,"VariationalMutatingGenerator-HeapSeedPool,LeftistHeap.insert (mkSeed a f 100) pool.json",rest,43
+97,"VariationalMutatingGenerator-FIFOSeedPool,| (a, f) => FIFOQueue.push (mkSeed a f 100) pool.json",rest,50
+98,"VariationalMutatingGenerator-DynamicResettingSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 1) |}.json",rest,48
+99,"VariationalMutatingGenerator-FILOSeedPool,| (a, f) => FILOQueue.push (mkSeed a f 1000) pool.json",rest,49
+100,"VariationalMutatingGenerator-DynamicResettingSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 100) |}.json",rest,51
+101,"VariationalMutatingGenerator-FILOSeedPool,| (a, f) => FILOQueue.push (mkSeed a f 10) pool.json",rest,49
+102,"VariationalMutatingGenerator-FIFOSeedPool,| (a, f) => FIFOQueue.push (mkSeed a f 1) pool.json",rest,52
+103,"VariationalMutatingGenerator-HeapSeedPool,LeftistHeap.insert (mkSeed a f 10) pool.json",rest,39
+104,"VariationalMutatingGenerator-StaticSingletonPool,| (a, f) => {| seed := Some (mkSeed a f 1) |}.json",rest,52
