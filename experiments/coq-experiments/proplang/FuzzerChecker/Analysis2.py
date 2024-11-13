@@ -342,6 +342,6 @@ if __name__ == "__main__":
     # analyze(results_path, images_path)
     df = process_data(results_path, images_path)
     df = pd.read_csv(f"{images_path}/workloads.csv", index_col=False)
-    for case in ["BST", "RBT", "STLC"]:
+    for case in ["BST", "RBT", "STLC", "IFC"]:
         plot_data(df, images_path, "time", "task_bucket", case, show_names=False)
         plot_data(df, images_path, "time", "task_bucket_named", case, show_names=True)

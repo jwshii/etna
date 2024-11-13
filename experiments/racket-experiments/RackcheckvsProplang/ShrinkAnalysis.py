@@ -63,19 +63,25 @@ for file in filter(lambda f: f.startswith("SYSTEMF"), os.listdir(results_path)):
     jsonfile = results_path / file
     contents = json.load(open(jsonfile))
     for i, item in enumerate(contents):
-        if item.get("size") is not None:
-            continue
-
-        print("\tWorking on ", i)
-        term = item["counterexample"]
-        size = get_size_of(term)
-        if item["shrinked-counterexample"] == "-" or item["shrinked-counterexample"] == "#f":
-            shrinked_size = size
+        if item.get("size") is None:
+            term = item["counterexample"]
+            size = get_size_of(term)
         else:
-            shrinked_size = get_size_of(item["shrinked-counterexample"])
+            size = item["size"]
+
+        print("\tWorking on ", i, item)
         
-        item["size"] = int(size.strip())
-        item["shrinked-size"] = int(shrinked_size.strip())
+        if item["shrinked-counterexample"] == "-" or item["shrinked-counterexample"] == "#f":
+            shrinked_size = -1
+        else:
+            if item.get("shrinked-size") is None:
+                shrinked_size = get_size_of(item["shrinked-counterexample"])
+            else:
+                shrinked_size = item["shrinked-size"]
+            # shrinked_size = item.get("shrinked-size", get_size_of(item["shrinked-counterexample"]))
+        
+        item["size"] = int(str(size).strip())
+        item["shrinked-size"] = int(str(shrinked_size).strip())
     json.dump(contents, open(jsonfile, "w"))
 
 
@@ -107,6 +113,9 @@ for file in filter(lambda f: f.startswith("SYSTEMF"), os.listdir(results_path)):
         size = item["size"]
         shrinked_size = item["shrinked-size"]
         shrinkage = size / shrinked_size
+        if shrinkage < 0:
+            continue
+        
         total += shrinkage
         average_size += size
         average_shrinked_size += shrinked_size
@@ -127,20 +136,28 @@ for file in filter(lambda f: f.startswith("SYSTEMF"), os.listdir(results_path)):
 
 average_win_shrinkage = 0
 average_win_size = 0
+average_proplang_shrinkage = 0
+average_rackcheck_shrinkage = 0
 for key, value in shrinkages.items():
     print(f"Mutant: {key[0]}, Property: {key[1]}")
     print(f"\tProplangBespoke: {value['ProplangBespoke']}")
     print(f"\tRackcheckBespoke: {value['RackcheckBespoke']}")
     print(f"\tProplang/Rackcheck: {value['Proplang/Rackcheck']}")
     print(f"\tProplang/Rackcheck Size: {value['Proplang/Rackcheck Size']}\n")
+    average_proplang_shrinkage += value['ProplangBespoke']['Shrinkage']
+    average_rackcheck_shrinkage += value['RackcheckBespoke']['Shrinkage']
     average_win_shrinkage += value['Proplang/Rackcheck']
     average_win_size += value['Proplang/Rackcheck Size']
 
 
 average_win_shrinkage /= len(shrinkages)
 average_win_size /= len(shrinkages)
+average_proplang_shrinkage /= len(shrinkages)
+average_rackcheck_shrinkage /= len(shrinkages)
 
 print(f"Average win ratio for Proplang Shrinkage is {average_win_shrinkage}")
 print(f"Average win ratio for Proplang Size is {average_win_size}")
+print(f"Average Proplang Shrinkage is {average_proplang_shrinkage}")
+print(f"Average Rackcheck Shrinkage is {average_rackcheck_shrinkage}")
 
 
