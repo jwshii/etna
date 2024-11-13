@@ -7,12 +7,20 @@ def df_insert(df: pd.DataFrame, column: str, value: any) -> pd.DataFrame:
     df.insert(len(df.columns), column, value)
     return df
 
+def name_to_version(name: str) -> str:
+    subparts = name.split(',')
+    if len(subparts) >= 5:
+        return ",".join(subparts[4:])
+    return "FIFOSeedPool,| (a, f) => FIFOQueue.push (mkSeed a f 10) pool.json"
+
 def parse_results(results: str) -> pd.DataFrame:
     entries = scandir_filter(results, os.path.isfile)
     entries = [e for e in entries if e.path.endswith('.json')]
 
-    df = pd.concat([df_insert(pd.read_json(e.path, orient='records', typ='frame'), "version", e.name.split(',')[4] if len(e.name.split(',')) >= 5 else "HeapSeedPool") for e in entries])
 
+    # df = pd.concat([df_insert(pd.read_json(e.path, orient='records', typ='frame'), "version", e.name.split(',')[4] if len(e.name.split(',')) >= 5 else "HeapSeedPool") for e in entries])
+    df = pd.concat([df_insert(pd.read_json(e.path, orient='records', typ='frame'), "version", name_to_version(e.name)) for e in entries])
+    print(df)
     df['inputs'] = df.apply(lambda x: x['passed'] + (1 if x['foundbug'] else 0), axis=1)
     df = df.drop(['passed'], axis=1)
 
@@ -84,6 +92,7 @@ def stacked_barchart_times(
 
     for within in limits:
         dft = overall_solved(df, agg=agg, within=within, solved_type=limit_type)
+        pd.set_option('display.max_colwidth', None)
         print(dft)
         dft = dft.reset_index()
         dft = dft.groupby(['strategy']).sum(numeric_only=False)
@@ -103,6 +112,36 @@ def stacked_barchart_times(
     if not colors:
         colors = [
             '#000000',  # black
+            '#900D0D',  # red
+            '#DC5F00',  # orange
+            '#243763',  # blue
+            '#436E4F',  # green
+            '#470938',  # purple
+            '#D61C4E',  # pink
+            '#334756',  # dark blue
+            '#290001',  # dark brown
+            '#000000',  # black
+                        '#000000',  # black
+            '#900D0D',  # red
+            '#DC5F00',  # orange
+            '#243763',  # blue
+            '#436E4F',  # green
+            '#470938',  # purple
+            '#D61C4E',  # pink
+            '#334756',  # dark blue
+            '#290001',  # dark brown
+            '#000000',  # black
+                        '#000000',  # black
+            '#900D0D',  # red
+            '#DC5F00',  # orange
+            '#243763',  # blue
+            '#436E4F',  # green
+            '#470938',  # purple
+            '#D61C4E',  # pink
+            '#334756',  # dark blue
+            '#290001',  # dark brown
+            '#000000',  # black
+                        '#000000',  # black
             '#900D0D',  # red
             '#DC5F00',  # orange
             '#243763',  # blue
@@ -139,7 +178,9 @@ def stacked_barchart_times(
     strategies = sorted(strategies,
                         key=lambda x: strategy_sorter[x] if x in strategy_sorter.keys() else -1)
 
+    print(len(strategies))
     for strategy, color in zip(strategies[::-1], extrapolated_colors):
+        print(strategy)
         fig.add_trace(
             go.Bar(
                 x=results[results['strategy'] == strategy]['value'],
@@ -216,11 +257,12 @@ def analyze(results: str, images: str):
             strategies=[
                 'VariationalMutatingGenerator',
             ],
-            colors=['#000000', '#900D0D', '#DC5F00', '#243763', '#FFD700'],
+            # colors=['#000000', '#900D0D', '#DC5F00', '#243763', '#FFD700'],
             limits=[0.1, 1, 10, 60],
             limit_type='time',
             image_path=images,
             show=False,
+            agg='any',
         )
 
 if __name__ == "__main__":

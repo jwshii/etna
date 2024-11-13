@@ -10,11 +10,11 @@ def collect(results: str):
     tool = Coq(results=results, replace_level=ReplaceLevel.REPLACE, log_level=LogLevel.DEBUG)
     for workload in tool.all_workloads():
         if workload.name not in [
-                                'BST',
+                                # 'BST',
                                 'BSTProplang', 
-                                 'RBT', 
+                                #  'RBT', 
                                  'RBTProplang',
-                                 'STLC',
+                                #  'STLC',
                                  'STLCProplang'
                                  ]:
             continue
@@ -29,6 +29,10 @@ def collect(results: str):
             run_trial = None
 
             for strategy in tool.all_strategies(workload):
+                print(f'Processing {workload.name},{strategy.name},{variant.name}')
+                if strategy.name != "TypeBasedFuzzer":
+                    continue
+                # print(f'Processing {workload.name},{strategy.name},{variant.name}')
                 for property in tool.all_properties(workload):
 
                     property = 'test_' + property

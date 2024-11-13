@@ -33,7 +33,7 @@ Definition prop_InsertValid   :=
 	Check (nat · (nat · (Tree · ∅)))
 	(fun '(v, (k, (t, _))) => (isBST (insert k v t))))))).
 
-Definition test_prop_InsertValid := (fuzzLoop number_of_trials prop_InsertValid (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_InsertValid := (fuzzLoop number_of_trials prop_InsertValid (FIFOSeedPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_InsertValid. *)
 
 Definition prop_DeleteValid   :=
@@ -43,7 +43,7 @@ Definition prop_DeleteValid   :=
 	Check (nat · (Tree · ∅))
 	(fun '(k, (t, _)) => (isBST (delete k t)))))).
 
-Definition test_prop_DeleteValid := (fuzzLoop number_of_trials prop_DeleteValid (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_DeleteValid := (fuzzLoop number_of_trials prop_DeleteValid (FIFOSeedPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_DeleteValid. *)
 
 Definition prop_UnionValid :=
@@ -54,7 +54,7 @@ Definition prop_UnionValid :=
 	Check (Tree · (Tree · ∅))
 	(fun '(t2, (t1, _)) => (isBST (union t1 t2))))))).
 
-Definition test_prop_UnionValid := (fuzzLoop number_of_trials prop_UnionValid (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_UnionValid := (fuzzLoop number_of_trials prop_UnionValid (FIFOSeedPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_UnionValid. *)
 
 Definition prop_InsertPost :=
@@ -66,7 +66,7 @@ Definition prop_InsertPost :=
 	Check (nat · (nat · (nat · (Tree · ∅))))
 	(fun '(v, (k', (k, (t, _)))) => ((find k' (insert k v t) = if k =? k' then Some v else find k' t)?))))))).
 
-Definition test_prop_InsertPost := (fuzzLoop number_of_trials prop_InsertPost (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_InsertPost := (fuzzLoop number_of_trials prop_InsertPost (FIFOSeedPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_InsertPost. *)
 
 
@@ -78,7 +78,7 @@ Definition prop_DeletePost :=
 	Check (nat · (nat · (Tree · ∅)))
 	(fun '(k', (k, (t, _))) => ((find k' (delete k t) = if k =? k' then None else find k' t)?)))))).
 
-Definition test_prop_DeletePost := (fuzzLoop number_of_trials prop_DeletePost (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_DeletePost := (fuzzLoop number_of_trials prop_DeletePost (FIFOSeedPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_DeletePost. *)
 
 Definition prop_UnionPost :=
@@ -96,7 +96,7 @@ Definition prop_UnionPost :=
 											end
 									end)))))).
 
-Definition test_prop_UnionPost := (fuzzLoop number_of_trials prop_UnionPost (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_UnionPost := (fuzzLoop number_of_trials prop_UnionPost (FIFOSeedPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_UnionPost. *)
 
 Definition prop_InsertModel :=
@@ -107,7 +107,7 @@ Definition prop_InsertModel :=
 	Check (nat · (nat · (Tree · ∅)))
 	(fun '(v, (k, (t, _))) => ((toList (insert k v t) = L_insert (k, v) (deleteKey k (toList t)))?)))))).
 
-Definition test_prop_InsertModel := (fuzzLoop number_of_trials prop_InsertModel (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_InsertModel := (fuzzLoop number_of_trials prop_InsertModel (FIFOSeedPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_InsertModel. *)
 
 Definition prop_DeleteModel :=
@@ -117,7 +117,7 @@ Definition prop_DeleteModel :=
 	Check (nat · (Tree · ∅))
 	(fun '(k, (t, _)) => ((toList (delete k t) = deleteKey k (toList t))?))))).
 
-Definition test_prop_DeleteModel := (fuzzLoop number_of_trials prop_DeleteModel (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_DeleteModel := (fuzzLoop number_of_trials prop_DeleteModel (FIFOSeedPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_DeleteModel. *)
 
 Definition prop_UnionModel :=
@@ -128,7 +128,7 @@ Definition prop_UnionModel :=
 	Check (Tree · (Tree · ∅))
 	(fun '(t', (t, _)) => ((toList (union t t') = L_sort (L_unionBy (fun x y => x) (toList t) (toList t')))?)))))).
 
-Definition test_prop_UnionModel := (fuzzLoop number_of_trials prop_UnionModel (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_UnionModel := (fuzzLoop number_of_trials prop_UnionModel (FIFOSeedPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_UnionModel. *)
 
 Definition prop_InsertInsert :=
@@ -141,7 +141,7 @@ Definition prop_InsertInsert :=
 	Check (nat · (nat · (nat · (nat · (Tree · ∅)))))
 	(fun '(v', (v, (k', (k, (t, _))))) => (insert k v (insert k' v' t) =|= if k =? k' then insert k v t else insert k' v' (insert k v t))))))))).
 
-Definition test_prop_InsertInsert := (fuzzLoop number_of_trials prop_InsertInsert (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_InsertInsert := (fuzzLoop number_of_trials prop_InsertInsert (FIFOSeedPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_InsertInsert. *)
 
 Definition prop_InsertDelete :=
@@ -153,7 +153,7 @@ Definition prop_InsertDelete :=
 	Check (nat · (nat · (nat · (Tree · ∅))))
 	(fun '(v, (k', (k, (t, _)))) => ((insert k v (delete k' t) =|= if k =? k' then insert k v t else delete k' (insert k v t))))))))).
 
-Definition test_prop_InsertDelete := (fuzzLoop number_of_trials prop_InsertDelete (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_InsertDelete := (fuzzLoop number_of_trials prop_InsertDelete (FIFOSeedPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_InsertDelete. *)
 
 Definition prop_InsertUnion :=
@@ -166,7 +166,7 @@ Definition prop_InsertUnion :=
 	Check (nat · (nat · (Tree · (Tree · ∅))))
 	(fun '(v, (k, (t', (t, _)))) => (insert k v (union t t') =|= union (insert k v t) t')))))))).
 
-Definition test_prop_InsertUnion := (fuzzLoop number_of_trials prop_InsertUnion (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_InsertUnion := (fuzzLoop number_of_trials prop_InsertUnion (FIFOSeedPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_InsertUnion. *)
 
 Definition prop_DeleteInsert :=
@@ -178,7 +178,7 @@ Definition prop_DeleteInsert :=
 	Check (nat · (nat · (nat · (Tree · ∅))))
 	(fun '(v', (k', (k, (t, _)))) => (delete k (insert k' v' t) =|= if k =? k' then delete k t else insert k' v' (delete k t)))))))).
 
-Definition test_prop_DeleteInsert := (fuzzLoop number_of_trials prop_DeleteInsert (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_DeleteInsert := (fuzzLoop number_of_trials prop_DeleteInsert (FIFOSeedPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_DeleteInsert. *)
 
 Definition prop_DeleteDelete :=
@@ -189,7 +189,7 @@ Definition prop_DeleteDelete :=
 	Check (nat · (nat · (Tree · ∅)))
 	(fun '(k', (k, (t, _))) => ((delete k (delete k' t) =|= delete k' (delete k t)))))))).
 
-Definition test_prop_DeleteDelete := (fuzzLoop number_of_trials prop_DeleteDelete (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_DeleteDelete := (fuzzLoop number_of_trials prop_DeleteDelete (FIFOSeedPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_DeleteDelete. *)
 
 Definition prop_DeleteUnion :=
@@ -201,7 +201,7 @@ Definition prop_DeleteUnion :=
 	Check (nat · (Tree · (Tree · ∅)))
 	(fun '(k, (t', (t, _))) => (delete k (union t t') =|= union (delete k t) (delete k t')))))))).
 
-Definition test_prop_DeleteUnion := (fuzzLoop number_of_trials prop_DeleteUnion (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_DeleteUnion := (fuzzLoop number_of_trials prop_DeleteUnion (FIFOSeedPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_DeleteUnion. *)
 
 Definition prop_UnionDeleteInsert :=
@@ -214,7 +214,7 @@ Definition prop_UnionDeleteInsert :=
 	Check (nat · (nat · (Tree · (Tree · ∅))))
 	(fun '(v, (k, (t', (t, _)))) => ((union (delete k t) (insert k v t') =|= insert k v (union t t')))))))))).
 
-Definition test_prop_UnionDeleteInsert := (fuzzLoop number_of_trials prop_UnionDeleteInsert (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_UnionDeleteInsert := (fuzzLoop number_of_trials prop_UnionDeleteInsert (FIFOSeedPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_UnionDeleteInsert. *)
 
 Definition prop_UnionUnionIdem :=
@@ -223,7 +223,7 @@ Definition prop_UnionUnionIdem :=
 	Check (Tree · ∅)
 	(fun '(t, _) => (union t t =|= t)))).
 
-Definition test_prop_UnionUnionIdem := (fuzzLoop number_of_trials prop_UnionUnionIdem (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_UnionUnionIdem := (fuzzLoop number_of_trials prop_UnionUnionIdem (FIFOSeedPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_UnionUnionIdem. *)
 
 Definition prop_UnionUnionAssoc :=
@@ -236,6 +236,6 @@ Definition prop_UnionUnionAssoc :=
 	Check (Tree · (Tree · (Tree · ∅)))
 	(fun '(t3, (t2, (t1, _))) => (union (union t1 t2) t3 =|= union t1 (union t2 t3))))))))).
 
-Definition test_prop_UnionUnionAssoc := (fuzzLoop number_of_trials prop_UnionUnionAssoc (HeapSeedPool.(mkPool) tt) HillClimbingUtility).
+Definition test_prop_UnionUnionAssoc := (fuzzLoop number_of_trials prop_UnionUnionAssoc (FIFOSeedPool.(mkPool) tt) HillClimbingUtility).
 (*! QuickProp test_prop_UnionUnionAssoc. *)
 

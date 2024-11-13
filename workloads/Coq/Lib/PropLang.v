@@ -584,7 +584,7 @@ Import FIFOQueue.
 #[global] Instance FIFOSeedPool {A F: Type}  `{Scalar F} : @SeedPool A F (FIFOQueue.t (@Seed A F)) :=
 {| mkPool _ := FIFOQueue.mkFIFOQueue tt;
   invest seed pool := match seed with 
-                      | (a, f) => FIFOQueue.push (mkSeed a f 1) pool
+                      | (a, f) => FIFOQueue.push (mkSeed a f 100) pool
                       end ;
   revise pool :=  match FIFOQueue.pop pool with
                   | None => pool

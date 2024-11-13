@@ -162,6 +162,7 @@ def process_data(results: str, figures: str):
         strategies=[
             "TypeBasedFuzzer",
         ],
+        agg="any",
     )
     bst = charter(case="BST")
     rbt = charter(case="RBT")
