@@ -67,7 +67,6 @@ let bbuild (g : 'b basegen) (f : 'b -> unit Base.Or_error.t) : string -> btest =
         test_count = Core.Int.max_value;
         shrink_count = 0;
         (* todo: we might need to alter the size ranges here *)
-        sizes =
-          Base_quickcheck.Test.Config.sizes Base_quickcheck.Test.default_config;
+        sizes = Base_quickcheck.Test.default_config.sizes;
       }
   |> _verbose
