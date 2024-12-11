@@ -32,7 +32,15 @@ class Config:
     spec_path: FilePath
     ''' Relative path to file containing properties. '''
 
-
+@dataclass
+class BuildConfig:
+    path: str
+    clean: bool
+    build_common: bool
+    build_strategies: bool
+    build_fuzzers: bool
+    no_base: bool
+    
 class Node:
     ''' A chunk of the file being parsed. '''
     pass
@@ -109,6 +117,25 @@ class Modified(Variant):
 
 
 @dataclass
+class Variable:
+    '''
+    A variable with several possible values.
+    '''
+    name: str
+    folder: str
+    recursive: bool
+    files: list[str]
+    variants: list[str]
+    current : int = 0
+
+    def next(self) -> Variable:
+        if self.current == len(self.variants) - 1:
+            self.current = None
+            return None
+        
+        self.current += 1
+        return self
+@dataclass
 class Entry:
     '''
     A simpler version of `os.DirEntry` that stores
@@ -127,6 +154,7 @@ class PBTGenerator:
 @dataclass
 class TrialArgs:
     file: str
+    experiment_id: str
     trials: int
     workload: str
     strategy: str
@@ -136,6 +164,7 @@ class TrialArgs:
     framework: str = ""
     timeout: float | None = None
     short_circuit: bool = False
+    seeds: list[int] | None = None
 
     def to_json(self) -> str:
         return json.dumps(dataclasses.asdict(self))
@@ -152,13 +181,15 @@ class TrialConfig:
     label: str | None = None  # if not provided, use same as strategy
     timeout: float | None = None  # in seconds
     short_circuit: bool = False
+    seeds: list[int] | None = None  # if not provided, don't provide a seed to the runner
+    experiment_id: str | None = None  # if not provided, use the file name
 
 
 class LogLevel(IntEnum):
-    DEBUG = 0
-    INFO = 1
-    WARNING = 2
-    ERROR = 3
+    DEBUG = 10
+    INFO = 20
+    WARNING = 30
+    ERROR = 40
 
 
 class ReplaceLevel(IntEnum):

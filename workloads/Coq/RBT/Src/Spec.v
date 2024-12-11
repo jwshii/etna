@@ -67,6 +67,23 @@ Definition isRBT (t: Tree) : bool :=
     isBST t && consistentBlackHeight t && noRedRed t
 .
 
+Definition color_eqb c1 c2 :=
+    match c1, c2 with
+    | R, R => true
+    | B, B => true
+    | _, _ => false
+    end.
+
+
+
+Fixpoint tree_eqb (t: Tree) (t': Tree) : bool :=
+  match t, t' with
+  | E, E => true
+  | T c l k v r, T c' l' k' v' r' =>
+    (color_eqb c c') &&  (k =? k') && (v =? v') && tree_eqb l l' && tree_eqb r r'
+  | _, _ => false
+  end.
+
 Fixpoint toList (t: Tree) : list (Z * Z) :=
     match t with
     | E => nil
@@ -82,9 +99,11 @@ Definition prop_InsertValid  (t: Tree) (k: Z) (v: Z) :=
   isRBT t -=> isRBT (insert k v t).
 
 Definition prop_DeleteValid  (t: Tree) (k: Z) :=
-  isRBT t -=>
-    (t' <- delete k t ;;
-    Some (isRBT t')).
+  isRBT t -=> 
+    match delete k t with
+    | None => Some false
+    | Some t' => Some (isRBT t')
+    end.
 
 (* ---------- *)
 
@@ -94,16 +113,18 @@ Definition prop_InsertPost  (t: Tree) (k: Z) (k': Z) (v: Z) :=
   isRBT t
     -=> (
     let v' := find k' (insert k v t) in
-    if k =? k' then v' ==? Some v
-    else v' ==? find k' t)
+    if k =? k' then (v' = Some v)?
+    else (v' = find k' t)?)
 .
 
 Definition prop_DeletePost (t: Tree) (k: Z) (k': Z) :=
   isRBT t
-    -=> Some(
-    t' <- delete k t ;;
-    find k' t'
-    ==? if k =? k' then None else find k' t
+    -=> (
+    match delete k t with
+    | None => false
+    | Some t' =>
+      (find k' t' = if k =? k' then None else find k' t)?
+    end
     ).
 
 (* ---------- *)
@@ -125,17 +146,18 @@ Definition deleteKey  (k: Z) (l: list (Z * Z)): list (Z * Z) :=
 
 Definition prop_InsertModel  (t: Tree) (k: Z) (v: Z) :=
   isRBT t
-    -=>
-    ((toList (insert k v t)) ==? (L_insert (k, v) (deleteKey k (toList t)))).
+    -=> 
+    ((toList (insert k v t)) = (L_insert (k, v) (deleteKey k (toList t))))?.
 
 
 
 Definition prop_DeleteModel  (t: Tree) (k: Z) :=
   isRBT t
-    -=>
-    t' <- delete k t ;;
-    Some(toList t'
-    ==? deleteKey k (toList t)).
+    -=> 
+    match delete k t with
+    | None => false
+    | Some t' => (toList t' = deleteKey k (toList t))?
+    end.
 
 
 
@@ -145,33 +167,55 @@ Definition prop_DeleteModel  (t: Tree) (k: Z) :=
 
 Definition prop_InsertInsert  (t: Tree) (k: Z) (k': Z) (v: Z) (v': Z) :=
   isRBT t
-    -=> (toList (insert k v (insert k' v' t))
-    ==? toList(if k =? k' then insert k v t else insert k' v' (insert k v t))).
+    -=> (toList (insert k v (insert k' v' t)) = toList(if k =? k' then insert k v t else insert k' v' (insert k v t)))?.
 
 Definition prop_InsertDelete (t: Tree) (k: Z) (k': Z) (v: Z)  :=
   isRBT t
-    -=>
-    t' <- (delete k' t) ;;
-    t'' <- delete k' (insert k v t) ;;
-    Some(toList(insert k v t')
-    ==? toList(if k =? k' then insert k v t else t'')).
+    -=> 
+    match (delete k' t) with
+    | None => false
+    | Some t' =>
+      match delete k' (insert k v t) with
+      | None => false
+      | Some t'' =>
+        (toList(insert k v t') = toList(if k =? k' then insert k v t else t''))?
+      end
+    end.
 
 Definition prop_DeleteInsert (t: Tree) (k: Z) (k': Z) (v': Z)  :=
   isRBT t
-    -=>
-    t' <- delete k (insert k' v' t) ;;
-    t'' <- delete k t ;;
-    let t''' := insert k' v' t'' in
-    Some(toList t' ==? toList (if k =? k' then t'' else t''')).
+    -=> 
+    match delete k (insert k' v' t) with
+    | None => false
+    | Some t' =>
+      match delete k t with
+      | None => false
+      | Some t'' =>
+        let t''' := insert k' v' t'' in
+        (toList t' = toList (if k =? k' then t'' else t'''))?
+      end
+    end.
 
 Definition prop_DeleteDelete  (t: Tree) (k: Z) (k': Z) :=
   isRBT t
-    -=>
-    t' <- delete k' t ;;
-    t'' <- delete k t' ;;
-    t1' <- delete k t ;;
-    t1'' <- delete k' t1' ;;
-    Some (toList t'' ==? toList t1'').
+    -=> 
+    match delete k' t with
+    | None => false
+    | Some t' =>
+      match delete k t' with
+      | None => false
+      | Some t'' =>
+        match delete k t with
+        | None => false
+        | Some t1' =>
+          match delete k' t1' with
+          | None => false
+          | Some t1'' =>
+            (toList t'' = toList t1'')?
+          end
+        end
+      end
+    end.
 
 (* ---------- *)
 

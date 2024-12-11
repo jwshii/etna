@@ -1,0 +1,13 @@
+strategy,workload,version,0.1,1.0,10.0,60.0,rest
+TypeBasedFuzzer,BST,1,52,1,0,0,0
+TypeBasedFuzzer,BST,10,47,6,0,0,0
+TypeBasedFuzzer,BST,100,51,2,0,0,0
+TypeBasedFuzzer,BST,1000,50,3,0,0,0
+TypeBasedFuzzer,RBT,1,24,4,3,4,23
+TypeBasedFuzzer,RBT,10,24,3,4,2,25
+TypeBasedFuzzer,RBT,100,25,2,5,2,24
+TypeBasedFuzzer,RBT,1000,14,13,4,4,23
+TypeBasedFuzzer,STLC,1,0,0,0,10,10
+TypeBasedFuzzer,STLC,10,0,1,13,2,4
+TypeBasedFuzzer,STLC,100,0,0,10,6,4
+TypeBasedFuzzer,STLC,1000,0,0,0,0,20

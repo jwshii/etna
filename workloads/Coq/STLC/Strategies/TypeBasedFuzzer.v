@@ -7,8 +7,6 @@ Import MonadNotation.
 
 From STLC Require Import Impl Spec.
 
-
-
 Derive (Arbitrary, Fuzzy) for Typ.
 
 Derive (Sized, Fuzzy) for nat.
@@ -17,16 +15,10 @@ Derive (Fuzzy) for bool.
 
 Derive (Arbitrary, Fuzzy) for Expr.
 
-
-(* ManualExtract Expr.
-ManualExtract Typ. *)
-
-(*|toggle|*)Axiom num_tests : nat. Extract Constant num_tests => "max_int".
+Axiom num_tests : nat. Extract Constant num_tests => "max_int".
 
 Definition test_prop_SinglePreserve (e: Expr) :=
     prop_SinglePreserve e.
-
-
 
 Definition test_prop_SinglePreserve_fuzzer :=
     fun (u : unit) => fuzzLoopWith (updMaxDiscard (updMaxSuccess (updAnalysis stdArgs true) num_tests) num_tests) arbitrary fuzz show test_prop_SinglePreserve.

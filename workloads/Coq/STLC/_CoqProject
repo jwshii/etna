@@ -1,11 +1,22 @@
 -Q . STLC
 Src/Impl.v
 Src/Spec.v
+Src/BespokeGeneration.v
+Src/SpecBasedGeneration.v
+Src/TypeBasedGeneration.v
 Strategies/BespokeGenerator.v
+Strategies/ProplangBespokeGenerator.v
 Strategies/TypeBasedGenerator.v
+Strategies/ProplangTypeBasedGenerator.v
 Strategies/SpecificationBasedGenerator.v
+Strategies/ProplangSpecificationBasedGenerator.v
 Strategies/TypeBasedFuzzer.v
-Runners/TypeBasedGenerator_test_runner.v
+Strategies/ProplangTypeBasedFuzzer.v
 Runners/BespokeGenerator_test_runner.v
+Runners/ProplangBespokeGenerator_test_runner.v
+Runners/TypeBasedGenerator_test_runner.v
+Runners/ProplangTypeBasedGenerator_test_runner.v
 Runners/SpecificationBasedGenerator_test_runner.v
+Runners/ProplangSpecificationBasedGenerator_test_runner.v
 Runners/TypeBasedFuzzer_test_runner.v
+Runners/ProplangTypeBasedFuzzer_test_runner.v

@@ -2,7 +2,7 @@ import os
 import re
 import json
 from benchtool.BenchTool import BenchTool
-from benchtool.Types import Config, Entry, LogLevel, ReplaceLevel, TrialArgs
+from benchtool.Types import BuildConfig, Config, Entry, LogLevel, ReplaceLevel, TrialArgs
 
 
 class Haskell(BenchTool):
@@ -33,12 +33,13 @@ class Haskell(BenchTool):
             matches = regex.findall(contents)
             return list(dict.fromkeys(matches))
 
-    def _build(self, workload_path: str):
+    def _build(self, cfg: BuildConfig):
+        workload_path = cfg.path
         with self._change_dir(workload_path):
             self._shell_command(['stack', 'build'])
 
     def _run_trial(self, workload_path: str, params: TrialArgs):
-
+        print(params)
         def reformat():
             # Get JSONs into a format that
             # makes it easier to parse later on.
@@ -51,6 +52,7 @@ class Haskell(BenchTool):
             for _ in range(params.trials):
                 # Re-run per trial to avoid caching problems.
                 p = params.to_json()
+                print(['stack', 'exec', 'etna-workload', '--', p])
                 self._shell_command(['stack', 'exec', 'etna-workload', '--', p])
 
                 if params.short_circuit:

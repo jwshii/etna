@@ -74,7 +74,7 @@ Definition gen_label_between_strict (l1 l2 : Label) : G Label :=
   elems_ l2 (filter (fun l => isLow l1 l && negb (eqtype.eq_op l l1))%bool
                       (allThingsBelow l2)).
 
-Instance smart_gen_label : SmartGen Label :=
+#[global] Instance smart_gen_label : SmartGen Label :=
 {|
   smart_gen _info := gen_label
 |}.
@@ -90,7 +90,7 @@ Definition gen_pointer (inf : Info) : G Pointer :=
     bindGen (gen_from_length len) (fun addr =>
     returnGen (Ptr mf addr))).
 
-Instance smart_gen_pointer : SmartGen Pointer :=
+#[global] Instance smart_gen_pointer : SmartGen Pointer :=
   {|
     smart_gen := gen_pointer
   |}.
@@ -102,7 +102,7 @@ Definition gen_int (inf : Info) : G Z :=
                 (1 , pure Z0);
                 (10, gen_from_length (code_len inf))].
 
-Instance smart_gen_int : SmartGen Z :=
+#[global] Instance smart_gen_int : SmartGen Z :=
   {|
     smart_gen := gen_int
   |}.
@@ -118,7 +118,7 @@ Definition gen_value (inf : Info) : G Value :=
                   (1, liftGen Vptr  (smart_gen inf));
                   (1, liftGen Vlab  (smart_gen inf))].
 
-Instance smart_gen_value : SmartGen Value :=
+#[global] Instance smart_gen_value : SmartGen Value :=
   {|
     smart_gen := gen_value
   |}.
@@ -128,7 +128,7 @@ Instance smart_gen_value : SmartGen Value :=
 Definition gen_atom (inf : Info) : G Atom :=
   liftGen2 Atm (smart_gen inf) (smart_gen inf).
 
-Instance smart_gen_atom : SmartGen Atom :=
+#[global] Instance smart_gen_atom : SmartGen Atom :=
   {|
     smart_gen := gen_atom
   |}.
@@ -140,7 +140,7 @@ Definition gen_PC (inf : Info) : G Ptr_atom :=
   bindGen (gen_from_length (code_len inf)) (fun pcPtr =>
   returnGen (PAtm pcPtr pcLab))).
 
-Instance smart_gen_pc : SmartGen Ptr_atom :=
+#[global] Instance smart_gen_pc : SmartGen Ptr_atom :=
   {|
     smart_gen := gen_PC
   |}.
@@ -154,7 +154,7 @@ Instance smart_gen_pc : SmartGen Ptr_atom :=
 Definition gen_registers (inf : Info) : G regSet :=
   vectorOf (no_regs inf) (smart_gen inf).
 
-Instance smart_gen_registers : SmartGen regSet :=
+#[global] Instance smart_gen_registers : SmartGen regSet :=
   {|
     smart_gen := gen_registers
   |}.
@@ -315,7 +315,7 @@ Definition gen_vary_atom (obs: Label) (inf : Info) (a : Atom) : G Atom :=
            end)
        ].
 
-Instance smart_vary_atom : SmartVary Atom :=
+#[global] Instance smart_vary_atom : SmartVary Atom :=
 {|
   smart_vary := gen_vary_atom
 |}.
@@ -343,7 +343,7 @@ Definition gen_vary_pc (obs: Label) (inf : Info) (pc : Ptr_atom)
 (*     let '(PAtm addr' lpc') := pc' in *)
 (*     returnGen (PAtm addr' (lpc' ∪ lpc))). *)
 
-Instance smart_vary_pc : SmartVary Ptr_atom :=
+#[global] Instance smart_vary_pc : SmartVary Ptr_atom :=
 {|
   smart_vary := gen_vary_pc
 |}.
@@ -373,7 +373,7 @@ Definition gen_var_frame (obs: Label) (inf : Info) (f : frame)
       bindGen (sequenceGen (map (smart_vary obs inf) data))
               (fun data' => returnGen (Fr lab data')).
 
-Instance smart_vary_frame : SmartVary frame :=
+#[global] Instance smart_vary_frame : SmartVary frame :=
 {|
   smart_vary := gen_var_frame
 |}.
@@ -405,7 +405,7 @@ Definition gen_vary_memory  obs inf (m : memory)
   foldGen (handle_single_mframe obs inf) all_mframes m.
 
 (* Vary memory *)
-Instance smart_vary_memory : SmartVary memory :=
+#[global] Instance smart_vary_memory : SmartVary memory :=
 {|
   smart_vary := gen_vary_memory
 |}.
@@ -439,7 +439,7 @@ Definition stackFrameBelow (lab : Label) (sf : StackFrame) : bool :=
 Definition filterStack (lab : Label) (s : Stack) : list StackFrame :=
   (List.filter (stackFrameBelow lab) (unStack s)).
 
-Instance indistStack : Indist Stack :=
+#[global] Instance indistStack : Indist Stack :=
 {|
   indist lab s1 s2 :=
     indist lab (filterStack lab s1) (filterStack lab s2)
@@ -468,7 +468,7 @@ Definition gen_vary_stack (obs : Label) (inf : Info) (s : Stack)
 : G Stack :=
  liftGen ST (gen_vary_low_stack obs inf (unStack s)).
 
-Instance smart_vary_stack : SmartVary Stack :=
+#[global] Instance smart_vary_stack : SmartVary Stack :=
 {|
   smart_vary := gen_vary_stack
 |}.
@@ -494,7 +494,7 @@ Definition gen_vary_SState (obs: Label) (inf : Info) (st: SState) : G SState :=
 
 
 (* Make sure you create an extra stack loc if pc is high *)
-Instance smart_vary_SState : SmartVary SState :=
+#[global] Instance smart_vary_SState : SmartVary SState :=
   {|
     smart_vary := gen_vary_SState
   |}.
@@ -505,7 +505,7 @@ Instance smart_vary_SState : SmartVary SState :=
 
 (* Generation and population of memory. Doesn't need to use the constants? *)
 (*
-Instance smart_gen_memory : SmartGen memory :=
+#[global] Instance smart_gen_memory : SmartGen memory :=
 {|
   smart_gen inf :=
     let '(MkInfo _ cl _ prins) := inf in
@@ -619,12 +619,12 @@ Definition gen_variation_SState : G (@Variation SState) :=
     | _ => returnGen (Var bot failed_SState failed_SState)
   end).
 
-Instance genBinOpT : Gen BinOpT :=
+#[global] Instance genBinOpT : Gen BinOpT :=
 {|
   arbitrary := @gen_BinOpT;
 |}.
 
-Instance shrBinOpT : Shrink BinOpT :=
+#[global] Instance shrBinOpT : Shrink BinOpT :=
 {|
   shrink o  := match o with
                | BAdd => [::]

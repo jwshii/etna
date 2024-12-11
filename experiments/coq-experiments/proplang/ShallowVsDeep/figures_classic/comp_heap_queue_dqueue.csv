@@ -1,0 +1,4 @@
+strategy,workload,version,0.1,1.0,10.0,60.0,rest
+TypeBasedFuzzer,STLC,Heap,0,0,1,7,12
+TypeBasedFuzzer,STLC,DoubleQueue,0,3,13,0,4
+TypeBasedFuzzer,STLC,Queue,0,10,6,0,4

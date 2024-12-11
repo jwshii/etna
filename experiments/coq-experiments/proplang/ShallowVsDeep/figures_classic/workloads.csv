@@ -1,0 +1,9 @@
+strategy,workload,version,0.1,1,10,60,rest
+BespokeGenerator,STLC,shallow,16,3,1,0,0
+SpecificationBasedGenerator,STLC,shallow,19,1,0,0,0
+TypeBasedFuzzer,STLC,shallow,0,14,2,0,4
+TypeBasedGenerator,STLC,shallow,0,0,13,3,4
+BespokeGenerator,STLC,deeper,18,2,0,0,0
+SpecificationBasedGenerator,STLC,deeper,20,0,0,0,0
+TypeBasedFuzzer,STLC,deeper,0,0,12,1,7
+TypeBasedGenerator,STLC,deeper,15,1,4,0,0

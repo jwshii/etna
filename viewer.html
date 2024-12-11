@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Lens Comparator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #lenses {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .lens {
+            width: 50%;
+        }
+
+        .lens table {
+            width: 100%;
+            border-collapse: collapse;
+            max-height: 300px;
+            /* Adjust height as needed */
+            overflow-y: auto;
+            /* Enables vertical scrolling */
+            overflow-x: auto;
+            /* Enables horizontal scrolling */
+            display: block;
+        }
+
+        .lens th,
+        .lens td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+            white-space: nowrap;
+            /* Prevents text wrapping */
+        }
+
+        .lens table thead {
+            position: sticky;
+            top: 0;
+            background-color: #f9f9f9;
+            z-index: 1;
+        }
+
+        .filter-controls,
+        .aggregate-controls {
+            margin: 10px 0;
+        }
+
+        .filter-item {
+            margin-bottom: 8px;
+            padding: 2px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>JSON Lens Comparator</h1>
+
+    <!-- JSON Upload -->
+    <input type="file" id="jsonUpload" accept=".json">
+
+    <div id="lenses">
+        <!-- Lens 1 -->
+        <div class="lens" id="lens1">
+            <h2>Lens 1</h2>
+            <div class="filter-controls">
+                <div>
+                    <label>Field:</label>
+                    <select id="field1"></select>
+                    <label>Condition:</label>
+                    <select id="condition1">
+                        <option value="equals">Equals</option>
+                        <option value="lessThan">Less than</option>
+                        <option value="greaterThan">Greater than</option>
+                        <option value="substring">Contains</option>
+                    </select>
+                    <label>Value:</label>
+                    <input type="text" id="value1" maxlength="30" placeholder="e.g., 20">
+                    <button onclick="addFilter(1)">Add Filter</button>
+                </div>
+                <div id="filterList1"></div>
+            </div>
+            <div class="aggregate-controls">
+                <label>Aggregate 1:</label>
+                <input type="text" id="aggregate1" placeholder="e.g., items => items.length" maxlength="30">
+                <button onclick="applyAggregate(1)">Apply Aggregate</button>
+                <div id="result1"></div>
+            </div>
+            <table id="table1"></table>
+        </div>
+
+        <!-- Lens 2 -->
+        <div class="lens" id="lens2">
+            <h2>Lens 2</h2>
+            <div class="filter-controls">
+                <div>
+                    <label>Field:</label>
+                    <select id="field2"></select>
+                    <label>Condition:</label>
+                    <select id="condition2">
+                        <option value="equals">Equals</option>
+                        <option value="lessThan">Less than</option>
+                        <option value="greaterThan">Greater than</option>
+                        <option value="substring">Contains</option>
+                    </select>
+                    <label>Value:</label>
+                    <input type="text" id="value2" maxlength="30" placeholder="e.g., electronics">
+                    <button onclick="addFilter(2)">Add Filter</button>
+                </div>
+                <div id="filterList2"></div>
+            </div>
+            <div class="aggregate-controls">
+                <label>Aggregate 2:</label>
+                <input type="text" id="aggregate2" placeholder="e.g., items => items.length" maxlength="30">
+                <button onclick="applyAggregate(2)">Apply Aggregate</button>
+                <div id="result2"></div>
+            </div>
+            <table id="table2"></table>
+        </div>
+    </div>
+
+    <script>
+        let jsonData = [];
+        let filters1 = [];
+        let filters2 = [];
+
+        document.getElementById('jsonUpload').addEventListener('change', loadJSON);
+
+        function loadJSON(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                jsonData = JSON.parse(e.target.result);
+                populateFields();
+                displayData(1, jsonData);
+                displayData(2, jsonData);
+            };
+            reader.readAsText(file);
+        }
+
+        function populateFields() {
+            const fields = Object.keys(jsonData[0] || {});
+            const fieldSelect1 = document.getElementById('field1');
+            const fieldSelect2 = document.getElementById('field2');
+
+            [fieldSelect1, fieldSelect2].forEach(select => {
+                select.innerHTML = '';
+                fields.forEach(field => {
+                    const option = document.createElement('option');
+                    option.value = field;
+                    option.innerText = field;
+                    select.appendChild(option);
+                });
+            });
+        }
+
+        function addFilter(lens) {
+            const field = document.getElementById(`field${lens}`).value;
+            const condition = document.getElementById(`condition${lens}`).value;
+            const value = document.getElementById(`value${lens}`).value;
+
+            if (!value) return alert('Please enter a value.');
+
+            const filter = { field, condition, value };
+            const filterList = document.getElementById(`filterList${lens}`);
+
+            if (lens === 1) filters1.push(filter);
+            else filters2.push(filter);
+
+            const filterItem = document.createElement('div');
+            filterItem.className = 'filter-item';
+            filterItem.innerHTML = `<span>${field} ${condition} ${value}</span> <button onclick="removeFilter(${lens}, ${lens === 1 ? filters1.length - 1 : filters2.length - 1})">Remove</button>`;
+            filterList.appendChild(filterItem);
+
+            document.getElementById(`value${lens}`).value = ''; // Clear input
+            applyFilter(lens);
+        }
+
+        function removeFilter(lens, index) {
+            if (lens === 1) {
+                filters1.splice(index, 1);
+                document.getElementById('filterList1').children[index].remove();
+            } else {
+                filters2.splice(index, 1);
+                document.getElementById('filterList2').children[index].remove();
+            }
+            applyFilter(lens);
+        }
+
+        function applyFilter(lens) {
+            const filters = lens === 1 ? filters1 : filters2;
+            const filtered = jsonData.filter(item => {
+                return filters.every(({ field, condition, value }) => {
+                    switch (condition) {
+                        case 'equals': return item[field] == value;
+                        case 'lessThan': return item[field] < parseFloat(value);
+                        case 'greaterThan': return item[field] > parseFloat(value);
+                        case 'substring': return item[field]?.toString().includes(value);
+                        default: return true;
+                    }
+                });
+            });
+
+            if (lens === 1) {
+                displayData(1, filtered);
+            } else {
+                displayData(2, filtered);
+            }
+        }
+
+        function applyAggregate(lens) {
+            const aggregateInput = document.getElementById(`aggregate${lens}`).value;
+            try {
+                const result = eval(aggregateInput)(lens === 1 ? filters1 : filters2);
+                document.getElementById(`result${lens}`).innerText = `Result: ${result}`;
+            } catch (error) {
+                alert('Invalid aggregate function');
+            }
+        }
+
+        const truncateString = (string = '', maxLength = 50) => {
+            if (!string) return '';
+            return string.length > maxLength
+                ? `${string.substring(0, maxLength)}…`
+                : string
+        }
+
+        function displayData(lens, data) {
+            const table = document.getElementById(`table${lens}`);
+            table.innerHTML = ''; // Clear previous table
+
+            if (data.length === 0) return;
+
+            const headers = Object.keys(data[0]);
+            const headerRow = document.createElement('tr');
+            headers.forEach(header => {
+                const th = document.createElement('th');
+                th.innerText = header;
+                headerRow.appendChild(th);
+            });
+            table.appendChild(headerRow);
+
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                headers.forEach(header => {
+                    const td = document.createElement('td');
+                    td.innerText = truncateString(item[header], 30);
+                    row.appendChild(td);
+                });
+                table.appendChild(row);
+            });
+        }
+    </script>
+</body>
+
+</html>

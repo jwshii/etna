@@ -7,6 +7,8 @@ Import MonadNotation.
 From BST Require Import Impl.
 From BST Require Import Spec.
 
+Derive (Shrink) for Tree.
+
 Fixpoint gen_bst (s : nat) (lo hi : nat) : G Tree :=
   match s with
   | O => ret E
@@ -20,7 +22,6 @@ Fixpoint gen_bst (s : nat) (lo hi : nat) : G Tree :=
   end.
 
 Definition bespoke := gen_bst 5 0 40.
-
 
 Definition test_prop_InsertValid   :=
   forAll bespoke (fun (t: Tree)  =>
@@ -49,7 +50,7 @@ Definition test_prop_UnionValid    :=
 (*! QuickChick test_prop_UnionValid. *)
 
 Definition test_prop_InsertPost    :=
-  forAll bespoke (fun (t: Tree)  =>
+  forAllShrink bespoke shrink (fun (t: Tree)  =>
   forAll arbitrary (fun (k: nat)  =>
   forAll arbitrary (fun (k': nat)  =>
   forAll arbitrary (fun (v: nat) =>

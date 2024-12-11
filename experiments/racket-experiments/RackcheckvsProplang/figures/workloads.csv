@@ -1,0 +1,9 @@
+strategy,workload,0.1,1.0,10.0,60.0,rest
+ProplangBespoke,BST,53,0,0,0,0
+RackcheckBespoke,BST,53,0,0,0,0
+ProplangBespoke,RBT,47,10,1,0,0
+RackcheckBespoke,RBT,58,0,0,0,0
+ProplangBespoke,STLC,19,1,0,0,0
+RackcheckBespoke,STLC,20,0,0,0,0
+ProplangBespoke,SYSTEMF,15,13,4,4,0
+RackcheckBespoke,SYSTEMF,36,0,0,0,0

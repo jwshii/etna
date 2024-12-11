@@ -39,12 +39,13 @@ def stacked_barchart_times(
     image_path: Optional[str] = None,
     agg: Literal['any', 'all'] = 'all',
     manual_bars: list[Bar] = [],
+    prefix: str = '',
 ):
 
     df = df[df['workload'] == case]
 
     if not strategies:
-        strategies = df.strategy.unique()
+        strategies = sorted(df.strategy.unique())
 
     tasks = df.task.unique()
     total_tasks = len(tasks)
@@ -56,8 +57,10 @@ def stacked_barchart_times(
     for within in limits:
         dft = overall_solved(df, agg=agg, within=within,
                              solved_type=limit_type)
+        print(dft)
         dft = dft.reset_index()
         dft = dft.groupby(['strategy']).sum(numeric_only=False)
+        print(dft)
         for strategy in strategies:
             # Note: I think the new version of Pandas broke some of this code.
             # Use 1.5.3 for now and come back and fix.
@@ -70,7 +73,7 @@ def stacked_barchart_times(
     results = results.reset_index()
 
     results = results.melt(id_vars=['strategy'], value_vars=limits + ['rest'])
-
+    print(results)
     if not colors:
         colors = [
             '#000000',  # black
@@ -105,7 +108,7 @@ def stacked_barchart_times(
         xaxis=go.layout.XAxis(showticklabels=False,),
         yaxis=go.layout.YAxis(
             title='',
-            showticklabels=False,
+            showticklabels=True,
         ),
         font_size=60,
         font={'family': 'Helvetica'},
@@ -120,7 +123,7 @@ def stacked_barchart_times(
 
     strategies = sorted(strategies,
                         key=lambda x: strategy_sorter[x] if x in strategy_sorter.keys() else -1)
-
+    print(strategies)
     for strategy, color in zip(strategies[::-1], extrapolated_colors):
         fig.add_trace(
             go.Bar(
@@ -160,7 +163,8 @@ def stacked_barchart_times(
             ))
 
     if image_path:
-        fig.write_image(f'{image_path}/{case}.png',
+        suffix = 'time' if limit_type == 'time' else 'inputs'
+        fig.write_image(f'{image_path}/{prefix}_{case}_{suffix}.png',
                         width=1600,
                         height=900,
                         scale=1,

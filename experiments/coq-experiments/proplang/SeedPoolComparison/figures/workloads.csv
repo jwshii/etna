@@ -1,0 +1,16 @@
+strategy,workload,version,0.1,1.0,10.0,60.0,rest
+TypeBasedFuzzer,BST,StaticSingleton,51,1,1,0,0
+TypeBasedFuzzer,BST,MonotonicSingleton,51,2,0,0,0
+TypeBasedFuzzer,BST,ResettingSingleton,50,3,0,0,0
+TypeBasedFuzzer,BST,Queue,42,9,2,0,0
+TypeBasedFuzzer,BST,Heap,51,2,0,0,0
+TypeBasedFuzzer,RBT,StaticSingleton,25,2,5,3,23
+TypeBasedFuzzer,RBT,MonotonicSingleton,25,3,5,2,23
+TypeBasedFuzzer,RBT,ResettingSingleton,25,4,3,3,23
+TypeBasedFuzzer,RBT,Queue,23,4,4,3,24
+TypeBasedFuzzer,RBT,Heap,25,4,3,3,23
+TypeBasedFuzzer,STLC,StaticSingleton,0,0,0,13,7
+TypeBasedFuzzer,STLC,MonotonicSingleton,0,0,0,12,8
+TypeBasedFuzzer,STLC,ResettingSingleton,0,0,0,11,9
+TypeBasedFuzzer,STLC,Queue,0,10,6,0,4
+TypeBasedFuzzer,STLC,Heap,0,0,1,11,8

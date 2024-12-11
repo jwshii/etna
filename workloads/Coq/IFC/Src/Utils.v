@@ -566,7 +566,6 @@ Proof.
   erewrite IHl1 ; eauto.
   intros. destruct i.
   erewrite nth_error_Z_cons with (a:= t); eauto; try lia.
-  erewrite H ; eauto.
   erewrite nth_error_Z_cons with (a:= t); eauto; try (zify ; lia).
   erewrite H ; eauto. symmetry. eapply nth_error_Z_cons; eauto. zify; lia.
   destruct l1, l2 ; auto.
@@ -927,7 +926,7 @@ Inductive star (S E: Type) (Rstep: S -> E+τ -> S -> Prop): S -> list E -> S -> 
       Rstep s1 e s2 -> star Rstep s2 t s3 ->
       t' = (op_cons e t) ->
       star Rstep s1 t' s3.
-Hint Constructors star.
+#[global] Hint Constructors star.
 
 Lemma op_cons_app : forall E (e: E+τ) t t', (op_cons e t)++t' = op_cons e (t++t').
 Proof. intros. destruct e; reflexivity. Qed.
@@ -955,8 +954,8 @@ Inductive plus (S E: Type) (Rstep: S -> E+τ -> S -> Prop): S -> list E -> S -> 
       t' = (op_cons e t) ->
       plus Rstep s1 t' s3.
 
-Hint Constructors star.
-Hint Constructors plus.
+#[global] Hint Constructors star.
+#[global] Hint Constructors plus.
 
 Lemma plus_right : forall E S (Rstep: S -> E+τ -> S -> Prop) s1 s2 t,
                      plus Rstep s1 t s2 ->
@@ -984,7 +983,7 @@ Proof.
   gdep e. gdep s1.
   induction H0; subst; eauto.
 Qed.
-Hint Resolve step_star_plus.
+#[global] Hint Resolve step_star_plus.
 
 Lemma star_trans: forall S E (Rstep: S -> E+τ -> S -> Prop) s0 t s1,
   star Rstep s0 t s1 ->
@@ -1019,7 +1018,7 @@ Proof.
   - inv H. auto.
   - auto.
 Qed.
-Hint Resolve nth_error_In.
+#[global] Hint Resolve nth_error_In.
 
 Lemma update_list_In :
   forall T n x y (l l' : list T)
@@ -1223,7 +1222,6 @@ Proof.
     destruct Z_le_dec; try lia; simpl in *; inv H.
     rewrite (_ : is_left (Z_lt_dec z' z) = (Z.to_nat z' < Z.to_nat z)).
       elim: (Z.to_nat z') (Z.to_nat z) {n Ez H0 l0}=> [|n IH] [|n'] //=.
-      by rewrite IH ltnS.
     assert ( (z'<z)%Z <-> (Z.to_nat z' < Z.to_nat z)%coq_nat).
       apply Z2Nat.inj_lt; try lia.
     by apply/sumboolP/ltP; intuition.

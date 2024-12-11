@@ -1,6 +1,6 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE TupleSections #-}
-
+{-# LANGUAGE TypeApplications #-}
 module Strategy.Correct where
 
 import Etna.Lib
@@ -211,6 +211,9 @@ tshift _ Top = Top
 tshift x (Arr ty1 ty2) = Arr (tshift x ty1) (tshift x ty2)
 tshift x (All ty1 ty2) =
   All (tshift x ty1) (tshift (1 + x) ty2)
+
+  -- Print the samples terms comma separated.
+get = sample' (arbitrary @Term)
 
 $( mkStrategies
      [|qcRunArb qcDefaults Correct|]

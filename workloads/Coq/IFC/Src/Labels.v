@@ -81,7 +81,7 @@ Notation "l1 <: l2" := (flows l1 l2 = true)
   (at level 50, no associativity) : type_scope.
 Notation "⊥" := bot.
 
-Hint Resolve
+#[global] Hint Resolve
   @flows_refl
   @flows_trans
   @flows_join_left
@@ -168,7 +168,7 @@ Qed.
 
 Definition label_eqMixin := EqMixin label_eqP.
 
-Hint Resolve
+#[global] Hint Resolve
   @join_1
   @join_2
   @bot_flows
