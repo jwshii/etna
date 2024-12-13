@@ -366,6 +366,7 @@ class BenchTool(ABC):
                     trials=cfg.trials,
                     workload=cfg.workload.name,
                     strategy=cfg.strategy,
+                    framework=cfg.framework,
                     mutant=self.__variant.name,
                     property=cfg.property,
                     timeout=cfg.timeout,

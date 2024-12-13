@@ -1,5 +1,5 @@
 from benchtool.BenchTool import BenchTool, Entry
-from benchtool.Types import Config, LogLevel, ReplaceLevel, TrialArgs
+from benchtool.Types import BuildConfig, Config, LogLevel, ReplaceLevel, TrialArgs
 
 import json
 import os
@@ -33,8 +33,8 @@ class OCaml(BenchTool):
              matches = regex.findall(contents)
              return list(dict.fromkeys(matches))
 
-    def _build(self, workload_path: str):
-        with self._change_dir(workload_path):
+    def _build(self, cfg: BuildConfig):
+        with self._change_dir(cfg.path):
             self._shell_command(['dune', 'build'])
 
     def _run_trial(self, workload_path: str, params: TrialArgs):
@@ -42,16 +42,11 @@ class OCaml(BenchTool):
             if filename.endswith('.json'):
                 new_filename = os.path.splitext(filename)[0] + '.txt'
                 os.rename(filename, new_filename)
-
         with self._change_dir(workload_path):
             for _ in range(params.trials):
-
-                # print(f"Executing command {' '.join(['dune', 'exec',  params.workload, '--', fw, params.property, params.strategy, params.file])}")
+                # print(f"Executing command {' '.join(['dune', 'exec',  params.workload, '--', params.framework, params.property, params.strategy, params.file])}")
                 self._shell_command(['dune', 'exec',  params.workload, '--', params.framework, params.property, params.strategy, params.file])
-
         reformat(params.file)
-
-
 
 
     def _preprocess(self, workload: Entry) -> None:

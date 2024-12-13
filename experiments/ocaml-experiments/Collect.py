@@ -1,13 +1,13 @@
 import argparse
 import os
 from benchtool.OCaml import OCaml
-from benchtool.Types import ReplaceLevel, TrialConfig, PBTGenerator
+from benchtool.Types import BuildConfig, ReplaceLevel, TrialConfig, PBTGenerator
 from benchtool.Tasks import tasks
 
 DEFAULT_DIR = 'oc3'
 REPLACE = False
 
-WORKLOADS = ['STLC']
+WORKLOADS = ['BST']
 STRATEGIES : list[PBTGenerator] = [
     # PBTGenerator('qcheck', 'bespoke'),
     PBTGenerator('qcheck', 'type'),
@@ -34,14 +34,20 @@ def collect(directory: str, workloads=WORKLOADS, strategies=STRATEGIES):
 
             run_trial = None
             for strategy in strategies:
-
                 for property in tool.all_properties(workload):
                     if workload.name in ['BST', 'RBT']:
                         if property.split('_')[1] not in tasks[workload.name][variant.name]:
                             continue
 
                     if not run_trial:
-                        run_trial = tool.apply_variant(workload, variant)
+                        run_trial = tool.apply_variant(workload, variant, BuildConfig(
+                                    path=workload.path,
+                                    clean=False,
+                                    build_common=False,
+                                    build_strategies=True,
+                                    build_fuzzers=False,
+                                    no_base=True,
+                                ))
 
                     cfg = TrialConfig(workload=workload,
                                         strategy=strategy.strategy,
