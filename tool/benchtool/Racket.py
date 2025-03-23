@@ -90,6 +90,10 @@ class Racket(BenchTool):
                             trial_result["time"] = (
                                 json_result["time"] * 0.001
                             )  # ms as string to seconds as float conversion
+                        elif "shrink-time" not in json_result and "search-time" in json_result:
+                            trial_result["search-time"] = (
+                                json_result["search-time"] * 0.001
+                            )  # ms as string to seconds as float conversion
                         else:
                             trial_result["time"] = (json_result["search-time"] + json_result["shrink-time"]) * 0.001
                             trial_result["search-time"] = json_result["search-time"] * 0.001

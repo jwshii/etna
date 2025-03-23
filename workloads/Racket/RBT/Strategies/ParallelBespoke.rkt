@@ -11,7 +11,7 @@
 #| Validity Properties |#
 
 (define test_prop_InsertValid
-  (lambda (cfg) (run-loop cfg
+  (lambda (cfg) (parallel-run-loop cfg
                 (property (forall t #:contract isRBT #:gen bespoke)
                           (forall k #:contract real? #:gen gen:natural)
                           (forall v #:gen gen:natural)
@@ -19,7 +19,7 @@
 
 
 (define test_prop_DeleteValid
-  (lambda (cfg) (run-loop cfg
+  (lambda (cfg) (parallel-run-loop cfg
                 (property (forall t #:contract isRBT #:gen bespoke)
                           (forall k #:contract real? #:gen gen:natural)
                           (equal? (prop_DeleteValid t k) (just #t))))))
@@ -28,7 +28,7 @@
 #| Post-condition Properties |#
 
 (define test_prop_InsertPost
-  (lambda (cfg) (run-loop cfg
+  (lambda (cfg) (parallel-run-loop cfg
                 (property (forall t #:contract isRBT #:gen bespoke)
                           (forall k1 #:contract real? #:gen gen:natural)
                           (forall k2 #:contract real? #:gen gen:natural)
@@ -37,7 +37,7 @@
 
 
 (define test_prop_DeletePost
-  (lambda (cfg) (run-loop cfg
+  (lambda (cfg) (parallel-run-loop cfg
                 (property (forall t #:contract isRBT #:gen bespoke)
                           (forall k1 #:contract real? #:gen gen:natural)
                           (forall k2 #:contract real? #:gen gen:natural)
@@ -46,14 +46,14 @@
 #| Model-based Properties |#
 
 (define test_prop_InsertModel
-  (lambda (cfg) (run-loop cfg
+  (lambda (cfg) (parallel-run-loop cfg
                 (property (forall t #:contract isRBT #:gen bespoke)
                           (forall k #:contract real? #:gen gen:natural)
                           (forall v #:gen gen:natural)
                           (equal? (prop_InsertModel t k v) (just #t))))))
 
 (define test_prop_DeleteModel
-  (lambda (cfg) (run-loop cfg
+  (lambda (cfg) (parallel-run-loop cfg
                 (property (forall t #:contract isRBT #:gen bespoke)
                           (forall k #:contract real? #:gen gen:natural)
                           (equal? (prop_DeleteModel t k) (just #t))))))
@@ -61,7 +61,7 @@
 #| Metamorphic Properties |#
 
 (define test_prop_InsertInsert
-  (lambda (cfg) (run-loop cfg
+  (lambda (cfg) (parallel-run-loop cfg
                 (property (forall t #:contract isRBT #:gen bespoke)
                           (forall k1 #:contract real? #:gen gen:natural)
                           (forall k2 #:contract real? #:gen gen:natural)
@@ -70,7 +70,7 @@
                           (equal? (prop_InsertInsert t k1 k2 v1 v2) (just #t))))))
 
 (define test_prop_InsertDelete
-  (lambda (cfg) (run-loop cfg
+  (lambda (cfg) (parallel-run-loop cfg
                 (property (forall t #:contract isRBT #:gen bespoke)
                           (forall k1 #:contract real? #:gen gen:natural)
                           (forall k2 #:contract real? #:gen gen:natural)
@@ -78,7 +78,7 @@
                           (equal? (prop_InsertDelete t k1 k2 v) (just #t))))))
 
 (define test_prop_DeleteInsert
-  (lambda (cfg) (run-loop cfg
+  (lambda (cfg) (parallel-run-loop cfg
                 (property (forall t #:contract isRBT #:gen bespoke)
                           (forall k1 #:contract real? #:gen gen:natural)
                           (forall k2 #:contract real? #:gen gen:natural)
@@ -86,7 +86,7 @@
                           (equal? (prop_DeleteInsert t k1 k2 v) (just #t))))))
 
 (define test_prop_DeleteDelete
-  (lambda (cfg) (run-loop cfg
+  (lambda (cfg) (parallel-run-loop cfg
                 (property (forall t #:contract isRBT #:gen bespoke)
                           (forall k1 #:contract real? #:gen gen:natural)
                           (forall k2 #:contract real? #:gen gen:natural)

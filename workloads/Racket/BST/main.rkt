@@ -6,6 +6,7 @@
   (require racket/dict)
   (require (prefix-in rc: "Strategies/RackcheckBespoke.rkt"))
   (require (prefix-in pl: "Strategies/ProplangBespoke.rkt"))
+  (require (prefix-in prl: "Strategies/ParallelBespoke.rkt"))
 
   (command-line
    #:program "rackcheck-bespoke"
@@ -16,6 +17,7 @@
    (define strategy (case strategy-longform
                       [("RackcheckBespoke" "rc") "rc"]
                       [("ProplangBespoke" "pl") "pl"]
+                      [("ParallelBespoke" "prl") "prl"]
                       (else (error "Unknown strategy"))))
 
    (define search-key (string-append strategy ":" property))
@@ -30,6 +32,7 @@
    (define checker-fn (case strategy
                         [("rc") check-rackcheck-property]
                         [("pl") check-tartarus-property]
+                        [("prl") check-tartarus-property]
                         (else (error "Unknown strategy"))))
 
    (define props
@@ -72,6 +75,25 @@
        ("pl:test_prop_UnionDeleteInsert"  . ,pl:test_prop_UnionDeleteInsert)
        ("pl:test_prop_UnionUnionIdem"     . ,pl:test_prop_UnionUnionIdem)
        ("pl:test_prop_UnionUnionAssoc"    . ,pl:test_prop_UnionUnionAssoc)
+       ; Parallel proplang properties
+       ("prl:test_prop_InsertValid"        . ,prl:test_prop_InsertValid)
+       ("prl:test_prop_DeleteValid"        . ,prl:test_prop_DeleteValid)
+       ("prl:test_prop_UnionValid"         . ,prl:test_prop_UnionValid)
+       ("prl:test_prop_InsertPost"         . ,prl:test_prop_InsertPost)
+       ("prl:test_prop_DeletePost"         . ,prl:test_prop_DeletePost)
+       ("prl:test_prop_UnionPost"          . ,prl:test_prop_UnionPost)
+       ("prl:test_prop_InsertModel"        . ,prl:test_prop_InsertModel)
+       ("prl:test_prop_DeleteModel"        . ,prl:test_prop_DeleteModel)
+       ("prl:test_prop_UnionModel"         . ,prl:test_prop_UnionModel)
+       ("prl:test_prop_InsertInsert"       . ,prl:test_prop_InsertInsert)
+       ("prl:test_prop_InsertDelete"       . ,prl:test_prop_InsertDelete)
+       ("prl:test_prop_InsertUnion"        . ,prl:test_prop_InsertUnion)
+       ("prl:test_prop_DeleteInsert"       . ,prl:test_prop_DeleteInsert)
+       ("prl:test_prop_DeleteDelete"       . ,prl:test_prop_DeleteDelete)
+       ("prl:test_prop_DeleteUnion"        . ,prl:test_prop_DeleteUnion)
+       ("prl:test_prop_UnionDeleteInsert"  . ,prl:test_prop_UnionDeleteInsert)
+       ("prl:test_prop_UnionUnionIdem"     . ,prl:test_prop_UnionUnionIdem)
+       ("prl:test_prop_UnionUnionAssoc"    . ,prl:test_prop_UnionUnionAssoc)
        )
      )
 

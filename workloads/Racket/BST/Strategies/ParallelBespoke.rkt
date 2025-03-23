@@ -13,7 +13,7 @@
 #| Validity Properties |#
 
 (define (test_prop_InsertValid cfg)
-  (run-loop cfg
+  (parallel-run-loop cfg
             (property (forall t #:contract BST? #:gen bespoke)
                       (forall k #:contract real? #:gen gen:natural)
                       (forall v #:gen gen:natural)
@@ -21,13 +21,13 @@
 
 
 (define (test_prop_DeleteValid cfg)
-  (run-loop cfg
+  (parallel-run-loop cfg
             (property (forall t #:contract BST? #:gen bespoke)
                       (forall k #:contract real? #:gen gen:natural)
                       (BST? (delete k t)))))
 
 (define (test_prop_UnionValid cfg)
-  (run-loop cfg
+  (parallel-run-loop cfg
             (property (forall t1 #:contract BST? #:gen bespoke)
                       (forall t2 #:contract BST? #:gen bespoke)
                       (BST? (union t1 t2)))))
@@ -35,7 +35,7 @@
 #| Post-condition Properties |#
 
 (define (test_prop_InsertPost cfg)
-  (run-loop cfg
+  (parallel-run-loop cfg
             (property (forall t #:contract BST? #:gen bespoke)
                       (forall k1 #:contract real? #:gen gen:natural)
                       (forall k2 #:contract real? #:gen gen:natural)
@@ -45,7 +45,7 @@
 
 
 (define (test_prop_DeletePost cfg)
-  (run-loop cfg
+  (parallel-run-loop cfg
             (property (forall t #:contract BST? #:gen bespoke)
                       (forall k1 #:contract real? #:gen gen:natural)
                       (forall k2 #:contract real? #:gen gen:natural)
@@ -53,7 +53,7 @@
 
 
 (define (test_prop_UnionPost cfg)
-  (run-loop cfg
+  (parallel-run-loop cfg
             (property (forall t1 #:contract BST? #:gen bespoke)
                       (forall t2 #:contract BST? #:gen bespoke)
                       (forall k #:contract real? #:gen gen:natural)
@@ -68,20 +68,20 @@
 #| Model-based Properties |#
 
 (define (test_prop_InsertModel cfg)
-  (run-loop cfg
+  (parallel-run-loop cfg
             (property (forall t #:contract BST? #:gen bespoke)
                       (forall k #:contract real? #:gen gen:natural)
                       (forall v #:gen gen:natural)
                       (equal? (tree->list (insert k v t)) (insert-sorted k v (tree->list t))))))
 
 (define (test_prop_DeleteModel cfg)
-  (run-loop cfg
+  (parallel-run-loop cfg
             (property (forall t #:contract BST? #:gen bespoke)
                       (forall k #:contract real? #:gen gen:natural)
              (equal? (tree->list (delete k t)) (remove-key k (tree->list t))))))
 
 (define (test_prop_UnionModel cfg)
-  (run-loop cfg
+  (parallel-run-loop cfg
             (property (forall t1 #:contract BST? #:gen bespoke)
                       (forall t2 #:contract BST? #:gen bespoke)
                       (equal? (tree->list (union t1 t2))
@@ -90,7 +90,7 @@
 #| Metamorphic Properties |#
 
 (define (test_prop_InsertInsert cfg)
-  (run-loop cfg
+  (parallel-run-loop cfg
             (property (forall t #:contract BST? #:gen bespoke)
                       (forall k1 #:contract real? #:gen gen:natural)
                       (forall k2 #:contract real? #:gen gen:natural)
@@ -102,7 +102,7 @@
                                       (insert k2 v2 (insert k1 v1 t)))))))
 
 (define (test_prop_InsertDelete cfg)
-  (run-loop cfg
+  (parallel-run-loop cfg
             (property (forall t #:contract BST? #:gen bespoke)
                       (forall k1 #:contract real? #:gen gen:natural)
                       (forall k2 #:contract real? #:gen gen:natural)
@@ -111,7 +111,7 @@
                                    (if (= k1 k2) (insert k1 v t) (delete k2 (insert k1 v t)))))))
 
 (define (test_prop_InsertUnion cfg)
-  (run-loop cfg
+  (parallel-run-loop cfg
             (property (forall t1 #:contract BST? #:gen bespoke)
                       (forall t2 #:contract BST? #:gen bespoke)
                       (forall k #:contract real? #:gen gen:natural)
@@ -120,7 +120,7 @@
                                    (union (insert k v t1) t2)))))
 
 (define (test_prop_DeleteInsert cfg)
-  (run-loop cfg
+  (parallel-run-loop cfg
             (property (forall t #:contract BST? #:gen bespoke)
                       (forall k1 #:contract real? #:gen gen:natural)
                       (forall k2 #:contract real? #:gen gen:natural)
@@ -129,7 +129,7 @@
                                    (if (= k1 k2) (delete k1 t) (insert k2 v (delete k1 t)))))))
 
 (define (test_prop_DeleteDelete cfg)
-  (run-loop cfg
+  (parallel-run-loop cfg
             (property (forall t #:contract BST? #:gen bespoke)
                       (forall k1 #:contract real? #:gen gen:natural)
                       (forall k2 #:contract real? #:gen gen:natural)
@@ -137,7 +137,7 @@
                                    (delete k2 (delete k1 t))))))
 
 (define (test_prop_DeleteUnion cfg)
-  (run-loop cfg
+  (parallel-run-loop cfg
             (property (forall t1 #:contract BST? #:gen bespoke)
                       (forall t2 #:contract BST? #:gen bespoke)
                       (forall k #:contract real? #:gen gen:natural)
@@ -145,7 +145,7 @@
                                    (union (delete k t1) (delete k t2))))))
 
 (define (test_prop_UnionDeleteInsert cfg)
-  (run-loop cfg
+  (parallel-run-loop cfg
             (property (forall t1 #:contract BST? #:gen bespoke)
                       (forall t2 #:contract BST? #:gen bespoke)
                       (forall k #:contract real? #:gen gen:natural)
@@ -154,12 +154,12 @@
                                    (insert k v (union t1 t2))))))
 
 (define (test_prop_UnionUnionIdem cfg)
-  (run-loop cfg
+  (parallel-run-loop cfg
             (property (forall t #:contract BST? #:gen bespoke)
                       (tree-equiv? (union t t) t))))
 
 (define (test_prop_UnionUnionAssoc cfg)
-  (run-loop cfg
+  (parallel-run-loop cfg
             (property (forall t1 #:contract BST? #:gen bespoke)
                       (forall t2 #:contract BST? #:gen bespoke)
                       (forall t3 #:contract BST? #:gen bespoke)
