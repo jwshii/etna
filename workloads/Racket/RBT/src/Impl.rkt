@@ -254,20 +254,20 @@
     [(E) (return (E))]
     [(T c a y vy b)
      #|! |#
-     (cond
-       [(< x y) (delLeft x a y vy b)]
-       [(> x y) (delRight x a y vy b)]
-       [else (join a b)]
-       )
+    ;  (cond
+    ;    [(< x y) (delLeft x a y vy b)]
+    ;    [(> x y) (delRight x a y vy b)]
+    ;    [else (join a b)]
+    ;    )
 
      #|!! delete_4 |#
-     #|!
+    ;  #|!
         (cond
           [(< x y) (del x a)]
           [(> x y) (del x b)]
           [else (join a b)]
         )
-        |#
+        ; |#
 
      #|!! delete_5 |#
      #|!
@@ -284,8 +284,9 @@
 (define/contract (delete x tr)
   (any/c tree? . -> . (maybe/c tree?))
   #|! |#
-  (return (apply blacken (del x tr)))
-
+  (match (del x tr)
+    [(just t) (just (blacken t))]
+    [(nothing) (nothing)])
   #|!! miscolor_delete |#
   #|!
     (del x tr)
