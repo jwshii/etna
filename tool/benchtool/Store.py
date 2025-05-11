@@ -4,7 +4,7 @@ from typing import Callable, List, Tuple
 from pathlib import Path
 from abc import ABC, abstractmethod
 import os
-if os.environ["METRICS_LOCAL"] == "False":
+if os.environ.get("METRICS_LOCAL") == "False":
     from boto3 import client
 
 import json

@@ -1,0 +1,18 @@
+{
+  "numBuckets": 5,
+  "chartNames": [
+    "1"
+  ],
+  "chartColors": [
+    "#CB6040"
+  ],
+  "bucketValues": [
+    [
+      "6",
+      "8",
+      "2",
+      "2",
+      "13"
+    ]
+  ]
+}

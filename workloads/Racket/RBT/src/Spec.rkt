@@ -4,10 +4,7 @@
 
 (require "Impl.rkt")
 (require rackcheck)
-(require data/maybe)
 (require data/functor)
-
-
 
 (define/contract (is-BST-Helper p t)
   (-> (-> integer? boolean?) tree? boolean?)

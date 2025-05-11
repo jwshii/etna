@@ -4,7 +4,6 @@
 (require "../src/Spec.rkt")
 (require "../src/Generation.rkt")
 
-(require data/maybe)
 (require (only-in rackcheck gen:natural))
 (require property-language)
 

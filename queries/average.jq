@@ -55,6 +55,7 @@ def main:
         | map({bin: .bin, count: .count})
         | {bins: .}
      end
+    | sort_by(.workload, .strategy, .mutant, .property)
     ;
 
 main

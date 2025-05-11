@@ -5,7 +5,6 @@
 (require "../src/Generation.rkt")
 (require rackcheck)
 (require rackunit)
-(require data/maybe)
 (provide (all-defined-out))
 
 #| Validity Properties |#

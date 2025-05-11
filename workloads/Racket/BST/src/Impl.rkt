@@ -2,10 +2,32 @@
 
 (provide (all-defined-out))
 
-(require data/maybe)
-
 (struct E () #:transparent)
 (struct T (left k v right) #:transparent)
+
+
+(struct nothing () #:transparent)
+(struct just (x) #:transparent)
+(define maybe? (lambda (x) (or (nothing? x) (just? x))))
+(define maybe/c (lambda (c?)
+                  (lambda (x)
+                    (or (nothing? x)
+                        (and (just? x) (c? (just-x x)))))))
+
+(define (return x)
+  (match x
+    [(nothing) (nothing)]
+    [(just x) (just x)]
+    [_ (just x)]
+    )
+  )
+
+(define (apply f x)
+  (match x
+    [(just x) (f x)]
+    [(nothing) (nothing)]
+    )
+  )
 
 (define (insert k v t)
   (match t

@@ -6,15 +6,16 @@
 (require property-language)
 
 (define test_prop_SinglePreserve
-  (lambda (cfg) (run-loop cfg
+  (lambda (cfg) (parallel-run-loop cfg
                           (property (forall e #:gen gSized)
-                                    (equal? (prop_SinglePreserve e) (just #t))))))
+                                    (equal? (prop_SinglePreserve e) (just #t))) 8)))
 
 (define test_prop_MultiPreserve
-  (lambda (cfg) (run-loop cfg
+  (lambda (cfg) (parallel-run-loop cfg
                           (property (forall e #:gen gSized)
-                                    (equal? (prop_MultiPreserve e) (just #t))))))
+                                    (equal? (prop_MultiPreserve e) (just #t))) 8)))
 
 (provide test_prop_SinglePreserve
          test_prop_MultiPreserve)
 
+;

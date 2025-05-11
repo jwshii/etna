@@ -3,8 +3,6 @@
 
 (require "Impl.rkt")
 (require rackcheck)
-(require data/maybe)
-
 
 (define (blacken-correct t)
     (match t 

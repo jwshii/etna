@@ -6,7 +6,6 @@
 (require (only-in rackcheck gen:tuple gen:natural gen:list gen:let))
 
 (require rackcheck/shrink-tree)
-(require data/maybe)
 
 (require property-language)
 

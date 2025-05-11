@@ -6,6 +6,7 @@
   (require racket/dict)
   (require (prefix-in rc: "Strategies/RackcheckBespoke.rkt"))
   (require (prefix-in pl: "Strategies/ProplangBespoke.rkt"))
+  (require (prefix-in prl: "Strategies/ParallelBespoke.rkt"))
   (command-line
    #:program "rackcheck-bespoke"
    #:args info
@@ -15,6 +16,7 @@
    (define strategy (case strategy-longform
                       [("RackcheckBespoke" "rc") "rc"]
                       [("ProplangBespoke" "pl") "pl"]
+                      [("ParallelBespoke" "prl") "prl"]
                       (else (error "Unknown strategy"))))
 
    (define search-key (string-append strategy ":" property))
@@ -29,6 +31,7 @@
    (define checker-fn (case strategy
                         [("rc") check-rackcheck-property]
                         [("pl") check-tartarus-property]
+                        [("prl") check-tartarus-property]
                         (else (error "Unknown strategy"))))
 
    (define props
@@ -39,6 +42,9 @@
        ; Proplang properties
        ("pl:test_prop_SinglePreserve"   . ,pl:test_prop_SinglePreserve)
        ("pl:test_prop_MultiPreserve"    . ,pl:test_prop_MultiPreserve)
+       ; Parallel properties
+       ("prl:test_prop_SinglePreserve"   . ,prl:test_prop_SinglePreserve)
+       ("prl:test_prop_MultiPreserve"    . ,prl:test_prop_MultiPreserve)
        )
      )
 

@@ -12,22 +12,22 @@ def collect(results: str):
 
     for workload in tool.all_workloads():
         tool._log(f'Collecting {workload.name}...', logging.INFO)
-        if workload.name in ['BST', 'RBT']:
+        if workload.name in ['BST', 'RBT', 'STLC']:
             for variant in tool.all_variants(workload):
-                tool._log(f'Collecting {workload.name} {variant.name}...', logging.INFO)
+                # tool._log(f'Collecting {workload.name} {variant.name}...', logging.INFO)
                 run_trial = None
 
                 for strategy in tool.all_strategies(workload):           
-                    tool._log(f'Collecting {workload.name} {variant.name} {strategy.name}...', logging.INFO)
-                    if strategy.name == 'RackcheckBespoke':
+                    # tool._log(f'Collecting {workload.name} {variant.name} {strategy.name}...', logging.INFO)
+                    if strategy.name != 'ParallelBespoke':
                         continue
 
                     properties = tool.all_properties(workload) if workload.name not in ['SYSTEMF', 'STLC'] else ['prop_SinglePreserve', 'prop_MultiPreserve'] 
 
                     for property in properties:
-                        tool._log(f'Collecting {workload.name} {variant.name} {strategy.name} {property}...', logging.INFO)
+                        # tool._log(f'Collecting {workload.name} {variant.name} {strategy.name} {property}...', logging.INFO)
                         if workload.name != "SYSTEMF" and property.split('_')[1] not in tasks[workload.name][variant.name]:
-                            tool._log(f'Skipping {workload.name} {variant.name} {strategy.name} {property}...', logging.INFO)
+                            # tool._log(f'Skipping {workload.name} {variant.name} {strategy.name} {property}...', logging.INFO)
                             continue
                         property = 'test_' + property       
                         
@@ -35,7 +35,7 @@ def collect(results: str):
                         finished = set(os.listdir(results))
                         file = f'{workload.name},{strategy.name},{variant.name},{property}'
                         if f'{file}.json' in finished:
-                            tool._log(f'Skipping {workload.name} {variant.name} {strategy.name} {property}...', logging.INFO)
+                            # tool._log(f'Skipping {workload.name} {variant.name} {strategy.name} {property}...', logging.INFO)
                             continue
 
                         if not run_trial:

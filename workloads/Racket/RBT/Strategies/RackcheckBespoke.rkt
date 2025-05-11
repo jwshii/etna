@@ -6,7 +6,6 @@
 
 (require rackcheck)
 (require rackunit)
-(require data/maybe)
 ; (require algebraic/control/applicative)
 
 (provide (all-defined-out))

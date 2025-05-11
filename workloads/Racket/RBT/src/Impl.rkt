@@ -2,8 +2,6 @@
 
 (provide (all-defined-out))
 
-(require data/maybe)
-(require data/monad)
 ; (require algebraic/control/applicative)
 
 (struct B() #:transparent)
@@ -18,13 +16,21 @@
 
 (define tree? (lambda (x) (or (E? x) (T? x))))
 
+(struct nothing () #:transparent)
+(struct just (x) #:transparent)
+(define maybe? (lambda (x) (or (nothing? x) (just? x))))
+(define maybe/c (lambda (c?)
+                  (lambda (x)
+                    (or (nothing? x)
+                        (and (just? x) (c? (just-x x)))))))
+
 (define (return x)
   (match x
     [(nothing) (nothing)]
     [(just x) (just x)]
     [_ (just x)]
     )
-)
+  )
 
 (define (apply f x)
   (match x
@@ -50,7 +56,7 @@
   (tree? . -> . (maybe/c tree?))
   (match t
     [(T _ l k v r) (just (T (R) l k v r))]
-    [_ nothing]
+    [_ (nothing)]
     )
   )
 
@@ -159,15 +165,16 @@
     [(list bl x vx (T (B) a y vy b)) (return (balance (B) bl x vx (T (R) a y vy b)))]
     [(list bl x vx (T (R) (T (B) a y vy b) z vz c))
      #|! |#
-     (do [c2  <- (redden c)]
-       (return (T (R) (T (B) bl x vx a) y vy (balance (B) b z vz c2))))
-
+     (match (redden c)
+       [(just c2) (return (T (R) (T (B) bl x vx a) y vy (balance (B) b z vz c2)))]
+       [(nothing) (nothing)]
+       )
      #|!! miscolor_balLeft |#
      #|!
         (return (T (R) (balance (B) bl x vx b) y vy (balance (B) b z vz c)))
       |#
      ]
-    [_ nothing]
+    [_ (nothing)]
     )
   )
 
@@ -178,15 +185,15 @@
     [(list (T (B) a x vx b) y vy bl) (return (balance (B) (T (R) a x vx b) y vy bl))]
     [(list (T (R)  a x vx (T (B) b y vy c)) z vz bl)
      #|! |#
-     (do [a2  <- (redden a)]
-       (return (T (R) (balance (B) a2 x vx b) y vy (T (B) c z vz bl))))
-
+     (match (redden a)
+       [(just a2) (return (T (R) (balance (B) a2 x vx b) y vy (T (B) c z vz bl)))]
+       [(nothing) (nothing)])
      #|!! miscolor_balRight |#
      #|!
       (return (T (R) (balance (B) a x vx b) y vy (T (B) c z vz bl)))
       |#
      ]
-    [_ nothing]
+    [_ (nothing)]
     )
   )
 
@@ -196,55 +203,87 @@
     [(list (E) a) (return a)]
     [(list a (E)) (return a)]
     [(list (T (R) a x vx b) (T (R) c y vy d))
-     (do [t3  <- (join b c)]
-       (match t3
-         [(T (R) b2 z vz c2)
-          #|! |#
-          (return (T (R) (T (R) a x vx b2) z vz (T (R) c2 y vy d)))
+     (match (join b c)
+       [(nothing) (nothing)]
+       [(just t3)
+        (match t3
+          [(T (R) b2 z vz c2)
+           #|! |#
+           (return (T (R) (T (R) a x vx b2) z vz (T (R) c2 y vy d)))
 
-          #|!! miscolor_join_1 |#
-          #|!
+           #|!! miscolor_join_1 |#
+           #|!
             (return (T (R) (T (B) a x vx b2) z vz (T (B) c2 y vy d)))
             |#
-          ]
-         [bc (return (T (R) a x vx (T (R) bc y vy d)))]
-         )
+           ]
+          [bc (return (T (R) a x vx (T (R) bc y vy d)))]
+          )]
        )
      ]
     [(list (T (B) a x vx b) (T (B) c y vy d))
-     (do [t3  <- (join b c)]
-       (match t3
-         [(T (R) b2 z vz c2)
-          #|! |#
-          (return (T (R) (T (B) a x vx b2) z vz (T (B) c2 y vy d)))
+     (match (join b c)
+       [(nothing) (nothing)]
+       [(just t3)
+        (match t3
+          [(T (R) b2 z vz c2)
+           #|! |#
+           (return (T (R) (T (B) a x vx b2) z vz (T (B) c2 y vy d)))
 
-          #|!! miscolor_join_2 |#
-          #|!
-            (return (T (R) (T (R) a x vx b2) z vz (T (R) c2 y vy d)))
-            |#
-          ]
-         [bc (balLeft a x vx (T (B) bc y vy d))]
-         )
+           #|!! miscolor_join_2 |#
+           #|!
+          (return (T (R) (T (R) a x vx b2) z vz (T (R) c2 y vy d)))
+          |#
+           ]
+          [bc (balLeft a x vx (T (B) bc y vy d))]
+          )]
        )
      ]
-    [(list a (T (R) b x vx c)) (do [t3  <- (join a b)] (return (T (R) t3 x vx c)))]
-    [(list (T (R) a x vx b) c) (do [t3 <- (join b c)] (return (T (R) a x vx t3)))]
+    [(list a (T (R) b x vx c))
+     (match (join a b)
+       [(just t3) (return (T (R) t3 x vx c))]
+       [(nothing) (nothing)]
+       )
+     ]
+    [(list (T (R) a x vx b) c)
+     (match (join b c)
+       [(just t3) (return (T (R) a x vx t3))]
+       [(nothing) (nothing)])]
     )
   )
 
 (define/contract (delLeft x a y vy b)
   (any/c tree? any/c any/c tree? . -> . (maybe/c tree?))
   (match a
-    [(T (B) _ _ _ _) (do [a2  <- (del x a)] (balLeft a2 y vy b))]
-    [_ (do [a2  <- (del x a)] (return (T (R) a2 y vy b)))]
+    [(T (B) _ _ _ _)
+     (match (del x a)
+       [(just a2) (return (balLeft a2 y vy b))]
+       [(nothing) (nothing)]
+       )
+     ]
+    [_
+     (match (del x a)
+       [(just a2) (return (T (R) a2 y vy b))]
+       [(nothing) (nothing)]
+       )
+     ]
     )
   )
 
 (define/contract (delRight x a y vy b)
   (any/c tree? any/c any/c tree? . -> . (maybe/c tree?))
   (match b
-    [(T (B) l k v r) (do [b2  <- (del x b)] (balRight a y vy b2))]
-    [_ (do [b2  <- (del x b)] (return (T (R) a y vy b2)))]
+    [(T (B) l k v r)
+     (match (del x b)
+       [(just b2) (return (balRight a y vy b2))]
+       [(nothing) (nothing)]
+       )
+     ]
+    [_
+     (match (del x b)
+       [(just b2) (return (T (R) a y vy b2))]
+       [(nothing) (nothing)]
+       )
+     ]
     )
   )
 
@@ -254,20 +293,20 @@
     [(E) (return (E))]
     [(T c a y vy b)
      #|! |#
-    ;  (cond
-    ;    [(< x y) (delLeft x a y vy b)]
-    ;    [(> x y) (delRight x a y vy b)]
-    ;    [else (join a b)]
-    ;    )
+     (cond
+       [(< x y) (delLeft x a y vy b)]
+       [(> x y) (delRight x a y vy b)]
+       [else (join a b)]
+       )
 
      #|!! delete_4 |#
-    ;  #|!
-        (cond
-          [(< x y) (del x a)]
-          [(> x y) (del x b)]
-          [else (join a b)]
-        )
-        ; |#
+     #|!
+     (cond
+       [(< x y) (del x a)]
+       [(> x y) (del x b)]
+       [else (join a b)]
+       )
+     |#
 
      #|!! delete_5 |#
      #|!

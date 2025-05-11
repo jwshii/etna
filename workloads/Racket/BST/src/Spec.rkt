@@ -3,7 +3,6 @@
 (provide (all-defined-out))
 
 (require "Impl.rkt")
-(require data/maybe)
 
 ;; tree A -> listof real
 (define (keys t)
@@ -177,7 +176,7 @@
 
 (define  (l_find k l)
   (match (filter (lambda (kv) (= (first kv) k)) l)
-    ['() nothing]
+    ['() (nothing)]
     [(cons kv *) (just (second kv))]
     )
   )

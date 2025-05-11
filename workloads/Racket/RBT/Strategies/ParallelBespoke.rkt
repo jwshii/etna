@@ -4,7 +4,6 @@
 (require "../src/Spec.rkt")
 (require "../src/Generation.rkt")
 
-(require data/maybe)
 (require (only-in rackcheck gen:natural))
 (require property-language)
 
@@ -15,14 +14,14 @@
                 (property (forall t #:contract isRBT #:gen bespoke)
                           (forall k #:contract real? #:gen gen:natural)
                           (forall v #:gen gen:natural)
-                          (equal? (prop_InsertValid t k v) (just #t))))))
+                          (equal? (prop_InsertValid t k v) (just #t))) 8)))
 
 
 (define test_prop_DeleteValid
   (lambda (cfg) (parallel-run-loop cfg
                 (property (forall t #:contract isRBT #:gen bespoke)
                           (forall k #:contract real? #:gen gen:natural)
-                          (equal? (prop_DeleteValid t k) (just #t))))))
+                          (equal? (prop_DeleteValid t k) (just #t))) 8)))
 
 
 #| Post-condition Properties |#
@@ -33,7 +32,7 @@
                           (forall k1 #:contract real? #:gen gen:natural)
                           (forall k2 #:contract real? #:gen gen:natural)
                           (forall v #:gen gen:natural)
-                          (equal? (prop_InsertPost t k1 k2 v) (just #t))))))
+                          (equal? (prop_InsertPost t k1 k2 v) (just #t))) 8)))
 
 
 (define test_prop_DeletePost
@@ -41,7 +40,7 @@
                 (property (forall t #:contract isRBT #:gen bespoke)
                           (forall k1 #:contract real? #:gen gen:natural)
                           (forall k2 #:contract real? #:gen gen:natural)
-                          (equal? (prop_DeletePost t k1 k2) (just #t))))))
+                          (equal? (prop_DeletePost t k1 k2) (just #t))) 8)))
 
 #| Model-based Properties |#
 
@@ -50,13 +49,13 @@
                 (property (forall t #:contract isRBT #:gen bespoke)
                           (forall k #:contract real? #:gen gen:natural)
                           (forall v #:gen gen:natural)
-                          (equal? (prop_InsertModel t k v) (just #t))))))
+                          (equal? (prop_InsertModel t k v) (just #t))) 8)))
 
 (define test_prop_DeleteModel
   (lambda (cfg) (parallel-run-loop cfg
                 (property (forall t #:contract isRBT #:gen bespoke)
                           (forall k #:contract real? #:gen gen:natural)
-                          (equal? (prop_DeleteModel t k) (just #t))))))
+                          (equal? (prop_DeleteModel t k) (just #t))) 8)))
 
 #| Metamorphic Properties |#
 
@@ -67,7 +66,7 @@
                           (forall k2 #:contract real? #:gen gen:natural)
                           (forall v1 #:gen gen:natural)
                           (forall v2 #:gen gen:natural)
-                          (equal? (prop_InsertInsert t k1 k2 v1 v2) (just #t))))))
+                          (equal? (prop_InsertInsert t k1 k2 v1 v2) (just #t))) 8)))
 
 (define test_prop_InsertDelete
   (lambda (cfg) (parallel-run-loop cfg
@@ -75,7 +74,7 @@
                           (forall k1 #:contract real? #:gen gen:natural)
                           (forall k2 #:contract real? #:gen gen:natural)
                           (forall v #:gen gen:natural)
-                          (equal? (prop_InsertDelete t k1 k2 v) (just #t))))))
+                          (equal? (prop_InsertDelete t k1 k2 v) (just #t))) 8)))
 
 (define test_prop_DeleteInsert
   (lambda (cfg) (parallel-run-loop cfg
@@ -83,14 +82,14 @@
                           (forall k1 #:contract real? #:gen gen:natural)
                           (forall k2 #:contract real? #:gen gen:natural)
                           (forall v #:gen gen:natural)
-                          (equal? (prop_DeleteInsert t k1 k2 v) (just #t))))))
+                          (equal? (prop_DeleteInsert t k1 k2 v) (just #t))) 8)))
 
 (define test_prop_DeleteDelete
   (lambda (cfg) (parallel-run-loop cfg
                 (property (forall t #:contract isRBT #:gen bespoke)
                           (forall k1 #:contract real? #:gen gen:natural)
                           (forall k2 #:contract real? #:gen gen:natural)
-                          (equal? (prop_DeleteDelete t k1 k2) (just #t))))))
+                          (equal? (prop_DeleteDelete t k1 k2) (just #t))) 8)))
 
 (provide
  test_prop_InsertValid
